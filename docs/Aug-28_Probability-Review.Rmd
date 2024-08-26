@@ -1,0 +1,58 @@
+---
+title: "Probability Review"
+author: "Menghan Yuan"
+date: "Aug 28, 2024"
+output: 
+    bookdown::html_document2:
+        toc: true
+        toc_float: true
+        toc_depth: 4
+        number_sections: false
+header-includes:
+- \usepackage{graphicx}
+- \usepackage{amsmath,amsfonts,amsthm,bm} % Math packages
+---
+
+```{r setup, include=F, echo=F}
+library(knitr) # load packages
+library(kableExtra)
+library(tidyverse)
+library(latex2exp)
+library(stargazer)
+# don't show code unless we explicitly set echo = TRUE
+opts_chunk$set(echo = TRUE, message=FALSE, fig.align="center", fig.pos = "H")
+opts <- options(knitr.kable.NA = "")
+
+## control long outputs by using eg `max.lines = 10`
+hook_output_default <- knitr::knit_hooks$get('output')
+truncate_to_lines <- function(x, n) {
+   if (!is.null(n)) {
+      x = unlist(stringr::str_split(x, '\n'))
+      if (length(x) > n) {
+         # truncate the output
+         x = c(head(x, n), '...\n')
+      }
+      x = paste(x, collapse = '\n') # paste first n lines together
+   }
+   x
+}
+knitr::knit_hooks$set(output = function(x, options) {
+   max.lines <- options$max.lines
+   x <- truncate_to_lines(x, max.lines)
+   hook_output_default(x, options)
+})
+```
+
+
+**Econometrics**
+
+- Use of statistical methods to analyse economic data, and to study economic relationships.
+- This includes testing economic theories, quantifying relationships, making predictions about counterfactual scenarios, and forecasting future outcomes.
+- Econometric practice.
+- Econometric theory.
+
+
+
+
+
+

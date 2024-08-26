@@ -11,3 +11,6 @@ Encoding: UTF-8
 
 RnwWeave: Sweave
 LaTeX: pdfLaTeX
+
+BuildType: Website
+WebsitePath: /Users/menghan/Library/CloudStorage/OneDrive-Norduniversitet/FIN5005 2024Fall/CoreMetrics
