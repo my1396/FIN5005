@@ -8,9 +8,6 @@ output:
         toc_float: true
         toc_depth: 4
         number_sections: false
-header-includes:
-- \usepackage{graphicx}
-- \usepackage{amsmath,amsfonts,amsthm,bm} % Math packages
 ---
 
 ```{r setup, include=F, echo=F}
@@ -43,13 +40,94 @@ knitr::knit_hooks$set(output = function(x, options) {
 })
 ```
 
-
 **Econometrics**
 
-- Use of statistical methods to analyse economic data, and to study economic relationships.
-- This includes testing economic theories, quantifying relationships, making predictions about counterfactual scenarios, and forecasting future outcomes.
-- Econometric practice.
-- Econometric theory.
+-   Use of statistical methods to analyse economic data, and to study economic relationships.
+-   This includes testing economic theories, quantifying relationships, making predictions about counterfactual scenarios, and forecasting future outcomes.
+-   Econometric practice.
+-   Econometric theory.
+
+**Types of Data**
+
+-   Cross-section - observations on units at some point in time
+    -   Examples: earnings of individuals; exam results of schools; GDP per capita of countries
+-   Time-series - observations on same unit at different points in time
+    -   Examples: quarterly GDP; monthly unemployment; daily exchange rates
+-  Panel data - repeated observations over time on same units (or time-series data for multiple units)
+    -   Examples: household expenditures; production of manufacturing firms; growth of OECD countries
+-  Data sources - many and varied
+    -   Examples: national statistical agencies; international organisations; company accounts; tax returns (anonymised); household surveys; fieldwork
+-  Some data issues - imperfect measurement; quantity measured ̸= quantity of interest; missing values; non-random samples
+
+**Course Aims**: statistical foundations, fundamental concepts, and basic methods for cross-section data.
+
+- linear regression using cross-section data, 
+- hypothesis testing, 
+- properties of estimators and large-sample theory.
+
+
+## Random Variables, Probabilities, Kolmogorov's Axioms
+
+**Random Variables**
+
+- Key concept used to describe outcomes which are uncertain.
+- Example: Coin toss.
+    - two possible outcomes: heads or tails 
+    - let $X=0$ if heads and $X=1$ if tails 
+    - X is a random variable
+- More generally, a numerical representation or quantitative function of the possible outcomes.
+- After the event, the observed outcome is the realized value or realization of the random variable.
+
+
+**Discrete random variables** take a finite number of possible values.
+
+Simplest case: only 2 possible values. Binary random variables (e.g. $X$ in the previous slide)
+
+- is an individual employed or not?
+- is a country an oil exporter or not?
+
+Can be more than two outcomes. 
+
+- which mode of transport (walking, cycling, car, bus, train,. . . ) does an individual use to travel between home and work?
+- which brand of breakfast cereal did I eat this morning?
+
+
+**Continuous random variables** may take infinitely many possible values.
+
+Examples: 
+- height of students in our class; 
+- time interval between successive transactions in a financial market.
+
+
+**Probabilities** are used to describe the behavior of random variables.
+
+Example: if we toss a fair coin and define the binary random variable $X$ as before, then we
+have
+
+$$
+\mathbb{P}(X=0) = \mathbb{P}(X=1) = \frac{1}{2}
+$$
+Both probabilities lie between zero and one, and sum to one, as there are only 2 possible outcomes.
+
+
+More generally, for discrete random variables, we denote the probability of outcome x using $\mathbb{P}(X = x)$ — sometimes written $\text{P}(X = x)$ or $\text{Pr}(X = x)$.
+
+<span style='color:#32CD32'>Standard convention</span>: Capital letters denote the random variable, lower case letters denote a particular realization of the random variable.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
