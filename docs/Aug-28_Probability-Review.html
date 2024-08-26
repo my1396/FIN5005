@@ -14,9 +14,10 @@
 
 <title>Probability Review</title>
 
+<script src="site_libs/header-attrs-2.24/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -29,11 +30,8 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
-<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
-<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 
 <style type="text/css">
@@ -61,6 +59,7 @@ if (window.hljs) {
 
 
 
+<link rel="stylesheet" href="style.css" type="text/css" />
 
 
 
@@ -222,69 +221,6 @@ $(document).ready(function () {
 
 
 
-<style type="text/css">
-
-#TOC {
-  margin: 25px 0px 20px 0px;
-}
-@media (max-width: 768px) {
-#TOC {
-  position: relative;
-  width: 100%;
-}
-}
-
-@media print {
-.toc-content {
-  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
-  float: right;
-}
-}
-
-.toc-content {
-  padding-left: 30px;
-  padding-right: 40px;
-}
-
-div.main-container {
-  max-width: 1200px;
-}
-
-div.tocify {
-  width: 20%;
-  max-width: 260px;
-  max-height: 85%;
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-  div.tocify {
-    width: 25%;
-  }
-}
-
-@media (max-width: 767px) {
-  div.tocify {
-    width: 100%;
-    max-width: none;
-  }
-}
-
-.tocify ul, .tocify li {
-  line-height: 20px;
-}
-
-.tocify-subheader .tocify-item {
-  font-size: 0.90em;
-}
-
-.tocify .list-group-item {
-  border-radius: 0px;
-}
-
-
-</style>
-
-
 
 </head>
 
@@ -292,16 +228,6 @@ div.tocify {
 
 
 <div class="container-fluid main-container">
-
-
-<!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row">
-<div class="col-xs-12 col-sm-4 col-md-3">
-<div id="TOC" class="tocify">
-</div>
-</div>
-
-<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -342,8 +268,11 @@ div.tocify {
 
 <p><strong>Econometrics</strong></p>
 <ul>
-<li>Use of statistical methods to analyse economic data, and to study economic relationships.</li>
-<li>This includes testing economic theories, quantifying relationships, making predictions about counterfactual scenarios, and forecasting future outcomes.</li>
+<li>Use of statistical methods to analyse economic data, and to study
+economic relationships.</li>
+<li>This includes testing economic theories, quantifying relationships,
+making predictions about counterfactual scenarios, and forecasting
+future outcomes.</li>
 <li>Econometric practice.</li>
 <li>Econometric theory.</li>
 </ul>
@@ -351,29 +280,38 @@ div.tocify {
 <ul>
 <li>Cross-section - observations on units at some point in time
 <ul>
-<li>Examples: earnings of individuals; exam results of schools; GDP per capita of countries</li>
+<li>Examples: earnings of individuals; exam results of schools; GDP per
+capita of countries</li>
 </ul></li>
 <li>Time-series - observations on same unit at different points in time
 <ul>
-<li>Examples: quarterly GDP; monthly unemployment; daily exchange rates</li>
+<li>Examples: quarterly GDP; monthly unemployment; daily exchange
+rates</li>
 </ul></li>
-<li>Panel data - repeated observations over time on same units (or time-series data for multiple units)
+<li>Panel data - repeated observations over time on same units (or
+time-series data for multiple units)
 <ul>
-<li>Examples: household expenditures; production of manufacturing firms; growth of OECD countries</li>
+<li>Examples: household expenditures; production of manufacturing firms;
+growth of OECD countries</li>
 </ul></li>
 <li>Data sources - many and varied
 <ul>
-<li>Examples: national statistical agencies; international organisations; company accounts; tax returns (anonymised); household surveys; fieldwork</li>
+<li>Examples: national statistical agencies; international
+organisations; company accounts; tax returns (anonymised); household
+surveys; fieldwork</li>
 </ul></li>
-<li>Some data issues - imperfect measurement; quantity measured ̸= quantity of interest; missing values; non-random samples</li>
+<li>Some data issues - imperfect measurement; quantity measured ̸=
+quantity of interest; missing values; non-random samples</li>
 </ul>
-<p><strong>Course Aims</strong>: statistical foundations, fundamental concepts, and basic methods for cross-section data.</p>
+<p><strong>Course Aims</strong>: statistical foundations, fundamental
+concepts, and basic methods for cross-section data.</p>
 <ul>
 <li>linear regression using cross-section data,</li>
 <li>hypothesis testing,</li>
 <li>properties of estimators and large-sample theory.</li>
 </ul>
-<div id="random-variables-probabilities-kolmogorovs-axioms" class="section level2">
+<div id="random-variables-probabilities-kolmogorovs-axioms"
+class="section level2">
 <h2>Random Variables, Probabilities, Kolmogorov’s Axioms</h2>
 <p><strong>Random Variables</strong></p>
 <ul>
@@ -381,42 +319,53 @@ div.tocify {
 <li>Example: Coin toss.
 <ul>
 <li>two possible outcomes: heads or tails</li>
-<li>let <span class="math inline">\(X=0\)</span> if heads and <span class="math inline">\(X=1\)</span> if tails</li>
+<li>let <span class="math inline">\(X=0\)</span> if heads and <span
+class="math inline">\(X=1\)</span> if tails</li>
 <li>X is a random variable</li>
 </ul></li>
-<li>More generally, a numerical representation or quantitative function of the possible outcomes.</li>
-<li>After the event, the observed outcome is the realized value or realization of the random variable.</li>
+<li>More generally, a numerical representation or quantitative function
+of the possible outcomes.</li>
+<li>After the event, the observed outcome is the realized value or
+realization of the random variable.</li>
 </ul>
-<p><strong>Discrete random variables</strong> take a finite number of possible values.</p>
-<p>Simplest case: only 2 possible values. Binary random variables (e.g. <span class="math inline">\(X\)</span> in the previous slide)</p>
+<p><strong>Discrete random variables</strong> take a finite number of
+possible values.</p>
+<p>Simplest case: only 2 possible values. Binary random variables
+(e.g. <span class="math inline">\(X\)</span> in the previous slide)</p>
 <ul>
 <li>is an individual employed or not?</li>
 <li>is a country an oil exporter or not?</li>
 </ul>
 <p>Can be more than two outcomes.</p>
 <ul>
-<li>which mode of transport (walking, cycling, car, bus, train,. . . ) does an individual use to travel between home and work?</li>
+<li>which mode of transport (walking, cycling, car, bus, train,. . . )
+does an individual use to travel between home and work?</li>
 <li>which brand of breakfast cereal did I eat this morning?</li>
 </ul>
-<p><strong>Continuous random variables</strong> may take infinitely many possible values.</p>
-<p>Examples:
-- height of students in our class;
-- time interval between successive transactions in a financial market.</p>
-<p><strong>Probabilities</strong> are used to describe the behavior of random variables.</p>
-<p>Example: if we toss a fair coin and define the binary random variable <span class="math inline">\(X\)</span> as before, then we
-have</p>
+<p><strong>Continuous random variables</strong> may take infinitely many
+possible values.</p>
+<p>Examples: - height of students in our class; - time interval between
+successive transactions in a financial market.</p>
+<p><strong>Probabilities</strong> are used to describe the behavior of
+random variables.</p>
+<p>Example: if we toss a fair coin and define the binary random variable
+<span class="math inline">\(X\)</span> as before, then we have</p>
 <p><span class="math display">\[
 \mathbb{P}(X=0) = \mathbb{P}(X=1) = \frac{1}{2}
-\]</span>
-Both probabilities lie between zero and one, and sum to one, as there are only 2 possible outcomes.</p>
-<p>More generally, for discrete random variables, we denote the probability of outcome x using <span class="math inline">\(\mathbb{P}(X = x)\)</span> — sometimes written <span class="math inline">\(\text{P}(X = x)\)</span> or <span class="math inline">\(\text{Pr}(X = x)\)</span>.</p>
-<p><span style="color:#32CD32">Standard convention</span>: Capital letters denote the random variable, lower case letters denote a particular realization of the random variable.</p>
+\]</span> Both probabilities lie between zero and one, and sum to one,
+as there are only 2 possible outcomes.</p>
+<p>More generally, for discrete random variables, we denote the
+probability of outcome x using <span class="math inline">\(\mathbb{P}(X
+= x)\)</span> — sometimes written <span class="math inline">\(\text{P}(X
+= x)\)</span> or <span class="math inline">\(\text{Pr}(X =
+x)\)</span>.</p>
+<p><span style="color:#337ab7">Standard convention</span>: Capital
+letters denote the random variable, lower case letters denote a
+particular realization of the random variable.</p>
 </div>
 
 
 
-</div>
-</div>
 
 </div>
 
@@ -449,35 +398,6 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
-<script>
-$(document).ready(function ()  {
-
-    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
-    $('.unlisted.unnumbered').addClass('toc-ignore')
-
-    // move toc-ignore selectors from section div to header
-    $('div.section.toc-ignore')
-        .removeClass('toc-ignore')
-        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
-
-    // establish options
-    var options = {
-      selectors: "h1,h2,h3,h4",
-      theme: "bootstrap3",
-      context: '.toc-content',
-      hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
-      },
-      ignoreSelector: ".toc-ignore",
-      scrollTo: 0
-    };
-    options.showAndHide = true;
-    options.smoothScroll = true;
-
-    // tocify
-    var toc = $("#TOC").tocify(options).data("toc-tocify");
-});
-</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

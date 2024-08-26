@@ -112,7 +112,7 @@ Both probabilities lie between zero and one, and sum to one, as there are only 2
 
 More generally, for discrete random variables, we denote the probability of outcome x using $\mathbb{P}(X = x)$ — sometimes written $\text{P}(X = x)$ or $\text{Pr}(X = x)$.
 
-<span style='color:#32CD32'>Standard convention</span>: Capital letters denote the random variable, lower case letters denote a particular realization of the random variable.
+<span style='color:#337ab7'>Standard convention</span>: Capital letters denote the random variable, lower case letters denote a particular realization of the random variable.
 
 
 
