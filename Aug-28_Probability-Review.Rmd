@@ -114,7 +114,9 @@ More generally, for discrete random variables, we denote the probability of outc
 
 <span style='color:#337ab7'>Standard convention</span>: Capital letters denote the random variable, lower case letters denote a particular realization of the random variable.
 
+<span style='color:#008B45FF'>Standard convention</span>: Capital letters denote the random variable, lower case letters denote a particular realization of the random variable.
 
+<span style='color:#EE0000FF'>Standard convention</span>: Capital letters denote the random variable, lower case letters denote a particular realization of the random variable.
 
 
 
