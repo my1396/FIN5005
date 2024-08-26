@@ -1,0 +1,13 @@
+name: "FIN5005-website"
+output_dir: "docs"
+
+navbar:
+  title: "Course Website"
+  left:
+    - text: "Home"
+      href: index.html
+output:
+  html_document:
+    theme: cosmo
+    highlight: textmate
+    css: "style.css"

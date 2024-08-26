@@ -1,0 +1,64 @@
+/* CSS for RMD site */
+
+/* general typesetting */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", SimSun, sans-serif;
+  font-size: 16px;
+  overflow-x: hidden;
+}
+p {
+  margin: 10px 0;
+}
+a {
+  color: #337ab7;
+}
+a:hover,
+a:focus {
+  color: #0085a1;
+}
+a img:hover,
+a img:focus {
+  cursor: zoom-in;
+}
+
+/* define a boxed environment */
+.boxed {
+    border: 1px solid #A9A9A9;
+    border-radius: 10px;
+    padding: 5px;
+    padding-right: 0px;
+}
+
+/* table typesetting */
+caption {
+    width: 100%;
+    text-align: justify;
+}
+
+/* bullet list */
+@counter-style paren-lower-alpha {
+  system: extends lower-alpha;
+  suffix: ") ";
+}
+@counter-style paren-decimal {
+  system: extends decimal;
+  suffix: ") ";
+}
+[type="pa"] {
+  list-style: paren-lower-alpha;
+}
+[type="p1"] {
+  list-style: paren-decimal;
+}
+
+li {
+  margin-bottom: 10px;  /* spacing under each bullet point */
+}
+
+
+
+
+
+
+
+
