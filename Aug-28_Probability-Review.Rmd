@@ -22,14 +22,11 @@ output:
     }
 </script>
 
-<style>
-.caption {
-  margin: auto;
-  text-align: justify;
-}
-</style>
 
 \newcommand{\indep}{\perp \!\!\! \perp}
+
+<a class="top-link" href="#top" id="js-top">↑</a>
+
 
 ```{r setup, include=F, echo=F}
 library(knitr) # load packages
