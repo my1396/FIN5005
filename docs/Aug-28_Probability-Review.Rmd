@@ -8,7 +8,19 @@ output:
         toc_float: true
         toc_depth: 4
         number_sections: false
+        css: "style.css"
 ---
+
+<script> 
+    function myFunction(id) {
+      var x = document.getElementById(id); 
+      if (x.style.display === "none") {
+        x.style.display = "block";
+      } else {
+        x.style.display = "none";
+      }
+    }
+</script>
 
 ```{r setup, include=F, echo=F}
 library(knitr) # load packages
@@ -16,6 +28,8 @@ library(kableExtra)
 library(tidyverse)
 library(latex2exp)
 library(stargazer)
+library(bookdown)
+
 # don't show code unless we explicitly set echo = TRUE
 opts_chunk$set(echo = TRUE, message=FALSE, fig.align="center", fig.pos = "H")
 opts <- options(knitr.kable.NA = "")
@@ -39,6 +53,9 @@ knitr::knit_hooks$set(output = function(x, options) {
    hook_output_default(x, options)
 })
 ```
+
+
+
 
 **Econometrics**
 
@@ -65,10 +82,11 @@ knitr::knit_hooks$set(output = function(x, options) {
 - hypothesis testing, 
 - properties of estimators and large-sample theory.
 
+___ 
 
 ## Random Variables, Probabilities, Kolmogorov's Axioms
 
-**Random Variables**
+### Random Variables
 
 - Key concept used to describe outcomes which are uncertain.
 - Example: Coin toss.
@@ -99,6 +117,8 @@ Examples:
 - time interval between successive transactions in a financial market.
 
 
+### Probabilities
+
 **Probabilities** are used to describe the behavior of random variables.
 
 Example: if we toss a fair coin and define the binary random variable $X$ as before, then we
@@ -110,14 +130,64 @@ $$
 Both probabilities lie between zero and one, and sum to one, as there are only 2 possible outcomes.
 
 
-More generally, for discrete random variables, we denote the probability of outcome x using $\mathbb{P}(X = x)$ — sometimes written $\text{P}(X = x)$ or $\text{Pr}(X = x)$.
+More generally, for discrete random variables, we denote the probability of outcome x using $\mathbb{P}(X = x)$ — sometimes written as $\text{P}(X = x)$ or $\text{Pr}(X = x)$.
 
 <span style='color:#337ab7'>Standard convention</span>: Capital letters denote the random variable, lower case letters denote a particular realization of the random variable.
 
-<span style='color:#008B45FF'>Standard convention</span>: Capital letters denote the random variable, lower case letters denote a particular realization of the random variable.
+- For continuous random variables, the probability of any single outcome is equal to **zero**.
+- For continuous random variables we focus on interval probabilities, e.g.
 
-<span style='color:#EE0000FF'>Standard convention</span>: Capital letters denote the random variable, lower case letters denote a particular realization of the random variable.
+$$
+\mathbb{P}(\text{height}>6 \text{ feet}), \qquad \mathbb{P}(5000 \text{ kr}\le \text{weekly wage} < 500 \text{ kr}), 
+$$
 
+### Kolmogorov's axioms
+
+For a discrete random variable Y which may take one of $K$ possible \textit{mutually exclusive} (or \text{disjoint}) outcomes denoted by $y_1, y_2, \ldots, y_K,$ any potential set of probabilities should satisfy Kolmogorov’s axioms:
+
+1. $\mathbb{P}(Y=y_i)\ge 0$, for $j=1,2,\ldots,K.$
+2. $\mathbb{P}(Y=y_1 \text{ or } Y=y_2 \text{ or } \ldots \text{ or } Y=y_K)=1.$
+3. $\mathbb{P}(Y=y_j \text{ or } Y=y_k) = \mathbb{P}(Y=y_j) + \mathbb{P}(Y=y_k)$ for $j\ne k.$
+
+Note: 
+
+- <span style='color:#008B45FF'>Mutually exclusive</span> means that the events cannot occur at the same time. Formally said, $X$ is a set of mutually exclusive events <span style='color:#337ab7'>if and only if</span>
+
+<div class = "boxed">
+
+Given any $E_i, E_j \in X$, if $E_i \ne E_j$ then 
+$$E_i \cap E_j = \varnothing$$
+</div>
+
+- As a consequence, mutually exclusive events have the property: $P(A\cap B)=0.$
+
+This set of axioms can be generalized to apply to probabilities involving <span style='color:#008B45FF'>continuous random variables</span>.
+
+For each *event* $E$ in the *sample space* $\Omega$,
+
+1. $\mathbb{P}(E)\ge 0$ for all $A\in \Omega .$
+2. $\mathbb{P}(\Omega)=1.$ Probability of the sample space $\Omega$ is one.
+3. If $E_1, E_2, E_3, \cdots$ are disjoint events, then
+$$\mathbb{P}(E_1\cup E_2\cup E_3 \cdots)=\mathbb{P}(E_1)+\mathbb{P}(E_2)+\mathbb{P}(E_3)+\cdots$$
+
+```{example, ex1}
+In a presidential election, there are four candidates. Call them A, B, C, and D. Based on our polling analysis, we estimate that A has a 20 percent chance of winning the election, while B has a 40 percent chance of winning. What is the probability that A or B win the election?
+```
+
+
+<button onclick="myFunction('myDIV')">Solution1</button>
+
+<div id="myDIV" style="display: none;">
+  $$
+  \begin{aligned}
+  P(\textrm{A wins or B wins}) 
+  &= P\big(\{\textrm{A wins}\} \cup \{\textrm{B wins}\}\big) \\
+  &= P(\{\textrm{A wins}\})+ P(\{\textrm{B wins}\}) \\
+  &= 0.2 + 0.4 \\
+  &= 0.6
+  \end{aligned}
+  $$
+</div>
 
 
 

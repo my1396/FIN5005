@@ -61,6 +61,7 @@ if (window.hljs) {
 
 
 
+<link rel="stylesheet" href="style.css" type="text/css" />
 
 
 
@@ -340,6 +341,16 @@ div.tocify {
 </div>
 
 
+<script> 
+    function myFunction(id) {
+      var x = document.getElementById(id); 
+      if (x.style.display === "none") {
+        x.style.display = "block";
+      } else {
+        x.style.display = "none";
+      }
+    }
+</script>
 <p><strong>Econometrics</strong></p>
 <ul>
 <li>Use of statistical methods to analyse economic data, and to study economic relationships.</li>
@@ -373,9 +384,11 @@ div.tocify {
 <li>hypothesis testing,</li>
 <li>properties of estimators and large-sample theory.</li>
 </ul>
+<hr />
 <div id="random-variables-probabilities-kolmogorovs-axioms" class="section level2">
 <h2>Random Variables, Probabilities, Kolmogorov’s Axioms</h2>
-<p><strong>Random Variables</strong></p>
+<div id="random-variables" class="section level3">
+<h3>Random Variables</h3>
 <ul>
 <li>Key concept used to describe outcomes which are uncertain.</li>
 <li>Example: Coin toss.
@@ -402,6 +415,9 @@ div.tocify {
 <p>Examples:
 - height of students in our class;
 - time interval between successive transactions in a financial market.</p>
+</div>
+<div id="probabilities" class="section level3">
+<h3>Probabilities</h3>
 <p><strong>Probabilities</strong> are used to describe the behavior of random variables.</p>
 <p>Example: if we toss a fair coin and define the binary random variable <span class="math inline">\(X\)</span> as before, then we
 have</p>
@@ -409,10 +425,61 @@ have</p>
 \mathbb{P}(X=0) = \mathbb{P}(X=1) = \frac{1}{2}
 \]</span>
 Both probabilities lie between zero and one, and sum to one, as there are only 2 possible outcomes.</p>
-<p>More generally, for discrete random variables, we denote the probability of outcome x using <span class="math inline">\(\mathbb{P}(X = x)\)</span> — sometimes written <span class="math inline">\(\text{P}(X = x)\)</span> or <span class="math inline">\(\text{Pr}(X = x)\)</span>.</p>
+<p>More generally, for discrete random variables, we denote the probability of outcome x using <span class="math inline">\(\mathbb{P}(X = x)\)</span> — sometimes written as <span class="math inline">\(\text{P}(X = x)\)</span> or <span class="math inline">\(\text{Pr}(X = x)\)</span>.</p>
 <p><span style="color:#337ab7">Standard convention</span>: Capital letters denote the random variable, lower case letters denote a particular realization of the random variable.</p>
-<p><span style="color:#008B45FF">Standard convention</span>: Capital letters denote the random variable, lower case letters denote a particular realization of the random variable.</p>
-<p><span style="color:#EE0000FF">Standard convention</span>: Capital letters denote the random variable, lower case letters denote a particular realization of the random variable.</p>
+<ul>
+<li>For continuous random variables, the probability of any single outcome is equal to <strong>zero</strong>.</li>
+<li>For continuous random variables we focus on interval probabilities, e.g.</li>
+</ul>
+<p><span class="math display">\[
+\mathbb{P}(\text{height}&gt;6 \text{ feet}), \qquad \mathbb{P}(5000 \text{ kr}\le \text{weekly wage} &lt; 500 \text{ kr}),
+\]</span></p>
+</div>
+<div id="kolmogorovs-axioms" class="section level3">
+<h3>Kolmogorov’s axioms</h3>
+<p>For a discrete random variable Y which may take one of <span class="math inline">\(K\)</span> possible (or ) outcomes denoted by <span class="math inline">\(y_1, y_2, \ldots, y_K,\)</span> any potential set of probabilities should satisfy Kolmogorov’s axioms:</p>
+<ol style="list-style-type: decimal">
+<li><span class="math inline">\(\mathbb{P}(Y=y_i)\ge 0\)</span>, for <span class="math inline">\(j=1,2,\ldots,K.\)</span></li>
+<li><span class="math inline">\(\mathbb{P}(Y=y_1 \text{ or } Y=y_2 \text{ or } \ldots \text{ or } Y=y_K)=1.\)</span></li>
+<li><span class="math inline">\(\mathbb{P}(Y=y_j \text{ or } Y=y_k) = \mathbb{P}(Y=y_j) + \mathbb{P}(Y=y_k)\)</span> for <span class="math inline">\(j\ne k.\)</span></li>
+</ol>
+<p>Note:</p>
+<ul>
+<li><span style="color:#008B45FF">Mutually exclusive</span> means that the events cannot occur at the same time. Formally said, <span class="math inline">\(X\)</span> is a set of mutually exclusive events <span style="color:#337ab7">if and only if</span></li>
+</ul>
+<div class="boxed">
+<p>Given any <span class="math inline">\(E_i, E_j \in X\)</span>, if <span class="math inline">\(E_i \ne E_j\)</span> then
+<span class="math display">\[E_i \cap E_j = \varnothing\]</span></p>
+</div>
+<ul>
+<li>As a consequence, mutually exclusive events have the property: <span class="math inline">\(P(A\cap B)=0.\)</span></li>
+</ul>
+<p>This set of axioms can be generalized to apply to probabilities involving <span style="color:#008B45FF">continuous random variables</span>.</p>
+<p>For each <em>event</em> <span class="math inline">\(E\)</span> in the <em>sample space</em> <span class="math inline">\(\Omega\)</span>,</p>
+<ol style="list-style-type: decimal">
+<li><span class="math inline">\(\mathbb{P}(E)\ge 0\)</span> for all <span class="math inline">\(A\in \Omega .\)</span></li>
+<li><span class="math inline">\(\mathbb{P}(\Omega)=1.\)</span> Probability of the sample space <span class="math inline">\(\Omega\)</span> is one.</li>
+<li>If <span class="math inline">\(E_1, E_2, E_3, \cdots\)</span> are disjoint events, then
+<span class="math display">\[\mathbb{P}(E_1\cup E_2\cup E_3 \cdots)=\mathbb{P}(E_1)+\mathbb{P}(E_2)+\mathbb{P}(E_3)+\cdots\]</span></li>
+</ol>
+<div class="example">
+<p><span id="exm:ex1" class="example"><strong>Example 1  </strong></span>In a presidential election, there are four candidates. Call them A, B, C, and D. Based on our polling analysis, we estimate that A has a 20 percent chance of winning the election, while B has a 40 percent chance of winning. What is the probability that A or B win the election?</p>
+</div>
+<button onclick="myFunction(&#39;myDIV&#39;)">
+Solution1
+</button>
+<div id="myDIV" style="display: none;">
+<p><span class="math display">\[
+  \begin{aligned}
+  P(\textrm{A wins or B wins})
+  &amp;= P\big(\{\textrm{A wins}\} \cup \{\textrm{B wins}\}\big) \\
+  &amp;= P(\{\textrm{A wins}\})+ P(\{\textrm{B wins}\}) \\
+  &amp;= 0.2 + 0.4 \\
+  &amp;= 0.6
+  \end{aligned}
+  \]</span></p>
+</div>
+</div>
 </div>
 
 
