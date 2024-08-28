@@ -22,6 +22,13 @@ output:
     }
 </script>
 
+<style>
+/* Fig caption justify alignment */
+.caption {
+  margin: auto;
+  text-align: justify;
+}
+</style>
 
 \newcommand{\indep}{\perp \!\!\! \perp}
 
@@ -385,7 +392,7 @@ $$
 $$
 
     - Tail probabilities of the standard normal distribution play an important role in hypothesis testing, and in formulating confidence intervals for parameters of interest.
-    - For example, we have $$\Phi(−1.96) = P(Z ≤ −1.96) = 0.025.$$ By symmetry, $$\Phi(1.96) = P(Z ≤ 1.96) = 0.975.$$ Consequently, the probability that any draw from the standard normal distribution will be between $\pm 1.96$ is $95%$.
+    - For example, we have $$\Phi(−1.96) = P(Z ≤ −1.96) = 0.025.$$ By symmetry, $$\Phi(1.96) = P(Z ≤ 1.96) = 0.975.$$ Consequently, the probability that any draw from the standard normal distribution will be between $\pm 1.96$ is $95\%$.
 
 <!------------------------------------------------------------------------>
 ___
@@ -862,7 +869,9 @@ $$
 
 - Indeed, we can note that $\text{Var}(Y) \to 0$ as the sample size $n \to \infty$; in other words, in the limit we would know the value of $E(Y_i)$.
 
+# Reading
 
+J. Evans (2021), *Business analytics: methods, models, and decisions*, chaps 2-6.
 
 
 

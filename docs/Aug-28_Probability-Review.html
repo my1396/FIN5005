@@ -351,6 +351,13 @@ div.tocify {
       }
     }
 </script>
+<style>
+/* Fig caption justify alignment */
+.caption {
+  margin: auto;
+  text-align: justify;
+}
+</style>
 <p><a class="top-link" href="#top" id="js-top">↑</a></p>
 <p><strong>Econometrics</strong></p>
 <ul>
@@ -661,7 +668,7 @@ Its CDF is:
 \Phi(z) = P(Z\le z) =\int_{-\infty}^z \phi(a)da.
 \]</span></p></li>
 <li><p>Tail probabilities of the standard normal distribution play an important role in hypothesis testing, and in formulating confidence intervals for parameters of interest.</p></li>
-<li><p>For example, we have <span class="math display">\[\Phi(−1.96) = P(Z ≤ −1.96) = 0.025.\]</span> By symmetry, <span class="math display">\[\Phi(1.96) = P(Z ≤ 1.96) = 0.975.\]</span> Consequently, the probability that any draw from the standard normal distribution will be between <span class="math inline">\(\pm 1.96\)</span> is <span class="math inline">\(95%\)</span>.</p></li>
+<li><p>For example, we have <span class="math display">\[\Phi(−1.96) = P(Z ≤ −1.96) = 0.025.\]</span> By symmetry, <span class="math display">\[\Phi(1.96) = P(Z ≤ 1.96) = 0.975.\]</span> Consequently, the probability that any draw from the standard normal distribution will be between <span class="math inline">\(\pm 1.96\)</span> is <span class="math inline">\(95\%\)</span>.</p></li>
 </ul></li>
 </ul>
 <!------------------------------------------------------------------------>
@@ -1107,6 +1114,10 @@ Unbiasedness means that our estimator is doing what it is supposed to do on aver
 <li><p>Importantly, the variance of <span class="math inline">\(Y\)</span> falls as the number of observations (<span class="math inline">\(n\)</span>) on the random variable increases; the sample mean accumulates information about the central tendency of the distribution as we add more observations, and we become less uncertain about the true value of <span class="math inline">\(E(Y_i)\)</span>.</p></li>
 <li><p>Indeed, we can note that <span class="math inline">\(\text{Var}(Y) \to 0\)</span> as the sample size <span class="math inline">\(n \to \infty\)</span>; in other words, in the limit we would know the value of <span class="math inline">\(E(Y_i)\)</span>.</p></li>
 </ul>
+</div>
+<div id="reading" class="section level1">
+<h1>Reading</h1>
+<p>J. Evans (2021), <em>Business analytics: methods, models, and decisions</em>, chaps 2-6.</p>
 </div>
 
 
