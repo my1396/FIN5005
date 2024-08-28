@@ -105,7 +105,7 @@ ___
 - Example: Coin toss.
     - two possible outcomes: heads or tails 
     - let $X=0$ if heads and $X=1$ if tails 
-    - X is a random variable
+    - $X$ is a random variable
 - More generally, a numerical representation or quantitative function of the possible outcomes.
 - After the event, the observed outcome is the realized value or realization of the random variable.
 
@@ -156,7 +156,7 @@ $$
 
 ## Kolmogorov's axioms
 
-For a discrete random variable Y which may take one of $K$ possible \textit{mutually exclusive} (or \text{disjoint}) outcomes denoted by $y_1, y_2, \ldots, y_K,$ any potential set of probabilities should satisfy Kolmogorov’s axioms:
+For a discrete random variable Y which may take one of $K$ possible <span style='color:#008B45FF'>*mutually exclusive*</span> (or <span style='color:#008B45FF'>*disjoint*</span>) outcomes denoted by $y_1, y_2, \ldots, y_K,$ any potential set of probabilities should satisfy Kolmogorov’s axioms:
 
 1. $\mathbb{P}(Y=y_i)\ge 0$, for $j=1,2,\ldots,K.$
 2. $\mathbb{P}(Y=y_1 \text{ or } Y=y_2 \text{ or } \ldots \text{ or } Y=y_K)=1.$
@@ -394,6 +394,13 @@ $$
     - Tail probabilities of the standard normal distribution play an important role in hypothesis testing, and in formulating confidence intervals for parameters of interest.
     - For example, we have $$\Phi(−1.96) = P(Z ≤ −1.96) = 0.025.$$ By symmetry, $$\Phi(1.96) = P(Z ≤ 1.96) = 0.975.$$ Consequently, the probability that any draw from the standard normal distribution will be between $\pm 1.96$ is $95\%$.
 
+<figure> 
+<img src="https://drive.google.com/thumbnail?id=1nxfdIKXgZvOqXVSeA3h_hf0yxmsM361l&sz=w1000" alt="Phi_b" style="display: block; margin-right: auto; margin-left: auto; zoom:80%;" />
+<figcaption>Fig.1 The $\Phi$ and $\phi$ ($f_Z(.)$) functions (CDF and pdf of standard normal).</figcaption>
+</figure>
+
+
+
 <!------------------------------------------------------------------------>
 ___
 
@@ -582,7 +589,7 @@ $$
     $$
     \overline{X} = \frac{1}{n} \sum_{i=1}^n X_i
     $$
-- Sample mean has some desirable properties as an style='color:#008B45FF'>estimator</span> of the expected value of a random variable.
+- Sample mean has some desirable properties as an <style='color:#008B45FF'>estimator</span> of the expected value of a random variable.
 
 
 Expectations of functions of RVs
@@ -596,7 +603,7 @@ $$
 
 ## Variance
 
-The variance is obtained by setting $g(X) = \mathbb{E}\left[\left(X − \mathbb{E}(X)\right)^2\right]$:
+The variance is obtained by setting $g(X) = \left(X − \mathbb{E}(X)\right)^2$:
 $$
 \begin{aligned}
 \text{Var}(X) &= \mathbb{E}\left[\left(X − \mathbb{E}(X)\right)^2\right] \\
@@ -738,7 +745,8 @@ $$
 - Unlike covariance, correlations between different pairs of random variables are comparable.
 
 ```{example, ex}
-Let X, Y, W, Z be random variables with $\text{Var}[X] = 200$, $\text{Var}[Y] = 200$, $\text{Var}[W] = 1$, $\text{Var}[Z]=1$, $\text{Cov}[X,Y]=100$ and $\text{Cov}[W,Z]=1$. 
+Let X, Y, W, Z be random variables with $\text{Var}[X] = 200$, $\text{Var}[Y] = 200$, $\text{Var}[W] = 1$, $\text{Var}[Z]=1$, $\text{Cov}[X,Y]=100$ and $\text{Cov}[W,Z]=1$. \
+Compare $\text{Corr}(X,Y)$ and $\text{Corr}(W,Z)$.
 ```
 
 <button onclick="myFunction('myDIV7')">Solution7</button>

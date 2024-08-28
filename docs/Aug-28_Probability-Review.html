@@ -403,7 +403,7 @@ div.tocify {
 <ul>
 <li>two possible outcomes: heads or tails</li>
 <li>let <span class="math inline">\(X=0\)</span> if heads and <span class="math inline">\(X=1\)</span> if tails</li>
-<li>X is a random variable</li>
+<li><span class="math inline">\(X\)</span> is a random variable</li>
 </ul></li>
 <li>More generally, a numerical representation or quantitative function of the possible outcomes.</li>
 <li>After the event, the observed outcome is the realized value or realization of the random variable.</li>
@@ -445,7 +445,7 @@ Both probabilities lie between zero and one, and sum to one, as there are only 2
 </div>
 <div id="kolmogorovs-axioms" class="section level2">
 <h2>Kolmogorov’s axioms</h2>
-<p>For a discrete random variable Y which may take one of <span class="math inline">\(K\)</span> possible (or ) outcomes denoted by <span class="math inline">\(y_1, y_2, \ldots, y_K,\)</span> any potential set of probabilities should satisfy Kolmogorov’s axioms:</p>
+<p>For a discrete random variable Y which may take one of <span class="math inline">\(K\)</span> possible <span style="color:#008B45FF"><em>mutually exclusive</em></span> (or <span style="color:#008B45FF"><em>disjoint</em></span>) outcomes denoted by <span class="math inline">\(y_1, y_2, \ldots, y_K,\)</span> any potential set of probabilities should satisfy Kolmogorov’s axioms:</p>
 <ol style="list-style-type: decimal">
 <li><span class="math inline">\(\mathbb{P}(Y=y_i)\ge 0\)</span>, for <span class="math inline">\(j=1,2,\ldots,K.\)</span></li>
 <li><span class="math inline">\(\mathbb{P}(Y=y_1 \text{ or } Y=y_2 \text{ or } \ldots \text{ or } Y=y_K)=1.\)</span></li>
@@ -671,6 +671,12 @@ Its CDF is:
 <li><p>For example, we have <span class="math display">\[\Phi(−1.96) = P(Z ≤ −1.96) = 0.025.\]</span> By symmetry, <span class="math display">\[\Phi(1.96) = P(Z ≤ 1.96) = 0.975.\]</span> Consequently, the probability that any draw from the standard normal distribution will be between <span class="math inline">\(\pm 1.96\)</span> is <span class="math inline">\(95\%\)</span>.</p></li>
 </ul></li>
 </ul>
+<figure>
+<img src="https://drive.google.com/thumbnail?id=1nxfdIKXgZvOqXVSeA3h_hf0yxmsM361l&sz=w1000" alt="Phi_b" style="display: block; margin-right: auto; margin-left: auto; zoom:80%;" />
+<figcaption>
+Fig.1 The <span class="math inline">\(\Phi\)</span> and <span class="math inline">\(\phi\)</span> (<span class="math inline">\(f_Z(.)\)</span>) functions (CDF and pdf of standard normal).
+</figcaption>
+</figure>
 <!------------------------------------------------------------------------>
 <hr />
 </div>
@@ -841,7 +847,7 @@ Solution4
   \overline{X} = \frac{1}{n} \sum_{i=1}^n X_i
   \]</span></li>
 </ul></li>
-<li><p>Sample mean has some desirable properties as an style=‘color:#008B45FF’&gt;estimator</span> of the expected value of a random variable.</p></li>
+<li><p>Sample mean has some desirable properties as an &lt;style=‘color:#008B45FF’&gt;estimator</span> of the expected value of a random variable.</p></li>
 </ul>
 <p>Expectations of functions of RVs
 If <span class="math inline">\(X\)</span> is a random variable and g is a function such that <span class="math inline">\(g(X)\)</span> is also a random variable, the expected value of <span class="math inline">\(g(X)\)</span> is given by
@@ -854,7 +860,7 @@ If <span class="math inline">\(X\)</span> is a random variable and g is a functi
 </div>
 <div id="variance" class="section level2">
 <h2>Variance</h2>
-<p>The variance is obtained by setting <span class="math inline">\(g(X) = \mathbb{E}\left[\left(X − \mathbb{E}(X)\right)^2\right]\)</span>:
+<p>The variance is obtained by setting <span class="math inline">\(g(X) = \left(X − \mathbb{E}(X)\right)^2\)</span>:
 <span class="math display">\[
 \begin{aligned}
 \text{Var}(X) &amp;= \mathbb{E}\left[\left(X − \mathbb{E}(X)\right)^2\right] \\
@@ -981,7 +987,8 @@ The latter subtracts 1 from n in the denominator, which is known as a degrees of
 <li>Unlike covariance, correlations between different pairs of random variables are comparable.</li>
 </ul>
 <div class="example">
-<p><span id="exm:ex" class="example"><strong>Example 7  </strong></span>Let X, Y, W, Z be random variables with <span class="math inline">\(\text{Var}[X] = 200\)</span>, <span class="math inline">\(\text{Var}[Y] = 200\)</span>, <span class="math inline">\(\text{Var}[W] = 1\)</span>, <span class="math inline">\(\text{Var}[Z]=1\)</span>, <span class="math inline">\(\text{Cov}[X,Y]=100\)</span> and <span class="math inline">\(\text{Cov}[W,Z]=1\)</span>.</p>
+<p><span id="exm:ex" class="example"><strong>Example 7  </strong></span>Let X, Y, W, Z be random variables with <span class="math inline">\(\text{Var}[X] = 200\)</span>, <span class="math inline">\(\text{Var}[Y] = 200\)</span>, <span class="math inline">\(\text{Var}[W] = 1\)</span>, <span class="math inline">\(\text{Var}[Z]=1\)</span>, <span class="math inline">\(\text{Cov}[X,Y]=100\)</span> and <span class="math inline">\(\text{Cov}[W,Z]=1\)</span>.<br />
+Compare <span class="math inline">\(\text{Corr}(X,Y)\)</span> and <span class="math inline">\(\text{Corr}(W,Z)\)</span>.</p>
 </div>
 <button onclick="myFunction(&#39;myDIV7&#39;)">
 Solution7
