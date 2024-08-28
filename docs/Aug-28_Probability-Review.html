@@ -940,7 +940,7 @@ Thus, <span class="math inline">\(Y\sim N(\mu, \sigma^2)\)</span>.</p>
 \text{Var}\left(\sum_{i=1}^n a_iX_i \right) =
 \sum_{i=1}^n a_i^2 \text{Var}(X_i) + 2\sum_{i=2}^n\sum_{j=1}^{i-1} a_ia_j \text{Cov}(X_i, X_j).
 \]</span></p>
-<p>The sample analogue of the variance for a sample of observations <span class="math inline">\(X_1,...,X_n\)</span> is the sample variance. One usually uses either
+<p>The <span style="color:#337ab7">sample analogue of the variance</span> for a sample of observations <span class="math inline">\(X_1,...,X_n\)</span> is the sample variance. One usually uses either
 <span class="math display">\[
 \frac{1}{n} \sum_{i=1}^n [(X_i-\overline{X})^2]
 \]</span>
@@ -999,7 +999,7 @@ Solution7
 <h2>Skewness and Kurtosis</h2>
 <p>Normalized or standardized central moments are defined as
 <span class="math display">\[
-\mu_r = \mathbb{E}\left\{\left[\frac{X-\mathbb{E}}{\text{sd}(X)}\right]^r\right\}
+\mu_r = \mathbb{E}\left\{\left[\frac{X-\mathbb{E}(X)}{\text{sd}(X)}\right]^r\right\}
 \]</span></p>
 <ul>
 <li><span class="math inline">\(\mu_3\)</span> is a measure of skewness or asymmetry of the distribution, with symmetric distributions having <span class="math inline">\(\mu_3 = 0\)</span>.
@@ -1019,7 +1019,7 @@ Fig. 1: Diagram of Skewness.
 </ul>
 <p>The kurtosis for any normal distribution is three. For this reason, we subtract three from <span class="math inline">\(\mu_4\)</span> to get the “excess kurtosis”.</p>
 <ul>
-<li><span class="math inline">\(\mu_4-3&gt;0\)</span> indicate a [heavy-tailed][] distribution with higher chances of outliers.
+<li><span class="math inline">\(\mu_4-3&gt;0\)</span> indicate a heavy-tailed distribution with higher chances of outliers.
 <ul>
 <li>Note that we cannot infer from kurtosis the shape of the peak. <span class="math inline">\(\mu_4-3&gt;0\)</span> can associate with either a falttened (e.g., <span class="math inline">\(t\)</span>-distribution, see Fig. <a href="#fig:fig-t">2</a>) or a pointy peak (Laplace distribution, see Fig. <a href="#fig:fig-Laplace">3</a>).</li>
 </ul></li>

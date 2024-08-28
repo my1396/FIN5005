@@ -692,7 +692,7 @@ $$
 \sum_{i=1}^n a_i^2 \text{Var}(X_i) + 2\sum_{i=2}^n\sum_{j=1}^{i-1} a_ia_j \text{Cov}(X_i, X_j).
 $$
 
-The sample analogue of the variance for a sample of observations $X_1,...,X_n$ is the sample variance. One usually uses either
+The <span style='color:#337ab7'>sample analogue of the variance</span> for a sample of observations $X_1,...,X_n$ is the sample variance. One usually uses either
 $$
 \frac{1}{n} \sum_{i=1}^n [(X_i-\overline{X})^2]
 $$
@@ -755,7 +755,7 @@ $$
 
 Normalized or standardized central moments are defined as
 $$
-\mu_r = \mathbb{E}\left\{\left[\frac{X-\mathbb{E}}{\text{sd}(X)}\right]^r\right\}
+\mu_r = \mathbb{E}\left\{\left[\frac{X-\mathbb{E}(X)}{\text{sd}(X)}\right]^r\right\}
 $$
 
 - $\mu_3$ is a measure of skewness or asymmetry of the distribution, with symmetric distributions having $\mu_3 = 0$. 
@@ -770,7 +770,7 @@ include_graphics("images/Skewness.png")
 
 The kurtosis for any normal distribution is three. For this reason, we subtract three from $\mu_4$ to get the "excess kurtosis".
 
-- $\mu_4-3>0$ indicate a [heavy-tailed][] distribution with higher chances of outliers.
+- $\mu_4-3>0$ indicate a heavy-tailed distribution with higher chances of outliers.
     - Note that we cannot infer from kurtosis the shape of the peak. $\mu_4-3>0$ can associate with either a falttened (e.g., $t$-distribution, see Fig. \@ref(fig:fig-t)) or a pointy peak (Laplace distribution, see Fig. \@ref(fig:fig-Laplace)).
 - $\mu_4-3<0$ indicate a light-tailed distribution with lower chances of outliers.
 
