@@ -467,7 +467,8 @@ The density function can be obtained by:
 $$
 f_Y(y) = f_X(g^{-1}(y)) \cdot \left\vert \frac{\partial }{\partial y} g^{-1}(y) \right\vert .
 $$
-This is known as the change of variable formula for density functions.`||` denotes the absolute value of the differential. 
+This is known as the <span style='color:#008B45FF'>change of variable formula</span> for density functions. \
+`||` denotes the absolute value of the differential. 
 
 
 Continue with the last example, the density function of $Y$ is:
