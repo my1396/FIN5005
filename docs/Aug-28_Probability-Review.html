@@ -355,7 +355,7 @@ div.tocify {
 /* Fig caption justify alignment */
 .caption {
   margin: auto;
-  text-align: justify;
+  text-align: left;
 }
 </style>
 <p><a class="top-link" href="#top" id="js-top">↑</a></p>
@@ -671,12 +671,12 @@ Its CDF is:
 <li><p>For example, we have <span class="math display">\[\Phi(−1.96) = P(Z ≤ −1.96) = 0.025.\]</span> By symmetry, <span class="math display">\[\Phi(1.96) = P(Z ≤ 1.96) = 0.975.\]</span> Consequently, the probability that any draw from the standard normal distribution will be between <span class="math inline">\(\pm 1.96\)</span> is <span class="math inline">\(95\%\)</span>.</p></li>
 </ul></li>
 </ul>
-<figure>
-<img src="https://drive.google.com/thumbnail?id=1nxfdIKXgZvOqXVSeA3h_hf0yxmsM361l&sz=w1000" alt="Phi_b" style="display: block; margin-right: auto; margin-left: auto; zoom:80%;" />
-<figcaption>
-Fig.1 The <span class="math inline">\(\Phi\)</span> and <span class="math inline">\(\phi\)</span> (<span class="math inline">\(f_Z(.)\)</span>) functions (CDF and pdf of standard normal).
-</figcaption>
-</figure>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-1"></span>
+<img src="https://drive.google.com/thumbnail?id=1nxfdIKXgZvOqXVSeA3h_hf0yxmsM361l&sz=w1000" alt="The $\Phi$ and $\phi$ ($f_Z(.)$) functions (CDF and pdf of standard normal)." width="70%" />
+<p class="caption">
+Fig. 1: The <span class="math inline">\(\Phi\)</span> and <span class="math inline">\(\phi\)</span> (<span class="math inline">\(f_Z(.)\)</span>) functions (CDF and pdf of standard normal).
+</p>
+</div>
 <!------------------------------------------------------------------------>
 <hr />
 </div>
@@ -1015,10 +1015,10 @@ Solution7
 <li><span class="math inline">\(\mu_3&gt;0\)</span> means positively skewed, i.e., long right tail.</li>
 </ul></li>
 </ul>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-1"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-2"></span>
 <img src="images/Skewness.png" alt="Diagram of Skewness." width="70%" />
 <p class="caption">
-Fig. 1: Diagram of Skewness.
+Fig. 2: Diagram of Skewness.
 </p>
 </div>
 <ul>
@@ -1028,14 +1028,14 @@ Fig. 1: Diagram of Skewness.
 <ul>
 <li><span class="math inline">\(\mu_4-3&gt;0\)</span> indicate a heavy-tailed distribution with higher chances of outliers.
 <ul>
-<li>Note that we cannot infer from kurtosis the shape of the peak. <span class="math inline">\(\mu_4-3&gt;0\)</span> can associate with either a falttened (e.g., <span class="math inline">\(t\)</span>-distribution, see Fig. <a href="#fig:fig-t">2</a>) or a pointy peak (Laplace distribution, see Fig. <a href="#fig:fig-Laplace">3</a>).</li>
+<li>Note that we cannot infer from kurtosis the shape of the peak. <span class="math inline">\(\mu_4-3&gt;0\)</span> can associate with either a falttened (e.g., <span class="math inline">\(t\)</span>-distribution, see Fig. <a href="#fig:fig-t">3</a>) or a pointy peak (Laplace distribution, see Fig. <a href="#fig:fig-Laplace">4</a>).</li>
 </ul></li>
 <li><span class="math inline">\(\mu_4-3&lt;0\)</span> indicate a light-tailed distribution with lower chances of outliers.</li>
 </ul>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig-t"></span>
 <img src="images/t%20distribution.png" alt="Examples of heavy-tailed distributions." width="70%" />
 <p class="caption">
-Fig. 2: Examples of heavy-tailed distributions.
+Fig. 3: Examples of heavy-tailed distributions.
 </p>
 </div>
 <p><span class="math inline">\(t\)</span>-distribution has <em>higher</em> kurtosis than normal distributions.</p>
@@ -1058,7 +1058,7 @@ rnorm(1000) %&gt;% moments::kurtosis()</code></pre>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig-Laplace"></span>
 <img src="images/Laplace%20distribution.webp" alt="**Laplace distribution**. The dotted green curve shows a normal distribution. The blue curve shows a Laplace distribution with kurtosis of 6.54. On the far left and right sides of the distribution—the tails—the space below the Laplace distribution curve (blue) is slightly thicker than the space below the normal distribution curve (green). This is an example of a heavy-tailed distribution yet with a sharper peak." width="70%" />
 <p class="caption">
-Fig. 3: <strong>Laplace distribution</strong>. The dotted green curve shows a normal distribution. The blue curve shows a Laplace distribution with kurtosis of 6.54. On the far left and right sides of the distribution—the tails—the space below the Laplace distribution curve (blue) is slightly thicker than the space below the normal distribution curve (green). This is an example of a heavy-tailed distribution yet with a sharper peak.
+Fig. 4: <strong>Laplace distribution</strong>. The dotted green curve shows a normal distribution. The blue curve shows a Laplace distribution with kurtosis of 6.54. On the far left and right sides of the distribution—the tails—the space below the Laplace distribution curve (blue) is slightly thicker than the space below the normal distribution curve (green). This is an example of a heavy-tailed distribution yet with a sharper peak.
 </p>
 </div>
 <p><strong>Distinguish kurtosis from standard deviation/variance.</strong></p>
@@ -1101,7 +1101,7 @@ Note that this relationship does not necessarily hold in the reverse direction: 
 \begin{aligned}
 \mathbb{E}(\overline{Y}) &amp;= \mathbb{E}\left[\frac{1}{n} \sum_{i=1}^n Y_i \right] \\
 &amp;= \frac{1}{n}  \sum_{i=1}^n \mathbb{E}(Y_i) \\
-&amp;= \frac{1}{n} \cdot n \cdot \mathbb{E}(Y_i) \quad Y_i \text{ is iid} \\
+&amp;= \frac{1}{n} \cdot n \cdot \mathbb{E}(Y_i) \quad (Y_i \text{ is iid}) \\
 &amp;= \mathbb{E}(Y_i)
 \end{aligned}
 \]</span>
@@ -1199,7 +1199,7 @@ $(document).ready(function ()  {
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML.js";
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

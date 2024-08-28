@@ -29,11 +29,15 @@ a img:focus {
     padding-right: 0px;
 }
 
-/* table typesetting */
+/* table, figures, caption typesetting */
+/*
 caption {
     width: 100%;
     text-align: justify;
 }
+*/
+
+
 
 /* bullet list */
 @counter-style paren-lower-alpha {

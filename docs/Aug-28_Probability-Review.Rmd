@@ -4,11 +4,15 @@ author: "Menghan Yuan"
 date: "Aug 28, 2024"
 output: 
     bookdown::html_document2:
+        mathjax: "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML.js"
+        self_contained: false
         toc: true
         toc_float: true
         toc_depth: 4
         number_sections: false
         css: "style.css"
+header-includes:
+    - \usepackage[font=small,format=plain,labelfont=bf,up,textfont=normal,up,justification=justified,singlelinecheck=false]{caption}
 ---
 
 <script> 
@@ -26,7 +30,7 @@ output:
 /* Fig caption justify alignment */
 .caption {
   margin: auto;
-  text-align: justify;
+  text-align: left;
 }
 </style>
 
@@ -394,11 +398,11 @@ $$
     - Tail probabilities of the standard normal distribution play an important role in hypothesis testing, and in formulating confidence intervals for parameters of interest.
     - For example, we have $$\Phi(−1.96) = P(Z ≤ −1.96) = 0.025.$$ By symmetry, $$\Phi(1.96) = P(Z ≤ 1.96) = 0.975.$$ Consequently, the probability that any draw from the standard normal distribution will be between $\pm 1.96$ is $95\%$.
 
-<figure> 
-<img src="https://drive.google.com/thumbnail?id=1nxfdIKXgZvOqXVSeA3h_hf0yxmsM361l&sz=w1000" alt="Phi_b" style="display: block; margin-right: auto; margin-left: auto; zoom:80%;" />
-<figcaption>Fig.1 The $\Phi$ and $\phi$ ($f_Z(.)$) functions (CDF and pdf of standard normal).</figcaption>
-</figure>
 
+
+```{r fig.cap="The $\\Phi$ and $\\phi$ ($f_Z(.)$) functions (CDF and pdf of standard normal).", out.width="70%", echo=FALSE}
+include_graphics("https://drive.google.com/thumbnail?id=1nxfdIKXgZvOqXVSeA3h_hf0yxmsM361l&sz=w1000")
+```
 
 
 <!------------------------------------------------------------------------>
@@ -853,7 +857,7 @@ $$
 \begin{aligned}
 \mathbb{E}(\overline{Y}) &= \mathbb{E}\left[\frac{1}{n} \sum_{i=1}^n Y_i \right] \\
 &= \frac{1}{n}  \sum_{i=1}^n \mathbb{E}(Y_i) \\
-&= \frac{1}{n} \cdot n \cdot \mathbb{E}(Y_i) \quad Y_i \text{ is iid} \\
+&= \frac{1}{n} \cdot n \cdot \mathbb{E}(Y_i) \quad (Y_i \text{ is iid}) \\
 &= \mathbb{E}(Y_i) 
 \end{aligned}
 $$
