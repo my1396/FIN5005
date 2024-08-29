@@ -9,14 +9,14 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
+<meta name="author" content="Menghan Yuan" />
 
 
-<title>Course website for FIN 5005</title>
+<title>Exercise 1</title>
 
-<script src="site_libs/header-attrs-2.24/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -29,8 +29,11 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 
 <style type="text/css">
@@ -220,6 +223,69 @@ $(document).ready(function () {
 
 
 
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
 
 </head>
 
@@ -227,6 +293,16 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -258,22 +334,67 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Course website for FIN 5005</h1>
+<h1 class="title toc-ignore">Exercise 1</h1>
+<h4 class="author">Menghan Yuan</h4>
+<h4 class="date">Aug 29, 2024</h4>
 
 </div>
 
 
-<p><a href="01_Aug-28_Probability-Review.html">Aug 28, 2024, Probability
-Review</a>    </p>
-<p><a href="02_ex1.html">Aug 29, 2024, Probability Review – Exercise
-1</a>    </p>
-<p>This webpage is based on materials from Bent Nielsen’s Lecture Notes
-for Core Econometrics.</p>
-<p><strong>Office hour</strong>: By appointment.</p>
-<p><strong>Office location</strong>: Hovedbygning A257.</p>
+<ol>
+<!---------------- question 1 ---------------->
+<li>
+Use a probability table for the normal distribution (which can be found at the back of any statistics textbook, or via a Google search) to answer the following questions.
+<ol type="pa">
+<li>
+Let <span class="math inline">\(X \sim N(0,1).\)</span> What is <span class="math inline">\(P(X &gt; 1.96)\)</span>, <span class="math inline">\(P(X &gt; 2)\)</span>, <span class="math inline">\(P(|X| &lt; 2)\)</span>.
+</li>
+<li>
+Find <span class="math inline">\(q\)</span> such that <span class="math inline">\(P(|X|&gt;q)=p\)</span> for <span class="math inline">\(p=0.1\)</span>, <span class="math inline">\(p=0.05\)</span>, <span class="math inline">\(p=0.01.\)</span>
+</li>
+<li>
+What is <span class="math inline">\(P(X &gt; 1.96)\)</span> when <span class="math inline">\(X \sim N(2,1)\)</span> or <span class="math inline">\(X \sim N(2,4)\)</span>?
+</li>
+</ol>
+</li>
+<!---------------- question 2 ---------------->
+<li>
+Let <span class="math inline">\(Y_1, \ldots, Y_n\)</span> be independent <span class="math inline">\(\text{Bernoulli}(p)\)</span>. Consider the two estimatros <span class="math inline">\(\hat{p}=\overline{Y}\)</span> and <span class="math inline">\(\tilde{p}=Y_n\)</span>.
+<ol type="pa">
+<li>
+Show that <span class="math inline">\(\mathbb{E}(\hat{p})=\mathbb{E}(\tilde{p})=p .\)</span>
+</li>
+<li>
+Find and compare the variances of <span class="math inline">\(\hat{p}\)</span> and <span class="math inline">\(\tilde{p}\)</span>. Which has smaller variance?
+</li>
+</ol>
+</li>
+<p>Note: <em>The result of part (a) shows that these are unbiased estimators. When comparing two unbiased estimators, the estimator with smaller variance is said to be more efficient, which is investigated in part (b).</em></p>
+<!---------------- question 3 ---------------->
+<li>
+Let <span class="math inline">\(X\)</span> be a continuous random variable with the exponential distribution. The cdf of <span class="math inline">\(X\)</span> is then given by
+<span class="math display">\[
+F_X(x) = 1-\exp{(-x)} \quad \text{for } x&gt;0
+\]</span>
+<ol type="pa">
+<li>
+Find the pdf of <span class="math inline">\(X\)</span>.
+</li>
+<li>
+Find the cdf of <span class="math inline">\(Y=\lambda X\)</span>, where <span class="math inline">\(\lambda&gt;0\)</span>, using the change of variable formula.
+</li>
+<li>
+Find the pdf of <span class="math inline">\(Y\)</span>.
+</li>
+</ol>
+</li>
+<!--------------------------------------------->
+</ol>
 
 
 
+</div>
+</div>
 
 </div>
 
@@ -306,13 +427,42 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML.js";
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

@@ -50,9 +50,11 @@ caption {
 }
 [type="pa"] {
   list-style: paren-lower-alpha;
+  margin-top: 10px;
 }
 [type="p1"] {
   list-style: paren-decimal;
+  margin-top: 10px;
 }
 
 li {

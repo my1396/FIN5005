@@ -11,8 +11,6 @@ output:
         toc_depth: 4
         number_sections: false
         css: "style.css"
-header-includes:
-    - \usepackage[font=small,format=plain,labelfont=bf,up,textfont=normal,up,justification=justified,singlelinecheck=false]{caption}
 ---
 
 <script> 

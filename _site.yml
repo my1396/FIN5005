@@ -1,6 +1,6 @@
 name: "FIN5005-website"
 output_dir: "docs"
-include: ["Aug-28_Probability-Review.Rmd"]
+include: ["01_Aug-28_Probability-Review.Rmd"]
 navbar:
   title: "Course Website"
   left:

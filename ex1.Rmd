@@ -1,0 +1,60 @@
+---
+title: "Exercise 1"
+author: "Menghan Yuan"
+date: "Aug 29, 2024"
+output:
+    bookdown::html_document2:
+        mathjax: "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML.js"
+        self_contained: false
+        toc: true
+        toc_float: true
+        toc_depth: 4
+        number_sections: false
+        css: "style.css"
+---
+
+```{r setup, include=F, echo=F}
+library(knitr) # load packages
+```
+
+<ol>
+<!---------------- question 1 ---------------->
+<li> Use a probability table for the normal distribution (which can be found at the back of any statistics textbook, or via a Google search) to answer the following questions.
+    <ol type="pa">
+        <li>Let $X \sim N(0,1).$ What is $P(X > 1.96)$, $P(X > 2)$, $P(|X| < 2)$. </li>
+        <li>Find $q$ such that $P(|X|>q)=p$ for $p=0.1$, $p=0.05$, $p=0.01.$ </li>
+        <li>What is $P(X > 1.96)$ when $X \sim N(2,1)$ or $X \sim N(2,4)$?</li>
+    </ol>
+</li>
+
+<!---------------- question 2 ---------------->
+<li> Let $Y_1, \ldots, Y_n$ be independent $\text{Bernoulli}(p)$. Consider the two estimators $\hat{p}=\overline{Y}$ and $\tilde{p}=Y_n$.
+    <ol type="pa">
+        <li>Show that $\mathbb{E}(\hat{p})=\mathbb{E}(\tilde{p})=p .$</li>
+        <li>Find and compare the variances of $\hat{p}$ and $\tilde{p}$. Which has smaller variance?</li>
+    </ol>
+</li>
+Note: <em>The result of part (a) shows that these are unbiased estimators. When comparing two unbiased estimators, the estimator with smaller variance is said to be more efficient, which is investigated in part (b).</em>
+
+<!---------------- question 3 ---------------->
+<li> Let $X$ be a continuous random variable with the exponential distribution. The cdf of $X$ is then given by
+$$
+F_X(x) = 1-\exp{(-x)} \quad \text{for } x>0
+$$
+    <ol type="pa">
+        <li>Find the pdf of $X$.</li>
+        <li>Find the cdf of $Y=\lambda X$, where $\lambda>0$, using the change of variable formula. </li>
+        <li>Find the pdf of $Y$. </li>
+    </ol>
+
+</li>
+
+<!--------------------------------------------->
+</ol>
+
+
+
+
+
+
+

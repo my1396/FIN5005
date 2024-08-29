@@ -2,7 +2,9 @@
 title: "Course website for FIN 5005"
 ---
 
-[Aug 28, 2024, Probability Review](Aug-28_Probability-Review.html) &nbsp;&nbsp;&nbsp;
+[Aug 28, 2024, Probability Review](01_Aug-28_Probability-Review.html) &nbsp;&nbsp;&nbsp;
+
+[Aug 29, 2024, Probability Review -- Exercise 1](02_ex1.html) &nbsp;&nbsp;&nbsp;
 
 This webpage is based on materials from Bent Nielsen’s Lecture Notes for Core Econometrics. 
 
