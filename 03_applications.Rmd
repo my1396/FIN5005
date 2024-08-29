@@ -1,0 +1,415 @@
+---
+title: "Probability Review -- Lab"
+author: "Menghan Yuan"
+date: "Aug 30, 2024"
+output: 
+    bookdown::html_document2:
+        mathjax: "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML.js"
+        self_contained: false
+        toc: true
+        toc_float: true
+        toc_depth: 4
+        number_sections: false
+        css: "style.css"
+---
+
+<a class="top-link" href="#top" id="js-top">↑</a>
+
+
+```{r setup, include=F, echo=F}
+library(knitr) # load packages
+library(kableExtra)
+library(tidyverse)
+library(latex2exp)
+library(stargazer)
+library(bookdown)
+library(moments)
+
+# don't show code unless we explicitly set echo = TRUE
+opts_chunk$set(echo = TRUE, message=FALSE, warning=FALSE, fig.align="center", fig.pos = "H")
+opts <- options(knitr.kable.NA = "")
+
+## control long outputs by using eg `max.lines = 10`
+hook_output_default <- knitr::knit_hooks$get('output')
+truncate_to_lines <- function(x, n) {
+   if (!is.null(n)) {
+      x = unlist(stringr::str_split(x, '\n'))
+      if (length(x) > n) {
+         # truncate the output
+         x = c(head(x, n), '...\n')
+      }
+      x = paste(x, collapse = '\n') # paste first n lines together
+   }
+   x
+}
+knitr::knit_hooks$set(output = function(x, options) {
+   max.lines <- options$max.lines
+   x <- truncate_to_lines(x, max.lines)
+   hook_output_default(x, options)
+})
+```
+
+
+
+We have Fama-French monthly pricing factor data from 2000-01 to 2024-06. 
+We want to have a look at its descriptive statistics.
+
+```{r}
+data <- read_csv("data/FF_3Factors_US_monthly.csv")
+get_stat <- function(x, q_list=c(0.025, 0.5, 0.975)){
+    ## Return extended summary statistics with quantiles and sd.
+    #    @q_list: vector of quantiles to calculate;
+    x <- na.omit(x)
+    c(summary(x), quantile(x, q_list), 
+      "sd" = sd(x), 
+      "skewness" = skewness(x),
+      "kurtosis" = kurtosis(x)
+      )
+}
+```
+
+Have a preview of the data structure
+```{r}
+data %>% 
+    knitr::kable(floating.environment="sidewaystable", digits = 5, escape=F) %>%
+    kable_styling(bootstrap_options = c("striped", "hover"), full_width = F, latex_options="scale_down") %>% 
+    scroll_box(width = "100%", height = "500px")
+```
+
+# Descriptive statistics
+
+```{r descrptive-analysis, comment = ''}
+apply(data[,-1], 2, get_stat) %>% 
+    stargazer(type = "text", digits=2)
+```
+
+
+- sd(SMB) < sd(HML), meaning SMB has less dispersion, smaller spread.
+- kurtosis(SMB) > kurtosis(HML), meaning SMB has more outliers.
+
+
+## Distribution of SMB
+
+Plot histogra, empirical density, and compare with normal density (in blue).
+```{r}
+ggplot(data, aes(x=SMB)) +
+    geom_histogram(aes(y=..density..), 
+                   fill="#BDBCBC", 
+                   color="black", 
+                   binwidth = 2, 
+                   boundary=0) +
+    geom_density(color="black") +
+    stat_function(fun = dnorm, args = list(mean = 0, sd = 1), color="blue") +
+    labs(x="Small minus big, SMB")
+```
+
+Issue: hard to see the tail behavior.
+Solution: use QQ plot.
+
+The Q-Q plot, or quantile-quantile plot, is a graphical tool to help us assess if a set of data plausibly came from some theoretical distribution such as a normal distribution. 
+
+- For example, if we run a statistical analysis that <span style='color:#337ab7'>assumes our **residuals** are normally distributed</span>, we can use a normal Q-Q plot to check that assumption. 
+
+A QQ plot is a scatter plot created by plotting two sets of quantiles against one another. If both sets of quantiles came from the same distribution, we should see the points forming a line that's roughly straight. 
+
+```{r}
+ggplot(data, aes(sample=SMB)) +
+    geom_qq() +
+    geom_qq_line(color="red") +
+    labs(x="Theoretical quantiles", y="Sample quantiles", 
+         title=sprintf("Normal Q-Q plot — SMB, sd: %.2f, kurtosis: %.2f", sd(data$SMB), kurtosis(data$SMB))) +
+    scale_y_continuous(limits=c(-15,20))
+```
+
+<span style='color:#337ab7'>Standardize</span> SMB to improve visualization
+
+- Without standardization, the scale of the RV will affect your judgement.
+
+```{r}
+ggplot() +
+    geom_qq(aes(sample=with(data, (SMB-mean(SMB))/sd(SMB)))) +
+    geom_qq_line(aes(sample=with(data, (SMB-mean(SMB))/sd(SMB))), color="red") +
+    labs(x="Theoretical quantiles", y="Sample quantiles", 
+         title=sprintf("Normal Q-Q plot — SMB, sd: %.2f, kurtosis: %.2f", sd(data$SMB), kurtosis(data$SMB))) 
+```
+
+
+
+## Distribution of HML
+
+```{r}
+ggplot(data, aes(x=HML)) +
+    geom_histogram(aes(y=..density..), 
+                   fill="#BDBCBC", 
+                   color="black", 
+                   binwidth = 2, 
+                   boundary=0) +
+    geom_density(color="black") +
+    stat_function(fun = dnorm, args = list(mean = 0, sd = 1), color="blue") +
+    labs(x="High minus low, HML")
+```
+
+```{r}
+ggplot(data, aes(sample=HML)) +
+    geom_qq() +
+    geom_qq_line(color="red") +
+    labs(x="Theoretical quantiles", y="Sample quantiles", 
+         title=sprintf("Normal Q-Q plot — HML, sd: %.2f, kurtosis: %.2f", sd(data$HML), kurtosis(data$HML))) +
+    scale_y_continuous(limits=c(-15,20))
+```
+
+<span style='color:#337ab7'>Standardize</span> HML to improve visualization
+```{r}
+ggplot() +
+    geom_qq(aes(sample=with(data, (HML-mean(HML))/sd(HML)))) +
+    geom_qq_line(aes(sample=with(data, (HML-mean(HML))/sd(HML))), color="red") +
+    labs(x="Theoretical quantiles", y="Sample quantiles", 
+         title=sprintf("Normal Q-Q plot — HML, sd: %.2f, kurtosis: %.2f", sd(data$HML), kurtosis(data$HML)))
+```
+
+___
+
+# Sample estimators
+
+
+Bernoulli distribution with different values of $p$
+
+```{r}
+set.seed(125)
+# sample size=10, Bernoulli(p=0.1)
+rbinom(n = 10, size = 1, prob = c(.10)) 
+# sample size=10, Bernoulli(p=0.5)
+rbinom(n = 10, size = 1, prob = c(.50)) 
+# sample size=10, Bernoulli(p=0.9)
+rbinom(n = 10, size = 1, prob = c(.90)) 
+```
+
+___
+
+Bernoulli distribution with different sample size
+
+```{r}
+set.seed(125)
+# sample size=10
+p_hat_1 <- sum(rbinom(n = 10, size = 1, prob = c(.50)))/10
+# sample size=100
+p_hat_2 <- sum(rbinom(n = 100, size = 1, prob = c(.50)))/100
+# sample size=1,000
+p_hat_3 <- sum(rbinom(n = 1000, size = 1, prob = c(.50)))/1000
+# sample size=10,000
+p_hat_4 <- sum(rbinom(n = 10000, size = 1, prob = c(.50)))/10000
+c(p_hat_1, p_hat_2, p_hat_3, p_hat_4)
+```
+**Conclusion**: sample average approaches better to the population as sample size increases.
+
+___
+
+**Uncertainty reduces as sample size increases**
+
+```{r}
+bt <- 100
+# sample size=10, have 100 such samples, calculate the df of p_hat
+rbinom(n = 10*bt, size = 1, prob = c(.50)) %>% 
+    matrix(ncol=bt, byrow=FALSE) %>% 
+    apply(2, function(col) sum(col)/10) %>% 
+    sd()
+```
+
+```{r}
+# sample size=100
+rbinom(n = 100*bt, size = 1, prob = c(.50)) %>% 
+    matrix(ncol=bt, byrow=FALSE) %>% 
+    apply(2, function(col) sum(col)/100) %>% 
+    sd()
+```
+```{r}
+# sample size=1,000
+rbinom(n = 1000*bt, size = 1, prob = c(.50)) %>% 
+    matrix(ncol=bt, byrow=FALSE) %>% 
+    apply(2, function(col) sum(col)/1000) %>% 
+    sd()
+```
+
+```{r}
+# sample size=10,000
+rbinom(n = 10000*bt, size = 1, prob = c(.50)) %>% 
+    matrix(ncol=bt, byrow=FALSE) %>% 
+    apply(2, function(col) sum(col)/10000) %>% 
+    sd()
+```
+
+
+___
+
+# Skewness
+
+## Positive skew
+
+Positively skewed (mean > median) data have a J-shaped pattern in the Q-Q plot.
+
+```{r}
+library(fGarch)
+sim_data <- rsnorm(10000, mean = 0, sd = 1, xi = 2.5)
+c("mean" = mean(sim_data),
+  "sd" = sd(sim_data),
+  "median"= median(sim_data),
+  "skew" = skewness(sim_data),
+  "kurtosis" = kurtosis(sim_data)) %>% 
+    as_tibble_row() %>% 
+    kable(floating.environment="sidewaystable", digits = 3, escape=F) %>%
+    kable_styling(bootstrap_options = c("striped", "hover"), full_width = F, latex_options="scale_down") 
+```
+
+```{r}
+ggplot() +
+    geom_histogram(aes(x=sim_data, 
+                       y=..density..),
+                   fill="#BDBCBC", 
+                   color="black", 
+                   binwidth = .2, 
+                   boundary=0) +
+    geom_density(aes(x=sim_data), color="black") +
+    stat_function(fun = dnorm, args = list(mean = 0, sd = 1), color="blue") +
+    stat_function(fun = dnorm, args = list(mean = 0, sd = 1), fill="blue", geom="area", alpha=0.2) +
+    labs(x="Sample values", y="Density", title="Density plot") +
+    scale_x_continuous(limits = c(-4,4))
+
+```
+
+```{r}
+ggplot() +
+    geom_qq(aes(sample=sim_data)) +
+    geom_qq_line(aes(sample=sim_data), color="red") +
+    labs(x="Theoretical quantiles", y="Sample quantiles", 
+         title="Normal Q-Q plot")
+```
+
+## Negative skew
+
+Negatively skewed (mean < median) data have Q-Q plots that display an inverted J-shape.
+
+```{r echo = FALSE}
+sim_data <- rsnorm(10000, mean = 0, sd = 1, xi = -2.5)
+c("mean" = mean(sim_data),
+  "sd" = sd(sim_data),
+  "median"= median(sim_data),
+  "skew" = skewness(sim_data),
+  "kurtosis" = kurtosis(sim_data)) %>% 
+    as_tibble_row() %>% 
+    kable(floating.environment="sidewaystable", digits = 3, escape=F) %>%
+    kable_styling(bootstrap_options = c("striped", "hover"), full_width = F, latex_options="scale_down") 
+```
+
+
+```{r echo = FALSE}
+ggplot() +
+    geom_histogram(aes(x=sim_data, 
+                       y=..density..),
+                   fill="#BDBCBC", 
+                   color="black", 
+                   binwidth = .2, 
+                   boundary=0) +
+    geom_density(aes(x=sim_data), color="black") +
+    stat_function(fun = dnorm, args = list(mean = 0, sd = 1), color="blue") +
+    stat_function(fun = dnorm, args = list(mean = 0, sd = 1), fill="blue", geom="area", alpha=0.2) +
+    labs(x="Sample values", y="Density", title="Density plot") +
+    scale_x_continuous(limits = c(-4,4))
+
+```
+
+```{r echo = FALSE}
+ggplot() +
+    geom_qq(aes(sample=sim_data)) +
+    geom_qq_line(aes(sample=sim_data), color="red") +
+    labs(x="Theoretical quantiles", y="Sample quantiles", 
+         title="Normal Q-Q plot")
+```
+
+
+___
+
+# Kurtosis
+
+## Fat tails
+
+This plot shows a t-distribution with $3$ degrees of freedom.
+```{r echo = FALSE}
+sim_data <-  rt(n=1000, df=3)
+c("mean" = mean(sim_data),
+  "sd" = sd(sim_data),
+  "median"= median(sim_data),
+  "skew" = skewness(sim_data),
+  "kurtosis" = kurtosis(sim_data)) %>% 
+    as_tibble_row() %>% 
+    kable(floating.environment="sidewaystable", digits = 3, escape=F) %>%
+    kable_styling(bootstrap_options = c("striped", "hover"), full_width = F, latex_options="scale_down") 
+```
+
+```{r echo = FALSE}
+ggplot() +
+    geom_histogram(aes(x=sim_data, 
+                       y=..density..),
+                   fill="#BDBCBC", 
+                   color="black", 
+                   binwidth = .2, 
+                   boundary=0) +
+    geom_density(aes(x=sim_data), color="black") +
+    stat_function(fun = dnorm, args = list(mean = 0, sd = 1), color="blue") +
+    stat_function(fun = dnorm, args = list(mean = 0, sd = 1), fill="blue", geom="area", alpha=0.2) +
+    labs(x="Sample values", y="Density", title="Density plot") +
+    scale_x_continuous(limits = c(-4,4))
+
+```
+
+```{r echo = FALSE}
+ggplot() +
+    geom_qq(aes(sample=sim_data)) +
+    geom_qq_line(aes(sample=sim_data), color="red") +
+    labs(x="Theoretical quantiles", y="Sample quantiles", 
+         title="Normal Q-Q plot")
+```
+
+## Thin tails
+
+The data in the plot below is a combination uniform distribution with minimum $-1$ and maximum $1$ and a normal distribution with mean $0$ and standard deviation $0.1$.
+
+```{r  echo = FALSE}
+sim_data <-  rnorm(n=1000, mean=0, sd=0.1) + runif(1000, -1, 1)
+c("mean" = mean(sim_data),
+  "sd" = sd(sim_data),
+  "median"= median(sim_data),
+  "skew" = skewness(sim_data),
+  "kurtosis" = kurtosis(sim_data)) %>% 
+    as_tibble_row() %>% 
+    kable(floating.environment="sidewaystable", digits = 3, escape=F) %>%
+    kable_styling(bootstrap_options = c("striped", "hover"), full_width = F, latex_options="scale_down") 
+```
+
+```{r echo = FALSE}
+ggplot() +
+    geom_histogram(aes(x=sim_data, 
+                       y=..density..),
+                   fill="#BDBCBC", 
+                   color="black", 
+                   binwidth = .2, 
+                   boundary=0) +
+    geom_density(aes(x=sim_data), color="black") +
+    stat_function(fun = dnorm, args = list(mean = 0, sd = 1), color="blue") +
+    stat_function(fun = dnorm, args = list(mean = 0, sd = 1), fill="blue", geom="area", alpha=0.2) +
+    labs(x="Sample values", y="Density", title="Density plot") +
+    scale_x_continuous(limits = c(-4,4))
+
+```
+
+```{r echo = FALSE}
+ggplot() +
+    geom_qq(aes(sample=sim_data)) +
+    geom_qq_line(aes(sample=sim_data), color="red") +
+    labs(x="Theoretical quantiles", y="Sample quantiles", 
+         title="Normal Q-Q plot")
+```
+
+# References
+
+Social Science Computing Cooperative, Normality, University of Wisconsin-Madison, accessed 29 August 2024, <https://sscc.wisc.edu/sscc/pubs/RegDiag-R/normality.html>.
+

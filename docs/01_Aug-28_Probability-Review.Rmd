@@ -1,5 +1,5 @@
 ---
-title: "Probability Review"
+title: "Probability Review -- Lecture"
 author: "Menghan Yuan"
 date: "Aug 28, 2024"
 output: 
@@ -13,19 +13,11 @@ output:
         css: "style.css"
 ---
 
-<script> 
-    function myFunction(id) {
-      var x = document.getElementById(id); 
-      if (x.style.display === "none") {
-        x.style.display = "block";
-      } else {
-        x.style.display = "none";
-      }
-    }
-</script>
+
+<SCRIPT language="JavaScript" SRC="my_jxscript.js"></SCRIPT>
 
 <style>
-/* Fig caption justify alignment */
+/* Long Fig caption justify alignment */
 .caption {
   margin: auto;
   text-align: left;
@@ -831,10 +823,10 @@ $t$-distribution has *higher* kurtosis than normal distributions.
 ```{r}
 set.seed(125)
 rnorm(1000) %>% moments::kurtosis()
-rt(1000, df=1) %>% moments::kurtosis()
-rt(1000, df=2) %>% moments::kurtosis()
-rt(1000, df=10) %>% moments::kurtosis()
-rt(1000, df=30) %>% moments::kurtosis()
+rt(n=1000, df=1) %>% moments::kurtosis()
+rt(n=1000, df=2) %>% moments::kurtosis()
+rt(n=1000, df=10) %>% moments::kurtosis()
+rt(n=1000, df=30) %>% moments::kurtosis()
 ```
 
 

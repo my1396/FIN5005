@@ -12,7 +12,7 @@
 <meta name="author" content="Menghan Yuan" />
 
 
-<title>Probability Review</title>
+<title>Probability Review – Lecture</title>
 
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -334,25 +334,16 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Probability Review</h1>
+<h1 class="title toc-ignore">Probability Review – Lecture</h1>
 <h4 class="author">Menghan Yuan</h4>
 <h4 class="date">Aug 28, 2024</h4>
 
 </div>
 
 
-<script> 
-    function myFunction(id) {
-      var x = document.getElementById(id); 
-      if (x.style.display === "none") {
-        x.style.display = "block";
-      } else {
-        x.style.display = "none";
-      }
-    }
-</script>
+<SCRIPT language="JavaScript" SRC="my_jxscript.js"></SCRIPT>
 <style>
-/* Fig caption justify alignment */
+/* Long Fig caption justify alignment */
 .caption {
   margin: auto;
   text-align: left;
@@ -1070,13 +1061,13 @@ Fig. 3: Examples of heavy-tailed distributions.
 <pre class="r"><code>set.seed(125)
 rnorm(1000) %&gt;% moments::kurtosis()</code></pre>
 <pre><code>## [1] 3.037806</code></pre>
-<pre class="r"><code>rt(1000, df=1) %&gt;% moments::kurtosis()</code></pre>
+<pre class="r"><code>rt(n=1000, df=1) %&gt;% moments::kurtosis()</code></pre>
 <pre><code>## [1] 503.3928</code></pre>
-<pre class="r"><code>rt(1000, df=2) %&gt;% moments::kurtosis()</code></pre>
+<pre class="r"><code>rt(n=1000, df=2) %&gt;% moments::kurtosis()</code></pre>
 <pre><code>## [1] 61.25994</code></pre>
-<pre class="r"><code>rt(1000, df=10) %&gt;% moments::kurtosis()</code></pre>
+<pre class="r"><code>rt(n=1000, df=10) %&gt;% moments::kurtosis()</code></pre>
 <pre><code>## [1] 4.303517</code></pre>
-<pre class="r"><code>rt(1000, df=30) %&gt;% moments::kurtosis()</code></pre>
+<pre class="r"><code>rt(n=1000, df=30) %&gt;% moments::kurtosis()</code></pre>
 <pre><code>## [1] 3.646411</code></pre>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig-Laplace"></span>
 <img src="images/Laplace%20distribution.webp" alt="**Laplace distribution**. The dotted green curve shows a normal distribution. The blue curve shows a Laplace distribution with kurtosis of 6.54. On the far left and right sides of the distribution—the tails—the space below the Laplace distribution curve (blue) is slightly thicker than the space below the normal distribution curve (green). This is an example of a heavy-tailed distribution yet with a sharper peak." width="70%" />

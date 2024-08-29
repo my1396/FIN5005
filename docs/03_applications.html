@@ -1,0 +1,5836 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Menghan Yuan" />
+
+
+<title>Probability Review – Lab</title>
+
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Course Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Probability Review – Lab</h1>
+<h4 class="author">Menghan Yuan</h4>
+<h4 class="date">Aug 30, 2024</h4>
+
+</div>
+
+
+<p><a class="top-link" href="#top" id="js-top">↑</a></p>
+<p>We have Fama-French monthly pricing factor data from 2000-01 to 2024-06.
+We want to have a look at its descriptive statistics.</p>
+<pre class="r"><code>data &lt;- read_csv(&quot;data/FF_3Factors_US_monthly.csv&quot;)
+get_stat &lt;- function(x, q_list=c(0.025, 0.5, 0.975)){
+    ## Return extended summary statistics with quantiles and sd.
+    #    @q_list: vector of quantiles to calculate;
+    x &lt;- na.omit(x)
+    c(summary(x), quantile(x, q_list), 
+      &quot;sd&quot; = sd(x), 
+      &quot;skewness&quot; = skewness(x),
+      &quot;kurtosis&quot; = kurtosis(x)
+      )
+}</code></pre>
+<p>Have a preview of the data structure</p>
+<pre class="r"><code>data %&gt;% 
+    knitr::kable(floating.environment=&quot;sidewaystable&quot;, digits = 5, escape=F) %&gt;%
+    kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;), full_width = F, latex_options=&quot;scale_down&quot;) %&gt;% 
+    scroll_box(width = &quot;100%&quot;, height = &quot;500px&quot;)</code></pre>
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; overflow-x: scroll; width:100%; ">
+<table class="table table-striped table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+Date
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+Mkt-RF
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+SMB
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+HML
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+RF
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+2000-01-01
+</td>
+<td style="text-align:right;">
+-4.74
+</td>
+<td style="text-align:right;">
+5.77
+</td>
+<td style="text-align:right;">
+-1.88
+</td>
+<td style="text-align:right;">
+0.41
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2000-02-01
+</td>
+<td style="text-align:right;">
+2.45
+</td>
+<td style="text-align:right;">
+21.36
+</td>
+<td style="text-align:right;">
+-9.59
+</td>
+<td style="text-align:right;">
+0.43
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2000-03-01
+</td>
+<td style="text-align:right;">
+5.20
+</td>
+<td style="text-align:right;">
+-17.20
+</td>
+<td style="text-align:right;">
+8.13
+</td>
+<td style="text-align:right;">
+0.47
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2000-04-01
+</td>
+<td style="text-align:right;">
+-6.40
+</td>
+<td style="text-align:right;">
+-6.68
+</td>
+<td style="text-align:right;">
+7.26
+</td>
+<td style="text-align:right;">
+0.46
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2000-05-01
+</td>
+<td style="text-align:right;">
+-4.42
+</td>
+<td style="text-align:right;">
+-6.05
+</td>
+<td style="text-align:right;">
+4.75
+</td>
+<td style="text-align:right;">
+0.50
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2000-06-01
+</td>
+<td style="text-align:right;">
+4.64
+</td>
+<td style="text-align:right;">
+12.84
+</td>
+<td style="text-align:right;">
+-8.42
+</td>
+<td style="text-align:right;">
+0.40
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2000-07-01
+</td>
+<td style="text-align:right;">
+-2.51
+</td>
+<td style="text-align:right;">
+-3.07
+</td>
+<td style="text-align:right;">
+8.31
+</td>
+<td style="text-align:right;">
+0.48
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2000-08-01
+</td>
+<td style="text-align:right;">
+7.03
+</td>
+<td style="text-align:right;">
+-0.61
+</td>
+<td style="text-align:right;">
+-1.39
+</td>
+<td style="text-align:right;">
+0.50
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2000-09-01
+</td>
+<td style="text-align:right;">
+-5.45
+</td>
+<td style="text-align:right;">
+-1.82
+</td>
+<td style="text-align:right;">
+7.17
+</td>
+<td style="text-align:right;">
+0.51
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2000-10-01
+</td>
+<td style="text-align:right;">
+-2.76
+</td>
+<td style="text-align:right;">
+-3.88
+</td>
+<td style="text-align:right;">
+5.71
+</td>
+<td style="text-align:right;">
+0.56
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2000-11-01
+</td>
+<td style="text-align:right;">
+-10.72
+</td>
+<td style="text-align:right;">
+-3.41
+</td>
+<td style="text-align:right;">
+12.30
+</td>
+<td style="text-align:right;">
+0.51
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2000-12-01
+</td>
+<td style="text-align:right;">
+1.19
+</td>
+<td style="text-align:right;">
+0.73
+</td>
+<td style="text-align:right;">
+7.61
+</td>
+<td style="text-align:right;">
+0.50
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2001-01-01
+</td>
+<td style="text-align:right;">
+3.13
+</td>
+<td style="text-align:right;">
+6.68
+</td>
+<td style="text-align:right;">
+-5.07
+</td>
+<td style="text-align:right;">
+0.54
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2001-02-01
+</td>
+<td style="text-align:right;">
+-10.05
+</td>
+<td style="text-align:right;">
+-0.78
+</td>
+<td style="text-align:right;">
+12.47
+</td>
+<td style="text-align:right;">
+0.38
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2001-03-01
+</td>
+<td style="text-align:right;">
+-7.26
+</td>
+<td style="text-align:right;">
+0.25
+</td>
+<td style="text-align:right;">
+6.42
+</td>
+<td style="text-align:right;">
+0.42
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2001-04-01
+</td>
+<td style="text-align:right;">
+7.94
+</td>
+<td style="text-align:right;">
+0.55
+</td>
+<td style="text-align:right;">
+-4.67
+</td>
+<td style="text-align:right;">
+0.39
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2001-05-01
+</td>
+<td style="text-align:right;">
+0.72
+</td>
+<td style="text-align:right;">
+2.50
+</td>
+<td style="text-align:right;">
+3.36
+</td>
+<td style="text-align:right;">
+0.32
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2001-06-01
+</td>
+<td style="text-align:right;">
+-1.94
+</td>
+<td style="text-align:right;">
+6.24
+</td>
+<td style="text-align:right;">
+-1.12
+</td>
+<td style="text-align:right;">
+0.28
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2001-07-01
+</td>
+<td style="text-align:right;">
+-2.13
+</td>
+<td style="text-align:right;">
+-4.19
+</td>
+<td style="text-align:right;">
+5.21
+</td>
+<td style="text-align:right;">
+0.30
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2001-08-01
+</td>
+<td style="text-align:right;">
+-6.46
+</td>
+<td style="text-align:right;">
+2.48
+</td>
+<td style="text-align:right;">
+2.31
+</td>
+<td style="text-align:right;">
+0.31
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2001-09-01
+</td>
+<td style="text-align:right;">
+-9.25
+</td>
+<td style="text-align:right;">
+-6.23
+</td>
+<td style="text-align:right;">
+1.45
+</td>
+<td style="text-align:right;">
+0.28
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2001-10-01
+</td>
+<td style="text-align:right;">
+2.46
+</td>
+<td style="text-align:right;">
+7.48
+</td>
+<td style="text-align:right;">
+-7.65
+</td>
+<td style="text-align:right;">
+0.22
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2001-11-01
+</td>
+<td style="text-align:right;">
+7.54
+</td>
+<td style="text-align:right;">
+-0.47
+</td>
+<td style="text-align:right;">
+2.21
+</td>
+<td style="text-align:right;">
+0.17
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2001-12-01
+</td>
+<td style="text-align:right;">
+1.60
+</td>
+<td style="text-align:right;">
+4.74
+</td>
+<td style="text-align:right;">
+0.84
+</td>
+<td style="text-align:right;">
+0.15
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2002-01-01
+</td>
+<td style="text-align:right;">
+-1.44
+</td>
+<td style="text-align:right;">
+1.19
+</td>
+<td style="text-align:right;">
+3.44
+</td>
+<td style="text-align:right;">
+0.14
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2002-02-01
+</td>
+<td style="text-align:right;">
+-2.29
+</td>
+<td style="text-align:right;">
+-1.01
+</td>
+<td style="text-align:right;">
+2.16
+</td>
+<td style="text-align:right;">
+0.13
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2002-03-01
+</td>
+<td style="text-align:right;">
+4.24
+</td>
+<td style="text-align:right;">
+4.21
+</td>
+<td style="text-align:right;">
+1.06
+</td>
+<td style="text-align:right;">
+0.13
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2002-04-01
+</td>
+<td style="text-align:right;">
+-5.20
+</td>
+<td style="text-align:right;">
+5.96
+</td>
+<td style="text-align:right;">
+3.88
+</td>
+<td style="text-align:right;">
+0.15
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2002-05-01
+</td>
+<td style="text-align:right;">
+-1.38
+</td>
+<td style="text-align:right;">
+-3.21
+</td>
+<td style="text-align:right;">
+1.53
+</td>
+<td style="text-align:right;">
+0.14
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2002-06-01
+</td>
+<td style="text-align:right;">
+-7.21
+</td>
+<td style="text-align:right;">
+4.29
+</td>
+<td style="text-align:right;">
+-0.05
+</td>
+<td style="text-align:right;">
+0.13
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2002-07-01
+</td>
+<td style="text-align:right;">
+-8.18
+</td>
+<td style="text-align:right;">
+-5.28
+</td>
+<td style="text-align:right;">
+-3.85
+</td>
+<td style="text-align:right;">
+0.15
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2002-08-01
+</td>
+<td style="text-align:right;">
+0.50
+</td>
+<td style="text-align:right;">
+-2.86
+</td>
+<td style="text-align:right;">
+3.28
+</td>
+<td style="text-align:right;">
+0.14
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2002-09-01
+</td>
+<td style="text-align:right;">
+-10.35
+</td>
+<td style="text-align:right;">
+2.40
+</td>
+<td style="text-align:right;">
+1.47
+</td>
+<td style="text-align:right;">
+0.14
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2002-10-01
+</td>
+<td style="text-align:right;">
+7.84
+</td>
+<td style="text-align:right;">
+-3.41
+</td>
+<td style="text-align:right;">
+-3.95
+</td>
+<td style="text-align:right;">
+0.14
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2002-11-01
+</td>
+<td style="text-align:right;">
+5.96
+</td>
+<td style="text-align:right;">
+3.18
+</td>
+<td style="text-align:right;">
+-1.23
+</td>
+<td style="text-align:right;">
+0.12
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2002-12-01
+</td>
+<td style="text-align:right;">
+-5.76
+</td>
+<td style="text-align:right;">
+0.09
+</td>
+<td style="text-align:right;">
+2.14
+</td>
+<td style="text-align:right;">
+0.11
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2003-01-01
+</td>
+<td style="text-align:right;">
+-2.57
+</td>
+<td style="text-align:right;">
+1.33
+</td>
+<td style="text-align:right;">
+-0.83
+</td>
+<td style="text-align:right;">
+0.10
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2003-02-01
+</td>
+<td style="text-align:right;">
+-1.88
+</td>
+<td style="text-align:right;">
+-0.45
+</td>
+<td style="text-align:right;">
+-1.39
+</td>
+<td style="text-align:right;">
+0.09
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2003-03-01
+</td>
+<td style="text-align:right;">
+1.09
+</td>
+<td style="text-align:right;">
+1.02
+</td>
+<td style="text-align:right;">
+-1.93
+</td>
+<td style="text-align:right;">
+0.10
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2003-04-01
+</td>
+<td style="text-align:right;">
+8.22
+</td>
+<td style="text-align:right;">
+0.63
+</td>
+<td style="text-align:right;">
+1.14
+</td>
+<td style="text-align:right;">
+0.10
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2003-05-01
+</td>
+<td style="text-align:right;">
+6.05
+</td>
+<td style="text-align:right;">
+4.67
+</td>
+<td style="text-align:right;">
+0.40
+</td>
+<td style="text-align:right;">
+0.09
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2003-06-01
+</td>
+<td style="text-align:right;">
+1.42
+</td>
+<td style="text-align:right;">
+1.74
+</td>
+<td style="text-align:right;">
+0.11
+</td>
+<td style="text-align:right;">
+0.10
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2003-07-01
+</td>
+<td style="text-align:right;">
+2.35
+</td>
+<td style="text-align:right;">
+5.06
+</td>
+<td style="text-align:right;">
+-1.24
+</td>
+<td style="text-align:right;">
+0.07
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2003-08-01
+</td>
+<td style="text-align:right;">
+2.34
+</td>
+<td style="text-align:right;">
+2.59
+</td>
+<td style="text-align:right;">
+1.53
+</td>
+<td style="text-align:right;">
+0.07
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2003-09-01
+</td>
+<td style="text-align:right;">
+-1.24
+</td>
+<td style="text-align:right;">
+0.80
+</td>
+<td style="text-align:right;">
+0.16
+</td>
+<td style="text-align:right;">
+0.08
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2003-10-01
+</td>
+<td style="text-align:right;">
+6.08
+</td>
+<td style="text-align:right;">
+2.70
+</td>
+<td style="text-align:right;">
+1.97
+</td>
+<td style="text-align:right;">
+0.07
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2003-11-01
+</td>
+<td style="text-align:right;">
+1.35
+</td>
+<td style="text-align:right;">
+2.08
+</td>
+<td style="text-align:right;">
+1.78
+</td>
+<td style="text-align:right;">
+0.07
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2003-12-01
+</td>
+<td style="text-align:right;">
+4.29
+</td>
+<td style="text-align:right;">
+-2.68
+</td>
+<td style="text-align:right;">
+1.60
+</td>
+<td style="text-align:right;">
+0.08
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2004-01-01
+</td>
+<td style="text-align:right;">
+2.15
+</td>
+<td style="text-align:right;">
+2.55
+</td>
+<td style="text-align:right;">
+2.49
+</td>
+<td style="text-align:right;">
+0.07
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2004-02-01
+</td>
+<td style="text-align:right;">
+1.40
+</td>
+<td style="text-align:right;">
+-1.58
+</td>
+<td style="text-align:right;">
+0.90
+</td>
+<td style="text-align:right;">
+0.06
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2004-03-01
+</td>
+<td style="text-align:right;">
+-1.32
+</td>
+<td style="text-align:right;">
+1.72
+</td>
+<td style="text-align:right;">
+0.27
+</td>
+<td style="text-align:right;">
+0.09
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2004-04-01
+</td>
+<td style="text-align:right;">
+-1.83
+</td>
+<td style="text-align:right;">
+-1.68
+</td>
+<td style="text-align:right;">
+-3.10
+</td>
+<td style="text-align:right;">
+0.08
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2004-05-01
+</td>
+<td style="text-align:right;">
+1.17
+</td>
+<td style="text-align:right;">
+-0.20
+</td>
+<td style="text-align:right;">
+-0.25
+</td>
+<td style="text-align:right;">
+0.06
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2004-06-01
+</td>
+<td style="text-align:right;">
+1.86
+</td>
+<td style="text-align:right;">
+2.26
+</td>
+<td style="text-align:right;">
+1.18
+</td>
+<td style="text-align:right;">
+0.08
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2004-07-01
+</td>
+<td style="text-align:right;">
+-4.06
+</td>
+<td style="text-align:right;">
+-3.81
+</td>
+<td style="text-align:right;">
+3.24
+</td>
+<td style="text-align:right;">
+0.10
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2004-08-01
+</td>
+<td style="text-align:right;">
+0.08
+</td>
+<td style="text-align:right;">
+-1.48
+</td>
+<td style="text-align:right;">
+0.97
+</td>
+<td style="text-align:right;">
+0.11
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2004-09-01
+</td>
+<td style="text-align:right;">
+1.60
+</td>
+<td style="text-align:right;">
+3.01
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.11
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2004-10-01
+</td>
+<td style="text-align:right;">
+1.43
+</td>
+<td style="text-align:right;">
+0.15
+</td>
+<td style="text-align:right;">
+-0.22
+</td>
+<td style="text-align:right;">
+0.11
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2004-11-01
+</td>
+<td style="text-align:right;">
+4.54
+</td>
+<td style="text-align:right;">
+3.74
+</td>
+<td style="text-align:right;">
+1.41
+</td>
+<td style="text-align:right;">
+0.15
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2004-12-01
+</td>
+<td style="text-align:right;">
+3.43
+</td>
+<td style="text-align:right;">
+-0.03
+</td>
+<td style="text-align:right;">
+-0.22
+</td>
+<td style="text-align:right;">
+0.16
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2005-01-01
+</td>
+<td style="text-align:right;">
+-2.76
+</td>
+<td style="text-align:right;">
+-1.72
+</td>
+<td style="text-align:right;">
+2.06
+</td>
+<td style="text-align:right;">
+0.16
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2005-02-01
+</td>
+<td style="text-align:right;">
+1.89
+</td>
+<td style="text-align:right;">
+-0.57
+</td>
+<td style="text-align:right;">
+1.54
+</td>
+<td style="text-align:right;">
+0.16
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2005-03-01
+</td>
+<td style="text-align:right;">
+-1.97
+</td>
+<td style="text-align:right;">
+-1.40
+</td>
+<td style="text-align:right;">
+2.04
+</td>
+<td style="text-align:right;">
+0.21
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2005-04-01
+</td>
+<td style="text-align:right;">
+-2.61
+</td>
+<td style="text-align:right;">
+-3.94
+</td>
+<td style="text-align:right;">
+0.07
+</td>
+<td style="text-align:right;">
+0.21
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2005-05-01
+</td>
+<td style="text-align:right;">
+3.65
+</td>
+<td style="text-align:right;">
+2.89
+</td>
+<td style="text-align:right;">
+-0.64
+</td>
+<td style="text-align:right;">
+0.24
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2005-06-01
+</td>
+<td style="text-align:right;">
+0.57
+</td>
+<td style="text-align:right;">
+2.58
+</td>
+<td style="text-align:right;">
+2.83
+</td>
+<td style="text-align:right;">
+0.23
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2005-07-01
+</td>
+<td style="text-align:right;">
+3.92
+</td>
+<td style="text-align:right;">
+2.91
+</td>
+<td style="text-align:right;">
+-0.79
+</td>
+<td style="text-align:right;">
+0.24
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2005-08-01
+</td>
+<td style="text-align:right;">
+-1.22
+</td>
+<td style="text-align:right;">
+-0.97
+</td>
+<td style="text-align:right;">
+1.32
+</td>
+<td style="text-align:right;">
+0.30
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2005-09-01
+</td>
+<td style="text-align:right;">
+0.49
+</td>
+<td style="text-align:right;">
+-0.65
+</td>
+<td style="text-align:right;">
+0.71
+</td>
+<td style="text-align:right;">
+0.29
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2005-10-01
+</td>
+<td style="text-align:right;">
+-2.02
+</td>
+<td style="text-align:right;">
+-1.25
+</td>
+<td style="text-align:right;">
+0.42
+</td>
+<td style="text-align:right;">
+0.27
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2005-11-01
+</td>
+<td style="text-align:right;">
+3.61
+</td>
+<td style="text-align:right;">
+0.99
+</td>
+<td style="text-align:right;">
+-1.16
+</td>
+<td style="text-align:right;">
+0.31
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2005-12-01
+</td>
+<td style="text-align:right;">
+-0.25
+</td>
+<td style="text-align:right;">
+-0.42
+</td>
+<td style="text-align:right;">
+0.20
+</td>
+<td style="text-align:right;">
+0.32
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2006-01-01
+</td>
+<td style="text-align:right;">
+3.04
+</td>
+<td style="text-align:right;">
+5.39
+</td>
+<td style="text-align:right;">
+1.08
+</td>
+<td style="text-align:right;">
+0.35
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2006-02-01
+</td>
+<td style="text-align:right;">
+-0.30
+</td>
+<td style="text-align:right;">
+-0.38
+</td>
+<td style="text-align:right;">
+-0.34
+</td>
+<td style="text-align:right;">
+0.34
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2006-03-01
+</td>
+<td style="text-align:right;">
+1.46
+</td>
+<td style="text-align:right;">
+3.44
+</td>
+<td style="text-align:right;">
+0.60
+</td>
+<td style="text-align:right;">
+0.37
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2006-04-01
+</td>
+<td style="text-align:right;">
+0.73
+</td>
+<td style="text-align:right;">
+-1.42
+</td>
+<td style="text-align:right;">
+2.34
+</td>
+<td style="text-align:right;">
+0.36
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2006-05-01
+</td>
+<td style="text-align:right;">
+-3.57
+</td>
+<td style="text-align:right;">
+-2.96
+</td>
+<td style="text-align:right;">
+2.41
+</td>
+<td style="text-align:right;">
+0.43
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2006-06-01
+</td>
+<td style="text-align:right;">
+-0.35
+</td>
+<td style="text-align:right;">
+-0.39
+</td>
+<td style="text-align:right;">
+0.85
+</td>
+<td style="text-align:right;">
+0.40
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2006-07-01
+</td>
+<td style="text-align:right;">
+-0.78
+</td>
+<td style="text-align:right;">
+-3.98
+</td>
+<td style="text-align:right;">
+2.60
+</td>
+<td style="text-align:right;">
+0.40
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2006-08-01
+</td>
+<td style="text-align:right;">
+2.03
+</td>
+<td style="text-align:right;">
+1.03
+</td>
+<td style="text-align:right;">
+-2.06
+</td>
+<td style="text-align:right;">
+0.42
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2006-09-01
+</td>
+<td style="text-align:right;">
+1.84
+</td>
+<td style="text-align:right;">
+-1.36
+</td>
+<td style="text-align:right;">
+0.08
+</td>
+<td style="text-align:right;">
+0.41
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2006-10-01
+</td>
+<td style="text-align:right;">
+3.23
+</td>
+<td style="text-align:right;">
+1.75
+</td>
+<td style="text-align:right;">
+-0.31
+</td>
+<td style="text-align:right;">
+0.41
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2006-11-01
+</td>
+<td style="text-align:right;">
+1.71
+</td>
+<td style="text-align:right;">
+0.70
+</td>
+<td style="text-align:right;">
+0.14
+</td>
+<td style="text-align:right;">
+0.42
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2006-12-01
+</td>
+<td style="text-align:right;">
+0.87
+</td>
+<td style="text-align:right;">
+-1.14
+</td>
+<td style="text-align:right;">
+2.73
+</td>
+<td style="text-align:right;">
+0.40
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2007-01-01
+</td>
+<td style="text-align:right;">
+1.40
+</td>
+<td style="text-align:right;">
+0.13
+</td>
+<td style="text-align:right;">
+-0.68
+</td>
+<td style="text-align:right;">
+0.44
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2007-02-01
+</td>
+<td style="text-align:right;">
+-1.96
+</td>
+<td style="text-align:right;">
+1.19
+</td>
+<td style="text-align:right;">
+-0.14
+</td>
+<td style="text-align:right;">
+0.38
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2007-03-01
+</td>
+<td style="text-align:right;">
+0.68
+</td>
+<td style="text-align:right;">
+0.16
+</td>
+<td style="text-align:right;">
+-0.97
+</td>
+<td style="text-align:right;">
+0.43
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2007-04-01
+</td>
+<td style="text-align:right;">
+3.49
+</td>
+<td style="text-align:right;">
+-2.16
+</td>
+<td style="text-align:right;">
+-1.45
+</td>
+<td style="text-align:right;">
+0.44
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2007-05-01
+</td>
+<td style="text-align:right;">
+3.24
+</td>
+<td style="text-align:right;">
+0.24
+</td>
+<td style="text-align:right;">
+-0.65
+</td>
+<td style="text-align:right;">
+0.41
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2007-06-01
+</td>
+<td style="text-align:right;">
+-1.96
+</td>
+<td style="text-align:right;">
+0.74
+</td>
+<td style="text-align:right;">
+-1.05
+</td>
+<td style="text-align:right;">
+0.40
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2007-07-01
+</td>
+<td style="text-align:right;">
+-3.73
+</td>
+<td style="text-align:right;">
+-2.61
+</td>
+<td style="text-align:right;">
+-3.71
+</td>
+<td style="text-align:right;">
+0.40
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2007-08-01
+</td>
+<td style="text-align:right;">
+0.92
+</td>
+<td style="text-align:right;">
+-0.12
+</td>
+<td style="text-align:right;">
+-1.86
+</td>
+<td style="text-align:right;">
+0.42
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2007-09-01
+</td>
+<td style="text-align:right;">
+3.22
+</td>
+<td style="text-align:right;">
+-2.23
+</td>
+<td style="text-align:right;">
+-2.21
+</td>
+<td style="text-align:right;">
+0.32
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2007-10-01
+</td>
+<td style="text-align:right;">
+1.80
+</td>
+<td style="text-align:right;">
+0.08
+</td>
+<td style="text-align:right;">
+-2.98
+</td>
+<td style="text-align:right;">
+0.32
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2007-11-01
+</td>
+<td style="text-align:right;">
+-4.83
+</td>
+<td style="text-align:right;">
+-2.93
+</td>
+<td style="text-align:right;">
+-0.94
+</td>
+<td style="text-align:right;">
+0.34
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2007-12-01
+</td>
+<td style="text-align:right;">
+-0.87
+</td>
+<td style="text-align:right;">
+0.13
+</td>
+<td style="text-align:right;">
+-0.55
+</td>
+<td style="text-align:right;">
+0.27
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2008-01-01
+</td>
+<td style="text-align:right;">
+-6.36
+</td>
+<td style="text-align:right;">
+-1.03
+</td>
+<td style="text-align:right;">
+3.97
+</td>
+<td style="text-align:right;">
+0.21
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2008-02-01
+</td>
+<td style="text-align:right;">
+-3.09
+</td>
+<td style="text-align:right;">
+-0.43
+</td>
+<td style="text-align:right;">
+-0.84
+</td>
+<td style="text-align:right;">
+0.13
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2008-03-01
+</td>
+<td style="text-align:right;">
+-0.93
+</td>
+<td style="text-align:right;">
+0.71
+</td>
+<td style="text-align:right;">
+0.30
+</td>
+<td style="text-align:right;">
+0.17
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2008-04-01
+</td>
+<td style="text-align:right;">
+4.60
+</td>
+<td style="text-align:right;">
+-1.72
+</td>
+<td style="text-align:right;">
+-0.94
+</td>
+<td style="text-align:right;">
+0.18
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2008-05-01
+</td>
+<td style="text-align:right;">
+1.86
+</td>
+<td style="text-align:right;">
+2.96
+</td>
+<td style="text-align:right;">
+-1.43
+</td>
+<td style="text-align:right;">
+0.18
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2008-06-01
+</td>
+<td style="text-align:right;">
+-8.44
+</td>
+<td style="text-align:right;">
+1.23
+</td>
+<td style="text-align:right;">
+-2.71
+</td>
+<td style="text-align:right;">
+0.17
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2008-07-01
+</td>
+<td style="text-align:right;">
+-0.77
+</td>
+<td style="text-align:right;">
+2.61
+</td>
+<td style="text-align:right;">
+5.42
+</td>
+<td style="text-align:right;">
+0.15
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2008-08-01
+</td>
+<td style="text-align:right;">
+1.53
+</td>
+<td style="text-align:right;">
+3.60
+</td>
+<td style="text-align:right;">
+1.59
+</td>
+<td style="text-align:right;">
+0.13
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2008-09-01
+</td>
+<td style="text-align:right;">
+-9.24
+</td>
+<td style="text-align:right;">
+-1.23
+</td>
+<td style="text-align:right;">
+5.91
+</td>
+<td style="text-align:right;">
+0.15
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2008-10-01
+</td>
+<td style="text-align:right;">
+-17.23
+</td>
+<td style="text-align:right;">
+-2.60
+</td>
+<td style="text-align:right;">
+-2.30
+</td>
+<td style="text-align:right;">
+0.08
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2008-11-01
+</td>
+<td style="text-align:right;">
+-7.86
+</td>
+<td style="text-align:right;">
+-2.85
+</td>
+<td style="text-align:right;">
+-6.31
+</td>
+<td style="text-align:right;">
+0.03
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2008-12-01
+</td>
+<td style="text-align:right;">
+1.74
+</td>
+<td style="text-align:right;">
+3.46
+</td>
+<td style="text-align:right;">
+0.14
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2009-01-01
+</td>
+<td style="text-align:right;">
+-8.12
+</td>
+<td style="text-align:right;">
+0.07
+</td>
+<td style="text-align:right;">
+-11.29
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2009-02-01
+</td>
+<td style="text-align:right;">
+-10.10
+</td>
+<td style="text-align:right;">
+0.05
+</td>
+<td style="text-align:right;">
+-6.95
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2009-03-01
+</td>
+<td style="text-align:right;">
+8.95
+</td>
+<td style="text-align:right;">
+0.03
+</td>
+<td style="text-align:right;">
+3.47
+</td>
+<td style="text-align:right;">
+0.02
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2009-04-01
+</td>
+<td style="text-align:right;">
+10.18
+</td>
+<td style="text-align:right;">
+5.40
+</td>
+<td style="text-align:right;">
+5.36
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2009-05-01
+</td>
+<td style="text-align:right;">
+5.21
+</td>
+<td style="text-align:right;">
+-2.52
+</td>
+<td style="text-align:right;">
+0.28
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2009-06-01
+</td>
+<td style="text-align:right;">
+0.43
+</td>
+<td style="text-align:right;">
+2.63
+</td>
+<td style="text-align:right;">
+-2.73
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2009-07-01
+</td>
+<td style="text-align:right;">
+7.72
+</td>
+<td style="text-align:right;">
+1.87
+</td>
+<td style="text-align:right;">
+4.83
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2009-08-01
+</td>
+<td style="text-align:right;">
+3.33
+</td>
+<td style="text-align:right;">
+-1.08
+</td>
+<td style="text-align:right;">
+7.63
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2009-09-01
+</td>
+<td style="text-align:right;">
+4.08
+</td>
+<td style="text-align:right;">
+2.43
+</td>
+<td style="text-align:right;">
+1.05
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2009-10-01
+</td>
+<td style="text-align:right;">
+-2.59
+</td>
+<td style="text-align:right;">
+-4.35
+</td>
+<td style="text-align:right;">
+-4.21
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2009-11-01
+</td>
+<td style="text-align:right;">
+5.56
+</td>
+<td style="text-align:right;">
+-2.40
+</td>
+<td style="text-align:right;">
+-0.34
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2009-12-01
+</td>
+<td style="text-align:right;">
+2.75
+</td>
+<td style="text-align:right;">
+6.05
+</td>
+<td style="text-align:right;">
+-0.17
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2010-01-01
+</td>
+<td style="text-align:right;">
+-3.36
+</td>
+<td style="text-align:right;">
+0.40
+</td>
+<td style="text-align:right;">
+0.43
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2010-02-01
+</td>
+<td style="text-align:right;">
+3.40
+</td>
+<td style="text-align:right;">
+1.19
+</td>
+<td style="text-align:right;">
+3.23
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2010-03-01
+</td>
+<td style="text-align:right;">
+6.31
+</td>
+<td style="text-align:right;">
+1.48
+</td>
+<td style="text-align:right;">
+2.21
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2010-04-01
+</td>
+<td style="text-align:right;">
+2.00
+</td>
+<td style="text-align:right;">
+4.87
+</td>
+<td style="text-align:right;">
+2.89
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2010-05-01
+</td>
+<td style="text-align:right;">
+-7.89
+</td>
+<td style="text-align:right;">
+0.09
+</td>
+<td style="text-align:right;">
+-2.44
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2010-06-01
+</td>
+<td style="text-align:right;">
+-5.57
+</td>
+<td style="text-align:right;">
+-1.82
+</td>
+<td style="text-align:right;">
+-4.70
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2010-07-01
+</td>
+<td style="text-align:right;">
+6.93
+</td>
+<td style="text-align:right;">
+0.20
+</td>
+<td style="text-align:right;">
+-0.31
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2010-08-01
+</td>
+<td style="text-align:right;">
+-4.77
+</td>
+<td style="text-align:right;">
+-3.00
+</td>
+<td style="text-align:right;">
+-1.90
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2010-09-01
+</td>
+<td style="text-align:right;">
+9.54
+</td>
+<td style="text-align:right;">
+3.96
+</td>
+<td style="text-align:right;">
+-3.16
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2010-10-01
+</td>
+<td style="text-align:right;">
+3.88
+</td>
+<td style="text-align:right;">
+1.14
+</td>
+<td style="text-align:right;">
+-2.43
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2010-11-01
+</td>
+<td style="text-align:right;">
+0.60
+</td>
+<td style="text-align:right;">
+3.77
+</td>
+<td style="text-align:right;">
+-0.96
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2010-12-01
+</td>
+<td style="text-align:right;">
+6.82
+</td>
+<td style="text-align:right;">
+0.73
+</td>
+<td style="text-align:right;">
+3.70
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2011-01-01
+</td>
+<td style="text-align:right;">
+1.99
+</td>
+<td style="text-align:right;">
+-2.50
+</td>
+<td style="text-align:right;">
+0.83
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2011-02-01
+</td>
+<td style="text-align:right;">
+3.49
+</td>
+<td style="text-align:right;">
+1.53
+</td>
+<td style="text-align:right;">
+1.27
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2011-03-01
+</td>
+<td style="text-align:right;">
+0.46
+</td>
+<td style="text-align:right;">
+2.54
+</td>
+<td style="text-align:right;">
+-1.83
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2011-04-01
+</td>
+<td style="text-align:right;">
+2.90
+</td>
+<td style="text-align:right;">
+-0.38
+</td>
+<td style="text-align:right;">
+-2.43
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2011-05-01
+</td>
+<td style="text-align:right;">
+-1.27
+</td>
+<td style="text-align:right;">
+-0.59
+</td>
+<td style="text-align:right;">
+-2.12
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2011-06-01
+</td>
+<td style="text-align:right;">
+-1.75
+</td>
+<td style="text-align:right;">
+-0.12
+</td>
+<td style="text-align:right;">
+-0.42
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2011-07-01
+</td>
+<td style="text-align:right;">
+-2.35
+</td>
+<td style="text-align:right;">
+-1.26
+</td>
+<td style="text-align:right;">
+-0.90
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2011-08-01
+</td>
+<td style="text-align:right;">
+-5.99
+</td>
+<td style="text-align:right;">
+-3.05
+</td>
+<td style="text-align:right;">
+-2.36
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2011-09-01
+</td>
+<td style="text-align:right;">
+-7.59
+</td>
+<td style="text-align:right;">
+-3.31
+</td>
+<td style="text-align:right;">
+-1.72
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2011-10-01
+</td>
+<td style="text-align:right;">
+11.35
+</td>
+<td style="text-align:right;">
+3.28
+</td>
+<td style="text-align:right;">
+0.10
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2011-11-01
+</td>
+<td style="text-align:right;">
+-0.28
+</td>
+<td style="text-align:right;">
+-0.16
+</td>
+<td style="text-align:right;">
+-0.46
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2011-12-01
+</td>
+<td style="text-align:right;">
+0.74
+</td>
+<td style="text-align:right;">
+-0.59
+</td>
+<td style="text-align:right;">
+1.63
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2012-01-01
+</td>
+<td style="text-align:right;">
+5.05
+</td>
+<td style="text-align:right;">
+2.04
+</td>
+<td style="text-align:right;">
+-0.97
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2012-02-01
+</td>
+<td style="text-align:right;">
+4.42
+</td>
+<td style="text-align:right;">
+-1.85
+</td>
+<td style="text-align:right;">
+0.43
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2012-03-01
+</td>
+<td style="text-align:right;">
+3.11
+</td>
+<td style="text-align:right;">
+-0.64
+</td>
+<td style="text-align:right;">
+1.14
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2012-04-01
+</td>
+<td style="text-align:right;">
+-0.85
+</td>
+<td style="text-align:right;">
+-0.42
+</td>
+<td style="text-align:right;">
+-0.78
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2012-05-01
+</td>
+<td style="text-align:right;">
+-6.19
+</td>
+<td style="text-align:right;">
+0.07
+</td>
+<td style="text-align:right;">
+-1.07
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2012-06-01
+</td>
+<td style="text-align:right;">
+3.89
+</td>
+<td style="text-align:right;">
+0.67
+</td>
+<td style="text-align:right;">
+0.62
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2012-07-01
+</td>
+<td style="text-align:right;">
+0.79
+</td>
+<td style="text-align:right;">
+-2.74
+</td>
+<td style="text-align:right;">
+-0.02
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2012-08-01
+</td>
+<td style="text-align:right;">
+2.55
+</td>
+<td style="text-align:right;">
+0.47
+</td>
+<td style="text-align:right;">
+1.30
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2012-09-01
+</td>
+<td style="text-align:right;">
+2.73
+</td>
+<td style="text-align:right;">
+0.50
+</td>
+<td style="text-align:right;">
+1.60
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2012-10-01
+</td>
+<td style="text-align:right;">
+-1.76
+</td>
+<td style="text-align:right;">
+-1.15
+</td>
+<td style="text-align:right;">
+3.59
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2012-11-01
+</td>
+<td style="text-align:right;">
+0.78
+</td>
+<td style="text-align:right;">
+0.63
+</td>
+<td style="text-align:right;">
+-0.84
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2012-12-01
+</td>
+<td style="text-align:right;">
+1.18
+</td>
+<td style="text-align:right;">
+1.48
+</td>
+<td style="text-align:right;">
+3.51
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2013-01-01
+</td>
+<td style="text-align:right;">
+5.57
+</td>
+<td style="text-align:right;">
+0.33
+</td>
+<td style="text-align:right;">
+0.96
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2013-02-01
+</td>
+<td style="text-align:right;">
+1.29
+</td>
+<td style="text-align:right;">
+-0.27
+</td>
+<td style="text-align:right;">
+0.11
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2013-03-01
+</td>
+<td style="text-align:right;">
+4.03
+</td>
+<td style="text-align:right;">
+0.81
+</td>
+<td style="text-align:right;">
+-0.19
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2013-04-01
+</td>
+<td style="text-align:right;">
+1.55
+</td>
+<td style="text-align:right;">
+-2.37
+</td>
+<td style="text-align:right;">
+0.45
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2013-05-01
+</td>
+<td style="text-align:right;">
+2.80
+</td>
+<td style="text-align:right;">
+1.70
+</td>
+<td style="text-align:right;">
+2.63
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2013-06-01
+</td>
+<td style="text-align:right;">
+-1.20
+</td>
+<td style="text-align:right;">
+1.33
+</td>
+<td style="text-align:right;">
+0.03
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2013-07-01
+</td>
+<td style="text-align:right;">
+5.65
+</td>
+<td style="text-align:right;">
+1.87
+</td>
+<td style="text-align:right;">
+0.57
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2013-08-01
+</td>
+<td style="text-align:right;">
+-2.71
+</td>
+<td style="text-align:right;">
+0.27
+</td>
+<td style="text-align:right;">
+-2.69
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2013-09-01
+</td>
+<td style="text-align:right;">
+3.77
+</td>
+<td style="text-align:right;">
+2.88
+</td>
+<td style="text-align:right;">
+-1.22
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2013-10-01
+</td>
+<td style="text-align:right;">
+4.18
+</td>
+<td style="text-align:right;">
+-1.53
+</td>
+<td style="text-align:right;">
+1.25
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2013-11-01
+</td>
+<td style="text-align:right;">
+3.13
+</td>
+<td style="text-align:right;">
+1.29
+</td>
+<td style="text-align:right;">
+0.32
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2013-12-01
+</td>
+<td style="text-align:right;">
+2.81
+</td>
+<td style="text-align:right;">
+-0.46
+</td>
+<td style="text-align:right;">
+-0.02
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2014-01-01
+</td>
+<td style="text-align:right;">
+-3.32
+</td>
+<td style="text-align:right;">
+0.89
+</td>
+<td style="text-align:right;">
+-2.07
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2014-02-01
+</td>
+<td style="text-align:right;">
+4.65
+</td>
+<td style="text-align:right;">
+0.35
+</td>
+<td style="text-align:right;">
+-0.31
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2014-03-01
+</td>
+<td style="text-align:right;">
+0.43
+</td>
+<td style="text-align:right;">
+-1.81
+</td>
+<td style="text-align:right;">
+4.93
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2014-04-01
+</td>
+<td style="text-align:right;">
+-0.19
+</td>
+<td style="text-align:right;">
+-4.19
+</td>
+<td style="text-align:right;">
+1.17
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2014-05-01
+</td>
+<td style="text-align:right;">
+2.06
+</td>
+<td style="text-align:right;">
+-1.88
+</td>
+<td style="text-align:right;">
+-0.13
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2014-06-01
+</td>
+<td style="text-align:right;">
+2.61
+</td>
+<td style="text-align:right;">
+3.09
+</td>
+<td style="text-align:right;">
+-0.70
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2014-07-01
+</td>
+<td style="text-align:right;">
+-2.04
+</td>
+<td style="text-align:right;">
+-4.29
+</td>
+<td style="text-align:right;">
+0.03
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2014-08-01
+</td>
+<td style="text-align:right;">
+4.24
+</td>
+<td style="text-align:right;">
+0.40
+</td>
+<td style="text-align:right;">
+-0.45
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2014-09-01
+</td>
+<td style="text-align:right;">
+-1.97
+</td>
+<td style="text-align:right;">
+-3.71
+</td>
+<td style="text-align:right;">
+-1.34
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2014-10-01
+</td>
+<td style="text-align:right;">
+2.52
+</td>
+<td style="text-align:right;">
+4.21
+</td>
+<td style="text-align:right;">
+-1.81
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2014-11-01
+</td>
+<td style="text-align:right;">
+2.55
+</td>
+<td style="text-align:right;">
+-2.06
+</td>
+<td style="text-align:right;">
+-3.09
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2014-12-01
+</td>
+<td style="text-align:right;">
+-0.06
+</td>
+<td style="text-align:right;">
+2.49
+</td>
+<td style="text-align:right;">
+2.27
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2015-01-01
+</td>
+<td style="text-align:right;">
+-3.11
+</td>
+<td style="text-align:right;">
+-0.56
+</td>
+<td style="text-align:right;">
+-3.58
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2015-02-01
+</td>
+<td style="text-align:right;">
+6.13
+</td>
+<td style="text-align:right;">
+0.63
+</td>
+<td style="text-align:right;">
+-1.86
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2015-03-01
+</td>
+<td style="text-align:right;">
+-1.12
+</td>
+<td style="text-align:right;">
+3.04
+</td>
+<td style="text-align:right;">
+-0.37
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2015-04-01
+</td>
+<td style="text-align:right;">
+0.59
+</td>
+<td style="text-align:right;">
+-3.06
+</td>
+<td style="text-align:right;">
+1.82
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2015-05-01
+</td>
+<td style="text-align:right;">
+1.36
+</td>
+<td style="text-align:right;">
+0.93
+</td>
+<td style="text-align:right;">
+-1.14
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2015-06-01
+</td>
+<td style="text-align:right;">
+-1.53
+</td>
+<td style="text-align:right;">
+2.91
+</td>
+<td style="text-align:right;">
+-0.79
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2015-07-01
+</td>
+<td style="text-align:right;">
+1.54
+</td>
+<td style="text-align:right;">
+-4.17
+</td>
+<td style="text-align:right;">
+-4.13
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2015-08-01
+</td>
+<td style="text-align:right;">
+-6.04
+</td>
+<td style="text-align:right;">
+0.33
+</td>
+<td style="text-align:right;">
+2.77
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2015-09-01
+</td>
+<td style="text-align:right;">
+-3.07
+</td>
+<td style="text-align:right;">
+-2.62
+</td>
+<td style="text-align:right;">
+0.56
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2015-10-01
+</td>
+<td style="text-align:right;">
+7.75
+</td>
+<td style="text-align:right;">
+-1.88
+</td>
+<td style="text-align:right;">
+-0.46
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2015-11-01
+</td>
+<td style="text-align:right;">
+0.56
+</td>
+<td style="text-align:right;">
+3.60
+</td>
+<td style="text-align:right;">
+-0.42
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2015-12-01
+</td>
+<td style="text-align:right;">
+-2.17
+</td>
+<td style="text-align:right;">
+-2.84
+</td>
+<td style="text-align:right;">
+-2.61
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2016-01-01
+</td>
+<td style="text-align:right;">
+-5.77
+</td>
+<td style="text-align:right;">
+-3.42
+</td>
+<td style="text-align:right;">
+2.09
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2016-02-01
+</td>
+<td style="text-align:right;">
+-0.07
+</td>
+<td style="text-align:right;">
+0.73
+</td>
+<td style="text-align:right;">
+-0.57
+</td>
+<td style="text-align:right;">
+0.02
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2016-03-01
+</td>
+<td style="text-align:right;">
+6.96
+</td>
+<td style="text-align:right;">
+0.82
+</td>
+<td style="text-align:right;">
+1.19
+</td>
+<td style="text-align:right;">
+0.02
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2016-04-01
+</td>
+<td style="text-align:right;">
+0.91
+</td>
+<td style="text-align:right;">
+0.76
+</td>
+<td style="text-align:right;">
+3.28
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2016-05-01
+</td>
+<td style="text-align:right;">
+1.78
+</td>
+<td style="text-align:right;">
+-0.17
+</td>
+<td style="text-align:right;">
+-1.66
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2016-06-01
+</td>
+<td style="text-align:right;">
+-0.05
+</td>
+<td style="text-align:right;">
+0.61
+</td>
+<td style="text-align:right;">
+-1.48
+</td>
+<td style="text-align:right;">
+0.02
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2016-07-01
+</td>
+<td style="text-align:right;">
+3.95
+</td>
+<td style="text-align:right;">
+2.49
+</td>
+<td style="text-align:right;">
+-1.32
+</td>
+<td style="text-align:right;">
+0.02
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2016-08-01
+</td>
+<td style="text-align:right;">
+0.49
+</td>
+<td style="text-align:right;">
+1.15
+</td>
+<td style="text-align:right;">
+3.18
+</td>
+<td style="text-align:right;">
+0.02
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2016-09-01
+</td>
+<td style="text-align:right;">
+0.25
+</td>
+<td style="text-align:right;">
+2.12
+</td>
+<td style="text-align:right;">
+-1.24
+</td>
+<td style="text-align:right;">
+0.02
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2016-10-01
+</td>
+<td style="text-align:right;">
+-2.02
+</td>
+<td style="text-align:right;">
+-4.40
+</td>
+<td style="text-align:right;">
+4.09
+</td>
+<td style="text-align:right;">
+0.02
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2016-11-01
+</td>
+<td style="text-align:right;">
+4.86
+</td>
+<td style="text-align:right;">
+5.71
+</td>
+<td style="text-align:right;">
+8.21
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2016-12-01
+</td>
+<td style="text-align:right;">
+1.82
+</td>
+<td style="text-align:right;">
+0.10
+</td>
+<td style="text-align:right;">
+3.53
+</td>
+<td style="text-align:right;">
+0.03
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2017-01-01
+</td>
+<td style="text-align:right;">
+1.94
+</td>
+<td style="text-align:right;">
+-1.19
+</td>
+<td style="text-align:right;">
+-2.75
+</td>
+<td style="text-align:right;">
+0.04
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2017-02-01
+</td>
+<td style="text-align:right;">
+3.57
+</td>
+<td style="text-align:right;">
+-2.05
+</td>
+<td style="text-align:right;">
+-1.67
+</td>
+<td style="text-align:right;">
+0.04
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2017-03-01
+</td>
+<td style="text-align:right;">
+0.17
+</td>
+<td style="text-align:right;">
+1.14
+</td>
+<td style="text-align:right;">
+-3.35
+</td>
+<td style="text-align:right;">
+0.03
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2017-04-01
+</td>
+<td style="text-align:right;">
+1.09
+</td>
+<td style="text-align:right;">
+0.73
+</td>
+<td style="text-align:right;">
+-2.13
+</td>
+<td style="text-align:right;">
+0.05
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2017-05-01
+</td>
+<td style="text-align:right;">
+1.06
+</td>
+<td style="text-align:right;">
+-2.57
+</td>
+<td style="text-align:right;">
+-3.78
+</td>
+<td style="text-align:right;">
+0.06
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2017-06-01
+</td>
+<td style="text-align:right;">
+0.78
+</td>
+<td style="text-align:right;">
+2.25
+</td>
+<td style="text-align:right;">
+1.48
+</td>
+<td style="text-align:right;">
+0.06
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2017-07-01
+</td>
+<td style="text-align:right;">
+1.87
+</td>
+<td style="text-align:right;">
+-1.51
+</td>
+<td style="text-align:right;">
+-0.31
+</td>
+<td style="text-align:right;">
+0.07
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2017-08-01
+</td>
+<td style="text-align:right;">
+0.16
+</td>
+<td style="text-align:right;">
+-1.67
+</td>
+<td style="text-align:right;">
+-2.10
+</td>
+<td style="text-align:right;">
+0.09
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2017-09-01
+</td>
+<td style="text-align:right;">
+2.51
+</td>
+<td style="text-align:right;">
+4.47
+</td>
+<td style="text-align:right;">
+3.13
+</td>
+<td style="text-align:right;">
+0.09
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2017-10-01
+</td>
+<td style="text-align:right;">
+2.25
+</td>
+<td style="text-align:right;">
+-1.94
+</td>
+<td style="text-align:right;">
+0.20
+</td>
+<td style="text-align:right;">
+0.09
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2017-11-01
+</td>
+<td style="text-align:right;">
+3.12
+</td>
+<td style="text-align:right;">
+-0.55
+</td>
+<td style="text-align:right;">
+-0.03
+</td>
+<td style="text-align:right;">
+0.08
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2017-12-01
+</td>
+<td style="text-align:right;">
+1.06
+</td>
+<td style="text-align:right;">
+-1.32
+</td>
+<td style="text-align:right;">
+0.06
+</td>
+<td style="text-align:right;">
+0.09
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2018-01-01
+</td>
+<td style="text-align:right;">
+5.57
+</td>
+<td style="text-align:right;">
+-3.12
+</td>
+<td style="text-align:right;">
+-1.29
+</td>
+<td style="text-align:right;">
+0.12
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2018-02-01
+</td>
+<td style="text-align:right;">
+-3.65
+</td>
+<td style="text-align:right;">
+0.26
+</td>
+<td style="text-align:right;">
+-1.04
+</td>
+<td style="text-align:right;">
+0.11
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2018-03-01
+</td>
+<td style="text-align:right;">
+-2.35
+</td>
+<td style="text-align:right;">
+4.06
+</td>
+<td style="text-align:right;">
+-0.21
+</td>
+<td style="text-align:right;">
+0.11
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2018-04-01
+</td>
+<td style="text-align:right;">
+0.28
+</td>
+<td style="text-align:right;">
+1.13
+</td>
+<td style="text-align:right;">
+0.54
+</td>
+<td style="text-align:right;">
+0.14
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2018-05-01
+</td>
+<td style="text-align:right;">
+2.65
+</td>
+<td style="text-align:right;">
+5.26
+</td>
+<td style="text-align:right;">
+-3.22
+</td>
+<td style="text-align:right;">
+0.14
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2018-06-01
+</td>
+<td style="text-align:right;">
+0.48
+</td>
+<td style="text-align:right;">
+1.13
+</td>
+<td style="text-align:right;">
+-2.33
+</td>
+<td style="text-align:right;">
+0.14
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2018-07-01
+</td>
+<td style="text-align:right;">
+3.19
+</td>
+<td style="text-align:right;">
+-2.22
+</td>
+<td style="text-align:right;">
+0.45
+</td>
+<td style="text-align:right;">
+0.16
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2018-08-01
+</td>
+<td style="text-align:right;">
+3.44
+</td>
+<td style="text-align:right;">
+1.15
+</td>
+<td style="text-align:right;">
+-4.00
+</td>
+<td style="text-align:right;">
+0.16
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2018-09-01
+</td>
+<td style="text-align:right;">
+0.06
+</td>
+<td style="text-align:right;">
+-2.29
+</td>
+<td style="text-align:right;">
+-1.70
+</td>
+<td style="text-align:right;">
+0.15
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2018-10-01
+</td>
+<td style="text-align:right;">
+-7.68
+</td>
+<td style="text-align:right;">
+-4.74
+</td>
+<td style="text-align:right;">
+3.41
+</td>
+<td style="text-align:right;">
+0.19
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2018-11-01
+</td>
+<td style="text-align:right;">
+1.69
+</td>
+<td style="text-align:right;">
+-0.68
+</td>
+<td style="text-align:right;">
+0.28
+</td>
+<td style="text-align:right;">
+0.18
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2018-12-01
+</td>
+<td style="text-align:right;">
+-9.57
+</td>
+<td style="text-align:right;">
+-2.37
+</td>
+<td style="text-align:right;">
+-1.88
+</td>
+<td style="text-align:right;">
+0.20
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2019-01-01
+</td>
+<td style="text-align:right;">
+8.40
+</td>
+<td style="text-align:right;">
+2.89
+</td>
+<td style="text-align:right;">
+-0.44
+</td>
+<td style="text-align:right;">
+0.21
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2019-02-01
+</td>
+<td style="text-align:right;">
+3.40
+</td>
+<td style="text-align:right;">
+2.07
+</td>
+<td style="text-align:right;">
+-2.70
+</td>
+<td style="text-align:right;">
+0.18
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2019-03-01
+</td>
+<td style="text-align:right;">
+1.10
+</td>
+<td style="text-align:right;">
+-3.06
+</td>
+<td style="text-align:right;">
+-4.13
+</td>
+<td style="text-align:right;">
+0.19
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2019-04-01
+</td>
+<td style="text-align:right;">
+3.97
+</td>
+<td style="text-align:right;">
+-1.72
+</td>
+<td style="text-align:right;">
+2.15
+</td>
+<td style="text-align:right;">
+0.21
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2019-05-01
+</td>
+<td style="text-align:right;">
+-6.94
+</td>
+<td style="text-align:right;">
+-1.31
+</td>
+<td style="text-align:right;">
+-2.37
+</td>
+<td style="text-align:right;">
+0.21
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2019-06-01
+</td>
+<td style="text-align:right;">
+6.93
+</td>
+<td style="text-align:right;">
+0.28
+</td>
+<td style="text-align:right;">
+-0.70
+</td>
+<td style="text-align:right;">
+0.18
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2019-07-01
+</td>
+<td style="text-align:right;">
+1.19
+</td>
+<td style="text-align:right;">
+-1.93
+</td>
+<td style="text-align:right;">
+0.47
+</td>
+<td style="text-align:right;">
+0.19
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2019-08-01
+</td>
+<td style="text-align:right;">
+-2.58
+</td>
+<td style="text-align:right;">
+-2.39
+</td>
+<td style="text-align:right;">
+-4.79
+</td>
+<td style="text-align:right;">
+0.16
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2019-09-01
+</td>
+<td style="text-align:right;">
+1.43
+</td>
+<td style="text-align:right;">
+-0.96
+</td>
+<td style="text-align:right;">
+6.75
+</td>
+<td style="text-align:right;">
+0.18
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2019-10-01
+</td>
+<td style="text-align:right;">
+2.06
+</td>
+<td style="text-align:right;">
+0.30
+</td>
+<td style="text-align:right;">
+-1.90
+</td>
+<td style="text-align:right;">
+0.16
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2019-11-01
+</td>
+<td style="text-align:right;">
+3.88
+</td>
+<td style="text-align:right;">
+0.79
+</td>
+<td style="text-align:right;">
+-2.01
+</td>
+<td style="text-align:right;">
+0.12
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2019-12-01
+</td>
+<td style="text-align:right;">
+2.77
+</td>
+<td style="text-align:right;">
+0.74
+</td>
+<td style="text-align:right;">
+1.77
+</td>
+<td style="text-align:right;">
+0.14
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2020-01-01
+</td>
+<td style="text-align:right;">
+-0.11
+</td>
+<td style="text-align:right;">
+-3.12
+</td>
+<td style="text-align:right;">
+-6.28
+</td>
+<td style="text-align:right;">
+0.13
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2020-02-01
+</td>
+<td style="text-align:right;">
+-8.13
+</td>
+<td style="text-align:right;">
+1.07
+</td>
+<td style="text-align:right;">
+-3.80
+</td>
+<td style="text-align:right;">
+0.12
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2020-03-01
+</td>
+<td style="text-align:right;">
+-13.38
+</td>
+<td style="text-align:right;">
+-4.82
+</td>
+<td style="text-align:right;">
+-13.83
+</td>
+<td style="text-align:right;">
+0.13
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2020-04-01
+</td>
+<td style="text-align:right;">
+13.65
+</td>
+<td style="text-align:right;">
+2.46
+</td>
+<td style="text-align:right;">
+-1.34
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2020-05-01
+</td>
+<td style="text-align:right;">
+5.58
+</td>
+<td style="text-align:right;">
+2.49
+</td>
+<td style="text-align:right;">
+-4.86
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2020-06-01
+</td>
+<td style="text-align:right;">
+2.46
+</td>
+<td style="text-align:right;">
+2.69
+</td>
+<td style="text-align:right;">
+-2.21
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2020-07-01
+</td>
+<td style="text-align:right;">
+5.77
+</td>
+<td style="text-align:right;">
+-2.31
+</td>
+<td style="text-align:right;">
+-1.41
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2020-08-01
+</td>
+<td style="text-align:right;">
+7.63
+</td>
+<td style="text-align:right;">
+-0.24
+</td>
+<td style="text-align:right;">
+-2.97
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2020-09-01
+</td>
+<td style="text-align:right;">
+-3.63
+</td>
+<td style="text-align:right;">
+0.02
+</td>
+<td style="text-align:right;">
+-2.70
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2020-10-01
+</td>
+<td style="text-align:right;">
+-2.10
+</td>
+<td style="text-align:right;">
+4.38
+</td>
+<td style="text-align:right;">
+4.23
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2020-11-01
+</td>
+<td style="text-align:right;">
+12.47
+</td>
+<td style="text-align:right;">
+5.80
+</td>
+<td style="text-align:right;">
+2.06
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2020-12-01
+</td>
+<td style="text-align:right;">
+4.63
+</td>
+<td style="text-align:right;">
+4.88
+</td>
+<td style="text-align:right;">
+-1.51
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2021-01-01
+</td>
+<td style="text-align:right;">
+-0.03
+</td>
+<td style="text-align:right;">
+7.37
+</td>
+<td style="text-align:right;">
+3.04
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2021-02-01
+</td>
+<td style="text-align:right;">
+2.78
+</td>
+<td style="text-align:right;">
+2.06
+</td>
+<td style="text-align:right;">
+7.09
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2021-03-01
+</td>
+<td style="text-align:right;">
+3.08
+</td>
+<td style="text-align:right;">
+-2.36
+</td>
+<td style="text-align:right;">
+7.40
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2021-04-01
+</td>
+<td style="text-align:right;">
+4.93
+</td>
+<td style="text-align:right;">
+-3.19
+</td>
+<td style="text-align:right;">
+-0.97
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2021-05-01
+</td>
+<td style="text-align:right;">
+0.29
+</td>
+<td style="text-align:right;">
+-0.21
+</td>
+<td style="text-align:right;">
+7.08
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2021-06-01
+</td>
+<td style="text-align:right;">
+2.75
+</td>
+<td style="text-align:right;">
+1.66
+</td>
+<td style="text-align:right;">
+-7.84
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2021-07-01
+</td>
+<td style="text-align:right;">
+1.27
+</td>
+<td style="text-align:right;">
+-3.97
+</td>
+<td style="text-align:right;">
+-1.84
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2021-08-01
+</td>
+<td style="text-align:right;">
+2.91
+</td>
+<td style="text-align:right;">
+-0.41
+</td>
+<td style="text-align:right;">
+-0.19
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2021-09-01
+</td>
+<td style="text-align:right;">
+-4.37
+</td>
+<td style="text-align:right;">
+0.68
+</td>
+<td style="text-align:right;">
+5.15
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2021-10-01
+</td>
+<td style="text-align:right;">
+6.65
+</td>
+<td style="text-align:right;">
+-2.35
+</td>
+<td style="text-align:right;">
+-0.45
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2021-11-01
+</td>
+<td style="text-align:right;">
+-1.55
+</td>
+<td style="text-align:right;">
+-1.31
+</td>
+<td style="text-align:right;">
+-0.44
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2021-12-01
+</td>
+<td style="text-align:right;">
+3.10
+</td>
+<td style="text-align:right;">
+-1.68
+</td>
+<td style="text-align:right;">
+3.25
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2022-01-01
+</td>
+<td style="text-align:right;">
+-6.25
+</td>
+<td style="text-align:right;">
+-5.95
+</td>
+<td style="text-align:right;">
+12.88
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2022-02-01
+</td>
+<td style="text-align:right;">
+-2.29
+</td>
+<td style="text-align:right;">
+2.20
+</td>
+<td style="text-align:right;">
+3.11
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2022-03-01
+</td>
+<td style="text-align:right;">
+3.05
+</td>
+<td style="text-align:right;">
+-1.62
+</td>
+<td style="text-align:right;">
+-1.81
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2022-04-01
+</td>
+<td style="text-align:right;">
+-9.46
+</td>
+<td style="text-align:right;">
+-1.39
+</td>
+<td style="text-align:right;">
+6.20
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2022-05-01
+</td>
+<td style="text-align:right;">
+-0.34
+</td>
+<td style="text-align:right;">
+-1.84
+</td>
+<td style="text-align:right;">
+8.48
+</td>
+<td style="text-align:right;">
+0.03
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2022-06-01
+</td>
+<td style="text-align:right;">
+-8.43
+</td>
+<td style="text-align:right;">
+2.10
+</td>
+<td style="text-align:right;">
+-6.01
+</td>
+<td style="text-align:right;">
+0.06
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2022-07-01
+</td>
+<td style="text-align:right;">
+9.57
+</td>
+<td style="text-align:right;">
+2.80
+</td>
+<td style="text-align:right;">
+-4.05
+</td>
+<td style="text-align:right;">
+0.08
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2022-08-01
+</td>
+<td style="text-align:right;">
+-3.77
+</td>
+<td style="text-align:right;">
+1.40
+</td>
+<td style="text-align:right;">
+0.29
+</td>
+<td style="text-align:right;">
+0.19
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2022-09-01
+</td>
+<td style="text-align:right;">
+-9.35
+</td>
+<td style="text-align:right;">
+-0.82
+</td>
+<td style="text-align:right;">
+0.05
+</td>
+<td style="text-align:right;">
+0.19
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2022-10-01
+</td>
+<td style="text-align:right;">
+7.83
+</td>
+<td style="text-align:right;">
+0.07
+</td>
+<td style="text-align:right;">
+8.02
+</td>
+<td style="text-align:right;">
+0.23
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2022-11-01
+</td>
+<td style="text-align:right;">
+4.60
+</td>
+<td style="text-align:right;">
+-3.50
+</td>
+<td style="text-align:right;">
+1.38
+</td>
+<td style="text-align:right;">
+0.29
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2022-12-01
+</td>
+<td style="text-align:right;">
+-6.41
+</td>
+<td style="text-align:right;">
+-0.70
+</td>
+<td style="text-align:right;">
+1.36
+</td>
+<td style="text-align:right;">
+0.33
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2023-01-01
+</td>
+<td style="text-align:right;">
+6.65
+</td>
+<td style="text-align:right;">
+5.00
+</td>
+<td style="text-align:right;">
+-4.02
+</td>
+<td style="text-align:right;">
+0.35
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2023-02-01
+</td>
+<td style="text-align:right;">
+-2.58
+</td>
+<td style="text-align:right;">
+1.17
+</td>
+<td style="text-align:right;">
+-0.80
+</td>
+<td style="text-align:right;">
+0.34
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2023-03-01
+</td>
+<td style="text-align:right;">
+2.51
+</td>
+<td style="text-align:right;">
+-5.52
+</td>
+<td style="text-align:right;">
+-8.87
+</td>
+<td style="text-align:right;">
+0.36
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2023-04-01
+</td>
+<td style="text-align:right;">
+0.61
+</td>
+<td style="text-align:right;">
+-3.35
+</td>
+<td style="text-align:right;">
+-0.05
+</td>
+<td style="text-align:right;">
+0.35
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2023-05-01
+</td>
+<td style="text-align:right;">
+0.35
+</td>
+<td style="text-align:right;">
+1.60
+</td>
+<td style="text-align:right;">
+-7.72
+</td>
+<td style="text-align:right;">
+0.36
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2023-06-01
+</td>
+<td style="text-align:right;">
+6.46
+</td>
+<td style="text-align:right;">
+1.54
+</td>
+<td style="text-align:right;">
+-0.25
+</td>
+<td style="text-align:right;">
+0.40
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2023-07-01
+</td>
+<td style="text-align:right;">
+3.21
+</td>
+<td style="text-align:right;">
+2.07
+</td>
+<td style="text-align:right;">
+4.09
+</td>
+<td style="text-align:right;">
+0.45
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2023-08-01
+</td>
+<td style="text-align:right;">
+-2.39
+</td>
+<td style="text-align:right;">
+-3.12
+</td>
+<td style="text-align:right;">
+-1.12
+</td>
+<td style="text-align:right;">
+0.45
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2023-09-01
+</td>
+<td style="text-align:right;">
+-5.24
+</td>
+<td style="text-align:right;">
+-2.49
+</td>
+<td style="text-align:right;">
+1.51
+</td>
+<td style="text-align:right;">
+0.43
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2023-10-01
+</td>
+<td style="text-align:right;">
+-3.18
+</td>
+<td style="text-align:right;">
+-3.86
+</td>
+<td style="text-align:right;">
+0.17
+</td>
+<td style="text-align:right;">
+0.47
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2023-11-01
+</td>
+<td style="text-align:right;">
+8.84
+</td>
+<td style="text-align:right;">
+-0.01
+</td>
+<td style="text-align:right;">
+1.61
+</td>
+<td style="text-align:right;">
+0.44
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2023-12-01
+</td>
+<td style="text-align:right;">
+4.87
+</td>
+<td style="text-align:right;">
+6.34
+</td>
+<td style="text-align:right;">
+4.93
+</td>
+<td style="text-align:right;">
+0.43
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2024-01-01
+</td>
+<td style="text-align:right;">
+0.70
+</td>
+<td style="text-align:right;">
+-5.10
+</td>
+<td style="text-align:right;">
+-2.33
+</td>
+<td style="text-align:right;">
+0.47
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2024-02-01
+</td>
+<td style="text-align:right;">
+5.06
+</td>
+<td style="text-align:right;">
+-0.16
+</td>
+<td style="text-align:right;">
+-3.54
+</td>
+<td style="text-align:right;">
+0.42
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2024-03-01
+</td>
+<td style="text-align:right;">
+2.83
+</td>
+<td style="text-align:right;">
+-2.46
+</td>
+<td style="text-align:right;">
+4.16
+</td>
+<td style="text-align:right;">
+0.43
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2024-04-01
+</td>
+<td style="text-align:right;">
+-4.67
+</td>
+<td style="text-align:right;">
+-2.34
+</td>
+<td style="text-align:right;">
+-0.54
+</td>
+<td style="text-align:right;">
+0.47
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2024-05-01
+</td>
+<td style="text-align:right;">
+4.34
+</td>
+<td style="text-align:right;">
+0.61
+</td>
+<td style="text-align:right;">
+-1.37
+</td>
+<td style="text-align:right;">
+0.44
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2024-06-01
+</td>
+<td style="text-align:right;">
+2.78
+</td>
+<td style="text-align:right;">
+-3.02
+</td>
+<td style="text-align:right;">
+-3.31
+</td>
+<td style="text-align:right;">
+0.41
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="descriptive-statistics" class="section level1">
+<h1>Descriptive statistics</h1>
+<pre class="r"><code>apply(data[,-1], 2, get_stat) %&gt;% 
+    stargazer(type = &quot;text&quot;, digits=2)</code></pre>
+<pre><code>
+==================================
+         Mkt-RF  SMB    HML    RF 
+----------------------------------
+Min.     -17.23 -17.20 -13.83  0  
+1st Qu.  -2.02  -1.85  -1.69  0.01
+Median    1.17   0.08  -0.05  0.09
+Mean      0.58   0.13   0.18  0.14
+3rd Qu.   3.31   1.84   1.78  0.23
+Max.     13.65  21.36  12.88  0.56
+2.5%     -9.42  -5.01  -7.42   0  
+50%       1.17   0.08  -0.05  0.09
+97.5%     8.70   6.02   7.89  0.48
+sd        4.61   3.21   3.50  0.16
+skewness -0.48   0.74   0.20  0.92
+kurtosis  3.71  11.64   5.27  2.50
+----------------------------------</code></pre>
+<ul>
+<li>sd(SMB) &lt; sd(HML), meaning SMB has less dispersion, smaller spread.</li>
+<li>kurtosis(SMB) &gt; kurtosis(HML), meaning SMB has more outliers.</li>
+</ul>
+<div id="distribution-of-smb" class="section level2">
+<h2>Distribution of SMB</h2>
+<p>Plot histogra, empirical density, and compare with normal density (in blue).</p>
+<pre class="r"><code>ggplot(data, aes(x=SMB)) +
+    geom_histogram(aes(y=..density..), 
+                   fill=&quot;#BDBCBC&quot;, 
+                   color=&quot;black&quot;, 
+                   binwidth = 2, 
+                   boundary=0) +
+    geom_density(color=&quot;black&quot;) +
+    stat_function(fun = dnorm, args = list(mean = 0, sd = 1), color=&quot;blue&quot;) +
+    labs(x=&quot;Small minus big, SMB&quot;)</code></pre>
+<p><img src="03_applications_files/figure-html/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Issue: hard to see the tail behavior.
+Solution: use QQ plot.</p>
+<p>The Q-Q plot, or quantile-quantile plot, is a graphical tool to help us assess if a set of data plausibly came from some theoretical distribution such as a normal distribution.</p>
+<ul>
+<li>For example, if we run a statistical analysis that <span style="color:#337ab7">assumes our <strong>residuals</strong> are normally distributed</span>, we can use a normal Q-Q plot to check that assumption.</li>
+</ul>
+<p>A QQ plot is a scatter plot created by plotting two sets of quantiles against one another. If both sets of quantiles came from the same distribution, we should see the points forming a line that’s roughly straight.</p>
+<pre class="r"><code>ggplot(data, aes(sample=SMB)) +
+    geom_qq() +
+    geom_qq_line(color=&quot;red&quot;) +
+    labs(x=&quot;Theoretical quantiles&quot;, y=&quot;Sample quantiles&quot;, 
+         title=sprintf(&quot;Normal Q-Q plot — SMB, sd: %.2f, kurtosis: %.2f&quot;, sd(data$SMB), kurtosis(data$SMB))) +
+    scale_y_continuous(limits=c(-15,20))</code></pre>
+<p><img src="03_applications_files/figure-html/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><span style="color:#337ab7">Standardize</span> SMB to improve visualization</p>
+<ul>
+<li>Without standardization, the scale of the RV will affect your judgement.</li>
+</ul>
+<pre class="r"><code>ggplot() +
+    geom_qq(aes(sample=with(data, (SMB-mean(SMB))/sd(SMB)))) +
+    geom_qq_line(aes(sample=with(data, (SMB-mean(SMB))/sd(SMB))), color=&quot;red&quot;) +
+    labs(x=&quot;Theoretical quantiles&quot;, y=&quot;Sample quantiles&quot;, 
+         title=sprintf(&quot;Normal Q-Q plot — SMB, sd: %.2f, kurtosis: %.2f&quot;, sd(data$SMB), kurtosis(data$SMB))) </code></pre>
+<p><img src="03_applications_files/figure-html/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="distribution-of-hml" class="section level2">
+<h2>Distribution of HML</h2>
+<pre class="r"><code>ggplot(data, aes(x=HML)) +
+    geom_histogram(aes(y=..density..), 
+                   fill=&quot;#BDBCBC&quot;, 
+                   color=&quot;black&quot;, 
+                   binwidth = 2, 
+                   boundary=0) +
+    geom_density(color=&quot;black&quot;) +
+    stat_function(fun = dnorm, args = list(mean = 0, sd = 1), color=&quot;blue&quot;) +
+    labs(x=&quot;High minus low, HML&quot;)</code></pre>
+<p><img src="03_applications_files/figure-html/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggplot(data, aes(sample=HML)) +
+    geom_qq() +
+    geom_qq_line(color=&quot;red&quot;) +
+    labs(x=&quot;Theoretical quantiles&quot;, y=&quot;Sample quantiles&quot;, 
+         title=sprintf(&quot;Normal Q-Q plot — HML, sd: %.2f, kurtosis: %.2f&quot;, sd(data$HML), kurtosis(data$HML))) +
+    scale_y_continuous(limits=c(-15,20))</code></pre>
+<p><img src="03_applications_files/figure-html/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><span style="color:#337ab7">Standardize</span> HML to improve visualization</p>
+<pre class="r"><code>ggplot() +
+    geom_qq(aes(sample=with(data, (HML-mean(HML))/sd(HML)))) +
+    geom_qq_line(aes(sample=with(data, (HML-mean(HML))/sd(HML))), color=&quot;red&quot;) +
+    labs(x=&quot;Theoretical quantiles&quot;, y=&quot;Sample quantiles&quot;, 
+         title=sprintf(&quot;Normal Q-Q plot — HML, sd: %.2f, kurtosis: %.2f&quot;, sd(data$HML), kurtosis(data$HML)))</code></pre>
+<p><img src="03_applications_files/figure-html/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+<hr />
+</div>
+</div>
+<div id="sample-estimators" class="section level1">
+<h1>Sample estimators</h1>
+<p>Bernoulli distribution with different values of <span class="math inline">\(p\)</span></p>
+<pre class="r"><code>set.seed(125)
+# sample size=10, Bernoulli(p=0.1)
+rbinom(n = 10, size = 1, prob = c(.10)) </code></pre>
+<pre><code>##  [1] 0 0 0 0 1 1 0 0 0 0</code></pre>
+<pre class="r"><code># sample size=10, Bernoulli(p=0.5)
+rbinom(n = 10, size = 1, prob = c(.50)) </code></pre>
+<pre><code>##  [1] 0 1 0 0 1 0 0 1 1 1</code></pre>
+<pre class="r"><code># sample size=10, Bernoulli(p=0.9)
+rbinom(n = 10, size = 1, prob = c(.90)) </code></pre>
+<pre><code>##  [1] 1 1 1 1 1 1 1 1 1 1</code></pre>
+<hr />
+<p>Bernoulli distribution with different sample size</p>
+<pre class="r"><code>set.seed(125)
+# sample size=10
+p_hat_1 &lt;- sum(rbinom(n = 10, size = 1, prob = c(.50)))/10
+# sample size=100
+p_hat_2 &lt;- sum(rbinom(n = 100, size = 1, prob = c(.50)))/100
+# sample size=1,000
+p_hat_3 &lt;- sum(rbinom(n = 1000, size = 1, prob = c(.50)))/1000
+# sample size=10,000
+p_hat_4 &lt;- sum(rbinom(n = 10000, size = 1, prob = c(.50)))/10000
+c(p_hat_1, p_hat_2, p_hat_3, p_hat_4)</code></pre>
+<pre><code>## [1] 0.6000 0.5600 0.4850 0.5007</code></pre>
+<p><strong>Conclusion</strong>: sample average approaches better to the population as sample size increases.</p>
+<hr />
+<p><strong>Uncertainty reduces as sample size increases</strong></p>
+<pre class="r"><code>bt &lt;- 100
+# sample size=10, have 100 such samples, calculate the df of p_hat
+rbinom(n = 10*bt, size = 1, prob = c(.50)) %&gt;% 
+    matrix(ncol=bt, byrow=FALSE) %&gt;% 
+    apply(2, function(col) sum(col)/10) %&gt;% 
+    sd()</code></pre>
+<pre><code>## [1] 0.1623564</code></pre>
+<pre class="r"><code># sample size=100
+rbinom(n = 100*bt, size = 1, prob = c(.50)) %&gt;% 
+    matrix(ncol=bt, byrow=FALSE) %&gt;% 
+    apply(2, function(col) sum(col)/100) %&gt;% 
+    sd()</code></pre>
+<pre><code>## [1] 0.0483141</code></pre>
+<pre class="r"><code># sample size=1,000
+rbinom(n = 1000*bt, size = 1, prob = c(.50)) %&gt;% 
+    matrix(ncol=bt, byrow=FALSE) %&gt;% 
+    apply(2, function(col) sum(col)/1000) %&gt;% 
+    sd()</code></pre>
+<pre><code>## [1] 0.01670994</code></pre>
+<pre class="r"><code># sample size=10,000
+rbinom(n = 10000*bt, size = 1, prob = c(.50)) %&gt;% 
+    matrix(ncol=bt, byrow=FALSE) %&gt;% 
+    apply(2, function(col) sum(col)/10000) %&gt;% 
+    sd()</code></pre>
+<pre><code>## [1] 0.005463507</code></pre>
+<hr />
+</div>
+<div id="skewness" class="section level1">
+<h1>Skewness</h1>
+<div id="positive-skew" class="section level2">
+<h2>Positive skew</h2>
+<p>Positively skewed (mean &gt; median) data have a J-shaped pattern in the Q-Q plot.</p>
+<pre class="r"><code>library(fGarch)
+sim_data &lt;- rsnorm(10000, mean = 0, sd = 1, xi = 2.5)
+c(&quot;mean&quot; = mean(sim_data),
+  &quot;sd&quot; = sd(sim_data),
+  &quot;median&quot;= median(sim_data),
+  &quot;skew&quot; = skewness(sim_data),
+  &quot;kurtosis&quot; = kurtosis(sim_data)) %&gt;% 
+    as_tibble_row() %&gt;% 
+    kable(floating.environment=&quot;sidewaystable&quot;, digits = 3, escape=F) %&gt;%
+    kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;), full_width = F, latex_options=&quot;scale_down&quot;) </code></pre>
+<table class="table table-striped table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+mean
+</th>
+<th style="text-align:right;">
+sd
+</th>
+<th style="text-align:right;">
+median
+</th>
+<th style="text-align:right;">
+skew
+</th>
+<th style="text-align:right;">
+kurtosis
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+-0.008
+</td>
+<td style="text-align:right;">
+0.997
+</td>
+<td style="text-align:right;">
+-0.189
+</td>
+<td style="text-align:right;">
+0.872
+</td>
+<td style="text-align:right;">
+3.558
+</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>ggplot() +
+    geom_histogram(aes(x=sim_data, 
+                       y=..density..),
+                   fill=&quot;#BDBCBC&quot;, 
+                   color=&quot;black&quot;, 
+                   binwidth = .2, 
+                   boundary=0) +
+    geom_density(aes(x=sim_data), color=&quot;black&quot;) +
+    stat_function(fun = dnorm, args = list(mean = 0, sd = 1), color=&quot;blue&quot;) +
+    stat_function(fun = dnorm, args = list(mean = 0, sd = 1), fill=&quot;blue&quot;, geom=&quot;area&quot;, alpha=0.2) +
+    labs(x=&quot;Sample values&quot;, y=&quot;Density&quot;, title=&quot;Density plot&quot;) +
+    scale_x_continuous(limits = c(-4,4))</code></pre>
+<p><img src="03_applications_files/figure-html/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggplot() +
+    geom_qq(aes(sample=sim_data)) +
+    geom_qq_line(aes(sample=sim_data), color=&quot;red&quot;) +
+    labs(x=&quot;Theoretical quantiles&quot;, y=&quot;Sample quantiles&quot;, 
+         title=&quot;Normal Q-Q plot&quot;)</code></pre>
+<p><img src="03_applications_files/figure-html/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="negative-skew" class="section level2">
+<h2>Negative skew</h2>
+<p>Negatively skewed (mean &lt; median) data have Q-Q plots that display an inverted J-shape.</p>
+<table class="table table-striped table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+mean
+</th>
+<th style="text-align:right;">
+sd
+</th>
+<th style="text-align:right;">
+median
+</th>
+<th style="text-align:right;">
+skew
+</th>
+<th style="text-align:right;">
+kurtosis
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+-0.026
+</td>
+<td style="text-align:right;">
+1.004
+</td>
+<td style="text-align:right;">
+0.147
+</td>
+<td style="text-align:right;">
+-0.817
+</td>
+<td style="text-align:right;">
+3.423
+</td>
+</tr>
+</tbody>
+</table>
+<p><img src="03_applications_files/figure-html/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="03_applications_files/figure-html/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" /></p>
+<hr />
+</div>
+</div>
+<div id="kurtosis" class="section level1">
+<h1>Kurtosis</h1>
+<div id="fat-tails" class="section level2">
+<h2>Fat tails</h2>
+This plot shows a t-distribution with <span class="math inline">\(3\)</span> degrees of freedom.
+<table class="table table-striped table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+mean
+</th>
+<th style="text-align:right;">
+sd
+</th>
+<th style="text-align:right;">
+median
+</th>
+<th style="text-align:right;">
+skew
+</th>
+<th style="text-align:right;">
+kurtosis
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+-0.068
+</td>
+<td style="text-align:right;">
+1.585
+</td>
+<td style="text-align:right;">
+-0.048
+</td>
+<td style="text-align:right;">
+-0.139
+</td>
+<td style="text-align:right;">
+9.91
+</td>
+</tr>
+</tbody>
+</table>
+<p><img src="03_applications_files/figure-html/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="03_applications_files/figure-html/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="thin-tails" class="section level2">
+<h2>Thin tails</h2>
+<p>The data in the plot below is a combination uniform distribution with minimum <span class="math inline">\(-1\)</span> and maximum <span class="math inline">\(1\)</span> and a normal distribution with mean <span class="math inline">\(0\)</span> and standard deviation <span class="math inline">\(0.1\)</span>.</p>
+<table class="table table-striped table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+mean
+</th>
+<th style="text-align:right;">
+sd
+</th>
+<th style="text-align:right;">
+median
+</th>
+<th style="text-align:right;">
+skew
+</th>
+<th style="text-align:right;">
+kurtosis
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+0.039
+</td>
+<td style="text-align:right;">
+0.586
+</td>
+<td style="text-align:right;">
+0.044
+</td>
+<td style="text-align:right;">
+-0.05
+</td>
+<td style="text-align:right;">
+1.877
+</td>
+</tr>
+</tbody>
+</table>
+<p><img src="03_applications_files/figure-html/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="03_applications_files/figure-html/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="references" class="section level1">
+<h1>References</h1>
+<p>Social Science Computing Cooperative, Normality, University of Wisconsin-Madison, accessed 29 August 2024, <a href="https://sscc.wisc.edu/sscc/pubs/RegDiag-R/normality.html" class="uri">https://sscc.wisc.edu/sscc/pubs/RegDiag-R/normality.html</a>.</p>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML.js";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

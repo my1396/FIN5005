@@ -1,5 +1,5 @@
 ---
-title: "Exercise 1"
+title: "Probability Review -- Exercise"
 author: "Menghan Yuan"
 date: "Aug 29, 2024"
 output:
