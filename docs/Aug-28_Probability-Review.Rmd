@@ -200,6 +200,8 @@ $$
 since the two events are mutually exclusive.
 
 
+___
+
 ```{example, ex1}
 In a presidential election, there are four candidates. Call them A, B, C, and D. Based on our polling analysis, we estimate that A has a 20 percent chance of winning the election, while B has a 40 percent chance of winning. What is the probability that A or B win the election?
 ```
@@ -455,6 +457,8 @@ $$
 
 What if $g(\cdot)$ is not strictly monotonic? Solutions exist, but we will not encounter such cases.
 
+---
+
 ```{example, ex2}
 Let $Y=g(X)=\mu+\sigma X$ where $\sigma>0$. Representing the CDF of $Y$ using $F_X(x)$.
 ```
@@ -472,6 +476,8 @@ $$
 F_Y(y) = F_X\left(g^{-1}(y)\right) = F_X\left(\frac{y-\mu}{\sigma}\right)
 $$
 </div>
+
+---
 
 
 The density function can be obtained by:
@@ -531,6 +537,7 @@ $$
 \end{cases}
 $$
 
+___
 
 ```{example, ex3}
 Let $X\sim \text{Bernoulli}(p)$. Calculate $\mathbb{E}(X)$.
@@ -553,6 +560,7 @@ $$
 $$
 </div>
 
+___
 
 
 A useful property of expected values is that the expectation operator is a <span style='color:#337ab7'>linear operator</span>, meaning that we have
@@ -567,6 +575,7 @@ $$
 \end{aligned}
 $$
 
+___
 
 ```{example, ex4}
 Let $X\sim N(0,1)$ and $Y=\mu+\sigma X$. Calculate $\mathbb{E}(Y)$.
@@ -584,6 +593,7 @@ $$
 $$
 </div>
 
+___
 
 
 - Expectation is a population quantity because it requires knowledge of the density function.
@@ -607,7 +617,7 @@ $$
 
 ## Variance
 
-The variance is obtained by setting $g(X) = \left(X − \mathbb{E}(X)\right)^2$:
+The variance is obtained by setting $g(X) = \left[X − \mathbb{E}(X)\right]^2$:
 $$
 \begin{aligned}
 \text{Var}(X) &= \mathbb{E}\left[\left(X − \mathbb{E}(X)\right)^2\right] \\
@@ -635,6 +645,8 @@ $$
 \end{aligned}
 $$
 
+___
+
 ```{example, ex5}
 Let $X\sim \text{Bernoulli}(p)$. Calculate $\text{Var}(X)$.
 ```
@@ -656,6 +668,7 @@ $$
 $$ 
 </div>
 
+___
 
 - The variance operator is the expectation of a quadratic function, and hence not a linear operator; instead we have the relation
 $$
@@ -663,6 +676,7 @@ $$
 $$
 for any two constants $a$ and $b$.
 
+___
 
 ```{example, ex6}
 Let $X\sim N(0,1)$ and $Y=\mu+\sigma X$. Calculate $\text{Var}(Y)$.
@@ -675,6 +689,8 @@ $$
 $$
 Thus, $Y\sim N(\mu, \sigma^2)$.
 </div>
+
+___
 
 **Variance of sum of RVs**
 
@@ -723,11 +739,24 @@ $$
 
 Let $X$ and $Y$ be two random variables. Then, the <span style='color:#008B45FF'>covariance</span> between $X$ and $Y$ is given by
 $$
-\text{Cov}(X,Y) = \mathbb{E}\left[(X-\mathbb{E}[X])(Y-\mathbb{E}[Y])\right] .
+\gamma \equiv \text{Cov}(X,Y) = \mathbb{E}\left[(X-\mathbb{E}[X])(Y-\mathbb{E}[Y])\right] .
 $$
 
 - Covariance provides information about the direction of comovement between two random variables.
+- Covariance between $X$ and $Y$ is also written as $\sigma_{XY}$.
 - The magnitude of covariance does not give any information on the strength of association between two random variables. In other words, $\text{Cov}(X, Y) = 100$ and $\text{Cov}(W, Z) = 1$ does not necessarily mean that $X$ and $Y$ are much strongly related compared to $W$ and $Z$.
+
+
+More formally
+
+$$
+\begin{aligned}
+\textrm{Cov}(X, Y) = \begin{cases}
+\sum_y\sum_x[X-\mathbb{E}(X)][Y-\mathbb{E}(Y)]f(x,y) & \textrm{for } X, Y \textrm{ discrete}  \\
+\iint[X-\mathbb{E}(X)][Y-\mathbb{E}(Y)]f(x,y) dxdy   & \textrm{for } X, Y \textrm{ continuous}  \\
+\end{cases}
+\end{aligned}
+$$
 
 The <span style='color:#008B45FF'>sample covariance</span>, $\hat{\gamma}$, in a sample of $n$ observations on $(X_i,Y_i)$ is
 
@@ -748,8 +777,10 @@ $$
 - Correlation is always in the interval $[−1, 1]$.
 - Unlike covariance, correlations between different pairs of random variables are comparable.
 
-```{example, ex}
-Let X, Y, W, Z be random variables with $\text{Var}[X] = 200$, $\text{Var}[Y] = 200$, $\text{Var}[W] = 1$, $\text{Var}[Z]=1$, $\text{Cov}[X,Y]=100$ and $\text{Cov}[W,Z]=1$. \
+___
+
+```{example, ex7}
+Let $X, Y, W, Z$ be random variables with $\text{Var}[X] = 200$, $\text{Var}[Y] = 200$, $\text{Var}[W] = 1$, $\text{Var}[Z]=1$, $\text{Cov}[X,Y]=100$ and $\text{Cov}[W,Z]=1$. \
 Compare $\text{Corr}(X,Y)$ and $\text{Corr}(W,Z)$.
 ```
 
@@ -762,6 +793,8 @@ $$
 \end{aligned}
 $$
 </div>
+
+___
 
 ## Skewness and Kurtosis
 

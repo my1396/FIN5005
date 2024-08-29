@@ -14,9 +14,10 @@
 
 <title>Probability Review</title>
 
+<script src="site_libs/header-attrs-2.24/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -29,11 +30,8 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
-<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
-<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 
 <style type="text/css">
@@ -223,69 +221,6 @@ $(document).ready(function () {
 
 
 
-<style type="text/css">
-
-#TOC {
-  margin: 25px 0px 20px 0px;
-}
-@media (max-width: 768px) {
-#TOC {
-  position: relative;
-  width: 100%;
-}
-}
-
-@media print {
-.toc-content {
-  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
-  float: right;
-}
-}
-
-.toc-content {
-  padding-left: 30px;
-  padding-right: 40px;
-}
-
-div.main-container {
-  max-width: 1200px;
-}
-
-div.tocify {
-  width: 20%;
-  max-width: 260px;
-  max-height: 85%;
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-  div.tocify {
-    width: 25%;
-  }
-}
-
-@media (max-width: 767px) {
-  div.tocify {
-    width: 100%;
-    max-width: none;
-  }
-}
-
-.tocify ul, .tocify li {
-  line-height: 20px;
-}
-
-.tocify-subheader .tocify-item {
-  font-size: 0.90em;
-}
-
-.tocify .list-group-item {
-  border-radius: 0px;
-}
-
-
-</style>
-
-
 
 </head>
 
@@ -293,16 +228,6 @@ div.tocify {
 
 
 <div class="container-fluid main-container">
-
-
-<!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row">
-<div class="col-xs-12 col-sm-4 col-md-3">
-<div id="TOC" class="tocify">
-</div>
-</div>
-
-<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -361,8 +286,11 @@ div.tocify {
 <p><a class="top-link" href="#top" id="js-top">↑</a></p>
 <p><strong>Econometrics</strong></p>
 <ul>
-<li>Use of statistical methods to analyse economic data, and to study economic relationships.</li>
-<li>This includes testing economic theories, quantifying relationships, making predictions about counterfactual scenarios, and forecasting future outcomes.</li>
+<li>Use of statistical methods to analyse economic data, and to study
+economic relationships.</li>
+<li>This includes testing economic theories, quantifying relationships,
+making predictions about counterfactual scenarios, and forecasting
+future outcomes.</li>
 <li>Econometric practice.</li>
 <li>Econometric theory.</li>
 </ul>
@@ -370,30 +298,39 @@ div.tocify {
 <ul>
 <li>Cross-section - observations on units at some point in time
 <ul>
-<li>Examples: earnings of individuals; exam results of schools; GDP per capita of countries</li>
+<li>Examples: earnings of individuals; exam results of schools; GDP per
+capita of countries</li>
 </ul></li>
 <li>Time-series - observations on same unit at different points in time
 <ul>
-<li>Examples: quarterly GDP; monthly unemployment; daily exchange rates</li>
+<li>Examples: quarterly GDP; monthly unemployment; daily exchange
+rates</li>
 </ul></li>
-<li>Panel data - repeated observations over time on same units (or time-series data for multiple units)
+<li>Panel data - repeated observations over time on same units (or
+time-series data for multiple units)
 <ul>
-<li>Examples: household expenditures; production of manufacturing firms; growth of OECD countries</li>
+<li>Examples: household expenditures; production of manufacturing firms;
+growth of OECD countries</li>
 </ul></li>
 <li>Data sources - many and varied
 <ul>
-<li>Examples: national statistical agencies; international organisations; company accounts; tax returns (anonymised); household surveys; fieldwork</li>
+<li>Examples: national statistical agencies; international
+organisations; company accounts; tax returns (anonymised); household
+surveys; fieldwork</li>
 </ul></li>
-<li>Some data issues - imperfect measurement; quantity measured ̸= quantity of interest; missing values; non-random samples</li>
+<li>Some data issues - imperfect measurement; quantity measured ̸=
+quantity of interest; missing values; non-random samples</li>
 </ul>
-<p><strong>Course Aims</strong>: statistical foundations, fundamental concepts, and basic methods for cross-section data.</p>
+<p><strong>Course Aims</strong>: statistical foundations, fundamental
+concepts, and basic methods for cross-section data.</p>
 <ul>
 <li>linear regression using cross-section data,</li>
 <li>hypothesis testing,</li>
 <li>properties of estimators and large-sample theory.</li>
 </ul>
 <hr />
-<div id="random-variables-probabilities-kolmogorovs-axioms" class="section level1">
+<div id="random-variables-probabilities-kolmogorovs-axioms"
+class="section level1">
 <h1>Random Variables, Probabilities, Kolmogorov’s Axioms</h1>
 <div id="random-variables" class="section level2">
 <h2>Random Variables</h2>
@@ -402,88 +339,131 @@ div.tocify {
 <li>Example: Coin toss.
 <ul>
 <li>two possible outcomes: heads or tails</li>
-<li>let <span class="math inline">\(X=0\)</span> if heads and <span class="math inline">\(X=1\)</span> if tails</li>
+<li>let <span class="math inline">\(X=0\)</span> if heads and <span
+class="math inline">\(X=1\)</span> if tails</li>
 <li><span class="math inline">\(X\)</span> is a random variable</li>
 </ul></li>
-<li>More generally, a numerical representation or quantitative function of the possible outcomes.</li>
-<li>After the event, the observed outcome is the realized value or realization of the random variable.</li>
+<li>More generally, a numerical representation or quantitative function
+of the possible outcomes.</li>
+<li>After the event, the observed outcome is the realized value or
+realization of the random variable.</li>
 </ul>
-<p><strong>Discrete random variables</strong> take a finite number of possible values.</p>
-<p>Simplest case: only 2 possible values. Binary random variables (e.g. <span class="math inline">\(X\)</span> in the previous slide)</p>
+<p><strong>Discrete random variables</strong> take a finite number of
+possible values.</p>
+<p>Simplest case: only 2 possible values. Binary random variables
+(e.g. <span class="math inline">\(X\)</span> in the previous slide)</p>
 <ul>
 <li>is an individual employed or not?</li>
 <li>is a country an oil exporter or not?</li>
 </ul>
 <p>Can be more than two outcomes.</p>
 <ul>
-<li>which mode of transport (walking, cycling, car, bus, train,. . . ) does an individual use to travel between home and work?</li>
+<li>which mode of transport (walking, cycling, car, bus, train,. . . )
+does an individual use to travel between home and work?</li>
 <li>which brand of breakfast cereal did I eat this morning?</li>
 </ul>
-<p><strong>Continuous random variables</strong> may take infinitely many possible values.</p>
-<p>Examples:
-- height of students in our class;
-- time interval between successive transactions in a financial market.</p>
+<p><strong>Continuous random variables</strong> may take infinitely many
+possible values.</p>
+<p>Examples: - height of students in our class; - time interval between
+successive transactions in a financial market.</p>
 </div>
 <div id="probabilities" class="section level2">
 <h2>Probabilities</h2>
-<p><strong>Probabilities</strong> are used to describe the behavior of random variables.</p>
-<p>Example: if we toss a fair coin and define the binary random variable <span class="math inline">\(X\)</span> as before, then we
-have</p>
+<p><strong>Probabilities</strong> are used to describe the behavior of
+random variables.</p>
+<p>Example: if we toss a fair coin and define the binary random variable
+<span class="math inline">\(X\)</span> as before, then we have</p>
 <p><span class="math display">\[
 \mathbb{P}(X=0) = \mathbb{P}(X=1) = \frac{1}{2}
-\]</span>
-Both probabilities lie between zero and one, and sum to one, as there are only 2 possible outcomes.</p>
-<p>More generally, for discrete random variables, we denote the probability of outcome x using <span class="math inline">\(\mathbb{P}(X = x)\)</span> — sometimes written as <span class="math inline">\(\text{P}(X = x)\)</span> or <span class="math inline">\(\text{Pr}(X = x)\)</span>.</p>
-<p><span style="color:#337ab7">Standard convention</span>: Capital letters denote the random variable, lower case letters denote a particular realization of the random variable.</p>
+\]</span> Both probabilities lie between zero and one, and sum to one,
+as there are only 2 possible outcomes.</p>
+<p>More generally, for discrete random variables, we denote the
+probability of outcome x using <span class="math inline">\(\mathbb{P}(X
+= x)\)</span> — sometimes written as <span
+class="math inline">\(\text{P}(X = x)\)</span> or <span
+class="math inline">\(\text{Pr}(X = x)\)</span>.</p>
+<p><span style="color:#337ab7">Standard convention</span>: Capital
+letters denote the random variable, lower case letters denote a
+particular realization of the random variable.</p>
 <ul>
-<li>For continuous random variables, the probability of any single outcome is equal to <strong>zero</strong>.</li>
-<li>For continuous random variables we focus on interval probabilities, e.g.</li>
+<li>For continuous random variables, the probability of any single
+outcome is equal to <strong>zero</strong>.</li>
+<li>For continuous random variables we focus on interval probabilities,
+e.g.</li>
 </ul>
 <p><span class="math display">\[
-\mathbb{P}(\text{height}&gt;6 \text{ feet}), \qquad \mathbb{P}(5000 \text{ kr}\le \text{weekly wage} &lt; 6000 \text{ kr}),
+\mathbb{P}(\text{height}&gt;6 \text{ feet}), \qquad \mathbb{P}(5000
+\text{ kr}\le \text{weekly wage} &lt; 6000 \text{ kr}),
 \]</span></p>
 </div>
 <div id="kolmogorovs-axioms" class="section level2">
 <h2>Kolmogorov’s axioms</h2>
-<p>For a discrete random variable Y which may take one of <span class="math inline">\(K\)</span> possible <span style="color:#008B45FF"><em>mutually exclusive</em></span> (or <span style="color:#008B45FF"><em>disjoint</em></span>) outcomes denoted by <span class="math inline">\(y_1, y_2, \ldots, y_K,\)</span> any potential set of probabilities should satisfy Kolmogorov’s axioms:</p>
+<p>For a discrete random variable Y which may take one of <span
+class="math inline">\(K\)</span> possible <span
+style="color:#008B45FF"><em>mutually exclusive</em></span> (or <span
+style="color:#008B45FF"><em>disjoint</em></span>) outcomes denoted by
+<span class="math inline">\(y_1, y_2, \ldots, y_K,\)</span> any
+potential set of probabilities should satisfy Kolmogorov’s axioms:</p>
 <ol style="list-style-type: decimal">
-<li><span class="math inline">\(\mathbb{P}(Y=y_i)\ge 0\)</span>, for <span class="math inline">\(j=1,2,\ldots,K.\)</span></li>
-<li><span class="math inline">\(\mathbb{P}(Y=y_1 \text{ or } Y=y_2 \text{ or } \ldots \text{ or } Y=y_K)=1.\)</span></li>
-<li><span class="math inline">\(\mathbb{P}(Y=y_j \text{ or } Y=y_k) = \mathbb{P}(Y=y_j) + \mathbb{P}(Y=y_k)\)</span> for <span class="math inline">\(j\ne k.\)</span></li>
+<li><span class="math inline">\(\mathbb{P}(Y=y_i)\ge 0\)</span>, for
+<span class="math inline">\(j=1,2,\ldots,K.\)</span></li>
+<li><span class="math inline">\(\mathbb{P}(Y=y_1 \text{ or } Y=y_2
+\text{ or } \ldots \text{ or } Y=y_K)=1.\)</span></li>
+<li><span class="math inline">\(\mathbb{P}(Y=y_j \text{ or } Y=y_k) =
+\mathbb{P}(Y=y_j) + \mathbb{P}(Y=y_k)\)</span> for <span
+class="math inline">\(j\ne k.\)</span></li>
 </ol>
 <p>Note:</p>
 <ul>
-<li><span style="color:#008B45FF">Mutually exclusive</span> means that the events cannot occur at the same time. Formally said, <span class="math inline">\(X\)</span> is a set of mutually exclusive events <span style="color:#337ab7">if and only if</span></li>
+<li><span style="color:#008B45FF">Mutually exclusive</span> means that
+the events cannot occur at the same time. Formally said, <span
+class="math inline">\(X\)</span> is a set of mutually exclusive events
+<span style="color:#337ab7">if and only if</span></li>
 </ul>
 <div class="boxed">
-<p>Given any <span class="math inline">\(E_i, E_j \in X\)</span>, if <span class="math inline">\(E_i \ne E_j\)</span> then
-<span class="math display">\[E_i \cap E_j = \varnothing\]</span></p>
+<p>Given any <span class="math inline">\(E_i, E_j \in X\)</span>, if
+<span class="math inline">\(E_i \ne E_j\)</span> then <span
+class="math display">\[E_i \cap E_j = \varnothing\]</span></p>
 </div>
 <ul>
-<li>As a consequence, mutually exclusive events have the property: <span class="math inline">\(P(A\cap B)=0.\)</span></li>
+<li>As a consequence, mutually exclusive events have the property: <span
+class="math inline">\(P(A\cap B)=0.\)</span></li>
 </ul>
-<p>This set of axioms can be generalized to apply to probabilities involving <span style="color:#008B45FF">continuous random variables</span>.</p>
-<p>For each <em>event</em> <span class="math inline">\(E\)</span> in the <em>sample space</em> <span class="math inline">\(\Omega\)</span>,</p>
+<p>This set of axioms can be generalized to apply to probabilities
+involving <span style="color:#008B45FF">continuous random
+variables</span>.</p>
+<p>For each <em>event</em> <span class="math inline">\(E\)</span> in the
+<em>sample space</em> <span class="math inline">\(\Omega\)</span>,</p>
 <ol style="list-style-type: decimal">
-<li><span class="math inline">\(\mathbb{P}(E)\ge 0\)</span> for all <span class="math inline">\(A\in \Omega .\)</span></li>
-<li><span class="math inline">\(\mathbb{P}(\Omega)=1.\)</span> Probability of the sample space <span class="math inline">\(\Omega\)</span> is one.</li>
-<li>If <span class="math inline">\(E_1, E_2, E_3, \cdots\)</span> are disjoint events, then
-<span class="math display">\[\mathbb{P}(E_1\cup E_2\cup E_3 \cdots)=\mathbb{P}(E_1)+\mathbb{P}(E_2)+\mathbb{P}(E_3)+\cdots\]</span>
-For instance, if the random variable <span class="math inline">\(W\)</span> represents weekly wages in kr, and we consider the mutually exclusive events
-<span class="math display">\[
-5000 \text{ kr} \le W &lt; 5500 \text{ kr}  \qquad 5500 \text{ kr} \le W &lt; 6000 \text{ kr}
-\]</span>
-then
-<span class="math display">\[
+<li><span class="math inline">\(\mathbb{P}(E)\ge 0\)</span> for all
+<span class="math inline">\(A\in \Omega .\)</span></li>
+<li><span class="math inline">\(\mathbb{P}(\Omega)=1.\)</span>
+Probability of the sample space <span
+class="math inline">\(\Omega\)</span> is one.</li>
+<li>If <span class="math inline">\(E_1, E_2, E_3, \cdots\)</span> are
+disjoint events, then <span class="math display">\[\mathbb{P}(E_1\cup
+E_2\cup E_3
+\cdots)=\mathbb{P}(E_1)+\mathbb{P}(E_2)+\mathbb{P}(E_3)+\cdots\]</span>
+For instance, if the random variable <span
+class="math inline">\(W\)</span> represents weekly wages in kr, and we
+consider the mutually exclusive events <span class="math display">\[
+5000 \text{ kr} \le W &lt; 5500 \text{ kr}  \qquad 5500 \text{ kr} \le W
+&lt; 6000 \text{ kr}
+\]</span> then <span class="math display">\[
 \begin{align}
-&amp;\text{P}(5000 \text{ kr} \le W &lt; 5500 \text{ kr or } 5500 \text{ kr} \le W &lt; 6000  \text{ kr}) \\
-=\, &amp;\text{P}(5000 \text{ kr} \le W &lt; 5500 \text{ kr}) + \text{P}(5500 \text{ kr} \le W &lt; 6000 \text{ kr})
+&amp;\text{P}(5000 \text{ kr} \le W &lt; 5500 \text{ kr or } 5500 \text{
+kr} \le W &lt; 6000  \text{ kr}) \\
+=\, &amp;\text{P}(5000 \text{ kr} \le W &lt; 5500 \text{ kr}) +
+\text{P}(5500 \text{ kr} \le W &lt; 6000 \text{ kr})
 \end{align}
-\]</span>
-since the two events are mutually exclusive.</li>
+\]</span> since the two events are mutually exclusive.</li>
 </ol>
-<div class="example">
-<p><span id="exm:ex1" class="example"><strong>Example 1  </strong></span>In a presidential election, there are four candidates. Call them A, B, C, and D. Based on our polling analysis, we estimate that A has a 20 percent chance of winning the election, while B has a 40 percent chance of winning. What is the probability that A or B win the election?</p>
+<hr />
+<div id="ex1" class="example">
+<p>In a presidential election, there are four candidates. Call them A,
+B, C, and D. Based on our polling analysis, we estimate that A has a 20
+percent chance of winning the election, while B has a 40 percent chance
+of winning. What is the probability that A or B win the election?</p>
 </div>
 <button onclick="myFunction(&#39;myDIV&#39;)">
 Solution1
@@ -506,44 +486,70 @@ Solution1
 <div id="sample-vs.-population" class="section level1">
 <h1>Sample vs. Population</h1>
 <ul>
-<li><p>In econometrics, the distinction between <span style="color:#008B45FF">sample</span> and <span style="color:#008B45FF">population</span> is very important.</p></li>
-<li><p>In general, any object that can be calculated based on observed quantities is a sample quantity.</p></li>
-<li><p>Describing the idea of population requires some more definitions but for the time being suffice to say that the central idea is that there is some <span style="color:#008B45FF">data generating process (DGP)</span> which generates the data that we observe. Any quantity, the calculation of which requires one to know the DGP, is a <span style="color:#008B45FF">population quantity</span>.</p></li>
+<li><p>In econometrics, the distinction between <span
+style="color:#008B45FF">sample</span> and <span
+style="color:#008B45FF">population</span> is very important.</p></li>
+<li><p>In general, any object that can be calculated based on observed
+quantities is a sample quantity.</p></li>
+<li><p>Describing the idea of population requires some more definitions
+but for the time being suffice to say that the central idea is that
+there is some <span style="color:#008B45FF">data generating process
+(DGP)</span> which generates the data that we observe. Any quantity, the
+calculation of which requires one to know the DGP, is a <span
+style="color:#008B45FF">population quantity</span>.</p></li>
 </ul>
-<p>Example: Recording the outcomes from <span class="math inline">\(n\)</span> tosses of a fair coin would give us a sample of data.</p>
+<p>Example: Recording the outcomes from <span
+class="math inline">\(n\)</span> tosses of a fair coin would give us a
+sample of data.</p>
 <ul>
-<li><p>Denote the outcomes of each toss by <span class="math inline">\(X_1, X_2,\ldots,X_n,\)</span> or simply <span class="math inline">\(X_i\)</span> for <span class="math inline">\(i = 1,2,...,n,\)</span> where each <span class="math inline">\(X_i\)</span> takes the value 0 (heads) or 1 (tails), as before, and <span class="math inline">\(n\)</span> is the sample size.</p></li>
-<li><p>For example, with <span class="math inline">\(n = 10\)</span>, we might observe 4 heads (<span class="math inline">\(X_i = 0\)</span>) and 6 tails (<span class="math inline">\(X_i = 1\)</span>).</p></li>
-<li><p>We refer to <span class="math inline">\(\frac{4}{10}\)</span> as the <span style="color:#008B45FF">sample frequency</span> of the outcome heads, and <span class="math inline">\(\frac{6}{10}\)</span> as the <span style='color:#008B45FF'>sample frequency</spam> of the outcome tails.</p></li>
+<li><p>Denote the outcomes of each toss by <span
+class="math inline">\(X_1, X_2,\ldots,X_n,\)</span> or simply <span
+class="math inline">\(X_i\)</span> for <span class="math inline">\(i =
+1,2,...,n,\)</span> where each <span class="math inline">\(X_i\)</span>
+takes the value 0 (heads) or 1 (tails), as before, and <span
+class="math inline">\(n\)</span> is the sample size.</p></li>
+<li><p>For example, with <span class="math inline">\(n = 10\)</span>, we
+might observe 4 heads (<span class="math inline">\(X_i = 0\)</span>) and
+6 tails (<span class="math inline">\(X_i = 1\)</span>).</p></li>
+<li><p>We refer to <span class="math inline">\(\frac{4}{10}\)</span> as
+the <span style="color:#008B45FF">sample frequency</span> of the outcome
+heads, and <span class="math inline">\(\frac{6}{10}\)</span> as the
+<span style='color:#008B45FF'>sample frequency</spam> of the outcome
+tails.</p></li>
 </ul>
-<p>Define the indicator function <span class="math inline">\(\mathbb{I}(X_i=0)\)</span>:
-<span class="math display">\[
+<p>Define the indicator function <span
+class="math inline">\(\mathbb{I}(X_i=0)\)</span>: <span
+class="math display">\[
 \begin{aligned}
 \mathbb{I}(X_i=0) = \begin{cases}
 1 &amp; \text{if } X_i=0 \\
 0 &amp; \text{if } X_i=1
 \end{cases}
 \end{aligned}
-\]</span>
-Alternatively, you can write <span class="math inline">\(\mathbb{I}(X_i=0) = 1-X_i\)</span>.</p>
+\]</span> Alternatively, you can write <span
+class="math inline">\(\mathbb{I}(X_i=0) = 1-X_i\)</span>.</p>
 <div id="sample-estimators" class="section level2">
 <h2>Sample estimators</h2>
 <ul>
-<li><p>The sample frequency of the outcome 0 then corresponds to the sample average of the indicator function:
-<span class="math display">\[
+<li><p>The sample frequency of the outcome 0 then corresponds to the
+sample average of the indicator function: <span class="math display">\[
 \hat{f}(0) = \hat{f}(X_i=0) = \frac{1}{n}\sum_{i=1}^n \mathbb{I}(X_i=0)
 \]</span></p></li>
-<li><p><span style="color:#337ab7">Notational convention</span>: It is common to add a “hat” (∧) to sample objects which mimic or estimate an unknown population object.</p></li>
-<li><p>In the previous example, the indicator <span class="math inline">\(\mathbb{I}(X_i = 0)\)</span> takes the value 1 in 4 of the 10 cases, therefore yielding
-<span class="math display">\[
+<li><p><span style="color:#337ab7">Notational convention</span>: It is
+common to add a “hat” (∧) to sample objects which mimic or estimate an
+unknown population object.</p></li>
+<li><p>In the previous example, the indicator <span
+class="math inline">\(\mathbb{I}(X_i = 0)\)</span> takes the value 1 in
+4 of the 10 cases, therefore yielding <span class="math display">\[
 \hat{f}(0) = \frac{4}{10}
 \]</span></p></li>
-<li><p>Similarly,letting <span class="math inline">\(\mathbb{I}(X_i =1)=1\)</span> if <span class="math inline">\(X_i =1\)</span> and <span class="math inline">\(\mathbb{I}(X_i =1)=0\)</span> if <span class="math inline">\(X_i\ne 1\)</span>, we have
-<span class="math display">\[
+<li><p>Similarly,letting <span class="math inline">\(\mathbb{I}(X_i
+=1)=1\)</span> if <span class="math inline">\(X_i =1\)</span> and <span
+class="math inline">\(\mathbb{I}(X_i =1)=0\)</span> if <span
+class="math inline">\(X_i\ne 1\)</span>, we have <span
+class="math display">\[
 \hat{f}(1) = \hat{f}(X_i=1) = \frac{1}{n}\sum_{i=1}^n \mathbb{I}(X_i=1)
-\]</span>
-In our particular example,
-<span class="math display">\[
+\]</span> In our particular example, <span class="math display">\[
 \hat{f}(0) = \frac{6}{10}.
 \]</span></p></li>
 </ul>
@@ -551,12 +557,20 @@ In our particular example,
 <div id="population-frequencies" class="section level2">
 <h2>Population frequencies</h2>
 <ul>
-<li><p>Consider tossing a coin. Let <span class="math inline">\(X = 0\)</span> correspond to observing heads and <span class="math inline">\(X = 1\)</span> correspond to observing tails. If we know that the coin is fair, then we know that
-<span class="math display">\[
+<li><p>Consider tossing a coin. Let <span class="math inline">\(X =
+0\)</span> correspond to observing heads and <span
+class="math inline">\(X = 1\)</span> correspond to observing tails. If
+we know that the coin is fair, then we know that <span
+class="math display">\[
 P(X=0) = P(X=1) = \frac{1}{2}
 \]</span></p></li>
-<li><p>This situation reflects a particular belief about the world, that the coin is fair. Such claims/beliefs about the underlying DGP generating the sample data are referred to as claims/beliefs about “the population”.</p></li>
-<li><p>In reality, it is usually infeasible to get the population measures. Therefore, we use samples drawn from populations to estimate unknown population quantities.</p></li>
+<li><p>This situation reflects a particular belief about the world, that
+the coin is fair. Such claims/beliefs about the underlying DGP
+generating the sample data are referred to as claims/beliefs about “the
+population”.</p></li>
+<li><p>In reality, it is usually infeasible to get the population
+measures. Therefore, we use samples drawn from populations to estimate
+unknown population quantities.</p></li>
 </ul>
 <!------------------------------------------------------------------------>
 <hr />
@@ -564,39 +578,50 @@ P(X=0) = P(X=1) = \frac{1}{2}
 </div>
 <div id="distribution-functions" class="section level1">
 <h1>Distribution functions</h1>
-<p><span style="color:#008B45FF">Population (cumulative) distribution function (CDF)</span>: For the scalar random variable <span class="math inline">\(X\)</span>, the (cumulative) distribution function is
-<span class="math display">\[
+<p><span style="color:#008B45FF">Population (cumulative) distribution
+function (CDF)</span>: For the scalar random variable <span
+class="math inline">\(X\)</span>, the (cumulative) distribution function
+is <span class="math display">\[
 F(x)=P(X\le x).
-\]</span>
-Also written as <span class="math inline">\(F_X(x)\)</span>.</p>
+\]</span> Also written as <span
+class="math inline">\(F_X(x)\)</span>.</p>
 <ul>
-<li>The subscript, <span class="math inline">\(X\)</span>, denotes the random variable of interest.</li>
-<li>The argument, <span class="math inline">\(x\)</span>, denotes the threshold value which the probability of <span class="math inline">\(X\)</span> smaller or equal to.</li>
+<li>The subscript, <span class="math inline">\(X\)</span>, denotes the
+random variable of interest.</li>
+<li>The argument, <span class="math inline">\(x\)</span>, denotes the
+threshold value which the probability of <span
+class="math inline">\(X\)</span> smaller or equal to.</li>
 </ul>
-<p>Cumulative distribution functions (CDF) exist for both continuous and discrete random variables.</p>
+<p>Cumulative distribution functions (CDF) exist for both continuous and
+discrete random variables.</p>
 <ul>
 <li><p>For discrete random variables, the CDF is a step function.
-Cointoss: <span class="math inline">\(X=0\)</span> if heads, <span class="math inline">\(X=1\)</span> if tails. If the coin is fair,then
+Cointoss: <span class="math inline">\(X=0\)</span> if heads, <span
+class="math inline">\(X=1\)</span> if tails. If the coin is fair,then
 <span class="math display">\[
 \begin{aligned}
 F(x) = P(X\le x) = 0  \quad &amp; \text{for any } x&lt;0, \\
-F(x) = P(X\le x) = \frac{1}{2}  \quad &amp; \text{for any } 0\le x&lt;1, \\
+F(x) = P(X\le x) = \frac{1}{2}  \quad &amp; \text{for any } 0\le x&lt;1,
+\\
 F(x) = P(X\le x) = 1  \quad &amp; \text{for any } x\ge 1. \\
 \end{aligned}
 \]</span></p></li>
-<li><p>Continuous CDF example. <span class="math inline">\(X\sim \text{Uniform}(a,b)\)</span> has the following CDF:
-<span class="math display">\[
+<li><p>Continuous CDF example. <span class="math inline">\(X\sim
+\text{Uniform}(a,b)\)</span> has the following CDF: <span
+class="math display">\[
 F(x) = P(X\le x) = \begin{cases}
 0 &amp; \text{for any } x&lt;a, \\
 \frac{x-a}{b-a} &amp; \text{for any } a\le x&lt;b, \\
 1 &amp; \text{for any} x\ge b.
 \end{cases}
-\]</span>
-For continuous random variables the cdf is a continuous function.</p></li>
+\]</span> For continuous random variables the cdf is a continuous
+function.</p></li>
 </ul>
-<p>The sample counterpart of the CDF is the empirical distribution function.
-For example, let <span class="math inline">\(W_1,W_2,...,W_n\)</span> denote weekly wages for weeks <span class="math inline">\(1,...,n,\)</span> and define the indicator function
-<span class="math display">\[
+<p>The sample counterpart of the CDF is the empirical distribution
+function. For example, let <span
+class="math inline">\(W_1,W_2,...,W_n\)</span> denote weekly wages for
+weeks <span class="math inline">\(1,...,n,\)</span> and define the
+indicator function <span class="math display">\[
 \begin{aligned}
 \mathbb{I}(W_i ≤ w) =
 \begin{cases}
@@ -604,77 +629,94 @@ For example, let <span class="math inline">\(W_1,W_2,...,W_n\)</span> denote wee
 0 &amp; \text{if } W_i &gt; w.
 \end{cases}
 \end{aligned}
-\]</span>
-The empirical distribution function is
-<span class="math display">\[
+\]</span> The empirical distribution function is <span
+class="math display">\[
 \hat{F}(w) = \frac{1}{n} \sum_{i=1}^n \mathbb{I}(W_i\le w).
 \]</span></p>
 <ul>
-<li>If the underlying random variable is continuous, the empirical distribution function will look less and less like a step function as the sample size increases.</li>
-<li>If the underlying random variable is discrete, the empirical distribution function will still look like a step function as the sample size increases.</li>
-<li>Intuitively, as the <em>sample size increases</em>, the empirical distribution function should provide a good approximation to the distribution function of the underlying (discrete or continuous) random variable .</li>
+<li>If the underlying random variable is continuous, the empirical
+distribution function will look less and less like a step function as
+the sample size increases.</li>
+<li>If the underlying random variable is discrete, the empirical
+distribution function will still look like a step function as the sample
+size increases.</li>
+<li>Intuitively, as the <em>sample size increases</em>, the empirical
+distribution function should provide a good approximation to the
+distribution function of the underlying (discrete or continuous) random
+variable .</li>
 </ul>
 <hr />
 </div>
 <div id="density-functions" class="section level1">
 <h1>Density functions</h1>
-<p><span style="color:#008B45FF">Probability Density functions (PDF)</span> are derived from CDF.</p>
+<p><span style="color:#008B45FF">Probability Density functions
+(PDF)</span> are derived from CDF.</p>
 <ul>
-<li>PDFs for <span style="color:#008B45FF">discrete random variables</span> (RV) are often referred to as probability mass functions
-<span class="math display">\[
+<li>PDFs for <span style="color:#008B45FF">discrete random
+variables</span> (RV) are often referred to as probability mass
+functions <span class="math display">\[
 f(x) = P(X=x).
-\]</span>
-Also written as <span class="math inline">\(f_X(x)\)</span>.
+\]</span> Also written as <span class="math inline">\(f_X(x)\)</span>.
 <ul>
-<li><p>In the coin toss example,
-<span class="math display">\[
+<li><p>In the coin toss example, <span class="math display">\[
 f(0) = f(1) = \frac{1}{2}.
 \]</span></p></li>
-<li><p>Its relationship with CDF:
-<span class="math display">\[
+<li><p>Its relationship with CDF: <span class="math display">\[
 F(x) = P(X\le x) = \sum_{a\le x} f(a)
-\]</span>
-where the sum is taken over all values of <span class="math inline">\(a\le x\)</span>.</p></li>
-<li><p><span style="color:#008B45FF">Bernoulli distribution</span>. If <span class="math inline">\(X\sim \text{Bernoulli}(p),\)</span> where <span class="math inline">\(p=0.5\)</span>. This corresponds to the fair coin toss with a probability of 0.5 having a head.</p></li>
-<li><p>Its PDF can be written as
-<span class="math display">\[
+\]</span> where the sum is taken over all values of <span
+class="math inline">\(a\le x\)</span>.</p></li>
+<li><p><span style="color:#008B45FF">Bernoulli distribution</span>. If
+<span class="math inline">\(X\sim \text{Bernoulli}(p),\)</span> where
+<span class="math inline">\(p=0.5\)</span>. This corresponds to the fair
+coin toss with a probability of 0.5 having a head.</p></li>
+<li><p>Its PDF can be written as <span class="math display">\[
 f(x) = p^x(1-p)^{1-x} \quad \text{where } x\in\{0,1\}.
-\]</span>
-That is
-<span class="math display">\[
+\]</span> That is <span class="math display">\[
 f(x) = \begin{cases}
 p &amp; \text{if } x=1 \\
 1-p &amp; \text{if } x=0
 \end{cases}.
-\]</span>
-<span class="math inline">\(p\)</span> is called the parameter of the Bernoulli distribution.<br />
-To include the parameter in the notation, one writes <span class="math inline">\(f(x;p)\)</span> instead of <span class="math inline">\(f(x)\)</span>.</p></li>
+\]</span> <span class="math inline">\(p\)</span> is called the parameter
+of the Bernoulli distribution.<br />
+To include the parameter in the notation, one writes <span
+class="math inline">\(f(x;p)\)</span> instead of <span
+class="math inline">\(f(x)\)</span>.</p></li>
 </ul></li>
-<li>For <span style="color:#008B45FF">continuous RV</span>, <span class="math inline">\(f(x)\)</span> can be obtained by differentiating <span class="math inline">\(F(x)\)</span> w.r.t <span class="math inline">\(x\)</span>,
-<span class="math display">\[
+<li>For <span style="color:#008B45FF">continuous RV</span>, <span
+class="math inline">\(f(x)\)</span> can be obtained by differentiating
+<span class="math inline">\(F(x)\)</span> w.r.t <span
+class="math inline">\(x\)</span>, <span class="math display">\[
 f(x) = \frac{dF(x)}{dx}.
-\]</span>
-Conversely, CDF can be obtained by integrating the PDF,
-<span class="math display">\[
+\]</span> Conversely, CDF can be obtained by integrating the PDF, <span
+class="math display">\[
 F(x) = P(X\le x) = \int_{-\infty}^{x} f(a) da
 \]</span>
 <ul>
-<li><p>Example: <span style="color:#008B45FF">Standard Normal Distribution</span>. If <span class="math inline">\(Z\sim N(0,1)\)</span>, then its PDF is given by
-<span class="math display">\[
+<li><p>Example: <span style="color:#008B45FF">Standard Normal
+Distribution</span>. If <span class="math inline">\(Z\sim
+N(0,1)\)</span>, then its PDF is given by <span class="math display">\[
 \phi(z) = \frac{1}{\sqrt{2\pi}} \exp \left(-\frac{z^2}{2}\right) .
-\]</span>
-Its CDF is:
-<span class="math display">\[
+\]</span> Its CDF is: <span class="math display">\[
 \Phi(z) = P(Z\le z) =\int_{-\infty}^z \phi(a)da.
 \]</span></p></li>
-<li><p>Tail probabilities of the standard normal distribution play an important role in hypothesis testing, and in formulating confidence intervals for parameters of interest.</p></li>
-<li><p>For example, we have <span class="math display">\[\Phi(−1.96) = P(Z ≤ −1.96) = 0.025.\]</span> By symmetry, <span class="math display">\[\Phi(1.96) = P(Z ≤ 1.96) = 0.975.\]</span> Consequently, the probability that any draw from the standard normal distribution will be between <span class="math inline">\(\pm 1.96\)</span> is <span class="math inline">\(95\%\)</span>.</p></li>
+<li><p>Tail probabilities of the standard normal distribution play an
+important role in hypothesis testing, and in formulating confidence
+intervals for parameters of interest.</p></li>
+<li><p>For example, we have <span class="math display">\[\Phi(−1.96) =
+P(Z ≤ −1.96) = 0.025.\]</span> By symmetry, <span
+class="math display">\[\Phi(1.96) = P(Z ≤ 1.96) = 0.975.\]</span>
+Consequently, the probability that any draw from the standard normal
+distribution will be between <span class="math inline">\(\pm
+1.96\)</span> is <span class="math inline">\(95\%\)</span>.</p></li>
 </ul></li>
 </ul>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-1"></span>
+<div class="figure" style="text-align: center">
 <img src="https://drive.google.com/thumbnail?id=1nxfdIKXgZvOqXVSeA3h_hf0yxmsM361l&sz=w1000" alt="The $\Phi$ and $\phi$ ($f_Z(.)$) functions (CDF and pdf of standard normal)." width="70%" />
 <p class="caption">
-Fig. 1: The <span class="math inline">\(\Phi\)</span> and <span class="math inline">\(\phi\)</span> (<span class="math inline">\(f_Z(.)\)</span>) functions (CDF and pdf of standard normal).
+The <span class="math inline">\(\Phi\)</span> and <span
+class="math inline">\(\phi\)</span> (<span
+class="math inline">\(f_Z(.)\)</span>) functions (CDF and pdf of
+standard normal).
 </p>
 </div>
 <!------------------------------------------------------------------------>
@@ -682,13 +724,12 @@ Fig. 1: The <span class="math inline">\(\Phi\)</span> and <span class="math inli
 </div>
 <div id="quantiles" class="section level1">
 <h1>Quantiles</h1>
-<p>The quantile function is given by
-<span class="math display">\[
+<p>The quantile function is given by <span class="math display">\[
 q_{\tau} = F^{-1}(\tau).
 \]</span></p>
 <ul>
-<li>Example: Let <span class="math inline">\(Z\sim N(0,1)\)</span>. Then we have
-<span class="math display">\[
+<li>Example: Let <span class="math inline">\(Z\sim N(0,1)\)</span>. Then
+we have <span class="math display">\[
 \begin{aligned}
 q_{0.5} &amp;= 0, \\
 q_{0.95} &amp;= 1.645, \\
@@ -698,8 +739,11 @@ q_{0.995} &amp;= 2.576. \\
 \]</span></li>
 <li>Some quantiles have special names:
 <ul>
-<li><span class="math inline">\(q_{0.5}\)</span> is the median, or <span class="math inline">\(50^{th}\)</span> percentile.</li>
-<li><span class="math inline">\(q_{0.1}\)</span> is the first decile, <span class="math inline">\(q_{0.25}\)</span> is the first quartile.</li>
+<li><span class="math inline">\(q_{0.5}\)</span> is the median, or <span
+class="math inline">\(50^{th}\)</span> percentile.</li>
+<li><span class="math inline">\(q_{0.1}\)</span> is the first decile,
+<span class="math inline">\(q_{0.25}\)</span> is the first
+quartile.</li>
 </ul></li>
 </ul>
 <!------------------------------------------------------------------------>
@@ -707,104 +751,137 @@ q_{0.995} &amp;= 2.576. \\
 </div>
 <div id="transformations" class="section level1">
 <h1><strong>Transformations</strong></h1>
-<p>Q: If <span class="math inline">\(X \sim N (0, 1)\)</span> then what is the distribution of the new random variable <span class="math inline">\(Y=X^2\)</span>?</p>
-<p>A: We use transformation – change of variable formula, to represent the distribution function of <span class="math inline">\(Y\)</span> using distribution function of <span class="math inline">\(X\)</span>.</p>
+<p>Q: If <span class="math inline">\(X \sim N (0, 1)\)</span> then what
+is the distribution of the new random variable <span
+class="math inline">\(Y=X^2\)</span>?</p>
+<p>A: We use transformation – change of variable formula, to represent
+the distribution function of <span class="math inline">\(Y\)</span>
+using distribution function of <span
+class="math inline">\(X\)</span>.</p>
 <div class="boxed">
-<p>Let <span class="math inline">\(X\)</span> be a random variable with the distribution function <span class="math inline">\(F_X(x) = P(X \le x).\)</span></p>
-<p>Define the new RV <span class="math inline">\(Y=g(X)\)</span>, where <span class="math inline">\(g(\cdot)\)</span> is strictly monotone, i.e., strictly increasing or decreasing.</p>
+<p>Let <span class="math inline">\(X\)</span> be a random variable with
+the distribution function <span class="math inline">\(F_X(x) = P(X \le
+x).\)</span></p>
+<p>Define the new RV <span class="math inline">\(Y=g(X)\)</span>, where
+<span class="math inline">\(g(\cdot)\)</span> is strictly monotone,
+i.e., strictly increasing or decreasing.</p>
 <ul>
-<li>If <span class="math inline">\(g(\cdot)\)</span> is strictly increasing, then
-<span class="math display">\[
-F_Y (y) = P(Y \le y) = P\left(g(X) \le y\right) = P\left(X ≤ g^{−1}(y)\right) = F_X\left(g^{−1}(y)\right).
+<li>If <span class="math inline">\(g(\cdot)\)</span> is strictly
+increasing, then <span class="math display">\[
+F_Y (y) = P(Y \le y) = P\left(g(X) \le y\right) = P\left(X ≤
+g^{−1}(y)\right) = F_X\left(g^{−1}(y)\right).
 \]</span></li>
-<li>If <span class="math inline">\(g(\cdot)\)</span> is strictly decreasing, then
-<span class="math display">\[
-F_Y(y) = P(Y \le y) = P\left(g(X) \le y\right) = P\left(X \ge g^{−1}(y)\right) = 1−F_X\left(g^{−1}(y)\right) .
+<li>If <span class="math inline">\(g(\cdot)\)</span> is strictly
+decreasing, then <span class="math display">\[
+F_Y(y) = P(Y \le y) = P\left(g(X) \le y\right) = P\left(X \ge
+g^{−1}(y)\right) = 1−F_X\left(g^{−1}(y)\right) .
 \]</span></li>
 </ul>
 </div>
-<p>What if <span class="math inline">\(g(\cdot)\)</span> is not strictly monotonic? Solutions exist, but we will not encounter such cases.</p>
-<div class="example">
-<p><span id="exm:ex2" class="example"><strong>Example 2  </strong></span>Let <span class="math inline">\(Y=g(X)=\mu+\sigma X\)</span> where <span class="math inline">\(\sigma&gt;0\)</span>. Representing the CDF of <span class="math inline">\(Y\)</span> using <span class="math inline">\(F_X(x)\)</span>.</p>
+<p>What if <span class="math inline">\(g(\cdot)\)</span> is not strictly
+monotonic? Solutions exist, but we will not encounter such cases.</p>
+<hr />
+<div id="ex2" class="example">
+<p>Let <span class="math inline">\(Y=g(X)=\mu+\sigma X\)</span> where
+<span class="math inline">\(\sigma&gt;0\)</span>. Representing the CDF
+of <span class="math inline">\(Y\)</span> using <span
+class="math inline">\(F_X(x)\)</span>.</p>
 </div>
 <button onclick="myFunction(&#39;myDIV2&#39;)">
 Solution2
 </button>
 <div id="myDIV2" style="display: none; color: blue;">
-<p>Note that <span class="math inline">\(g(x)\)</span> is strictly increasing in <span class="math inline">\(x\)</span>.
-The inverse function is
-<span class="math display">\[
+<p>Note that <span class="math inline">\(g(x)\)</span> is strictly
+increasing in <span class="math inline">\(x\)</span>. The inverse
+function is <span class="math display">\[
 X = g^{-1}(Y) = \frac{Y-\mu}{\sigma}
-\]</span>
-and so
-<span class="math display">\[
-F_Y(y) = F_X\left(g^{-1}(y)\right) = F_X\left(\frac{y-\mu}{\sigma}\right)
+\]</span> and so <span class="math display">\[
+F_Y(y) = F_X\left(g^{-1}(y)\right) =
+F_X\left(\frac{y-\mu}{\sigma}\right)
 \]</span></p>
 </div>
-<p>The density function can be obtained by:
-<span class="math display">\[
-f_Y(y) = f_X(g^{-1}(y)) \cdot \left\vert \frac{\partial }{\partial y} g^{-1}(y) \right\vert .
-\]</span>
-This is known as the <span style="color:#008B45FF">change of variable formula</span> for density functions.<br />
+<hr />
+<p>The density function can be obtained by: <span
+class="math display">\[
+f_Y(y) = f_X(g^{-1}(y)) \cdot \left\vert \frac{\partial }{\partial y}
+g^{-1}(y) \right\vert .
+\]</span> This is known as the <span style="color:#008B45FF">change of
+variable formula</span> for density functions.<br />
 <code>||</code> denotes the absolute value of the differential.</p>
-<p>Continue with the last example, the density function of <span class="math inline">\(Y\)</span> is:
-<span class="math display">\[
+<p>Continue with the last example, the density function of <span
+class="math inline">\(Y\)</span> is: <span class="math display">\[
 f_Y(y) = \frac{1}{\sigma} f_X \left(\frac{y-\mu}{\sigma}\right) .
-\]</span>
-Let <span class="math inline">\(X \sim N(0, 1)\)</span> and let <span class="math inline">\(Y\)</span> be defined as before. Then
+\]</span> Let <span class="math inline">\(X \sim N(0, 1)\)</span> and
+let <span class="math inline">\(Y\)</span> be defined as before. Then
 <span class="math display">\[
 \begin{aligned}
 f_Y(y) &amp;= \frac{1}{\sigma} \phi \left(\frac{y-\mu}{\sigma}\right) \\
-&amp;= \frac{1}{\sqrt{2\pi\sigma^2}} \exp \left(-\frac{(y-\mu)^2}{2\sigma^2}\right) .
+&amp;= \frac{1}{\sqrt{2\pi\sigma^2}} \exp
+\left(-\frac{(y-\mu)^2}{2\sigma^2}\right) .
 \end{aligned}
-\]</span>
-This is the density function for a normal random variable with mean <span class="math inline">\(\mu\)</span> and variance <span class="math inline">\(\sigma^2\)</span>. We write <span class="math inline">\(Y ∼ N(\mu, \sigma^2)\)</span>.</p>
+\]</span> This is the density function for a normal random variable with
+mean <span class="math inline">\(\mu\)</span> and variance <span
+class="math inline">\(\sigma^2\)</span>. We write <span
+class="math inline">\(Y ∼ N(\mu, \sigma^2)\)</span>.</p>
 <!------------------------------------------------------------------------>
 <hr />
 </div>
 <div id="moments" class="section level1">
 <h1>Moments</h1>
 <ul>
-<li>We often summarize properties of distributions using their moments.</li>
-<li>The first moment is called the <span style="color:#008B45FF">expected value</span> or <span style="color:#008B45FF">expectation</span>.
+<li>We often summarize properties of distributions using their
+moments.</li>
+<li>The first moment is called the <span
+style="color:#008B45FF">expected value</span> or <span
+style="color:#008B45FF">expectation</span>.
 <ul>
-<li>This is a measure of the central tendency of the distribution of a random variable; other measures of central tendency include the median and the mode.</li>
+<li>This is a measure of the central tendency of the distribution of a
+random variable; other measures of central tendency include the median
+and the mode.</li>
 </ul></li>
 </ul>
-<p>For a continuous random variable with the density function <span class="math inline">\(f(x)\)</span>, the <span class="math inline">\(n^{th}\)</span> order moment is given by
-<span class="math display">\[
+<p>For a continuous random variable with the density function <span
+class="math inline">\(f(x)\)</span>, the <span
+class="math inline">\(n^{th}\)</span> order moment is given by <span
+class="math display">\[
 \mathbb{E}(X^n) =
 \begin{cases}
 \displaystyle \sum_{x}x^n f(x) &amp; \text{for discrete } X \\
-\displaystyle \int_{-\infty}^{\infty} x^n f(x) dx &amp; \text{for continuous } X \\
+\displaystyle \int_{-\infty}^{\infty} x^n f(x) dx &amp; \text{for
+continuous } X \\
 \end{cases}
-\]</span>
-if the integral exists.
-<span class="math inline">\(\sum_{x}\)</span> denotes the summation over all possible values of <span class="math inline">\(x\)</span>.
-For discrete RV <span class="math inline">\(x\)</span>, we sometimes write <span class="math inline">\(f(x)\)</span> as <span class="math inline">\(P(X=x)\)</span>.</p>
+\]</span> if the integral exists. <span
+class="math inline">\(\sum_{x}\)</span> denotes the summation over all
+possible values of <span class="math inline">\(x\)</span>. For discrete
+RV <span class="math inline">\(x\)</span>, we sometimes write <span
+class="math inline">\(f(x)\)</span> as <span
+class="math inline">\(P(X=x)\)</span>.</p>
 <div id="expectation" class="section level2">
 <h2>Expectation</h2>
-<p>Expectation are denoted by <span class="math inline">\(\mathbb{E}(X)\)</span> or <span class="math inline">\(\mathbb{E}_X(X)\)</span> to denote the expectation is taken over the RV <span class="math inline">\(X\)</span>.
-<span class="math display">\[
+<p>Expectation are denoted by <span
+class="math inline">\(\mathbb{E}(X)\)</span> or <span
+class="math inline">\(\mathbb{E}_X(X)\)</span> to denote the expectation
+is taken over the RV <span class="math inline">\(X\)</span>. <span
+class="math display">\[
 \mathbb{E}(X) =
 \begin{cases}
 \displaystyle \sum_{x}x f(x) &amp; \text{for discrete } X \\
-\displaystyle \int_{-\infty}^{\infty} x f(x) dx &amp; \text{for continuous } X \\
+\displaystyle \int_{-\infty}^{\infty} x f(x) dx &amp; \text{for
+continuous } X \\
 \end{cases}
 \]</span></p>
-<div class="example">
-<p><span id="exm:ex3" class="example"><strong>Example 3  </strong></span>Let <span class="math inline">\(X\sim \text{Bernoulli}(p)\)</span>. Calculate <span class="math inline">\(\mathbb{E}(X)\)</span>.</p>
+<hr />
+<div id="ex3" class="example">
+<p>Let <span class="math inline">\(X\sim \text{Bernoulli}(p)\)</span>.
+Calculate <span class="math inline">\(\mathbb{E}(X)\)</span>.</p>
 </div>
 <button onclick="myFunction(&#39;myDIV3&#39;)">
 Solution3
 </button>
 <div id="myDIV3" style="display: none; color: blue;">
-<p>The PDF of Bernoulli is given by
-<span class="math display">\[
+<p>The PDF of Bernoulli is given by <span class="math display">\[
 f(x) = p^x(1-p)^{1-x} \quad \text{where } x\in\{0,1\}.
-\]</span>
-Hence
-<span class="math display">\[
+\]</span> Hence <span class="math display">\[
 \begin{aligned}
 \mathbb{E}(x) &amp;= 0\times P(X=0) + 1\times P(X=1) \\
 &amp;= 0 \times (1-p) + 1\times p \\
@@ -812,18 +889,25 @@ Hence
 \end{aligned}
 \]</span></p>
 </div>
-<p>A useful property of expected values is that the expectation operator is a <span style="color:#337ab7">linear operator</span>, meaning that we have
-<span class="math display">\[\mathbb{E}(a+bX) = a+b\mathbb{E}(X).\]</span>
-for any two constants <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>.</p>
-<p>In general,
-<span class="math display">\[
+<hr />
+<p>A useful property of expected values is that the expectation operator
+is a <span style="color:#337ab7">linear operator</span>, meaning that we
+have <span class="math display">\[\mathbb{E}(a+bX) =
+a+b\mathbb{E}(X).\]</span> for any two constants <span
+class="math inline">\(a\)</span> and <span
+class="math inline">\(b\)</span>.</p>
+<p>In general, <span class="math display">\[
 \begin{aligned}
-\mathbb{E}\left[\sum_{i=1}^n (a_i+b_iX_i) \right] &amp;= \sum_{i=1}^n \mathbb{E}(a_i+b_iX_i)  \\
+\mathbb{E}\left[\sum_{i=1}^n (a_i+b_iX_i) \right] &amp;= \sum_{i=1}^n
+\mathbb{E}(a_i+b_iX_i)  \\
 &amp;= \sum_{i=1}^n \left(a_i+b_i\mathbb{E}(X_i) \right)
 \end{aligned}
 \]</span></p>
-<div class="example">
-<p><span id="exm:ex4" class="example"><strong>Example 4  </strong></span>Let <span class="math inline">\(X\sim N(0,1)\)</span> and <span class="math inline">\(Y=\mu+\sigma X\)</span>. Calculate <span class="math inline">\(\mathbb{E}(Y)\)</span>.</p>
+<hr />
+<div id="ex4" class="example">
+<p>Let <span class="math inline">\(X\sim N(0,1)\)</span> and <span
+class="math inline">\(Y=\mu+\sigma X\)</span>. Calculate <span
+class="math inline">\(\mathbb{E}(Y)\)</span>.</p>
 </div>
 <button onclick="myFunction(&#39;myDIV4&#39;)">
 Solution4
@@ -838,56 +922,84 @@ Solution4
 \end{aligned}
 \]</span></p>
 </div>
+<hr />
 <ul>
-<li><p>Expectation is a population quantity because it requires knowledge of the density function.</p></li>
-<li><p>The sample analogue of the expected value is the <span style="color:#008B45FF">sample mean</span> or <span style="color:#008B45FF">sample average</span>.</p>
+<li><p>Expectation is a population quantity because it requires
+knowledge of the density function.</p></li>
+<li><p>The sample analogue of the expected value is the <span
+style="color:#008B45FF">sample mean</span> or <span
+style="color:#008B45FF">sample average</span>.</p>
 <ul>
-<li>Letting <span class="math inline">\(X_1,X_2,...,X_n\)</span> denote <span class="math inline">\(n\)</span> observations on a variable <span class="math inline">\(X\)</span>, the sample mean is
-<span class="math display">\[
+<li>Letting <span class="math inline">\(X_1,X_2,...,X_n\)</span> denote
+<span class="math inline">\(n\)</span> observations on a variable <span
+class="math inline">\(X\)</span>, the sample mean is <span
+class="math display">\[
   \overline{X} = \frac{1}{n} \sum_{i=1}^n X_i
   \]</span></li>
 </ul></li>
-<li><p>Sample mean has some desirable properties as an &lt;style=‘color:#008B45FF’&gt;estimator</span> of the expected value of a random variable.</p></li>
+<li><p>Sample mean has some desirable properties as an
+&lt;style=‘color:#008B45FF’&gt;estimator</span> of the expected value of
+a random variable.</p></li>
 </ul>
-<p>Expectations of functions of RVs
-If <span class="math inline">\(X\)</span> is a random variable and g is a function such that <span class="math inline">\(g(X)\)</span> is also a random variable, the expected value of <span class="math inline">\(g(X)\)</span> is given by
-<span class="math display">\[
+<p>Expectations of functions of RVs If <span
+class="math inline">\(X\)</span> is a random variable and g is a
+function such that <span class="math inline">\(g(X)\)</span> is also a
+random variable, the expected value of <span
+class="math inline">\(g(X)\)</span> is given by <span
+class="math display">\[
 \mathbb{E}\left[g(X)\right] = \begin{cases}
 \displaystyle \sum_{x}g(x) f(x) &amp; \text{for discrete } X \\
-\displaystyle \int_{-\infty}^{\infty} g(x) f(x) dx &amp; \text{for continuous } X
+\displaystyle \int_{-\infty}^{\infty} g(x) f(x) dx &amp; \text{for
+continuous } X
 \end{cases}
 \]</span></p>
 </div>
 <div id="variance" class="section level2">
 <h2>Variance</h2>
-<p>The variance is obtained by setting <span class="math inline">\(g(X) = \left(X − \mathbb{E}(X)\right)^2\)</span>:
-<span class="math display">\[
+<p>The variance is obtained by setting <span class="math inline">\(g(X)
+= \left[X − \mathbb{E}(X)\right]^2\)</span>: <span
+class="math display">\[
 \begin{aligned}
-\text{Var}(X) &amp;= \mathbb{E}\left[\left(X − \mathbb{E}(X)\right)^2\right] \\
+\text{Var}(X) &amp;= \mathbb{E}\left[\left(X −
+\mathbb{E}(X)\right)^2\right] \\
 &amp;= \begin{cases}
-\displaystyle \sum_{x} \left(X − \mathbb{E}(X)\right)^2 f(x) &amp; \text{for discrete } X \\
-\displaystyle \int_{-\infty}^{\infty} \left(X − \mathbb{E}(X)\right)^2 f(x) dx &amp; \text{for continuous } X
+\displaystyle \sum_{x} \left(X − \mathbb{E}(X)\right)^2 f(x) &amp;
+\text{for discrete } X \\
+\displaystyle \int_{-\infty}^{\infty} \left(X − \mathbb{E}(X)\right)^2
+f(x) dx &amp; \text{for continuous } X
 \end{cases}
 \end{aligned}
 \]</span></p>
 <ul>
-<li><p>The variance is also called the second moment about the mean of the random variable <span class="math inline">\(X\)</span>, or the second central moment of <span class="math inline">\(X\)</span>.</p></li>
-<li><p>The <span class="math inline">\(n^{th}\)</span> order central moment is given by
-<span class="math display">\[
+<li><p>The variance is also called the second moment about the mean of
+the random variable <span class="math inline">\(X\)</span>, or the
+second central moment of <span
+class="math inline">\(X\)</span>.</p></li>
+<li><p>The <span class="math inline">\(n^{th}\)</span> order central
+moment is given by <span class="math display">\[
 \mathbb{E}\left[\left(X − \mathbb{E}(X)\right)^n\right].
 \]</span></p></li>
-<li><p>The variance gives a measure of dispersion of the random variable around its expected value; other measures of dispersion can be based on quantiles, such as the interquartile range <span class="math inline">\((q_{0.75} − q_{0.25}).\)</span></p></li>
-<li><p>Note that variances are non-negative, since <span class="math inline">\([X − E(X)]^2 \ge 0\)</span> for all possible values taken by the random variable <span class="math inline">\(X\)</span>.</p></li>
-<li><p>The variance can also be expressed as
-<span class="math display">\[
+<li><p>The variance gives a measure of dispersion of the random variable
+around its expected value; other measures of dispersion can be based on
+quantiles, such as the interquartile range <span
+class="math inline">\((q_{0.75} − q_{0.25}).\)</span></p></li>
+<li><p>Note that variances are non-negative, since <span
+class="math inline">\([X − E(X)]^2 \ge 0\)</span> for all possible
+values taken by the random variable <span
+class="math inline">\(X\)</span>.</p></li>
+<li><p>The variance can also be expressed as <span
+class="math display">\[
 \begin{aligned}
-\color{#008B45FF}{\text{Var}(X)} &amp;= \mathbb{E}\left[\left(X − \mathbb{E}(X)\right)^2\right] \\
+\color{#008B45FF}{\text{Var}(X)} &amp;= \mathbb{E}\left[\left(X −
+\mathbb{E}(X)\right)^2\right] \\
 &amp;= \color{#008B45FF}{\mathbb{E}[X^2] - [\mathbb{E}(X)]^2} .
 \end{aligned}
 \]</span></p></li>
 </ul>
-<div class="example">
-<p><span id="exm:ex5" class="example"><strong>Example 5  </strong></span>Let <span class="math inline">\(X\sim \text{Bernoulli}(p)\)</span>. Calculate <span class="math inline">\(\text{Var}(X)\)</span>.</p>
+<hr />
+<div id="ex5" class="example">
+<p>Let <span class="math inline">\(X\sim \text{Bernoulli}(p)\)</span>.
+Calculate <span class="math inline">\(\text{Var}(X)\)</span>.</p>
 </div>
 <button onclick="myFunction(&#39;myDIV5&#39;)">
 Solution5
@@ -895,100 +1007,160 @@ Solution5
 <div id="myDIV5" style="display: none; color: blue;">
 <p><span class="math display">\[
 \begin{aligned}
-\text{Var}(X) &amp;=  \mathbb{E}\left[\left(X − \mathbb{E}(X)\right)^2\right]  \\
+\text{Var}(X) &amp;=  \mathbb{E}\left[\left(X −
+\mathbb{E}(X)\right)^2\right]  \\
 &amp;= (0-p)^2\times f(0) + (1-p)^2\times f(1) \\
 &amp;= p^2(1-p) + (1-p)^2p \\
 &amp;= (1-p) (p^2+p(1-p))\\
 &amp;= p(1-p)
 \end{aligned}
-\]</span>
-Alternatively, Since <span class="math inline">\(0^2 = 0\)</span> and <span class="math inline">\(1^2 = 1\)</span>, we have <span class="math inline">\(X^2 = X\)</span> implying that <span class="math inline">\(E(X^2) = E(X) = p\)</span>. Therefore,
-<span class="math display">\[
+\]</span> Alternatively, Since <span class="math inline">\(0^2 =
+0\)</span> and <span class="math inline">\(1^2 = 1\)</span>, we have
+<span class="math inline">\(X^2 = X\)</span> implying that <span
+class="math inline">\(E(X^2) = E(X) = p\)</span>. Therefore, <span
+class="math display">\[
 \text{Var}(X) = E[X^2]-E[X]^2 = p-p^2=p(1-p)
 \]</span></p>
 </div>
+<hr />
 <ul>
-<li>The variance operator is the expectation of a quadratic function, and hence not a linear operator; instead we have the relation
-<span class="math display">\[
+<li>The variance operator is the expectation of a quadratic function,
+and hence not a linear operator; instead we have the relation <span
+class="math display">\[
 \text{Var}(a + bX) = b^2\text{Var}(X)
-\]</span>
-for any two constants <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>.</li>
+\]</span> for any two constants <span class="math inline">\(a\)</span>
+and <span class="math inline">\(b\)</span>.</li>
 </ul>
-<div class="example">
-<p><span id="exm:ex6" class="example"><strong>Example 6  </strong></span>Let <span class="math inline">\(X\sim N(0,1)\)</span> and <span class="math inline">\(Y=\mu+\sigma X\)</span>. Calculate <span class="math inline">\(\text{Var}(Y)\)</span>.</p>
+<hr />
+<div id="ex6" class="example">
+<p>Let <span class="math inline">\(X\sim N(0,1)\)</span> and <span
+class="math inline">\(Y=\mu+\sigma X\)</span>. Calculate <span
+class="math inline">\(\text{Var}(Y)\)</span>.</p>
 </div>
 <button onclick="myFunction(&#39;myDIV6&#39;)">
 Solution6
 </button>
 <div id="myDIV6" style="display: none; color: blue;">
 <p><span class="math display">\[
-\text{Var}(Y) = \text{Var}(\mu+\sigma X) = \sigma^2 \text{Var}(X) = \sigma^2
-\]</span>
-Thus, <span class="math inline">\(Y\sim N(\mu, \sigma^2)\)</span>.</p>
+\text{Var}(Y) = \text{Var}(\mu+\sigma X) = \sigma^2 \text{Var}(X) =
+\sigma^2
+\]</span> Thus, <span class="math inline">\(Y\sim N(\mu,
+\sigma^2)\)</span>.</p>
 </div>
+<hr />
 <p><strong>Variance of sum of RVs</strong></p>
 <p>if <span class="math inline">\(Z=X+Y\)</span>, then</p>
 <p><span class="math display">\[
 \begin{aligned}
 \text{Var}(Z) &amp;= \text{Cov}(Z,Z) \\
 &amp;= \text{Cov}(X+Y, X+Y) \\
-&amp;= \text{Cov}(X,X) + \text{Cov}(X,Y) + \text{Cov}(Y,X) + \text{Cov}(Y,Y) \\
+&amp;= \text{Cov}(X,X) + \text{Cov}(X,Y) + \text{Cov}(Y,X) +
+\text{Cov}(Y,Y) \\
 &amp;= \text{Var}(X) + \text{Var}(X) + 2\text{Cov}(X,Y).
 \end{aligned}
 \]</span></p>
-<p>More generally, for <span class="math inline">\(a_i\in \mathbb{R}, i=1,\ldots,n\)</span>, we conclude:</p>
+<p>More generally, for <span class="math inline">\(a_i\in \mathbb{R},
+i=1,\ldots,n\)</span>, we conclude:</p>
 <p><span class="math display">\[
 \text{Var}\left(\sum_{i=1}^n a_iX_i \right) =
-\sum_{i=1}^n a_i^2 \text{Var}(X_i) + \sum_{i=1}^n\sum_{j=1}^n a_ia_j \text{Cov}(X_i, X_j).
+\sum_{i=1}^n a_i^2 \text{Var}(X_i) + \sum_{i=1}^n\sum_{j=1}^n a_ia_j
+\text{Cov}(X_i, X_j).
 \]</span></p>
 <p>Or equivalently,</p>
 <p><span class="math display">\[
 \text{Var}\left(\sum_{i=1}^n a_iX_i \right) =
-\sum_{i=1}^n a_i^2 \text{Var}(X_i) + 2\sum_{i=2}^n\sum_{j=1}^{i-1} a_ia_j \text{Cov}(X_i, X_j).
+\sum_{i=1}^n a_i^2 \text{Var}(X_i) + 2\sum_{i=2}^n\sum_{j=1}^{i-1}
+a_ia_j \text{Cov}(X_i, X_j).
 \]</span></p>
-<p>The <span style="color:#337ab7">sample analogue of the variance</span> for a sample of observations <span class="math inline">\(X_1,...,X_n\)</span> is the sample variance. One usually uses either
-<span class="math display">\[
+<p>The <span style="color:#337ab7">sample analogue of the
+variance</span> for a sample of observations <span
+class="math inline">\(X_1,...,X_n\)</span> is the sample variance. One
+usually uses either <span class="math display">\[
 \frac{1}{n} \sum_{i=1}^n [(X_i-\overline{X})^2]
-\]</span>
-or
-<span class="math display">\[
+\]</span> or <span class="math display">\[
 \frac{1}{n-1} \sum_{i=1}^n [(X_i-\overline{X})^2]
-\]</span>
-The latter subtracts 1 from n in the denominator, which is known as a degrees of freedom correction. This version has some desirable properties but we will not discuss these for now. Suffice to say that both versions are usually fine.</p>
-<p>Standard deviation is the square root of the variance:
-<span class="math display">\[
+\]</span> The latter subtracts 1 from n in the denominator, which is
+known as a degrees of freedom correction. This version has some
+desirable properties but we will not discuss these for now. Suffice to
+say that both versions are usually fine.</p>
+<p>Standard deviation is the square root of the variance: <span
+class="math display">\[
 \text{sd}(X) = \sqrt{\text{Var}(X)}.
 \]</span></p>
 </div>
 <div id="covariance" class="section level2">
 <h2>Covariance</h2>
-<p>Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be two random variables. Then, the <span style="color:#008B45FF">covariance</span> between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> is given by
-<span class="math display">\[
-\text{Cov}(X,Y) = \mathbb{E}\left[(X-\mathbb{E}[X])(Y-\mathbb{E}[Y])\right] .
+<p>Let <span class="math inline">\(X\)</span> and <span
+class="math inline">\(Y\)</span> be two random variables. Then, the
+<span style="color:#008B45FF">covariance</span> between <span
+class="math inline">\(X\)</span> and <span
+class="math inline">\(Y\)</span> is given by <span
+class="math display">\[
+\gamma \equiv \text{Cov}(X,Y) =
+\mathbb{E}\left[(X-\mathbb{E}[X])(Y-\mathbb{E}[Y])\right] .
 \]</span></p>
 <ul>
-<li>Covariance provides information about the direction of comovement between two random variables.</li>
-<li>The magnitude of covariance does not give any information on the strength of association between two random variables. In other words, <span class="math inline">\(\text{Cov}(X, Y) = 100\)</span> and <span class="math inline">\(\text{Cov}(W, Z) = 1\)</span> does not necessarily mean that <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are much strongly related compared to <span class="math inline">\(W\)</span> and <span class="math inline">\(Z\)</span>.</li>
+<li>Covariance provides information about the direction of comovement
+between two random variables.</li>
+<li>Covariance between <span class="math inline">\(X\)</span> and <span
+class="math inline">\(Y\)</span> is also written as <span
+class="math inline">\(\sigma_{XY}\)</span>.</li>
+<li>The magnitude of covariance does not give any information on the
+strength of association between two random variables. In other words,
+<span class="math inline">\(\text{Cov}(X, Y) = 100\)</span> and <span
+class="math inline">\(\text{Cov}(W, Z) = 1\)</span> does not necessarily
+mean that <span class="math inline">\(X\)</span> and <span
+class="math inline">\(Y\)</span> are much strongly related compared to
+<span class="math inline">\(W\)</span> and <span
+class="math inline">\(Z\)</span>.</li>
 </ul>
-<p>The <span style="color:#008B45FF">sample covariance</span>, <span class="math inline">\(\hat{\gamma}\)</span>, in a sample of <span class="math inline">\(n\)</span> observations on <span class="math inline">\((X_i,Y_i)\)</span> is</p>
+<p>More formally</p>
 <p><span class="math display">\[
-\hat{\gamma} = \frac{1}{n-1}\sum_{i=1}^n (X_i-\overline{X})(Y_i-\overline{Y})
+\begin{aligned}
+\textrm{Cov}(X, Y) = \begin{cases}
+\sum_y\sum_x[X-\mathbb{E}(X)][Y-\mathbb{E}(Y)]f(x,y) &amp; \textrm{for }
+X, Y \textrm{ discrete}  \\
+\iint[X-\mathbb{E}(X)][Y-\mathbb{E}(Y)]f(x,y) dxdy   &amp; \textrm{for }
+X, Y \textrm{ continuous}  \\
+\end{cases}
+\end{aligned}
+\]</span></p>
+<p>The <span style="color:#008B45FF">sample covariance</span>, <span
+class="math inline">\(\hat{\gamma}\)</span>, in a sample of <span
+class="math inline">\(n\)</span> observations on <span
+class="math inline">\((X_i,Y_i)\)</span> is</p>
+<p><span class="math display">\[
+\hat{\gamma} = \frac{1}{n-1}\sum_{i=1}^n
+(X_i-\overline{X})(Y_i-\overline{Y})
 \]</span></p>
 </div>
 <div id="correlation" class="section level2">
 <h2>Correlation</h2>
-<p><span style="color:#008B45FF">Correlation</span> is a scaled measure of covariance.</p>
-<p>The correlation between two random variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> is defined
-<span class="math display">\[
+<p><span style="color:#008B45FF">Correlation</span> is a scaled measure
+of covariance.</p>
+<p>The correlation between two random variables <span
+class="math inline">\(X\)</span> and <span
+class="math inline">\(Y\)</span> is defined <span
+class="math display">\[
 \text{Corr}[X,Y] = \rho_{X,Y} = \frac{\sigma_{XY}}{\sigma_X\sigma_Y}.
 \]</span></p>
 <ul>
-<li>Correlation is always in the interval <span class="math inline">\([−1, 1]\)</span>.</li>
-<li>Unlike covariance, correlations between different pairs of random variables are comparable.</li>
+<li>Correlation is always in the interval <span
+class="math inline">\([−1, 1]\)</span>.</li>
+<li>Unlike covariance, correlations between different pairs of random
+variables are comparable.</li>
 </ul>
-<div class="example">
-<p><span id="exm:ex" class="example"><strong>Example 7  </strong></span>Let X, Y, W, Z be random variables with <span class="math inline">\(\text{Var}[X] = 200\)</span>, <span class="math inline">\(\text{Var}[Y] = 200\)</span>, <span class="math inline">\(\text{Var}[W] = 1\)</span>, <span class="math inline">\(\text{Var}[Z]=1\)</span>, <span class="math inline">\(\text{Cov}[X,Y]=100\)</span> and <span class="math inline">\(\text{Cov}[W,Z]=1\)</span>.<br />
-Compare <span class="math inline">\(\text{Corr}(X,Y)\)</span> and <span class="math inline">\(\text{Corr}(W,Z)\)</span>.</p>
+<hr />
+<div id="ex7" class="example">
+<p>Let <span class="math inline">\(X, Y, W, Z\)</span> be random
+variables with <span class="math inline">\(\text{Var}[X] = 200\)</span>,
+<span class="math inline">\(\text{Var}[Y] = 200\)</span>, <span
+class="math inline">\(\text{Var}[W] = 1\)</span>, <span
+class="math inline">\(\text{Var}[Z]=1\)</span>, <span
+class="math inline">\(\text{Cov}[X,Y]=100\)</span> and <span
+class="math inline">\(\text{Cov}[W,Z]=1\)</span>.<br />
+Compare <span class="math inline">\(\text{Corr}(X,Y)\)</span> and <span
+class="math inline">\(\text{Corr}(W,Z)\)</span>.</p>
 </div>
 <button onclick="myFunction(&#39;myDIV7&#39;)">
 Solution7
@@ -996,53 +1168,77 @@ Solution7
 <div id="myDIV7" style="display: none; color: blue;">
 <p><span class="math display">\[
 \begin{aligned}
-\text{Corr}[X,Y] &amp;= \frac{100}{\sqrt{200\times 200}} = \frac{1}{2} \\
+\text{Corr}[X,Y] &amp;= \frac{100}{\sqrt{200\times 200}} = \frac{1}{2}
+\\
 \text{Corr}[W,Z] &amp;= \frac{1}{\sqrt{1\times 1}} = 1.
 \end{aligned}
 \]</span></p>
 </div>
+<hr />
 </div>
 <div id="skewness-and-kurtosis" class="section level2">
 <h2>Skewness and Kurtosis</h2>
-<p>Normalized or standardized central moments are defined as
-<span class="math display">\[
-\mu_r = \mathbb{E}\left\{\left[\frac{X-\mathbb{E}(X)}{\text{sd}(X)}\right]^r\right\}
+<p>Normalized or standardized central moments are defined as <span
+class="math display">\[
+\mu_r =
+\mathbb{E}\left\{\left[\frac{X-\mathbb{E}(X)}{\text{sd}(X)}\right]^r\right\}
 \]</span></p>
 <ul>
-<li><span class="math inline">\(\mu_3\)</span> is a measure of skewness or asymmetry of the distribution, with symmetric distributions having <span class="math inline">\(\mu_3 = 0\)</span>.
+<li><span class="math inline">\(\mu_3\)</span> is a measure of skewness
+or asymmetry of the distribution, with symmetric distributions having
+<span class="math inline">\(\mu_3 = 0\)</span>.
 <ul>
-<li><span class="math inline">\(\mu_3&lt;0\)</span> means negatively skewed, i.e., long left tail.</li>
-<li><span class="math inline">\(\mu_3&gt;0\)</span> means positively skewed, i.e., long right tail.</li>
+<li><span class="math inline">\(\mu_3&lt;0\)</span> means negatively
+skewed, i.e., long left tail.</li>
+<li><span class="math inline">\(\mu_3&gt;0\)</span> means positively
+skewed, i.e., long right tail.</li>
 </ul></li>
 </ul>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-2"></span>
+<div class="figure" style="text-align: center">
 <img src="images/Skewness.png" alt="Diagram of Skewness." width="70%" />
 <p class="caption">
-Fig. 2: Diagram of Skewness.
+Diagram of Skewness.
 </p>
 </div>
 <ul>
-<li><span class="math inline">\(\mu_4\)</span> is a measure of kurtosis, indicating the relative weights of the probability in the middle of the distribution and the probability in the tails, or how ‘peaked’ the density function is.</li>
+<li><span class="math inline">\(\mu_4\)</span> is a measure of kurtosis,
+indicating the relative weights of the probability in the middle of the
+distribution and the probability in the tails, or how ‘peaked’ the
+density function is.</li>
 </ul>
-<p>The kurtosis for any normal distribution is three. For this reason, we subtract three from <span class="math inline">\(\mu_4\)</span> to get the “excess kurtosis”.</p>
+<p>The kurtosis for any normal distribution is three. For this reason,
+we subtract three from <span class="math inline">\(\mu_4\)</span> to get
+the “excess kurtosis”.</p>
 <ul>
-<li><span class="math inline">\(\mu_4-3&gt;0\)</span> indicate a heavy-tailed distribution with higher chances of outliers.
+<li><span class="math inline">\(\mu_4-3&gt;0\)</span> indicate a
+heavy-tailed distribution with higher chances of outliers.
 <ul>
-<li>Note that we cannot infer from kurtosis the shape of the peak. <span class="math inline">\(\mu_4-3&gt;0\)</span> can associate with either a falttened (e.g., <span class="math inline">\(t\)</span>-distribution, see Fig. <a href="#fig:fig-t">3</a>) or a pointy peak (Laplace distribution, see Fig. <a href="#fig:fig-Laplace">4</a>).</li>
+<li>Note that we cannot infer from kurtosis the shape of the peak. <span
+class="math inline">\(\mu_4-3&gt;0\)</span> can associate with either a
+falttened (e.g., <span class="math inline">\(t\)</span>-distribution,
+see Fig. @ref(fig:fig-t)) or a pointy peak (Laplace distribution, see
+Fig. @ref(fig:fig-Laplace)).</li>
 </ul></li>
-<li><span class="math inline">\(\mu_4-3&lt;0\)</span> indicate a light-tailed distribution with lower chances of outliers.</li>
+<li><span class="math inline">\(\mu_4-3&lt;0\)</span> indicate a
+light-tailed distribution with lower chances of outliers.</li>
 </ul>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig-t"></span>
+<div class="figure" style="text-align: center">
 <img src="images/t%20distribution.png" alt="Examples of heavy-tailed distributions." width="70%" />
 <p class="caption">
-Fig. 3: Examples of heavy-tailed distributions.
+Examples of heavy-tailed distributions.
 </p>
 </div>
-<p><span class="math inline">\(t\)</span>-distribution has <em>higher</em> kurtosis than normal distributions.</p>
+<p><span class="math inline">\(t\)</span>-distribution has
+<em>higher</em> kurtosis than normal distributions.</p>
 <ul>
-<li>Meaning that <span class="math inline">\(t\)</span>-distribution has a higher probability of obtaining values that are far from the mean than a normal distribution.</li>
-<li>It is less peaked in the center and higher in the tails than normal distribution.</li>
-<li>As the degree of freedom increases, <span class="math inline">\(t\)</span>-distribution approximates to normal distribution, kurtosis decreases and approximates to 3.</li>
+<li>Meaning that <span class="math inline">\(t\)</span>-distribution has
+a higher probability of obtaining values that are far from the mean than
+a normal distribution.</li>
+<li>It is less peaked in the center and higher in the tails than normal
+distribution.</li>
+<li>As the degree of freedom increases, <span
+class="math inline">\(t\)</span>-distribution approximates to normal
+distribution, kurtosis decreases and approximates to 3.</li>
 </ul>
 <pre class="r"><code>set.seed(125)
 rnorm(1000) %&gt;% moments::kurtosis()</code></pre>
@@ -1055,18 +1251,30 @@ rnorm(1000) %&gt;% moments::kurtosis()</code></pre>
 <pre><code>## [1] 4.303517</code></pre>
 <pre class="r"><code>rt(1000, df=30) %&gt;% moments::kurtosis()</code></pre>
 <pre><code>## [1] 3.646411</code></pre>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig-Laplace"></span>
+<div class="figure" style="text-align: center">
 <img src="images/Laplace%20distribution.webp" alt="**Laplace distribution**. The dotted green curve shows a normal distribution. The blue curve shows a Laplace distribution with kurtosis of 6.54. On the far left and right sides of the distribution—the tails—the space below the Laplace distribution curve (blue) is slightly thicker than the space below the normal distribution curve (green). This is an example of a heavy-tailed distribution yet with a sharper peak." width="70%" />
 <p class="caption">
-Fig. 4: <strong>Laplace distribution</strong>. The dotted green curve shows a normal distribution. The blue curve shows a Laplace distribution with kurtosis of 6.54. On the far left and right sides of the distribution—the tails—the space below the Laplace distribution curve (blue) is slightly thicker than the space below the normal distribution curve (green). This is an example of a heavy-tailed distribution yet with a sharper peak.
+<strong>Laplace distribution</strong>. The dotted green curve shows a
+normal distribution. The blue curve shows a Laplace distribution with
+kurtosis of 6.54. On the far left and right sides of the
+distribution—the tails—the space below the Laplace distribution curve
+(blue) is slightly thicker than the space below the normal distribution
+curve (green). This is an example of a heavy-tailed distribution yet
+with a sharper peak.
 </p>
 </div>
-<p><strong>Distinguish kurtosis from standard deviation/variance.</strong></p>
+<p><strong>Distinguish kurtosis from standard
+deviation/variance.</strong></p>
 <ul>
-<li>Standard deviation and kurtosis are both measures of the variability of a distribution, but they are not directly related.
+<li>Standard deviation and kurtosis are both measures of the variability
+of a distribution, but they are not directly related.
 <ul>
-<li>Two distributions with identical means and standard deviations can have very different shapes, and kurtosis is one of the measures of that difference.</li>
-<li>It looks at how much of the ‘weight’ of the distribution (recall that the total weight, or the area under the curve, is 1) is sitting in the tails as opposed to the middle of the distribution.</li>
+<li>Two distributions with identical means and standard deviations can
+have very different shapes, and kurtosis is one of the measures of that
+difference.</li>
+<li>It looks at how much of the ‘weight’ of the distribution (recall
+that the total weight, or the area under the curve, is 1) is sitting in
+the tails as opposed to the middle of the distribution.</li>
 </ul></li>
 <li>Standard deviation is useful for measuring the spread.<br />
 Kurtosis focuses on detecting outliers.</li>
@@ -1075,63 +1283,105 @@ Kurtosis focuses on detecting outliers.</li>
 </div>
 <div id="independence" class="section level1">
 <h1>Independence</h1>
-<p><span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span> are said to be independent if and only if
-<span class="math display">\[
-P(X_1\le x_1 \text{ and } X_2\le x_2) = P(X_1\le x_1)P(X_2\le x_2) \text{ for all }x_1 \text{ and } x_2,
-\]</span>
-denoted as <span class="math inline">\(X_1 \perp \!\!\! \perp X_2\)</span>.</p>
+<p><span class="math inline">\(X_1\)</span> and <span
+class="math inline">\(X_2\)</span> are said to be independent if and
+only if <span class="math display">\[
+P(X_1\le x_1 \text{ and } X_2\le x_2) = P(X_1\le x_1)P(X_2\le x_2)
+\text{ for all }x_1 \text{ and } x_2,
+\]</span> denoted as <span class="math inline">\(X_1 \perp \!\!\! \perp
+X_2\)</span>.</p>
 <p><strong>Distinguish from uncorrelated.</strong></p>
 <ul>
-<li><p>If <span class="math inline">\(\textrm{Corr}(X,Y)=0\)</span>, we say that <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are <span style="color:#337ab7">uncorrelated</span> or orthogonal, denoted by <span class="math inline">\(X {\color{#337ab7}\perp} Y\)</span> (perpendicular symbol).</p></li>
-<li><p><span class="math inline">\(X {\color{#337ab7}\perp \!\!\! \perp} Y\)</span> (double perpendicular symbol) denotes <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are <span style="color:#337ab7">independent</span>.</p></li>
-<li><p><span class="math inline">\(X \perp \!\!\! \perp Y \Rightarrow X \perp Y\)</span>, in plain language, independence implies zero correlation.<br />
-Note that this relationship does not necessarily hold in the reverse direction: two variables with zero covariance can still be dependent.</p></li>
+<li><p>If <span class="math inline">\(\textrm{Corr}(X,Y)=0\)</span>, we
+say that <span class="math inline">\(X\)</span> and <span
+class="math inline">\(Y\)</span> are <span
+style="color:#337ab7">uncorrelated</span> or orthogonal, denoted by
+<span class="math inline">\(X {\color{#337ab7}\perp} Y\)</span>
+(perpendicular symbol).</p></li>
+<li><p><span class="math inline">\(X {\color{#337ab7}\perp \!\!\! \perp}
+Y\)</span> (double perpendicular symbol) denotes <span
+class="math inline">\(X\)</span> and <span
+class="math inline">\(Y\)</span> are <span
+style="color:#337ab7">independent</span>.</p></li>
+<li><p><span class="math inline">\(X \perp \!\!\! \perp Y \Rightarrow X
+\perp Y\)</span>, in plain language, independence implies zero
+correlation.<br />
+Note that this relationship does not necessarily hold in the reverse
+direction: two variables with zero covariance can still be
+dependent.</p></li>
 </ul>
 <p><strong>Independent and Identically Distributed</strong></p>
 <ul>
-<li><p>Two (or more) independent random variables which have the same distribution are said to be <span style="color:#008B45FF">independent and identically distributed</span>, or <span style="color:#008B45FF">iid</span>.</p></li>
-<li><p>When would you expect the identical distribution assumption to fail? It typically fails when there is sufficient reason to believe that part of the sample has different distributional characteristics. This is called heterogeneity.</p></li>
+<li><p>Two (or more) independent random variables which have the same
+distribution are said to be <span style="color:#008B45FF">independent
+and identically distributed</span>, or <span
+style="color:#008B45FF">iid</span>.</p></li>
+<li><p>When would you expect the identical distribution assumption to
+fail? It typically fails when there is sufficient reason to believe that
+part of the sample has different distributional characteristics. This is
+called heterogeneity.</p></li>
 <li><p>We will mostly focus on iid data.</p></li>
 </ul>
 <p><strong>Sum of iid RVs</strong></p>
 <ul>
-<li><p>Suppose that <span class="math inline">\(Y_1, Y_2, ...,\)</span> Yn are independent and identically distributed random variables; note that they have the same expected value <span class="math inline">\(E(Y_i)\)</span> and the same variance <span class="math inline">\(\text{Var}(Y_i)\)</span> for <span class="math inline">\(i = 1, 2, ..., n.\)</span></p></li>
-<li><p>The expected value of the sample mean is:
-<span class="math display">\[
+<li><p>Suppose that <span class="math inline">\(Y_1, Y_2, ...,\)</span>
+Yn are independent and identically distributed random variables; note
+that they have the same expected value <span
+class="math inline">\(E(Y_i)\)</span> and the same variance <span
+class="math inline">\(\text{Var}(Y_i)\)</span> for <span
+class="math inline">\(i = 1, 2, ..., n.\)</span></p></li>
+<li><p>The expected value of the sample mean is: <span
+class="math display">\[
 \begin{aligned}
-\mathbb{E}(\overline{Y}) &amp;= \mathbb{E}\left[\frac{1}{n} \sum_{i=1}^n Y_i \right] \\
+\mathbb{E}(\overline{Y}) &amp;= \mathbb{E}\left[\frac{1}{n} \sum_{i=1}^n
+Y_i \right] \\
 &amp;= \frac{1}{n}  \sum_{i=1}^n \mathbb{E}(Y_i) \\
-&amp;= \frac{1}{n} \cdot n \cdot \mathbb{E}(Y_i) \quad (Y_i \text{ is iid}) \\
+&amp;= \frac{1}{n} \cdot n \cdot \mathbb{E}(Y_i) \quad (Y_i \text{ is
+iid}) \\
 &amp;= \mathbb{E}(Y_i)
 \end{aligned}
-\]</span>
-We say that the sample mean Y is an <span style="color:#337ab7">unbiased</span> estimator of the expected value of the random variable.</p>
-<p>Suppose <span class="math inline">\(\theta\)</span> is some population quantity, and <span class="math inline">\(\hat{\theta}\)</span> is an estimator of it. We say that <span class="math inline">\(\hat{\theta}\)</span> is an unbiased estimator of <span class="math inline">\(\theta\)</span> if
+\]</span> We say that the sample mean Y is an <span
+style="color:#337ab7">unbiased</span> estimator of the expected value of
+the random variable.</p>
+<p>Suppose <span class="math inline">\(\theta\)</span> is some
+population quantity, and <span
+class="math inline">\(\hat{\theta}\)</span> is an estimator of it. We
+say that <span class="math inline">\(\hat{\theta}\)</span> is an
+unbiased estimator of <span class="math inline">\(\theta\)</span> if
 <span class="math display">\[
 \mathbb{E}(\hat{\theta}) = \theta .
-\]</span>
-Unbiasedness means that our estimator is doing what it is supposed to do on average.</p></li>
-<li><p>The variance of the sample mean is:
-<span class="math display">\[
+\]</span> Unbiasedness means that our estimator is doing what it is
+supposed to do on average.</p></li>
+<li><p>The variance of the sample mean is: <span class="math display">\[
 \begin{aligned}
-\text{Var}(\overline{Y}) &amp;= \text{Var}\left[\frac{1}{n} \sum_{i=1}^n Y_i \right] \\
+\text{Var}(\overline{Y}) &amp;= \text{Var}\left[\frac{1}{n} \sum_{i=1}^n
+Y_i \right] \\
 &amp;= \frac{1}{n^2} \cdot n \cdot \text{Var}(Y_i) \\
 &amp;= \frac{\text{Var}(Y_i)}{n}
 \end{aligned}
 \]</span></p></li>
-<li><p>Importantly, the variance of <span class="math inline">\(Y\)</span> falls as the number of observations (<span class="math inline">\(n\)</span>) on the random variable increases; the sample mean accumulates information about the central tendency of the distribution as we add more observations, and we become less uncertain about the true value of <span class="math inline">\(E(Y_i)\)</span>.</p></li>
-<li><p>Indeed, we can note that <span class="math inline">\(\text{Var}(Y) \to 0\)</span> as the sample size <span class="math inline">\(n \to \infty\)</span>; in other words, in the limit we would know the value of <span class="math inline">\(E(Y_i)\)</span>.</p></li>
+<li><p>Importantly, the variance of <span
+class="math inline">\(Y\)</span> falls as the number of observations
+(<span class="math inline">\(n\)</span>) on the random variable
+increases; the sample mean accumulates information about the central
+tendency of the distribution as we add more observations, and we become
+less uncertain about the true value of <span
+class="math inline">\(E(Y_i)\)</span>.</p></li>
+<li><p>Indeed, we can note that <span
+class="math inline">\(\text{Var}(Y) \to 0\)</span> as the sample size
+<span class="math inline">\(n \to \infty\)</span>; in other words, in
+the limit we would know the value of <span
+class="math inline">\(E(Y_i)\)</span>.</p></li>
 </ul>
 </div>
 <div id="reading" class="section level1">
 <h1>Reading</h1>
-<p>J. Evans (2021), <em>Business analytics: methods, models, and decisions</em>, chaps 2-6.</p>
+<p>J. Evans (2021), <em>Business analytics: methods, models, and
+decisions</em>, chaps 2-6.</p>
 </div>
 
 
 
-</div>
-</div>
 
 </div>
 
@@ -1164,42 +1414,13 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
-<script>
-$(document).ready(function ()  {
-
-    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
-    $('.unlisted.unnumbered').addClass('toc-ignore')
-
-    // move toc-ignore selectors from section div to header
-    $('div.section.toc-ignore')
-        .removeClass('toc-ignore')
-        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
-
-    // establish options
-    var options = {
-      selectors: "h1,h2,h3,h4",
-      theme: "bootstrap3",
-      context: '.toc-content',
-      hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
-      },
-      ignoreSelector: ".toc-ignore",
-      scrollTo: 0
-    };
-    options.showAndHide = true;
-    options.smoothScroll = true;
-
-    // tocify
-    var toc = $("#TOC").tocify(options).data("toc-tocify");
-});
-</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML.js";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>
