@@ -104,7 +104,7 @@ ggplot(data, aes(x=SMB)) +
 ```
 
 Issue: hard to see the tail behavior.
-Solution: use QQ plot.
+Solution: use Quantile-Quantile (Q-Q) plots.
 
 The Q-Q plot, or quantile-quantile plot, is a graphical tool to help us assess if a set of data plausibly came from some theoretical distribution such as a normal distribution. 
 
@@ -454,6 +454,10 @@ ggplot() +
     labs(x="Theoretical quantiles", y="Sample quantiles", 
          title="Normal Q-Q plot")
 ```
+
+
+**Q-Q plot visualization**: \
+<https://xiongge.shinyapps.io/QQplots/>
 
 # References
 

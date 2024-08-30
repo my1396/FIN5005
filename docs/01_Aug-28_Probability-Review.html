@@ -669,6 +669,8 @@ Its CDF is:
 Fig. 1: The <span class="math inline">\(\Phi\)</span> and <span class="math inline">\(\phi\)</span> (<span class="math inline">\(f_Z(.)\)</span>) functions (CDF and pdf of standard normal).
 </p>
 </div>
+<p><strong>Distribution function visualization tool</strong>:<br />
+<a href="https://seeing-theory.brown.edu/probability-distributions/index.html#section2" class="uri">https://seeing-theory.brown.edu/probability-distributions/index.html#section2</a></p>
 <!------------------------------------------------------------------------>
 <hr />
 </div>
@@ -773,8 +775,8 @@ This is the density function for a normal random variable with mean <span class=
 \displaystyle \int_{-\infty}^{\infty} x^n f(x) dx &amp; \text{for continuous } X \\
 \end{cases}
 \]</span>
-if the integral exists.
-<span class="math inline">\(\sum_{x}\)</span> denotes the summation over all possible values of <span class="math inline">\(x\)</span>.
+if the integral exists.</p>
+<p><span class="math inline">\(\sum_{x}\)</span> denotes the summation over all possible values of <span class="math inline">\(x\)</span>.
 For discrete RV <span class="math inline">\(x\)</span>, we sometimes write <span class="math inline">\(f(x)\)</span> as <span class="math inline">\(P(X=x)\)</span>.</p>
 <div id="expectation" class="section level2">
 <h2>Expectation</h2>
@@ -845,10 +847,15 @@ Solution4
   \overline{X} = \frac{1}{n} \sum_{i=1}^n X_i
   \]</span></li>
 </ul></li>
-<li><p>Sample mean has some desirable properties as an &lt;style=‘color:#008B45FF’&gt;estimator</span> of the expected value of a random variable.</p></li>
+<li><p>It’s important to distinguish between <span style="color:#337ab7">population parameters</span> and <span style="color:#337ab7">sample statistics</span>.</p>
+<ul>
+<li>Population parameters: describe entire a population, often unknown. We often use <span class="math inline">\(\mu\)</span> to denote population expectation.</li>
+<li>Sample statistics: describes a <strong>fraction</strong> of a population, i.e., a sample, and are used to estimate/infer population parameter. We often use <span class="math inline">\(\overline{X}\)</span> to denote sample average.</li>
+</ul></li>
+<li><p>Sample mean has some desirable properties as an <span style="color:#008B45FF">estimator</span> of the expected value of a random variable.</p></li>
 </ul>
-<p>Expectations of functions of RVs
-If <span class="math inline">\(X\)</span> is a random variable and g is a function such that <span class="math inline">\(g(X)\)</span> is also a random variable, the expected value of <span class="math inline">\(g(X)\)</span> is given by
+<p><strong>Expectations of functions of RVs</strong></p>
+<p>If <span class="math inline">\(X\)</span> is a random variable and <span class="math inline">\(g\)</span> is a function such that <span class="math inline">\(g(X)\)</span> is also a random variable, the expected value of <span class="math inline">\(g(X)\)</span> is given by
 <span class="math display">\[
 \mathbb{E}\left[g(X)\right] = \begin{cases}
 \displaystyle \sum_{x}g(x) f(x) &amp; \text{for discrete } X \\
@@ -970,6 +977,7 @@ The latter subtracts 1 from n in the denominator, which is known as a degrees of
 <span class="math display">\[
 \hat{\sigma} = \sqrt{\hat{\sigma}^2}
 \]</span></p>
+<hr />
 </div>
 <div id="covariance" class="section level2">
 <h2>Covariance</h2>
@@ -1094,6 +1102,7 @@ Fig. 4: <strong>Laplace distribution</strong>. The dotted green curve shows a no
 <li>Standard deviation is useful for measuring the <em>spread</em>.<br />
 Kurtosis focuses on detecting <em>outliers</em>.</li>
 </ul>
+<hr />
 </div>
 </div>
 <div id="independence" class="section level1">

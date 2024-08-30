@@ -396,6 +396,8 @@ $$
 include_graphics("https://drive.google.com/thumbnail?id=1nxfdIKXgZvOqXVSeA3h_hf0yxmsM361l&sz=w1000")
 ```
 
+**Distribution function visualization tool**: \
+<https://seeing-theory.brown.edu/probability-distributions/index.html#section2>
 
 <!------------------------------------------------------------------------>
 ___
@@ -512,6 +514,7 @@ $$
 \end{cases}
 $$
 if the integral exists.
+
 $\sum_{x}$ denotes the summation over all possible values of $x$.
 For discrete RV $x$, we sometimes write $f(x)$ as $P(X=x)$.
 
@@ -593,11 +596,15 @@ ___
     $$
     \overline{X} = \frac{1}{n} \sum_{i=1}^n X_i
     $$
-- Sample mean has some desirable properties as an <style='color:#008B45FF'>estimator</span> of the expected value of a random variable.
+- It's important to distinguish between <span style='color:#337ab7'>population parameters</span> and <span style='color:#337ab7'>sample statistics</span>. 
+    - Population parameters: describe entire a population, often unknown. We often use $\mu$ to denote population expectation.
+    - Sample statistics: describes a **fraction** of a population, i.e., a sample, and are used to estimate/infer population parameter. We often use $\overline{X}$ to denote sample average.
+- Sample mean has some desirable properties as an <span style='color:#008B45FF'>estimator</span> of the expected value of a random variable.
 
 
-Expectations of functions of RVs
-If $X$ is a random variable and g is a function such that $g(X)$ is also a random variable, the expected value of $g(X)$ is given by
+**Expectations of functions of RVs**
+
+If $X$ is a random variable and $g$ is a function such that $g(X)$ is also a random variable, the expected value of $g(X)$ is given by
 $$
 \mathbb{E}\left[g(X)\right] = \begin{cases}
 \displaystyle \sum_{x}g(x) f(x) & \text{for discrete } X \\
@@ -739,6 +746,7 @@ $$
 \hat{\sigma} = \sqrt{\hat{\sigma}^2}
 $$
 
+___
 
 ## Covariance
 
@@ -860,6 +868,8 @@ include_graphics("images/Laplace distribution.webp")
 
 - Standard deviation is useful for measuring the *spread*. \
   Kurtosis focuses on detecting *outliers*. 
+
+___
 
 # Independence
 
