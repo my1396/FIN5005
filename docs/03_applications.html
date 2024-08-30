@@ -5412,7 +5412,7 @@ kurtosis  3.71  11.64   5.27  2.50
 </ul>
 <div id="distribution-of-smb" class="section level2">
 <h2>Distribution of SMB</h2>
-<p>Plot histogra, empirical density, and compare with normal density (in blue).</p>
+<p>Plot histogram, empirical density, and compare with normal density (in blue).</p>
 <pre class="r"><code>ggplot(data, aes(x=SMB)) +
     geom_histogram(aes(y=..density..), 
                    fill=&quot;#BDBCBC&quot;, 
@@ -5423,13 +5423,16 @@ kurtosis  3.71  11.64   5.27  2.50
     stat_function(fun = dnorm, args = list(mean = 0, sd = 1), color=&quot;blue&quot;) +
     labs(x=&quot;Small minus big, SMB&quot;)</code></pre>
 <p><img src="03_applications_files/figure-html/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>Issue: hard to see the tail behavior.
-Solution: use Quantile-Quantile (Q-Q) plots.</p>
-<p>The Q-Q plot, or quantile-quantile plot, is a graphical tool to help us assess if a set of data plausibly came from some theoretical distribution such as a normal distribution.</p>
+<p>Issue: hard to see the tail behavior.</p>
+<p>Solution: use Quantile-Quantile (Q-Q) plots.</p>
+<p>The <span style="color:#008B45FF">Q-Q plot</span>, or <span style="color:#008B45FF">quantile-quantile plot</span>, is a graphical tool to help us assess if a set of data plausibly came from some theoretical distribution such as a normal distribution.</p>
 <ul>
 <li>For example, if we run a statistical analysis that <span style="color:#337ab7">assumes our <strong>residuals</strong> are normally distributed</span>, we can use a normal Q-Q plot to check that assumption.</li>
 </ul>
-<p>A QQ plot is a scatter plot created by plotting two sets of quantiles against one another. If both sets of quantiles came from the same distribution, we should see the points forming a line that’s roughly straight.</p>
+<p>A QQ plot is a scatter plot created by plotting two sets of quantiles against one another.</p>
+<ul>
+<li>If both sets of quantiles came from the same distribution, we should see the points forming a line that’s roughly straight.</li>
+</ul>
 <pre class="r"><code>ggplot(data, aes(sample=SMB)) +
     geom_qq() +
     geom_qq_line(color=&quot;red&quot;) +
@@ -5507,7 +5510,7 @@ This doesn’t mean that <span class="math inline">\(\overline{X}\)</span> itsel
 </ul>
 <p>To illustrate the properties of the sample estimator:</p>
 <ul>
-<li>You can take more samples, you take <span class="math inline">\(1,000\)</span> people from each of <span class="math inline">\(9\)</span> other cities, for instance, Oslo, Bergen. The you calculate the sample average for each city. Now you have <span class="math inline">\(10\)</span> sample averages from <span class="math inline">\(10\)</span> cities.</li>
+<li>You can take more samples, say you take <span class="math inline">\(1,000\)</span> people from each of <span class="math inline">\(9\)</span> other cities, for instance, Oslo, Bergen. Then you calculate the sample average for each city. Now you have <span class="math inline">\(10\)</span> sample averages from <span class="math inline">\(10\)</span> cities.</li>
 <li>Unbiased estimator tells us that if you calculate the expected value of these <span class="math inline">\(10\)</span> numbers, it will be an <strong>unbiased</strong> estimator for the population.</li>
 <li><strong>Reduced uncertainty</strong> means that if you increase the sample size from <span class="math inline">\(1,000\)</span> to <span class="math inline">\(10,000\)</span> (that is, you take <span class="math inline">\(10,000\)</span> from each of the <span class="math inline">\(10\)</span> cities), the variance of the <span class="math inline">\(10\)</span> sample averages will be smaller.</li>
 </ul>
