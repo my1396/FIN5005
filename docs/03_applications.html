@@ -5479,6 +5479,40 @@ Solution: use QQ plot.</p>
 </div>
 <div id="sample-estimators" class="section level1">
 <h1>Sample estimators</h1>
+<p><strong>Sample mean</strong> Let <span class="math inline">\(X_1, \ldots, X_n\)</span> denote <span class="math inline">\(n\)</span> observations on a variable <span class="math inline">\(X\)</span>, the sample mean is</p>
+<p><span class="math display">\[
+\begin{align*}
+\overline{X}=\frac{1}{n}\sum_{i=1}^nX_i
+\end{align*}
+\]</span></p>
+<p><span class="math inline">\(\overline{X}\)</span> is a random variable, as it is the average of random variables.
+This is in sharp contrast to <span class="math inline">\(\mathbb{E}[X]\)</span> which is non-random and comes from a fixed DGP.</p>
+<p><span class="math inline">\(\overline{X}\)</span> varies with each sample.
+If we could repeatedly collect new samples of size <span class="math inline">\(n\)</span> from the same population and each time were able to estimate <span class="math inline">\(\overline{X}\)</span>, these estimates would be <strong>different</strong> from each other.</p>
+<ul>
+<li>The distribution of a statistic, like <span class="math inline">\(\overline{X}\)</span>, is called its <span style="color:#337ab7"><strong>sampling distribution</strong></span>.</li>
+</ul>
+<p>One useful feature is <span class="math inline">\(\mathbb{E}[\overline{X}] = \mathbb{E}[X]\)</span>.
+This doesn’t mean that <span class="math inline">\(\overline{X}\)</span> itself is equal to <span class="math inline">\(\mathbb{E}[X]\)</span>. Rather, it means that, if we could <strong>repeatedly</strong> obtain (a huge number of times) new samples of size <span class="math inline">\(n\)</span> and compute <span class="math inline">\(\overline{X}\)</span> each time, the average of <span class="math inline">\(\overline{X}\)</span> across repeated samples would be equal to <span class="math inline">\(\mathbb{E}[X] .\)</span></p>
+<ul>
+<li>Here using the notation from unbiased estimators, <span class="math inline">\(\hat{\theta} = \overline{X}\)</span> and <span class="math inline">\(\theta = \mathbb{E}[X]\)</span>.</li>
+<li><span class="math inline">\(\mathbb{E}[\overline{X}] = \mathbb{E}[X]\)</span> is equivalent to say <span class="math inline">\(\mathbb{E}(\hat{\theta}) = \theta .\)</span></li>
+</ul>
+<hr />
+<p><span style="color:#337ab7">A real world example:</span> You are measuring Norwegian people’s heights.</p>
+<ul>
+<li>It wouldn’t be feasible for you to measure the heights of every person in the population.</li>
+<li>In stead, you take a sample and use it to infer the population height.</li>
+<li>One sample might be 1000 people from Bodø, and you use it to represent the population height.</li>
+</ul>
+<p>To illustrate the properties of the sample estimator:</p>
+<ul>
+<li>You can take more samples, you take <span class="math inline">\(1,000\)</span> people from each of <span class="math inline">\(9\)</span> other cities, for instance, Oslo, Bergen. The you calculate the sample average for each city. Now you have <span class="math inline">\(10\)</span> sample averages from <span class="math inline">\(10\)</span> cities.</li>
+<li>Unbiased estimator tells us that if you calculate the expected value of these <span class="math inline">\(10\)</span> numbers, it will be an <strong>unbiased</strong> estimator for the population.</li>
+<li><strong>Reduced uncertainty</strong> means that if you increase the sample size from <span class="math inline">\(1,000\)</span> to <span class="math inline">\(10,000\)</span> (that is, you take <span class="math inline">\(10,000\)</span> from each of the <span class="math inline">\(10\)</span> cities), the variance of the <span class="math inline">\(10\)</span> sample averages will be smaller.</li>
+</ul>
+<hr />
+<p><span style="color:#337ab7">A numerical illustration</span> using simulations from the Bernoulli distribution.</p>
 <p>Bernoulli distribution with different values of <span class="math inline">\(p\)</span></p>
 <pre class="r"><code>set.seed(125)
 # sample size=10, Bernoulli(p=0.1)
@@ -5491,7 +5525,7 @@ rbinom(n = 10, size = 1, prob = c(.50)) </code></pre>
 rbinom(n = 10, size = 1, prob = c(.90)) </code></pre>
 <pre><code>##  [1] 1 1 1 1 1 1 1 1 1 1</code></pre>
 <hr />
-<p>Bernoulli distribution with different sample size</p>
+<p><span class="math inline">\(\text{Bernoulli}(p=0.5)\)</span> with different sample size</p>
 <pre class="r"><code>set.seed(125)
 # sample size=10
 p_hat_1 &lt;- sum(rbinom(n = 10, size = 1, prob = c(.50)))/10
@@ -5503,7 +5537,10 @@ p_hat_3 &lt;- sum(rbinom(n = 1000, size = 1, prob = c(.50)))/1000
 p_hat_4 &lt;- sum(rbinom(n = 10000, size = 1, prob = c(.50)))/10000
 c(p_hat_1, p_hat_2, p_hat_3, p_hat_4)</code></pre>
 <pre><code>## [1] 0.6000 0.5600 0.4850 0.5007</code></pre>
-<p><strong>Conclusion</strong>: sample average approaches better to the population as sample size increases.</p>
+<p><strong>Conclusion</strong>: sample average from one sample approaches better to the population quantity as sample size increases.</p>
+<ul>
+<li>When sample size increases <span class="math inline">\(\Longrightarrow\)</span> uncertainty reduces <span class="math inline">\(\Longrightarrow\)</span> you can rely more on estimates based on one sample.</li>
+</ul>
 <hr />
 <p><strong>Uncertainty reduces as sample size increases</strong></p>
 <pre class="r"><code>bt &lt;- 100
@@ -5511,26 +5548,30 @@ c(p_hat_1, p_hat_2, p_hat_3, p_hat_4)</code></pre>
 rbinom(n = 10*bt, size = 1, prob = c(.50)) %&gt;% 
     matrix(ncol=bt, byrow=FALSE) %&gt;% 
     apply(2, function(col) sum(col)/10) %&gt;% 
-    sd()</code></pre>
-<pre><code>## [1] 0.1623564</code></pre>
+    {c(&quot;mean&quot; = mean(.), &quot;sd&quot; = sd(.))}</code></pre>
+<pre><code>##      mean        sd 
+## 0.5480000 0.1623564</code></pre>
 <pre class="r"><code># sample size=100
 rbinom(n = 100*bt, size = 1, prob = c(.50)) %&gt;% 
     matrix(ncol=bt, byrow=FALSE) %&gt;% 
     apply(2, function(col) sum(col)/100) %&gt;% 
-    sd()</code></pre>
-<pre><code>## [1] 0.0483141</code></pre>
+    {c(&quot;mean&quot; = mean(.), &quot;sd&quot; = sd(.))}</code></pre>
+<pre><code>##      mean        sd 
+## 0.5053000 0.0483141</code></pre>
 <pre class="r"><code># sample size=1,000
 rbinom(n = 1000*bt, size = 1, prob = c(.50)) %&gt;% 
     matrix(ncol=bt, byrow=FALSE) %&gt;% 
     apply(2, function(col) sum(col)/1000) %&gt;% 
-    sd()</code></pre>
-<pre><code>## [1] 0.01670994</code></pre>
+    {c(&quot;mean&quot; = mean(.), &quot;sd&quot; = sd(.))}</code></pre>
+<pre><code>##       mean         sd 
+## 0.49949000 0.01670994</code></pre>
 <pre class="r"><code># sample size=10,000
 rbinom(n = 10000*bt, size = 1, prob = c(.50)) %&gt;% 
     matrix(ncol=bt, byrow=FALSE) %&gt;% 
     apply(2, function(col) sum(col)/10000) %&gt;% 
-    sd()</code></pre>
-<pre><code>## [1] 0.005463507</code></pre>
+    {c(&quot;mean&quot; = mean(.), &quot;sd&quot; = sd(.))}</code></pre>
+<pre><code>##        mean          sd 
+## 0.499517000 0.005463507</code></pre>
 <hr />
 </div>
 <div id="skewness" class="section level1">

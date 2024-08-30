@@ -171,6 +171,46 @@ ___
 
 # Sample estimators
 
+**Sample mean** Let $X_1, \ldots, X_n$ denote $n$ observations on a variable $X$, the sample mean is
+
+$$
+\begin{align*}
+\overline{X}=\frac{1}{n}\sum_{i=1}^nX_i
+\end{align*}
+$$
+
+$\overline{X}$ is a random variable, as it is the average of random variables.
+This is in sharp contrast to $\mathbb{E}[X]$ which is non-random and comes from a fixed DGP.  
+
+$\overline{X}$ varies with each sample.
+If we could repeatedly collect new samples of size $n$ from the same population and each time were able to estimate $\overline{X}$, these estimates would be **different** from each other.
+
+- The distribution of a statistic, like $\overline{X}$, is called its <span style='color:#337ab7'>**sampling distribution**</span>.  
+
+One useful feature is  $\mathbb{E}[\overline{X}] = \mathbb{E}[X]$.
+This doesn't mean that $\overline{X}$ itself is equal to $\mathbb{E}[X]$.  Rather, it means that, if we could **repeatedly** obtain (a huge number of times) new samples of size $n$ and compute $\overline{X}$ each time, the average of $\overline{X}$ across repeated samples would be equal to $\mathbb{E}[X] .$
+
+- Here using the notation from unbiased estimators,  $\hat{\theta} = \overline{X}$ and $\theta = \mathbb{E}[X]$. 
+- $\mathbb{E}[\overline{X}] = \mathbb{E}[X]$ is equivalent to say $\mathbb{E}(\hat{\theta}) = \theta .$
+
+___
+
+<span style='color:#337ab7'>A real world example:</span> You are measuring Norwegian people's heights.
+
+- It wouldn't be feasible for you to measure the heights of every person in the population.
+- In stead, you take a sample and use it to infer the population height.
+- One sample might be 1000 people from Bodø, and you use it to represent the population height.
+
+
+To illustrate the properties of the sample estimator:
+
+- You can take more samples, you take $1,000$ people from each of $9$ other cities, for instance, Oslo, Bergen. The you calculate the sample average for each city. Now you have $10$ sample averages from $10$ cities.
+- Unbiased estimator tells us that if you calculate the expected value of these $10$ numbers, it will be an **unbiased** estimator for the population.
+- **Reduced uncertainty** means that if you increase the sample size from $1,000$ to $10,000$ (that is, you take $10,000$ from each of the $10$ cities), the variance of the $10$ sample averages will be smaller.
+
+___
+
+<span style='color:#337ab7'>A numerical illustration</span> using simulations from the Bernoulli distribution.
 
 Bernoulli distribution with different values of $p$
 
@@ -186,7 +226,7 @@ rbinom(n = 10, size = 1, prob = c(.90))
 
 ___
 
-Bernoulli distribution with different sample size
+$\text{Bernoulli}(p=0.5)$ with different sample size
 
 ```{r}
 set.seed(125)
@@ -200,7 +240,10 @@ p_hat_3 <- sum(rbinom(n = 1000, size = 1, prob = c(.50)))/1000
 p_hat_4 <- sum(rbinom(n = 10000, size = 1, prob = c(.50)))/10000
 c(p_hat_1, p_hat_2, p_hat_3, p_hat_4)
 ```
-**Conclusion**: sample average approaches better to the population as sample size increases.
+
+**Conclusion**: sample average from one sample approaches better to the population quantity as sample size increases.
+
+- When sample size increases $\Longrightarrow$ uncertainty reduces $\Longrightarrow$ you can rely more on estimates based on one sample. 
 
 ___
 
@@ -212,22 +255,25 @@ bt <- 100
 rbinom(n = 10*bt, size = 1, prob = c(.50)) %>% 
     matrix(ncol=bt, byrow=FALSE) %>% 
     apply(2, function(col) sum(col)/10) %>% 
-    sd()
+    {c("mean" = mean(.), "sd" = sd(.))}
 ```
+
 
 ```{r}
 # sample size=100
 rbinom(n = 100*bt, size = 1, prob = c(.50)) %>% 
     matrix(ncol=bt, byrow=FALSE) %>% 
     apply(2, function(col) sum(col)/100) %>% 
-    sd()
+    {c("mean" = mean(.), "sd" = sd(.))}
 ```
+
+
 ```{r}
 # sample size=1,000
 rbinom(n = 1000*bt, size = 1, prob = c(.50)) %>% 
     matrix(ncol=bt, byrow=FALSE) %>% 
     apply(2, function(col) sum(col)/1000) %>% 
-    sd()
+    {c("mean" = mean(.), "sd" = sd(.))}
 ```
 
 ```{r}
@@ -235,7 +281,7 @@ rbinom(n = 1000*bt, size = 1, prob = c(.50)) %>%
 rbinom(n = 10000*bt, size = 1, prob = c(.50)) %>% 
     matrix(ncol=bt, byrow=FALSE) %>% 
     apply(2, function(col) sum(col)/10000) %>% 
-    sd()
+    {c("mean" = mean(.), "sd" = sd(.))}
 ```
 
 
