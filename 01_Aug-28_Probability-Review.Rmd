@@ -830,7 +830,7 @@ rt(n=1000, df=30) %>% moments::kurtosis()
 ```
 
 
-```{r fig-Laplace, fig.cap="**Laplace distribution**. The dotted green curve shows a normal distribution. The blue curve shows a Laplace distribution with kurtosis of 6.54. On the far left and right sides of the distribution—the tails—the space below the Laplace distribution curve (blue) is slightly thicker than the space below the normal distribution curve (green). This is an example of a heavy-tailed distribution yet with a sharper peak.", out.width="70%", echo=FALSE}
+```{r fig-Laplace, fig.cap="**Laplace distribution**. The dotted green curve shows a normal distribution. The blue curve shows a Laplace distribution with kurtosis of 6.54. On the far left and right sides of the distribution—the tails—the space below the Laplace distribution curve (blue) is slightly thicker than the space below the normal distribution curve (green). This is an example of a heavy-tailed distribution yet with a *sharper* peak.", out.width="70%", echo=FALSE}
 include_graphics("images/Laplace distribution.webp")
 ```
 
@@ -840,11 +840,11 @@ include_graphics("images/Laplace distribution.webp")
 
 - Standard deviation and kurtosis are both measures of the variability of a distribution, but they are not directly related. 
     - Two distributions with identical means and standard deviations can have very different shapes, and kurtosis is one of the measures of that difference. 
-    - It looks at how much of the ‘weight’ of the distribution (recall that the total weight, or the area under the curve, is 1) is sitting in the tails as opposed to the middle of the distribution. 
+    - It looks at how much of the ‘weight’ of the distribution (recall that the total weight, or the area under the curve, is $1$) is sitting in the tails as opposed to the middle of the distribution. 
 
 
-- Standard deviation is useful for measuring the spread. \
-  Kurtosis focuses on detecting outliers. 
+- Standard deviation is useful for measuring the *spread*. \
+  Kurtosis focuses on detecting *outliers*. 
 
 # Independence
 
