@@ -8,6 +8,9 @@ title: "Course website for FIN 5005"
 
 [Aug 30, 2024, Probability Review -- Lab](03_applications.html) &nbsp;&nbsp;&nbsp;
 
+[Sept 1, 2024, Hypothesis Testing -- Lecture](04_Sept_11_lecture.html) &nbsp;&nbsp;&nbsp;
+
+
 This webpage is based on materials from Bent Nielsen’s Lecture Notes for Core Econometrics. 
 
 **Office hour**: By appointment.

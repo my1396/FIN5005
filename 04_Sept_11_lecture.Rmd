@@ -1,0 +1,190 @@
+---
+title: "Hypothesis Testing -- Lecture"
+author: "Menghan Yuan"
+date: "Sept 11, 2024"
+output: 
+    bookdown::html_document2:
+        mathjax: "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML.js"
+        self_contained: false
+        toc: true
+        toc_float: true
+        toc_depth: 4
+        number_sections: false
+        css: "style.css"
+---
+
+<SCRIPT language="JavaScript" SRC="my_jxscript.js"></SCRIPT>
+
+<a class="top-link" href="#top" id="js-top">↑</a>
+
+```{r setup, include=F, echo=F}
+library(knitr) # load packages
+library(kableExtra)
+library(tidyverse)
+library(latex2exp)
+library(stargazer)
+library(bookdown)
+
+# don't show code unless we explicitly set echo = TRUE
+opts_chunk$set(echo = TRUE, message=FALSE, fig.align="center", fig.pos = "H")
+opts <- options(knitr.kable.NA = "")
+
+## control long outputs by using eg `max.lines = 10`
+hook_output_default <- knitr::knit_hooks$get('output')
+truncate_to_lines <- function(x, n) {
+   if (!is.null(n)) {
+      x = unlist(stringr::str_split(x, '\n'))
+      if (length(x) > n) {
+         # truncate the output
+         x = c(head(x, n), '...\n')
+      }
+      x = paste(x, collapse = '\n') # paste first n lines together
+   }
+   x
+}
+knitr::knit_hooks$set(output = function(x, options) {
+   max.lines <- options$max.lines
+   x <- truncate_to_lines(x, max.lines)
+   hook_output_default(x, options)
+})
+```
+
+
+# Expectation and Variance of a Random Vector
+
+- Now we have a $2\times 1$ random vector $X = (X_1, X_2)'$, we have
+$$
+\mathbb{E}(X) = 
+\mathbb{E}\begin{pmatrix}
+X_1 \\ X_2
+\end{pmatrix}
+= \begin{pmatrix}
+\mathbb{E}(X_1) \\ \mathbb{E}(X_2)
+\end{pmatrix}
+$$
+
+- The variance of the bivariate random vector is given by:
+$$
+\begin{aligned}
+\text{Var}(X) &= \mathbb{E}\{(X-\mathbb{E}(X))(X-\mathbb{E}(X))'\} \\
+&= \mathbb{E}\left\lbrace \begin{bmatrix} X_1-\mathbb{E}(X_1) \\
+X_2-\mathbb{E}(X_2)
+\end{bmatrix}
+\begin{bmatrix} X_1-\mathbb{E}(X_1),
+X_2-\mathbb{E}(X_2)
+\end{bmatrix}
+\right\rbrace \\
+&= \mathbb{E}\begin{pmatrix}
+[X_1-\mathbb{E}(X_1)]^2                    & [X_1-\mathbb{E}(X_1)][X_2-\mathbb{E}(X_2)]  \\
+[X_2-\mathbb{E}(X_2)][X_1-\mathbb{E}(X_1)] & [X_2-\mathbb{E}(X_2)]^2
+\end{pmatrix} \\
+&= \begin{pmatrix}
+\mathbb{E}\{[X_1-\mathbb{E}(X_1)]^2\}                    & \mathbb{E}\{[X_1-\mathbb{E}(X_1)][X_2-\mathbb{E}(X_2)]\}  \\
+\mathbb{E}\{[X_2-\mathbb{E}(X_2)][X_1-\mathbb{E}(X_1)]\} & \mathbb{E}\{[X_2-\mathbb{E}(X_2)]^2\}
+\end{pmatrix} \\
+&= \begin{pmatrix}
+\text{Var}(X_1)      & \text{Cov}(X_1, X_2) \\
+\text{Cov}(X_1, X_2) & \text{Var}(X_2)
+\end{pmatrix}
+\end{aligned} 
+$$
+This is called the variance (or also the covariance) matrix. 
+This matrix is, by definition, symmetric.
+
+
+
+___
+
+**Linear Transformations of a Random Vector**
+
+Let $X$ be a $p\times 1$ random vector, let $A$ be a non-random $q\times 1$ vector, and let $B$ be a non-random $p\times q$ matrix.
+
+Then 
+$$
+Y = A + BX
+$$
+is a $q\times 1$ random vector.
+
+- The expected value of this transformation is given by 
+$$
+\mathbb{E}(Y) = \mathbb{E}(A+BX) = A + B\mathbb{E}(X)
+$$
+
+- The variance of this transformation is given by
+$$
+\text{Var}(Y) = \text{Var}(A+BY) = \text{Var}(BY) = B\text{Var}(X)B'
+$$
+
+___
+
+**Non-Negative Definiteness**
+
+Remember that for a scalar random variable $X$, $\text{Var}(X)$ is a non-negative scalar.
+
+For a $q\times 1$ random vector $Y$ (such as $Y=A+BX$ defined before), the variance $\text{Var}(Y)$ will be a $q \times q$ matrix. What is the counterpart of non-negativeness for matrices?
+
+The appropriate concept is called <span style='color:#008B45FF'>non-negative definiteness</span> or <span style='color:#008B45FF'>positive semi-definiteness</span>.
+
+A $q \times q$ square matrix $\Sigma$ is called non-negative definite (or positive semi-definite) if for any non-zero $q\times 1$ vector $a$ it holds that
+$$
+a'\Sigma a \ge 0.
+$$
+If the square matrix $\Sigma$ is non-negative definite, we write $\Sigma \ge 0.$
+
+
+___
+
+# Central Limit Theorem
+
+Suppose that $X_1, \ldots, X_n$ is an iid sequence with mean $\mathbb{E}(X_i)=\mu$ and $\text{Var}(X_i)=\sigma^2$. 
+
+Let $\overline{X}=\sum_{i=1}^n X_i$ Then,
+
+$$
+\frac{\overline{X}-\mathbb{E}[\overline{X}]}{\sqrt{\text{Var}[\overline{X}]}} 
+= \frac{\overline{X}-\mu}{\sqrt{\sigma^2/n}} 
+= \color{#008B45FF}{\sqrt{n}} \cdot \frac{\overline{X}-\mu}{\sigma} 
+\xrightarrow{d} N(0,1)
+$$
+
+$\xrightarrow{d}$ means convergence in distribution.
+
+
+Equivalently, we can write 
+
+$$
+\sqrt{n}\cdot\frac{\overline{X}-\mu}{\sigma} \overset{a}{\sim} N(0,1)
+$$
+
+$\overset{\rm a}{\sim}$ means "*approximately distributed with*". \
+Or we can also write as
+
+
+\begin{array}{rlrl}
+	\sqrt{n} (\overline{X}-\mu)  &\xrightarrow{d} N(0,\sigma^2),  &
+  \sqrt{n} (\overline{X}-\mu)  &\overset{a}{\sim} N(0,\sigma^2) \\
+  
+  \overline{X} -\mu  &\xrightarrow{d} N(0,\sigma^2/n), &
+  \overline{X} -\mu  &\overset{a}{\sim} N(0,\sigma^2/n) \\
+
+  \overline{X} &\xrightarrow{d} N(\mu,\sigma^2/n), &
+  \color{#008B45FF}{\overline{X}} & \color{#008B45FF}{\overset{a}{\sim} N(\mu,\sigma^2/n)} .
+\end{array} 
+
+
+Note: The CLT is a very powerful result. $X_1, \ldots, X_n$ can be from <span style='color:#337ab7'>any possible distribution</span> (*iid* with *finite mean and variance*), and still their normalized sample mean will be <span style='color:#008B45FF'>standard normal</span>.
+
+
+The scaling by $\sqrt{n}$ is crucial.
+
+Once we suitably scale by $\sqrt{n}$, we can invoke the CLT and obtain that $\sqrt{n} (\overline{X}-\mu)$ or $\sqrt{n}\cdot\frac{\overline{X}-\mu}{\sigma}$ are asymptotically normal as $n\to\infty$.
+
+
+
+
+
+
+
+
+
+
