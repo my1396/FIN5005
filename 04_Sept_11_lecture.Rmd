@@ -138,7 +138,11 @@ ___
 
 Suppose that $X_1, \ldots, X_n$ is an iid sequence with mean $\mathbb{E}(X_i)=\mu$ and $\text{Var}(X_i)=\sigma^2$. 
 
-Let $\overline{X}=\sum_{i=1}^n X_i$ Then,
+Let $\overline{X}=\sum_{i=1}^n X_i.$ 
+
+We have shown in the last lecture that $\mathbb{E}[\overline{X}]=\mu$ and $\text{Var}[\overline{X}]=\sigma^2/n$ (Refer to the expectation and variance of the sample mean).
+
+Then, the <span style='color:#008B45FF'>**Lindeberg-Lévy CLT**</span> states that
 
 $$
 \frac{\overline{X}-\mathbb{E}[\overline{X}]}{\sqrt{\text{Var}[\overline{X}]}} 
@@ -156,7 +160,7 @@ $$
 \sqrt{n}\cdot\frac{\overline{X}-\mu}{\sigma} \overset{a}{\sim} N(0,1)
 $$
 
-$\overset{\rm a}{\sim}$ means "*approximately distributed with*". \
+$\overset{\rm a}{\sim}$ means "*approximately distributed with*." \
 Or we can also write as
 
 
@@ -175,9 +179,56 @@ Or we can also write as
 Note: The CLT is a very powerful result. $X_1, \ldots, X_n$ can be from <span style='color:#337ab7'>any possible distribution</span> (*iid* with *finite mean and variance*), and still their normalized sample mean will be <span style='color:#008B45FF'>standard normal</span>.
 
 
-The scaling by $\sqrt{n}$ is crucial.
+- The scaling by $\sqrt{n}$ is crucial.
 
-Once we suitably scale by $\sqrt{n}$, we can invoke the CLT and obtain that $\sqrt{n} (\overline{X}-\mu)$ or $\sqrt{n}\cdot\frac{\overline{X}-\mu}{\sigma}$ are asymptotically normal as $n\to\infty$.
+- Once we suitably scale by $\sqrt{n}$, we can invoke the CLT and obtain that $\sqrt{n} (\overline{X}-\mu)$ or $\sqrt{n}\cdot\frac{\overline{X}-\mu}{\sigma}$ are asymptotically normal as $n\to\infty$.
+
+- In practice, we replace $\sigma$ with $\widehat{\sigma}$ because we do not observe $\sigma$ but we do observe $\widehat{\sigma}$.
+
+- Population variance estimators, $\widehat{\sigma}^2$. Two versions: 
+  - <span style='color:#337ab7'>Biased</span> sample variance: 
+  $$
+  s_1^2 = \frac{1}{n} \sum_{i=1}^n [(X_i-\overline{X})^2]
+  $$ and 
+  - <span style='color:#337ab7'>Unbiased</span> sample variance: 
+  $$
+  s_2^2 = \frac{1}{n-1} \sum_{i=1}^n [(X_i-\overline{X})^2]
+  $$
+  - Both options are consistent; using either is fine.
+
+
+___
+
+# Confidence Intervals
+
+## Estimation Uncertainty
+
+For an iid sequence $X_1,\ldots,X_n$ with finite mean and variance, we already know that
+$$
+\mathbb{E}(\overline{X}) = \mu \quad \text{and} \quad \text{Var}(\overline{X}) = \frac{\sigma^2}{n}.
+$$
+Intuitively, $\overline{X}$ is a very useful estimator of $\mu$ but, just like any estimator, it is subject to dispersion, given by $\frac{\sigma^2}{n}.$
+
+Given a dataset, one typically reports the value of the estimator for that particular dataset. But this does not include information on the uncertainty due the estimator variance.
+
+A <span style='color:#008B45FF'>**confidence interval**</span> combines both the <span style='color:#337ab7'>value</span> of the estimator and the <span style='color:#337ab7'>variance</span> of that estimator, thereby reflecting <span style='color:#337ab7'>estimation uncertainty</span>.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

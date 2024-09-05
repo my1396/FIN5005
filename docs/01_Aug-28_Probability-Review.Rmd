@@ -898,15 +898,16 @@ Note that this relationship does not necessarily hold in the reverse direction: 
 
 **Sum of iid RVs**
 
-- Suppose that $Y_1, Y_2, ...,$ Yn are independent and identically distributed random variables; note that they have the same expected value $E(Y_i)$ and the same variance $\text{Var}(Y_i)$ for $i = 1, 2, ..., n.$
+- Suppose that $Y_1, Y_2, ...,Y_n$ are independent and identically distributed random variables. 
+- Note that they have the same expected value $E(Y_i)=\mu$ and the same variance $\text{Var}(Y_i)=\sigma^2$ for $i = 1, 2, ..., n.$
 
-- The expected value of the sample mean is:
+- The <span style='color:#337ab7'>**expected value of the sample mean**</span> is:
 $$
 \begin{aligned}
 \mathbb{E}(\overline{Y}) &= \mathbb{E}\left[\frac{1}{n} \sum_{i=1}^n Y_i \right] \\
 &= \frac{1}{n}  \sum_{i=1}^n \mathbb{E}(Y_i) \\
 &= \frac{1}{n} \cdot n \cdot \mathbb{E}(Y_i) \quad (Y_i \text{ is iid}) \\
-&= \mathbb{E}(Y_i) 
+&= \mathbb{E}(Y_i) = \mu
 \end{aligned}
 $$
     We say that the sample mean Y is an <span style='color:#337ab7'>unbiased</span> estimator of the expected value of the random variable.
@@ -918,12 +919,12 @@ $$
     Unbiasedness means that our estimator is doing what it is supposed to do on average.
 
 
-- The variance of the sample mean is:
+- The <span style='color:#337ab7'>**variance of the sample mean**</span> is:
 $$
 \begin{aligned}
 \text{Var}(\overline{Y}) &= \text{Var}\left[\frac{1}{n} \sum_{i=1}^n Y_i \right] \\
 &= \frac{1}{n^2} \cdot n \cdot \text{Var}(Y_i) \\
-&= \frac{\text{Var}(Y_i)}{n}
+&= \frac{\text{Var}(Y_i)}{n} = \frac{\sigma^2}{n}
 \end{aligned}
 $$
 - Importantly, the variance of $Y$ falls as the number of observations ($n$) on the random variable increases; the sample mean accumulates information about the central tendency of the distribution as we add more observations, and we become less uncertain about the true value of $E(Y_i)$.

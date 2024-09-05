@@ -14,9 +14,10 @@
 
 <title>Hypothesis Testing – Lecture</title>
 
+<script src="site_libs/header-attrs-2.24/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -29,11 +30,8 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
-<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
-<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 
 <style type="text/css">
@@ -223,69 +221,6 @@ $(document).ready(function () {
 
 
 
-<style type="text/css">
-
-#TOC {
-  margin: 25px 0px 20px 0px;
-}
-@media (max-width: 768px) {
-#TOC {
-  position: relative;
-  width: 100%;
-}
-}
-
-@media print {
-.toc-content {
-  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
-  float: right;
-}
-}
-
-.toc-content {
-  padding-left: 30px;
-  padding-right: 40px;
-}
-
-div.main-container {
-  max-width: 1200px;
-}
-
-div.tocify {
-  width: 20%;
-  max-width: 260px;
-  max-height: 85%;
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-  div.tocify {
-    width: 25%;
-  }
-}
-
-@media (max-width: 767px) {
-  div.tocify {
-    width: 100%;
-    max-width: none;
-  }
-}
-
-.tocify ul, .tocify li {
-  line-height: 20px;
-}
-
-.tocify-subheader .tocify-item {
-  font-size: 0.90em;
-}
-
-.tocify .list-group-item {
-  border-radius: 0px;
-}
-
-
-</style>
-
-
 
 </head>
 
@@ -293,16 +228,6 @@ div.tocify {
 
 
 <div class="container-fluid main-container">
-
-
-<!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row">
-<div class="col-xs-12 col-sm-4 col-md-3">
-<div id="TOC" class="tocify">
-</div>
-</div>
-
-<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -343,11 +268,13 @@ div.tocify {
 
 <SCRIPT language="JavaScript" SRC="my_jxscript.js"></SCRIPT>
 <p><a class="top-link" href="#top" id="js-top">↑</a></p>
-<div id="expectation-and-variance-of-a-random-vector" class="section level1">
+<div id="expectation-and-variance-of-a-random-vector"
+class="section level1">
 <h1>Expectation and Variance of a Random Vector</h1>
 <ul>
-<li><p>Now we have a <span class="math inline">\(2\times 1\)</span> random vector <span class="math inline">\(X = (X_1, X_2)&#39;\)</span>, we have
-<span class="math display">\[
+<li><p>Now we have a <span class="math inline">\(2\times 1\)</span>
+random vector <span class="math inline">\(X = (X_1, X_2)&#39;\)</span>,
+we have <span class="math display">\[
 \mathbb{E}(X) =
 \mathbb{E}\begin{pmatrix}
 X_1 \\ X_2
@@ -356,10 +283,11 @@ X_1 \\ X_2
 \mathbb{E}(X_1) \\ \mathbb{E}(X_2)
 \end{pmatrix}
 \]</span></p></li>
-<li><p>The variance of the bivariate random vector is given by:
-<span class="math display">\[
+<li><p>The variance of the bivariate random vector is given by: <span
+class="math display">\[
 \begin{aligned}
-\text{Var}(X) &amp;= \mathbb{E}\{(X-\mathbb{E}(X))(X-\mathbb{E}(X))&#39;\} \\
+\text{Var}(X) &amp;=
+\mathbb{E}\{(X-\mathbb{E}(X))(X-\mathbb{E}(X))&#39;\} \\
 &amp;= \mathbb{E}\left\lbrace \begin{bmatrix} X_1-\mathbb{E}(X_1) \\
 X_2-\mathbb{E}(X_2)
 \end{bmatrix}
@@ -368,88 +296,178 @@ X_2-\mathbb{E}(X_2)
 \end{bmatrix}
 \right\rbrace \\
 &amp;= \mathbb{E}\begin{pmatrix}
-[X_1-\mathbb{E}(X_1)]^2                    &amp; [X_1-\mathbb{E}(X_1)][X_2-\mathbb{E}(X_2)]  \\
+[X_1-\mathbb{E}(X_1)]^2                    &amp;
+[X_1-\mathbb{E}(X_1)][X_2-\mathbb{E}(X_2)]  \\
 [X_2-\mathbb{E}(X_2)][X_1-\mathbb{E}(X_1)] &amp; [X_2-\mathbb{E}(X_2)]^2
 \end{pmatrix} \\
 &amp;= \begin{pmatrix}
-\mathbb{E}\{[X_1-\mathbb{E}(X_1)]^2\}                    &amp; \mathbb{E}\{[X_1-\mathbb{E}(X_1)][X_2-\mathbb{E}(X_2)]\}  \\
-\mathbb{E}\{[X_2-\mathbb{E}(X_2)][X_1-\mathbb{E}(X_1)]\} &amp; \mathbb{E}\{[X_2-\mathbb{E}(X_2)]^2\}
+\mathbb{E}\{[X_1-\mathbb{E}(X_1)]^2\}                    &amp;
+\mathbb{E}\{[X_1-\mathbb{E}(X_1)][X_2-\mathbb{E}(X_2)]\}  \\
+\mathbb{E}\{[X_2-\mathbb{E}(X_2)][X_1-\mathbb{E}(X_1)]\} &amp;
+\mathbb{E}\{[X_2-\mathbb{E}(X_2)]^2\}
 \end{pmatrix} \\
 &amp;= \begin{pmatrix}
 \text{Var}(X_1)      &amp; \text{Cov}(X_1, X_2) \\
 \text{Cov}(X_1, X_2) &amp; \text{Var}(X_2)
 \end{pmatrix}
 \end{aligned}
-\]</span>
-This is called the variance (or also the covariance) matrix.
+\]</span> This is called the variance (or also the covariance) matrix.
 This matrix is, by definition, symmetric.</p></li>
 </ul>
 <hr />
 <p><strong>Linear Transformations of a Random Vector</strong></p>
-<p>Let <span class="math inline">\(X\)</span> be a <span class="math inline">\(p\times 1\)</span> random vector, let <span class="math inline">\(A\)</span> be a non-random <span class="math inline">\(q\times 1\)</span> vector, and let <span class="math inline">\(B\)</span> be a non-random <span class="math inline">\(p\times q\)</span> matrix.</p>
-<p>Then
-<span class="math display">\[
+<p>Let <span class="math inline">\(X\)</span> be a <span
+class="math inline">\(p\times 1\)</span> random vector, let <span
+class="math inline">\(A\)</span> be a non-random <span
+class="math inline">\(q\times 1\)</span> vector, and let <span
+class="math inline">\(B\)</span> be a non-random <span
+class="math inline">\(p\times q\)</span> matrix.</p>
+<p>Then <span class="math display">\[
 Y = A + BX
-\]</span>
-is a <span class="math inline">\(q\times 1\)</span> random vector.</p>
+\]</span> is a <span class="math inline">\(q\times 1\)</span> random
+vector.</p>
 <ul>
-<li><p>The expected value of this transformation is given by
-<span class="math display">\[
+<li><p>The expected value of this transformation is given by <span
+class="math display">\[
 \mathbb{E}(Y) = \mathbb{E}(A+BX) = A + B\mathbb{E}(X)
 \]</span></p></li>
-<li><p>The variance of this transformation is given by
-<span class="math display">\[
+<li><p>The variance of this transformation is given by <span
+class="math display">\[
 \text{Var}(Y) = \text{Var}(A+BY) = \text{Var}(BY) = B\text{Var}(X)B&#39;
 \]</span></p></li>
 </ul>
 <hr />
 <p><strong>Non-Negative Definiteness</strong></p>
-<p>Remember that for a scalar random variable <span class="math inline">\(X\)</span>, <span class="math inline">\(\text{Var}(X)\)</span> is a non-negative scalar.</p>
-<p>For a <span class="math inline">\(q\times 1\)</span> random vector <span class="math inline">\(Y\)</span> (such as <span class="math inline">\(Y=A+BX\)</span> defined before), the variance <span class="math inline">\(\text{Var}(Y)\)</span> will be a <span class="math inline">\(q \times q\)</span> matrix. What is the counterpart of non-negativeness for matrices?</p>
-<p>The appropriate concept is called <span style="color:#008B45FF">non-negative definiteness</span> or <span style="color:#008B45FF">positive semi-definiteness</span>.</p>
-<p>A <span class="math inline">\(q \times q\)</span> square matrix <span class="math inline">\(\Sigma\)</span> is called non-negative definite (or positive semi-definite) if for any non-zero <span class="math inline">\(q\times 1\)</span> vector <span class="math inline">\(a\)</span> it holds that
-<span class="math display">\[
+<p>Remember that for a scalar random variable <span
+class="math inline">\(X\)</span>, <span
+class="math inline">\(\text{Var}(X)\)</span> is a non-negative
+scalar.</p>
+<p>For a <span class="math inline">\(q\times 1\)</span> random vector
+<span class="math inline">\(Y\)</span> (such as <span
+class="math inline">\(Y=A+BX\)</span> defined before), the variance
+<span class="math inline">\(\text{Var}(Y)\)</span> will be a <span
+class="math inline">\(q \times q\)</span> matrix. What is the
+counterpart of non-negativeness for matrices?</p>
+<p>The appropriate concept is called <span
+style="color:#008B45FF">non-negative definiteness</span> or <span
+style="color:#008B45FF">positive semi-definiteness</span>.</p>
+<p>A <span class="math inline">\(q \times q\)</span> square matrix <span
+class="math inline">\(\Sigma\)</span> is called non-negative definite
+(or positive semi-definite) if for any non-zero <span
+class="math inline">\(q\times 1\)</span> vector <span
+class="math inline">\(a\)</span> it holds that <span
+class="math display">\[
 a&#39;\Sigma a \ge 0.
-\]</span>
-If the square matrix <span class="math inline">\(\Sigma\)</span> is non-negative definite, we write <span class="math inline">\(\Sigma \ge 0.\)</span></p>
+\]</span> If the square matrix <span
+class="math inline">\(\Sigma\)</span> is non-negative definite, we write
+<span class="math inline">\(\Sigma \ge 0.\)</span></p>
 <hr />
 </div>
 <div id="central-limit-theorem" class="section level1">
 <h1>Central Limit Theorem</h1>
-<p>Suppose that <span class="math inline">\(X_1, \ldots, X_n\)</span> is an iid sequence with mean <span class="math inline">\(\mathbb{E}(X_i)=\mu\)</span> and <span class="math inline">\(\text{Var}(X_i)=\sigma^2\)</span>.</p>
-<p>Let <span class="math inline">\(\overline{X}=\sum_{i=1}^n X_i\)</span> Then,</p>
+<p>Suppose that <span class="math inline">\(X_1, \ldots, X_n\)</span> is
+an iid sequence with mean <span
+class="math inline">\(\mathbb{E}(X_i)=\mu\)</span> and <span
+class="math inline">\(\text{Var}(X_i)=\sigma^2\)</span>.</p>
+<p>Let <span class="math inline">\(\overline{X}=\sum_{i=1}^n
+X_i.\)</span></p>
+<p>We have shown in the last lecture that <span
+class="math inline">\(\mathbb{E}[\overline{X}]=\mu\)</span> and <span
+class="math inline">\(\text{Var}[\overline{X}]=\sigma^2/n\)</span>
+(Refer to the expectation and variance of the sample mean).</p>
+<p>Then, the <span style="color:#008B45FF"><strong>Lindeberg-Lévy
+CLT</strong></span> states that</p>
 <p><span class="math display">\[
 \frac{\overline{X}-\mathbb{E}[\overline{X}]}{\sqrt{\text{Var}[\overline{X}]}}
 = \frac{\overline{X}-\mu}{\sqrt{\sigma^2/n}}
 = \color{#008B45FF}{\sqrt{n}} \cdot \frac{\overline{X}-\mu}{\sigma}
 \xrightarrow{d} N(0,1)
 \]</span></p>
-<p><span class="math inline">\(\xrightarrow{d}\)</span> means convergence in distribution.</p>
+<p><span class="math inline">\(\xrightarrow{d}\)</span> means
+convergence in distribution.</p>
 <p>Equivalently, we can write</p>
 <p><span class="math display">\[
 \sqrt{n}\cdot\frac{\overline{X}-\mu}{\sigma} \overset{a}{\sim} N(0,1)
 \]</span></p>
-<p><span class="math inline">\(\overset{\rm a}{\sim}\)</span> means “<em>approximately distributed with</em>”.<br />
+<p><span class="math inline">\(\overset{\rm a}{\sim}\)</span> means
+“<em>approximately distributed with</em>.”<br />
 Or we can also write as</p>
 <span class="math display">\[\begin{array}{rlrl}
-    \sqrt{n} (\overline{X}-\mu)  &amp;\xrightarrow{d} N(0,\sigma^2),  &amp;
+    \sqrt{n} (\overline{X}-\mu)  &amp;\xrightarrow{d}
+N(0,\sigma^2),  &amp;
   \sqrt{n} (\overline{X}-\mu)  &amp;\overset{a}{\sim} N(0,\sigma^2) \\
   
   \overline{X} -\mu  &amp;\xrightarrow{d} N(0,\sigma^2/n), &amp;
   \overline{X} -\mu  &amp;\overset{a}{\sim} N(0,\sigma^2/n) \\
 
   \overline{X} &amp;\xrightarrow{d} N(\mu,\sigma^2/n), &amp;
-  \color{#008B45FF}{\overline{X}} &amp; \color{#008B45FF}{\overset{a}{\sim} N(\mu,\sigma^2/n)} .
+  \color{#008B45FF}{\overline{X}} &amp;
+\color{#008B45FF}{\overset{a}{\sim} N(\mu,\sigma^2/n)} .
 \end{array}\]</span>
-<p>Note: The CLT is a very powerful result. <span class="math inline">\(X_1, \ldots, X_n\)</span> can be from <span style="color:#337ab7">any possible distribution</span> (<em>iid</em> with <em>finite mean and variance</em>), and still their normalized sample mean will be <span style="color:#008B45FF">standard normal</span>.</p>
-<p>The scaling by <span class="math inline">\(\sqrt{n}\)</span> is crucial.</p>
-<p>Once we suitably scale by <span class="math inline">\(\sqrt{n}\)</span>, we can invoke the CLT and obtain that <span class="math inline">\(\sqrt{n} (\overline{X}-\mu)\)</span> or <span class="math inline">\(\sqrt{n}\cdot\frac{\overline{X}-\mu}{\sigma}\)</span> are asymptotically normal as <span class="math inline">\(n\to\infty\)</span>.</p>
+<p>Note: The CLT is a very powerful result. <span
+class="math inline">\(X_1, \ldots, X_n\)</span> can be from <span
+style="color:#337ab7">any possible distribution</span> (<em>iid</em>
+with <em>finite mean and variance</em>), and still their normalized
+sample mean will be <span style="color:#008B45FF">standard
+normal</span>.</p>
+<ul>
+<li><p>The scaling by <span class="math inline">\(\sqrt{n}\)</span> is
+crucial.</p></li>
+<li><p>Once we suitably scale by <span
+class="math inline">\(\sqrt{n}\)</span>, we can invoke the CLT and
+obtain that <span class="math inline">\(\sqrt{n}
+(\overline{X}-\mu)\)</span> or <span
+class="math inline">\(\sqrt{n}\cdot\frac{\overline{X}-\mu}{\sigma}\)</span>
+are asymptotically normal as <span
+class="math inline">\(n\to\infty\)</span>.</p></li>
+<li><p>In practice, we replace <span
+class="math inline">\(\sigma\)</span> with <span
+class="math inline">\(\widehat{\sigma}\)</span> because we do not
+observe <span class="math inline">\(\sigma\)</span> but we do observe
+<span class="math inline">\(\widehat{\sigma}\)</span>.</p></li>
+<li><p>Population variance estimators, <span
+class="math inline">\(\widehat{\sigma}^2\)</span>. Two versions:</p>
+<ul>
+<li><span style="color:#337ab7">Biased</span> sample variance: <span
+class="math display">\[
+s_1^2 = \frac{1}{n} \sum_{i=1}^n [(X_i-\overline{X})^2]
+\]</span> and</li>
+<li><span style="color:#337ab7">Unbiased</span> sample variance: <span
+class="math display">\[
+s_2^2 = \frac{1}{n-1} \sum_{i=1}^n [(X_i-\overline{X})^2]
+\]</span></li>
+<li>Both options are consistent; using either is fine.</li>
+</ul></li>
+</ul>
+<hr />
+</div>
+<div id="confidence-intervals" class="section level1">
+<h1>Confidence Intervals</h1>
+<div id="estimation-uncertainty" class="section level2">
+<h2>Estimation Uncertainty</h2>
+<p>For an iid sequence <span
+class="math inline">\(X_1,\ldots,X_n\)</span> with finite mean and
+variance, we already know that <span class="math display">\[
+\mathbb{E}(\overline{X}) = \mu \quad \text{and} \quad
+\text{Var}(\overline{X}) = \frac{\sigma^2}{n}.
+\]</span> Intuitively, <span class="math inline">\(\overline{X}\)</span>
+is a very useful estimator of <span class="math inline">\(\mu\)</span>
+but, just like any estimator, it is subject to dispersion, given by
+<span class="math inline">\(\frac{\sigma^2}{n}.\)</span></p>
+<p>Given a dataset, one typically reports the value of the estimator for
+that particular dataset. But this does not include information on the
+uncertainty due the estimator variance.</p>
+<p>A <span style="color:#008B45FF"><strong>confidence
+interval</strong></span> combines both the <span
+style="color:#337ab7">value</span> of the estimator and the <span
+style="color:#337ab7">variance</span> of that estimator, thereby
+reflecting <span style="color:#337ab7">estimation
+uncertainty</span>.</p>
+</div>
 </div>
 
 
 
-</div>
-</div>
 
 </div>
 
@@ -482,42 +500,13 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
-<script>
-$(document).ready(function ()  {
-
-    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
-    $('.unlisted.unnumbered').addClass('toc-ignore')
-
-    // move toc-ignore selectors from section div to header
-    $('div.section.toc-ignore')
-        .removeClass('toc-ignore')
-        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
-
-    // establish options
-    var options = {
-      selectors: "h1,h2,h3,h4",
-      theme: "bootstrap3",
-      context: '.toc-content',
-      hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
-      },
-      ignoreSelector: ".toc-ignore",
-      scrollTo: 0
-    };
-    options.showAndHide = true;
-    options.smoothScroll = true;
-
-    // tocify
-    var toc = $("#TOC").tocify(options).data("toc-tocify");
-});
-</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML.js";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

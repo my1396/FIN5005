@@ -1127,14 +1127,15 @@ Note that this relationship does not necessarily hold in the reverse direction: 
 </ul>
 <p><strong>Sum of iid RVs</strong></p>
 <ul>
-<li><p>Suppose that <span class="math inline">\(Y_1, Y_2, ...,\)</span> Yn are independent and identically distributed random variables; note that they have the same expected value <span class="math inline">\(E(Y_i)\)</span> and the same variance <span class="math inline">\(\text{Var}(Y_i)\)</span> for <span class="math inline">\(i = 1, 2, ..., n.\)</span></p></li>
-<li><p>The expected value of the sample mean is:
+<li><p>Suppose that <span class="math inline">\(Y_1, Y_2, ...,Y_n\)</span> are independent and identically distributed random variables.</p></li>
+<li><p>Note that they have the same expected value <span class="math inline">\(E(Y_i)=\mu\)</span> and the same variance <span class="math inline">\(\text{Var}(Y_i)=\sigma^2\)</span> for <span class="math inline">\(i = 1, 2, ..., n.\)</span></p></li>
+<li><p>The <span style="color:#337ab7"><strong>expected value of the sample mean</strong></span> is:
 <span class="math display">\[
 \begin{aligned}
 \mathbb{E}(\overline{Y}) &amp;= \mathbb{E}\left[\frac{1}{n} \sum_{i=1}^n Y_i \right] \\
 &amp;= \frac{1}{n}  \sum_{i=1}^n \mathbb{E}(Y_i) \\
 &amp;= \frac{1}{n} \cdot n \cdot \mathbb{E}(Y_i) \quad (Y_i \text{ is iid}) \\
-&amp;= \mathbb{E}(Y_i)
+&amp;= \mathbb{E}(Y_i) = \mu
 \end{aligned}
 \]</span>
 We say that the sample mean Y is an <span style="color:#337ab7">unbiased</span> estimator of the expected value of the random variable.</p>
@@ -1143,12 +1144,12 @@ We say that the sample mean Y is an <span style="color:#337ab7">unbiased</span> 
 \mathbb{E}(\hat{\theta}) = \theta .
 \]</span>
 Unbiasedness means that our estimator is doing what it is supposed to do on average.</p></li>
-<li><p>The variance of the sample mean is:
+<li><p>The <span style="color:#337ab7"><strong>variance of the sample mean</strong></span> is:
 <span class="math display">\[
 \begin{aligned}
 \text{Var}(\overline{Y}) &amp;= \text{Var}\left[\frac{1}{n} \sum_{i=1}^n Y_i \right] \\
 &amp;= \frac{1}{n^2} \cdot n \cdot \text{Var}(Y_i) \\
-&amp;= \frac{\text{Var}(Y_i)}{n}
+&amp;= \frac{\text{Var}(Y_i)}{n} = \frac{\sigma^2}{n}
 \end{aligned}
 \]</span></p></li>
 <li><p>Importantly, the variance of <span class="math inline">\(Y\)</span> falls as the number of observations (<span class="math inline">\(n\)</span>) on the random variable increases; the sample mean accumulates information about the central tendency of the distribution as we add more observations, and we become less uncertain about the true value of <span class="math inline">\(E(Y_i)\)</span>.</p></li>
