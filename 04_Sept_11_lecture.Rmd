@@ -201,8 +201,6 @@ ___
 
 # Confidence Intervals
 
-## Estimation Uncertainty
-
 For an iid sequence $X_1,\ldots,X_n$ with finite mean and variance, we already know that
 $$
 \mathbb{E}(\overline{X}) = \mu \quad \text{and} \quad \text{Var}(\overline{X}) = \frac{\sigma^2}{n}.
@@ -211,11 +209,145 @@ Intuitively, $\overline{X}$ is a very useful estimator of $\mu$ but, just like a
 
 Given a dataset, one typically reports the value of the estimator for that particular dataset. But this does not include information on the uncertainty due the estimator variance.
 
-A <span style='color:#008B45FF'>**confidence interval**</span> combines both the <span style='color:#337ab7'>value</span> of the estimator and the <span style='color:#337ab7'>variance</span> of that estimator, thereby reflecting <span style='color:#337ab7'>estimation uncertainty</span>.
+$\overline{X}$ itself is a point estimator for $\mu$. In order to measure the <span style='color:#337ab7'>estimation uncertainty</span>, we use the <span style='color:#008B45FF'>**confidence interval**</span>, which combines both the <span style='color:#337ab7'>value</span> of the estimator and the <span style='color:#337ab7'>variance</span> of that estimator.
 
 
 
+**General notation**
 
+To keep the discussion general, suppose that we have a quantity of interest $\theta$ and some estimator of it, $\widehat{\theta}$. Furthermore, suppose we already know that
+$$
+\frac{\widehat{\theta}-\theta}{\Sigma} \sim N(0,1).
+$$
+To refer to our sample average example, $\theta=\mu$, $\widehat{\theta}=\overline{X}$, and $\Sigma=\sigma/\sqrt{n}$.
+
+
+Our goal is to obtain an interval which takes the form $[\widehat{L}, \widehat{U}]$, and the probability of the interval covers the true parameter value , i.e., $\mathbb{P}(\widehat{L}\le \theta \le \widehat{U})$, is high.
+
+
+- $\widehat{L}$ is referred to as the lower bound, and $\widehat{U}$ as the upper bound.
+
+-  $\mathbb{P}(\widehat{L}\le \theta \le \widehat{U})$ is often mis-interpreted as treating $\theta$ as random and $[\widehat{L}, \widehat{U}]$ as fixed. \
+It is inappropriate to interpret $\mathbb{P}(\widehat{L}\le \theta \le \widehat{U})$ as the probability that $\theta$ lies within $[\widehat{L}, \widehat{U}]$.
+
+- Instead, the correct interpretation is that the probability $\mathbb{P}(\widehat{L}\le \theta \le \widehat{U})$ treats the point $\theta$ as fixed and the interval $[\widehat{L}, \widehat{U}]$ as random. \
+It is the probability that <span style='color:#337ab7'>the random interval covers the fixed true coefficient $\theta.$</span>
+
+$[\widehat{L}, \widehat{U}]$ is called the $1-\alpha$ confidence interval when $\mathbb{P}(\widehat{L}\le \theta \le \widehat{U})=1-\alpha.$
+
+- $\alpha$ is often known as the significance level. Common significance levels include $1\%$ and $5\%$.
+- $1-\alpha$ is often known as the confidence level or the convergence probability. Common confidence levels are $99\%$ and $95\%$.
+
+
+A good choice for a confidence interval is obtained by adding and subtracting from the estimator $\widehat{\theta}$ a fixed multiple of its standard error:
+$$
+[\widehat{L}, \widehat{U}] = [\widehat{\theta}-c\cdot s(\widehat{\theta}), \widehat{\theta}+c\cdot s(\widehat{\theta})]
+$$
+where $c>0$ is a pre-specified constant, often called the <span style='color:#008B45FF'>critical value</span>.
+
+Given $\frac{\widehat{\theta}-\theta}{\Sigma} \sim N(0,1)$, we have
+$$
+\begin{equation} (\#eq:CI)
+P\left(-c_{\alpha/2} < \frac{\widehat{\theta}-\theta}{\Sigma} < c_{\alpha/2}  \right) = 1-\alpha .
+\end{equation}
+$$
+This requires $\Phi(c_{\alpha/2}) = 1-\frac{\alpha}{2}$. 
+
+Hence, $c_{\alpha/2}=\Phi^{-1}(1-\frac{\alpha}{2})$, which is the $1-\frac{\alpha}{2}$ quantile of the standard normal distribution.  
+
+Re-arranging \@ref(eq:CI), we have 
+$$
+P\left(\widehat{\theta}-c_{\alpha/2}\cdot \Sigma, \; \widehat{\theta}+c_{\alpha/2}\cdot \Sigma\right) = 1-\alpha
+$$
+This says the random interval, 
+$$
+(\widehat{\theta}-c_{\alpha/2}\cdot \Sigma, \; \widehat{\theta}+c_{\alpha/2}\cdot \Sigma),
+$$
+contains $\theta$ with probability $1-\alpha.$
+
+
+One can also generate one-sided intervals:
+$$
+P\left(\widehat{\theta}-c_{\alpha}\cdot \Sigma < \theta \right) = 1-\alpha ,
+$$
+or
+$$
+P\left(\theta < \widehat{\theta}+c_{\alpha}\cdot \Sigma \right) = 1-\alpha ,
+$$
+but a two-sided interval is more common.
+
+___
+
+# Hypothesis Testing
+
+Let us again consider the generic case of equation:
+
+$$
+\frac{\widehat{\theta}-\theta}{\Sigma} \sim N(0,1).
+$$
+Suppose we want to test the following claim:
+$$
+H_0: \theta = r \\
+H_1: \theta \ne r,
+$$
+where $r$ is some scalar.
+
+Here $H_0$ is the null hypothesis and $H_1$ is the alternative hypothesis.
+
+- If $H_0: \theta = r$ is true, then plug in $r$ for $\theta$, we have
+$$
+\frac{\widehat{\theta}-r}{\Sigma} \sim N(0,1),
+$$
+and so $\frac{\widehat{\theta}-r}{\Sigma}$ should be close to zero, on average. So if $\frac{\widehat{\theta}-r}{\Sigma}$ is close to zero, we are inclined not to reject $H_0$.
+
+
+- If $\frac{\widehat{\theta}-r}{\Sigma}$ is much greater or much less than zero, then we are inclined to reject $H_0$ and in favor of $H_1$.
+
+
+In other words, we would be inclined to reject $H_0$ if
+$$
+\left\vert \frac{\widehat{\theta}-r}{\Sigma} \right\vert
+$$
+is much greater than zero.
+
+Formally, our test statistic is
+$$
+\frac{\widehat{\theta}-r}{\Sigma} \sim N(0,1).
+$$
+
+we reject $H_0: \theta=r$ in favor of $H_1$ at $\alpha$ level of significance if 
+$$
+\left\vert \frac{\widehat{\theta}-r}{\Sigma} \right\vert > c_{\alpha/2}.
+$$
+
+Otherwise, we fail to reject $H_0$ (we never say ACCEPT). 
+
+Similarly, for one-sided hypothesis testing, we have
+
+- Case 1: $H_0: \theta\ge r \quad \text{vs} \quad H_1: \theta<r$. We reject $H_0$ in favor of $H_1$ if 
+$$
+\frac{\widehat{\theta}-r}{\Sigma} < -c_{\alpha}.
+$$
+Otherwise, we fail to reject $H_0.$
+
+- Case 2: $H_0: \theta\le r \quad \text{vs} \quad H_1: \theta>r$. We reject $H_0$ in favor of $H_1$ if 
+$$
+\frac{\widehat{\theta}-r}{\Sigma} > c_{\alpha}.
+$$
+Otherwise, we fail to reject $H_0.$
+
+
+The critical values for typical levels of significance are:
+
+- For one-sided tests,
+    - 1\% level of significance : $c_\alpha = 2.33$,
+    - 5\% level of significance : $c_\alpha = 1.64$, 
+    - 10\% level of significance : $c_\alpha= 1.28$.
+
+- For two-sided tests,
+    - 1\% level of significance : $c_\alpha = 2.58$,
+    - 5\% level of significance : $\color{#337ab7}{c_\alpha = 1.95}$, 
+    - 10\% level of significance : $c_\alpha= 1.64$.
 
 
 

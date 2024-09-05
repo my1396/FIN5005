@@ -14,10 +14,9 @@
 
 <title>Hypothesis Testing – Lecture</title>
 
-<script src="site_libs/header-attrs-2.24/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -30,8 +29,11 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 
 <style type="text/css">
@@ -221,6 +223,69 @@ $(document).ready(function () {
 
 
 
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
 
 </head>
 
@@ -228,6 +293,16 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -268,13 +343,11 @@ $(document).ready(function () {
 
 <SCRIPT language="JavaScript" SRC="my_jxscript.js"></SCRIPT>
 <p><a class="top-link" href="#top" id="js-top">↑</a></p>
-<div id="expectation-and-variance-of-a-random-vector"
-class="section level1">
+<div id="expectation-and-variance-of-a-random-vector" class="section level1">
 <h1>Expectation and Variance of a Random Vector</h1>
 <ul>
-<li><p>Now we have a <span class="math inline">\(2\times 1\)</span>
-random vector <span class="math inline">\(X = (X_1, X_2)&#39;\)</span>,
-we have <span class="math display">\[
+<li><p>Now we have a <span class="math inline">\(2\times 1\)</span> random vector <span class="math inline">\(X = (X_1, X_2)&#39;\)</span>, we have
+<span class="math display">\[
 \mathbb{E}(X) =
 \mathbb{E}\begin{pmatrix}
 X_1 \\ X_2
@@ -283,11 +356,10 @@ X_1 \\ X_2
 \mathbb{E}(X_1) \\ \mathbb{E}(X_2)
 \end{pmatrix}
 \]</span></p></li>
-<li><p>The variance of the bivariate random vector is given by: <span
-class="math display">\[
+<li><p>The variance of the bivariate random vector is given by:
+<span class="math display">\[
 \begin{aligned}
-\text{Var}(X) &amp;=
-\mathbb{E}\{(X-\mathbb{E}(X))(X-\mathbb{E}(X))&#39;\} \\
+\text{Var}(X) &amp;= \mathbb{E}\{(X-\mathbb{E}(X))(X-\mathbb{E}(X))&#39;\} \\
 &amp;= \mathbb{E}\left\lbrace \begin{bmatrix} X_1-\mathbb{E}(X_1) \\
 X_2-\mathbb{E}(X_2)
 \end{bmatrix}
@@ -296,144 +368,94 @@ X_2-\mathbb{E}(X_2)
 \end{bmatrix}
 \right\rbrace \\
 &amp;= \mathbb{E}\begin{pmatrix}
-[X_1-\mathbb{E}(X_1)]^2                    &amp;
-[X_1-\mathbb{E}(X_1)][X_2-\mathbb{E}(X_2)]  \\
+[X_1-\mathbb{E}(X_1)]^2                    &amp; [X_1-\mathbb{E}(X_1)][X_2-\mathbb{E}(X_2)]  \\
 [X_2-\mathbb{E}(X_2)][X_1-\mathbb{E}(X_1)] &amp; [X_2-\mathbb{E}(X_2)]^2
 \end{pmatrix} \\
 &amp;= \begin{pmatrix}
-\mathbb{E}\{[X_1-\mathbb{E}(X_1)]^2\}                    &amp;
-\mathbb{E}\{[X_1-\mathbb{E}(X_1)][X_2-\mathbb{E}(X_2)]\}  \\
-\mathbb{E}\{[X_2-\mathbb{E}(X_2)][X_1-\mathbb{E}(X_1)]\} &amp;
-\mathbb{E}\{[X_2-\mathbb{E}(X_2)]^2\}
+\mathbb{E}\{[X_1-\mathbb{E}(X_1)]^2\}                    &amp; \mathbb{E}\{[X_1-\mathbb{E}(X_1)][X_2-\mathbb{E}(X_2)]\}  \\
+\mathbb{E}\{[X_2-\mathbb{E}(X_2)][X_1-\mathbb{E}(X_1)]\} &amp; \mathbb{E}\{[X_2-\mathbb{E}(X_2)]^2\}
 \end{pmatrix} \\
 &amp;= \begin{pmatrix}
 \text{Var}(X_1)      &amp; \text{Cov}(X_1, X_2) \\
 \text{Cov}(X_1, X_2) &amp; \text{Var}(X_2)
 \end{pmatrix}
 \end{aligned}
-\]</span> This is called the variance (or also the covariance) matrix.
+\]</span>
+This is called the variance (or also the covariance) matrix.
 This matrix is, by definition, symmetric.</p></li>
 </ul>
 <hr />
 <p><strong>Linear Transformations of a Random Vector</strong></p>
-<p>Let <span class="math inline">\(X\)</span> be a <span
-class="math inline">\(p\times 1\)</span> random vector, let <span
-class="math inline">\(A\)</span> be a non-random <span
-class="math inline">\(q\times 1\)</span> vector, and let <span
-class="math inline">\(B\)</span> be a non-random <span
-class="math inline">\(p\times q\)</span> matrix.</p>
-<p>Then <span class="math display">\[
+<p>Let <span class="math inline">\(X\)</span> be a <span class="math inline">\(p\times 1\)</span> random vector, let <span class="math inline">\(A\)</span> be a non-random <span class="math inline">\(q\times 1\)</span> vector, and let <span class="math inline">\(B\)</span> be a non-random <span class="math inline">\(p\times q\)</span> matrix.</p>
+<p>Then
+<span class="math display">\[
 Y = A + BX
-\]</span> is a <span class="math inline">\(q\times 1\)</span> random
-vector.</p>
+\]</span>
+is a <span class="math inline">\(q\times 1\)</span> random vector.</p>
 <ul>
-<li><p>The expected value of this transformation is given by <span
-class="math display">\[
+<li><p>The expected value of this transformation is given by
+<span class="math display">\[
 \mathbb{E}(Y) = \mathbb{E}(A+BX) = A + B\mathbb{E}(X)
 \]</span></p></li>
-<li><p>The variance of this transformation is given by <span
-class="math display">\[
+<li><p>The variance of this transformation is given by
+<span class="math display">\[
 \text{Var}(Y) = \text{Var}(A+BY) = \text{Var}(BY) = B\text{Var}(X)B&#39;
 \]</span></p></li>
 </ul>
 <hr />
 <p><strong>Non-Negative Definiteness</strong></p>
-<p>Remember that for a scalar random variable <span
-class="math inline">\(X\)</span>, <span
-class="math inline">\(\text{Var}(X)\)</span> is a non-negative
-scalar.</p>
-<p>For a <span class="math inline">\(q\times 1\)</span> random vector
-<span class="math inline">\(Y\)</span> (such as <span
-class="math inline">\(Y=A+BX\)</span> defined before), the variance
-<span class="math inline">\(\text{Var}(Y)\)</span> will be a <span
-class="math inline">\(q \times q\)</span> matrix. What is the
-counterpart of non-negativeness for matrices?</p>
-<p>The appropriate concept is called <span
-style="color:#008B45FF">non-negative definiteness</span> or <span
-style="color:#008B45FF">positive semi-definiteness</span>.</p>
-<p>A <span class="math inline">\(q \times q\)</span> square matrix <span
-class="math inline">\(\Sigma\)</span> is called non-negative definite
-(or positive semi-definite) if for any non-zero <span
-class="math inline">\(q\times 1\)</span> vector <span
-class="math inline">\(a\)</span> it holds that <span
-class="math display">\[
+<p>Remember that for a scalar random variable <span class="math inline">\(X\)</span>, <span class="math inline">\(\text{Var}(X)\)</span> is a non-negative scalar.</p>
+<p>For a <span class="math inline">\(q\times 1\)</span> random vector <span class="math inline">\(Y\)</span> (such as <span class="math inline">\(Y=A+BX\)</span> defined before), the variance <span class="math inline">\(\text{Var}(Y)\)</span> will be a <span class="math inline">\(q \times q\)</span> matrix. What is the counterpart of non-negativeness for matrices?</p>
+<p>The appropriate concept is called <span style="color:#008B45FF">non-negative definiteness</span> or <span style="color:#008B45FF">positive semi-definiteness</span>.</p>
+<p>A <span class="math inline">\(q \times q\)</span> square matrix <span class="math inline">\(\Sigma\)</span> is called non-negative definite (or positive semi-definite) if for any non-zero <span class="math inline">\(q\times 1\)</span> vector <span class="math inline">\(a\)</span> it holds that
+<span class="math display">\[
 a&#39;\Sigma a \ge 0.
-\]</span> If the square matrix <span
-class="math inline">\(\Sigma\)</span> is non-negative definite, we write
-<span class="math inline">\(\Sigma \ge 0.\)</span></p>
+\]</span>
+If the square matrix <span class="math inline">\(\Sigma\)</span> is non-negative definite, we write <span class="math inline">\(\Sigma \ge 0.\)</span></p>
 <hr />
 </div>
 <div id="central-limit-theorem" class="section level1">
 <h1>Central Limit Theorem</h1>
-<p>Suppose that <span class="math inline">\(X_1, \ldots, X_n\)</span> is
-an iid sequence with mean <span
-class="math inline">\(\mathbb{E}(X_i)=\mu\)</span> and <span
-class="math inline">\(\text{Var}(X_i)=\sigma^2\)</span>.</p>
-<p>Let <span class="math inline">\(\overline{X}=\sum_{i=1}^n
-X_i.\)</span></p>
-<p>We have shown in the last lecture that <span
-class="math inline">\(\mathbb{E}[\overline{X}]=\mu\)</span> and <span
-class="math inline">\(\text{Var}[\overline{X}]=\sigma^2/n\)</span>
-(Refer to the expectation and variance of the sample mean).</p>
-<p>Then, the <span style="color:#008B45FF"><strong>Lindeberg-Lévy
-CLT</strong></span> states that</p>
+<p>Suppose that <span class="math inline">\(X_1, \ldots, X_n\)</span> is an iid sequence with mean <span class="math inline">\(\mathbb{E}(X_i)=\mu\)</span> and <span class="math inline">\(\text{Var}(X_i)=\sigma^2\)</span>.</p>
+<p>Let <span class="math inline">\(\overline{X}=\sum_{i=1}^n X_i.\)</span></p>
+<p>We have shown in the last lecture that <span class="math inline">\(\mathbb{E}[\overline{X}]=\mu\)</span> and <span class="math inline">\(\text{Var}[\overline{X}]=\sigma^2/n\)</span> (Refer to the expectation and variance of the sample mean).</p>
+<p>Then, the <span style="color:#008B45FF"><strong>Lindeberg-Lévy CLT</strong></span> states that</p>
 <p><span class="math display">\[
 \frac{\overline{X}-\mathbb{E}[\overline{X}]}{\sqrt{\text{Var}[\overline{X}]}}
 = \frac{\overline{X}-\mu}{\sqrt{\sigma^2/n}}
 = \color{#008B45FF}{\sqrt{n}} \cdot \frac{\overline{X}-\mu}{\sigma}
 \xrightarrow{d} N(0,1)
 \]</span></p>
-<p><span class="math inline">\(\xrightarrow{d}\)</span> means
-convergence in distribution.</p>
+<p><span class="math inline">\(\xrightarrow{d}\)</span> means convergence in distribution.</p>
 <p>Equivalently, we can write</p>
 <p><span class="math display">\[
 \sqrt{n}\cdot\frac{\overline{X}-\mu}{\sigma} \overset{a}{\sim} N(0,1)
 \]</span></p>
-<p><span class="math inline">\(\overset{\rm a}{\sim}\)</span> means
-“<em>approximately distributed with</em>.”<br />
+<p><span class="math inline">\(\overset{\rm a}{\sim}\)</span> means “<em>approximately distributed with</em>.”<br />
 Or we can also write as</p>
 <span class="math display">\[\begin{array}{rlrl}
-    \sqrt{n} (\overline{X}-\mu)  &amp;\xrightarrow{d}
-N(0,\sigma^2),  &amp;
+    \sqrt{n} (\overline{X}-\mu)  &amp;\xrightarrow{d} N(0,\sigma^2),  &amp;
   \sqrt{n} (\overline{X}-\mu)  &amp;\overset{a}{\sim} N(0,\sigma^2) \\
   
   \overline{X} -\mu  &amp;\xrightarrow{d} N(0,\sigma^2/n), &amp;
   \overline{X} -\mu  &amp;\overset{a}{\sim} N(0,\sigma^2/n) \\
 
   \overline{X} &amp;\xrightarrow{d} N(\mu,\sigma^2/n), &amp;
-  \color{#008B45FF}{\overline{X}} &amp;
-\color{#008B45FF}{\overset{a}{\sim} N(\mu,\sigma^2/n)} .
+  \color{#008B45FF}{\overline{X}} &amp; \color{#008B45FF}{\overset{a}{\sim} N(\mu,\sigma^2/n)} .
 \end{array}\]</span>
-<p>Note: The CLT is a very powerful result. <span
-class="math inline">\(X_1, \ldots, X_n\)</span> can be from <span
-style="color:#337ab7">any possible distribution</span> (<em>iid</em>
-with <em>finite mean and variance</em>), and still their normalized
-sample mean will be <span style="color:#008B45FF">standard
-normal</span>.</p>
+<p>Note: The CLT is a very powerful result. <span class="math inline">\(X_1, \ldots, X_n\)</span> can be from <span style="color:#337ab7">any possible distribution</span> (<em>iid</em> with <em>finite mean and variance</em>), and still their normalized sample mean will be <span style="color:#008B45FF">standard normal</span>.</p>
 <ul>
-<li><p>The scaling by <span class="math inline">\(\sqrt{n}\)</span> is
-crucial.</p></li>
-<li><p>Once we suitably scale by <span
-class="math inline">\(\sqrt{n}\)</span>, we can invoke the CLT and
-obtain that <span class="math inline">\(\sqrt{n}
-(\overline{X}-\mu)\)</span> or <span
-class="math inline">\(\sqrt{n}\cdot\frac{\overline{X}-\mu}{\sigma}\)</span>
-are asymptotically normal as <span
-class="math inline">\(n\to\infty\)</span>.</p></li>
-<li><p>In practice, we replace <span
-class="math inline">\(\sigma\)</span> with <span
-class="math inline">\(\widehat{\sigma}\)</span> because we do not
-observe <span class="math inline">\(\sigma\)</span> but we do observe
-<span class="math inline">\(\widehat{\sigma}\)</span>.</p></li>
-<li><p>Population variance estimators, <span
-class="math inline">\(\widehat{\sigma}^2\)</span>. Two versions:</p>
+<li><p>The scaling by <span class="math inline">\(\sqrt{n}\)</span> is crucial.</p></li>
+<li><p>Once we suitably scale by <span class="math inline">\(\sqrt{n}\)</span>, we can invoke the CLT and obtain that <span class="math inline">\(\sqrt{n} (\overline{X}-\mu)\)</span> or <span class="math inline">\(\sqrt{n}\cdot\frac{\overline{X}-\mu}{\sigma}\)</span> are asymptotically normal as <span class="math inline">\(n\to\infty\)</span>.</p></li>
+<li><p>In practice, we replace <span class="math inline">\(\sigma\)</span> with <span class="math inline">\(\widehat{\sigma}\)</span> because we do not observe <span class="math inline">\(\sigma\)</span> but we do observe <span class="math inline">\(\widehat{\sigma}\)</span>.</p></li>
+<li><p>Population variance estimators, <span class="math inline">\(\widehat{\sigma}^2\)</span>. Two versions:</p>
 <ul>
-<li><span style="color:#337ab7">Biased</span> sample variance: <span
-class="math display">\[
+<li><span style="color:#337ab7">Biased</span> sample variance:
+<span class="math display">\[
 s_1^2 = \frac{1}{n} \sum_{i=1}^n [(X_i-\overline{X})^2]
 \]</span> and</li>
-<li><span style="color:#337ab7">Unbiased</span> sample variance: <span
-class="math display">\[
+<li><span style="color:#337ab7">Unbiased</span> sample variance:
+<span class="math display">\[
 s_2^2 = \frac{1}{n-1} \sum_{i=1}^n [(X_i-\overline{X})^2]
 \]</span></li>
 <li>Both options are consistent; using either is fine.</li>
@@ -443,31 +465,134 @@ s_2^2 = \frac{1}{n-1} \sum_{i=1}^n [(X_i-\overline{X})^2]
 </div>
 <div id="confidence-intervals" class="section level1">
 <h1>Confidence Intervals</h1>
-<div id="estimation-uncertainty" class="section level2">
-<h2>Estimation Uncertainty</h2>
-<p>For an iid sequence <span
-class="math inline">\(X_1,\ldots,X_n\)</span> with finite mean and
-variance, we already know that <span class="math display">\[
-\mathbb{E}(\overline{X}) = \mu \quad \text{and} \quad
-\text{Var}(\overline{X}) = \frac{\sigma^2}{n}.
-\]</span> Intuitively, <span class="math inline">\(\overline{X}\)</span>
-is a very useful estimator of <span class="math inline">\(\mu\)</span>
-but, just like any estimator, it is subject to dispersion, given by
-<span class="math inline">\(\frac{\sigma^2}{n}.\)</span></p>
-<p>Given a dataset, one typically reports the value of the estimator for
-that particular dataset. But this does not include information on the
-uncertainty due the estimator variance.</p>
-<p>A <span style="color:#008B45FF"><strong>confidence
-interval</strong></span> combines both the <span
-style="color:#337ab7">value</span> of the estimator and the <span
-style="color:#337ab7">variance</span> of that estimator, thereby
-reflecting <span style="color:#337ab7">estimation
-uncertainty</span>.</p>
+<p>For an iid sequence <span class="math inline">\(X_1,\ldots,X_n\)</span> with finite mean and variance, we already know that
+<span class="math display">\[
+\mathbb{E}(\overline{X}) = \mu \quad \text{and} \quad \text{Var}(\overline{X}) = \frac{\sigma^2}{n}.
+\]</span>
+Intuitively, <span class="math inline">\(\overline{X}\)</span> is a very useful estimator of <span class="math inline">\(\mu\)</span> but, just like any estimator, it is subject to dispersion, given by <span class="math inline">\(\frac{\sigma^2}{n}.\)</span></p>
+<p>Given a dataset, one typically reports the value of the estimator for that particular dataset. But this does not include information on the uncertainty due the estimator variance.</p>
+<p><span class="math inline">\(\overline{X}\)</span> itself is a point estimator for <span class="math inline">\(\mu\)</span>. In order to measure the <span style="color:#337ab7">estimation uncertainty</span>, we use the <span style="color:#008B45FF"><strong>confidence interval</strong></span>, which combines both the <span style="color:#337ab7">value</span> of the estimator and the <span style="color:#337ab7">variance</span> of that estimator.</p>
+<p><strong>General notation</strong></p>
+<p>To keep the discussion general, suppose that we have a quantity of interest <span class="math inline">\(\theta\)</span> and some estimator of it, <span class="math inline">\(\widehat{\theta}\)</span>. Furthermore, suppose we already know that
+<span class="math display">\[
+\frac{\widehat{\theta}-\theta}{\Sigma} \sim N(0,1).
+\]</span>
+To refer to our sample average example, <span class="math inline">\(\theta=\mu\)</span>, <span class="math inline">\(\widehat{\theta}=\overline{X}\)</span>, and <span class="math inline">\(\Sigma=\sigma/\sqrt{n}\)</span>.</p>
+<p>Our goal is to obtain an interval which takes the form <span class="math inline">\([\widehat{L}, \widehat{U}]\)</span>, and the probability of the interval covers the true parameter value , i.e., <span class="math inline">\(\mathbb{P}(\widehat{L}\le \theta \le \widehat{U})\)</span>, is high.</p>
+<ul>
+<li><p><span class="math inline">\(\widehat{L}\)</span> is referred to as the lower bound, and <span class="math inline">\(\widehat{U}\)</span> as the upper bound.</p></li>
+<li><p><span class="math inline">\(\mathbb{P}(\widehat{L}\le \theta \le \widehat{U})\)</span> is often mis-interpreted as treating <span class="math inline">\(\theta\)</span> as random and <span class="math inline">\([\widehat{L}, \widehat{U}]\)</span> as fixed.<br />
+It is inappropriate to interpret <span class="math inline">\(\mathbb{P}(\widehat{L}\le \theta \le \widehat{U})\)</span> as the probability that <span class="math inline">\(\theta\)</span> lies within <span class="math inline">\([\widehat{L}, \widehat{U}]\)</span>.</p></li>
+<li><p>Instead, the correct interpretation is that the probability <span class="math inline">\(\mathbb{P}(\widehat{L}\le \theta \le \widehat{U})\)</span> treats the point <span class="math inline">\(\theta\)</span> as fixed and the interval <span class="math inline">\([\widehat{L}, \widehat{U}]\)</span> as random.<br />
+It is the probability that <span style="color:#337ab7">the random interval covers the fixed true coefficient <span class="math inline">\(\theta.\)</span></span></p></li>
+</ul>
+<p><span class="math inline">\([\widehat{L}, \widehat{U}]\)</span> is called the <span class="math inline">\(1-\alpha\)</span> confidence interval when <span class="math inline">\(\mathbb{P}(\widehat{L}\le \theta \le \widehat{U})=1-\alpha.\)</span></p>
+<ul>
+<li><span class="math inline">\(\alpha\)</span> is often known as the significance level. Common significance levels include <span class="math inline">\(1\%\)</span> and <span class="math inline">\(5\%\)</span>.</li>
+<li><span class="math inline">\(1-\alpha\)</span> is often known as the confidence level or the convergence probability. Common confidence levels are <span class="math inline">\(99\%\)</span> and <span class="math inline">\(95\%\)</span>.</li>
+</ul>
+<p>A good choice for a confidence interval is obtained by adding and subtracting from the estimator <span class="math inline">\(\widehat{\theta}\)</span> a fixed multiple of its standard error:
+<span class="math display">\[
+[\widehat{L}, \widehat{U}] = [\widehat{\theta}-c\cdot s(\widehat{\theta}), \widehat{\theta}+c\cdot s(\widehat{\theta})]
+\]</span>
+where <span class="math inline">\(c&gt;0\)</span> is a pre-specified constant, often called the <span style="color:#008B45FF">critical value</span>.</p>
+<p>Given <span class="math inline">\(\frac{\widehat{\theta}-\theta}{\Sigma} \sim N(0,1)\)</span>, we have
+<span class="math display" id="eq:CI">\[
+\begin{equation} \tag{1}
+P\left(-c_{\alpha/2} &lt; \frac{\widehat{\theta}-\theta}{\Sigma} &lt; c_{\alpha/2}  \right) = 1-\alpha .
+\end{equation}
+\]</span>
+This requires <span class="math inline">\(\Phi(c_{\alpha/2}) = 1-\frac{\alpha}{2}\)</span>.</p>
+<p>Hence, <span class="math inline">\(c_{\alpha/2}=\Phi^{-1}(1-\frac{\alpha}{2})\)</span>, which is the <span class="math inline">\(1-\frac{\alpha}{2}\)</span> quantile of the standard normal distribution.</p>
+<p>Re-arranging <a href="#eq:CI">(1)</a>, we have
+<span class="math display">\[
+P\left(\widehat{\theta}-c_{\alpha/2}\cdot \Sigma, \; \widehat{\theta}+c_{\alpha/2}\cdot \Sigma\right) = 1-\alpha
+\]</span>
+This says the random interval,
+<span class="math display">\[
+(\widehat{\theta}-c_{\alpha/2}\cdot \Sigma, \; \widehat{\theta}+c_{\alpha/2}\cdot \Sigma),
+\]</span>
+contains <span class="math inline">\(\theta\)</span> with probability <span class="math inline">\(1-\alpha.\)</span></p>
+<p>One can also generate one-sided intervals:
+<span class="math display">\[
+P\left(\widehat{\theta}-c_{\alpha}\cdot \Sigma &lt; \theta \right) = 1-\alpha ,
+\]</span>
+or
+<span class="math display">\[
+P\left(\theta &lt; \widehat{\theta}+c_{\alpha}\cdot \Sigma \right) = 1-\alpha ,
+\]</span>
+but a two-sided interval is more common.</p>
+<hr />
+</div>
+<div id="hypothesis-testing" class="section level1">
+<h1>Hypothesis Testing</h1>
+<p>Let us again consider the generic case of equation:</p>
+<p><span class="math display">\[
+\frac{\widehat{\theta}-\theta}{\Sigma} \sim N(0,1).
+\]</span>
+Suppose we want to test the following claim:
+<span class="math display">\[
+H_0: \theta = r \\
+H_1: \theta \ne r,
+\]</span>
+where <span class="math inline">\(r\)</span> is some scalar.</p>
+<p>Here <span class="math inline">\(H_0\)</span> is the null hypothesis and <span class="math inline">\(H_1\)</span> is the alternative hypothesis.</p>
+<ul>
+<li><p>If <span class="math inline">\(H_0: \theta = r\)</span> is true, then plug in <span class="math inline">\(r\)</span> for <span class="math inline">\(\theta\)</span>, we have
+<span class="math display">\[
+\frac{\widehat{\theta}-r}{\Sigma} \sim N(0,1),
+\]</span>
+and so <span class="math inline">\(\frac{\widehat{\theta}-r}{\Sigma}\)</span> should be close to zero, on average. So if <span class="math inline">\(\frac{\widehat{\theta}-r}{\Sigma}\)</span> is close to zero, we are inclined not to reject <span class="math inline">\(H_0\)</span>.</p></li>
+<li><p>If <span class="math inline">\(\frac{\widehat{\theta}-r}{\Sigma}\)</span> is much greater or much less than zero, then we are inclined to reject <span class="math inline">\(H_0\)</span> and in favor of <span class="math inline">\(H_1\)</span>.</p></li>
+</ul>
+<p>In other words, we would be inclined to reject <span class="math inline">\(H_0\)</span> if
+<span class="math display">\[
+\left\vert \frac{\widehat{\theta}-r}{\Sigma} \right\vert
+\]</span>
+is much greater than zero.</p>
+<p>Formally, our test statistic is
+<span class="math display">\[
+\frac{\widehat{\theta}-r}{\Sigma} \sim N(0,1).
+\]</span></p>
+<p>we reject <span class="math inline">\(H_0: \theta=r\)</span> in favor of <span class="math inline">\(H_1\)</span> at <span class="math inline">\(\alpha\)</span> level of significance if
+<span class="math display">\[
+\left\vert \frac{\widehat{\theta}-r}{\Sigma} \right\vert &gt; c_{\alpha/2}.
+\]</span></p>
+<p>Otherwise, we fail to reject <span class="math inline">\(H_0\)</span> (we never say ACCEPT).</p>
+<p>Similarly, for one-sided hypothesis testing, we have</p>
+<ul>
+<li><p>Case 1: <span class="math inline">\(H_0: \theta\ge r \quad \text{vs} \quad H_1: \theta&lt;r\)</span>. We reject <span class="math inline">\(H_0\)</span> in favor of <span class="math inline">\(H_1\)</span> if
+<span class="math display">\[
+\frac{\widehat{\theta}-r}{\Sigma} &lt; -c_{\alpha}.
+\]</span>
+Otherwise, we fail to reject <span class="math inline">\(H_0.\)</span></p></li>
+<li><p>Case 2: <span class="math inline">\(H_0: \theta\le r \quad \text{vs} \quad H_1: \theta&gt;r\)</span>. We reject <span class="math inline">\(H_0\)</span> in favor of <span class="math inline">\(H_1\)</span> if
+<span class="math display">\[
+\frac{\widehat{\theta}-r}{\Sigma} &gt; c_{\alpha}.
+\]</span>
+Otherwise, we fail to reject <span class="math inline">\(H_0.\)</span></p></li>
+</ul>
+<p>The critical values for typical levels of significance are:</p>
+<ul>
+<li>For one-sided tests,
+<ul>
+<li>1% level of significance : <span class="math inline">\(c_\alpha = 2.33\)</span>,</li>
+<li>5% level of significance : <span class="math inline">\(c_\alpha = 1.64\)</span>,</li>
+<li>10% level of significance : <span class="math inline">\(c_\alpha= 1.28\)</span>.</li>
+</ul></li>
+<li>For two-sided tests,
+<ul>
+<li>1% level of significance : <span class="math inline">\(c_\alpha = 2.58\)</span>,</li>
+<li>5% level of significance : <span class="math inline">\(\color{#337ab7}{c_\alpha = 1.95}\)</span>,</li>
+<li>10% level of significance : <span class="math inline">\(c_\alpha= 1.64\)</span>.</li>
+</ul></li>
+</ul>
+</div>
+
+
+
 </div>
 </div>
-
-
-
 
 </div>
 
@@ -500,13 +625,42 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML.js";
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>
