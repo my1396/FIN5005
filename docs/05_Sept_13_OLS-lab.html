@@ -1,0 +1,5589 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Menghan Yuan" />
+
+
+<title>Linear Model – Lab</title>
+
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Course Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Linear Model – Lab</h1>
+<h4 class="author">Menghan Yuan</h4>
+<h4 class="date">Sept 13, 2024</h4>
+
+</div>
+
+
+<SCRIPT language="JavaScript" SRC="my_jxscript.js"></SCRIPT>
+<p><a class="top-link" href="#top" id="js-top">↑</a></p>
+<div id="regression-dataset-preparation" class="section level1">
+<h1>Regression Dataset Preparation</h1>
+<p>Using <code>AAPL</code> as an example to demonstrate linear regression.</p>
+<p>We use monthly data from 2014-12 to 2023-12.</p>
+<ul>
+<li>Equity data can be downloaded using <code>quantmod::getSymbols</code>.</li>
+<li>Fama-French factors can be downloaded from Ken French’s <a href="http://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html">website</a>.</li>
+</ul>
+<pre class="r"><code>price_data &lt;- getSymbols(&quot;AAPL&quot;, 
+           src = &#39;yahoo&#39;, 
+           from = &quot;2014-12-01&quot;, 
+           to = &quot;2023-12-31&quot;,   
+           auto.assign = FALSE
+           )
+price_data</code></pre>
+<pre><code>##            AAPL.Open AAPL.High AAPL.Low AAPL.Close AAPL.Volume AAPL.Adjusted
+## 2014-12-01   29.7025   29.8125  27.8175    28.7675   335256000      25.65363
+## 2014-12-02   28.3750   28.9375  28.1875    28.6575   237395600      25.55554
+## 2014-12-03   28.9375   29.0875  28.7775    28.9825   172253600      25.84536
+## 2014-12-04   28.9425   29.3000  28.8225    28.8725   168178000      25.74726
+## 2014-12-05   28.9975   29.0200  28.6600    28.7500   153275600      25.63802
+## 2014-12-08   28.5250   28.6625  27.9050    28.1000   230659600      25.05838
+## 2014-12-09   27.5475   28.5750  27.3375    28.5300   240832000      25.44184
+## 2014-12-10   28.6025   28.7125  27.8850    27.9875   178261200      24.95806
+## 2014-12-11   28.0650   28.4500  27.8350    27.9050   165606800      24.88449
+## 2014-12-12   27.6150   27.9675  27.3950    27.4325   224112400      24.46314
+##        ...                                                                  
+## 2023-12-15  197.5300  198.4000 197.0000   197.5700   128256700     196.82312
+## 2023-12-18  196.0900  196.6300 194.3900   195.8900    55751900     195.14948
+## 2023-12-19  196.1600  196.9500 195.8900   196.9400    40714100     196.19551
+## 2023-12-20  196.9000  197.6800 194.8300   194.8300    52242800     194.09349
+## 2023-12-21  196.1000  197.0800 193.5000   194.6800    46482500     193.94403
+## 2023-12-22  195.1800  195.4100 192.9700   193.6000    37122800     192.86813
+## 2023-12-26  193.6100  193.8900 192.8300   193.0500    28919300     192.32022
+## 2023-12-27  192.4900  193.5000 191.0900   193.1500    48087700     192.41983
+## 2023-12-28  194.1400  194.6600 193.1700   193.5800    34049900     192.84821
+## 2023-12-29  193.9000  194.4000 191.7300   192.5300    42628800     191.80217</code></pre>
+<p>Convert to monthly and calculate returns.</p>
+<pre class="r"><code>price_data &lt;- price_data %&gt;% 
+    apply.monthly(last)
+price_data$return &lt;- monthlyReturn(price_data$AAPL.Adjusted, type=&#39;arithmetic&#39;)
+price_data</code></pre>
+<pre><code>##            AAPL.Open AAPL.High AAPL.Low AAPL.Close AAPL.Volume AAPL.Adjusted
+## 2014-12-31   28.2050   28.2825  27.5525    27.5950   165613600      24.60804
+## 2015-01-30   29.6000   30.0000  29.2125    29.2900   334982000      26.11958
+## 2015-02-27   32.5000   32.6425  32.0600    32.1150   248059200      28.75182
+## 2015-03-31   31.5225   31.6225  31.0900    31.1075   168362400      27.84982
+## 2015-04-30   32.1600   32.1600  31.1450    31.2875   332781600      28.01097
+## 2015-05-29   32.8075   32.8625  32.4750    32.5700   203538000      29.28096
+## 2015-06-30   31.3925   31.5300  31.2150    31.3575   177482800      28.19091
+## 2015-07-31   30.6500   30.6600  30.2275    30.3250   171540000      27.26267
+## 2015-08-31   28.0075   28.6325  28.0000    28.1900   224917200      25.45799
+## 2015-09-30   27.5425   27.8850  27.1825    27.5750   265892000      24.90259
+##        ...                                                                  
+## 2023-03-31  162.4400  165.0000 161.9100   164.9000    68749800     163.61293
+## 2023-04-28  168.4900  169.8500 167.8800   169.6800    55209200     168.35562
+## 2023-05-31  177.3300  179.3500 176.7600   177.2500    99625300     176.10980
+## 2023-06-30  191.6300  194.4800 191.2600   193.9700    85069600     192.72223
+## 2023-07-31  196.0600  196.4900 195.2600   196.4500    38824100     195.18628
+## 2023-08-31  187.8400  189.1200 187.4800   187.8700    60794500     186.91354
+## 2023-09-29  172.0200  173.0700 170.3400   171.2100    51814200     170.33836
+## 2023-10-31  169.3500  170.9000 167.9000   170.7700    44846000     169.90060
+## 2023-11-30  189.8400  190.3200 188.1900   189.9500    48794400     189.23192
+## 2023-12-29  193.9000  194.4000 191.7300   192.5300    42628800     191.80217
+##                  return
+## 2014-12-31  0.000000000
+## 2015-01-30  0.061424541
+## 2015-02-27  0.100776673
+## 2015-03-31 -0.031371808
+## 2015-04-30  0.005786323
+## 2015-05-29  0.045338914
+## 2015-06-30 -0.037227254
+## 2015-07-31 -0.032926784
+## 2015-08-31 -0.066196136
+## 2015-09-30 -0.021816441
+##        ...             
+## 2023-03-31  0.118648646
+## 2023-04-28  0.028987263
+## 2023-05-31  0.046058343
+## 2023-06-30  0.094329938
+## 2023-07-31  0.012785501
+## 2023-08-31 -0.042383797
+## 2023-09-29 -0.088678325
+## 2023-10-31 -0.002569940
+## 2023-11-30  0.113780137
+## 2023-12-29  0.013582547</code></pre>
+<p>Load Fama-French factors.</p>
+<pre class="r"><code>FF_factor &lt;- read_csv(&quot;data/FF_3Factors_US_monthly.csv&quot;)
+FF_factor &lt;- FF_factor %&gt;% mutate_at(vars(-Date), ~./100)
+FF_factor &lt;- FF_factor %&gt;% 
+    mutate(year=year(Date),
+           mon=month(Date))
+
+FF_factor</code></pre>
+<pre><code>## # A tibble: 294 × 7
+##    Date       `Mkt-RF`     SMB     HML     RF  year   mon
+##    &lt;date&gt;        &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+##  1 2000-01-01  -0.0474  0.0577 -0.0188 0.0041  2000     1
+##  2 2000-02-01   0.0245  0.214  -0.0959 0.0043  2000     2
+##  3 2000-03-01   0.052  -0.172   0.0813 0.0047  2000     3
+##  4 2000-04-01  -0.064  -0.0668  0.0726 0.0046  2000     4
+##  5 2000-05-01  -0.0442 -0.0605  0.0475 0.005   2000     5
+##  6 2000-06-01   0.0464  0.128  -0.0842 0.004   2000     6
+##  7 2000-07-01  -0.0251 -0.0307  0.0831 0.0048  2000     7
+##  8 2000-08-01   0.0703 -0.0061 -0.0139 0.005   2000     8
+##  9 2000-09-01  -0.0545 -0.0182  0.0717 0.0051  2000     9
+## 10 2000-10-01  -0.0276 -0.0388  0.0571 0.0056  2000    10
+## # ℹ 284 more rows</code></pre>
+<p>Merge price data with FF-factor data to prepare the regression dataset.</p>
+<pre class="r"><code>reg_data &lt;- price_data %&gt;% 
+    as_tibble() %&gt;% 
+    add_column(Date=index(price_data), .before = 1)
+reg_data &lt;- reg_data %&gt;% 
+    mutate(year=year(Date),
+           mon=month(Date))
+reg_data &lt;- reg_data %&gt;% 
+    left_join(FF_factor[,-1], by=c(&quot;year&quot;,&quot;mon&quot;))
+# calculate excess return
+reg_data &lt;- reg_data %&gt;% 
+    mutate(eRi = return-RF) %&gt;% 
+    rename(rmrf=`Mkt-RF`)</code></pre>
+<pre class="r"><code># glimpse of data
+reg_data %&gt;% 
+    select(-year,-mon) %&gt;% 
+    knitr::kable(floating.environment=&quot;sidewaystable&quot;, digits = 5, escape=F) %&gt;%
+    kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;), full_width = F, latex_options=&quot;scale_down&quot;) %&gt;% 
+    scroll_box(width = &quot;100%&quot;, height = &quot;500px&quot;)</code></pre>
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; overflow-x: scroll; width:100%; ">
+<table class="table table-striped table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+Date
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+AAPL.Open
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+AAPL.High
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+AAPL.Low
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+AAPL.Close
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+AAPL.Volume
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+AAPL.Adjusted
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+return
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+rmrf
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+SMB
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+HML
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+RF
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+eRi
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+2014-12-31
+</td>
+<td style="text-align:right;">
+28.2050
+</td>
+<td style="text-align:right;">
+28.2825
+</td>
+<td style="text-align:right;">
+27.5525
+</td>
+<td style="text-align:right;">
+27.5950
+</td>
+<td style="text-align:right;">
+165613600
+</td>
+<td style="text-align:right;">
+24.60804
+</td>
+<td style="text-align:right;">
+0.00000
+</td>
+<td style="text-align:right;">
+-0.0006
+</td>
+<td style="text-align:right;">
+0.0249
+</td>
+<td style="text-align:right;">
+0.0227
+</td>
+<td style="text-align:right;">
+0.0000
+</td>
+<td style="text-align:right;">
+0.00000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2015-01-30
+</td>
+<td style="text-align:right;">
+29.6000
+</td>
+<td style="text-align:right;">
+30.0000
+</td>
+<td style="text-align:right;">
+29.2125
+</td>
+<td style="text-align:right;">
+29.2900
+</td>
+<td style="text-align:right;">
+334982000
+</td>
+<td style="text-align:right;">
+26.11958
+</td>
+<td style="text-align:right;">
+0.06142
+</td>
+<td style="text-align:right;">
+-0.0311
+</td>
+<td style="text-align:right;">
+-0.0056
+</td>
+<td style="text-align:right;">
+-0.0358
+</td>
+<td style="text-align:right;">
+0.0000
+</td>
+<td style="text-align:right;">
+0.06142
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2015-02-27
+</td>
+<td style="text-align:right;">
+32.5000
+</td>
+<td style="text-align:right;">
+32.6425
+</td>
+<td style="text-align:right;">
+32.0600
+</td>
+<td style="text-align:right;">
+32.1150
+</td>
+<td style="text-align:right;">
+248059200
+</td>
+<td style="text-align:right;">
+28.75182
+</td>
+<td style="text-align:right;">
+0.10078
+</td>
+<td style="text-align:right;">
+0.0613
+</td>
+<td style="text-align:right;">
+0.0063
+</td>
+<td style="text-align:right;">
+-0.0186
+</td>
+<td style="text-align:right;">
+0.0000
+</td>
+<td style="text-align:right;">
+0.10078
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2015-03-31
+</td>
+<td style="text-align:right;">
+31.5225
+</td>
+<td style="text-align:right;">
+31.6225
+</td>
+<td style="text-align:right;">
+31.0900
+</td>
+<td style="text-align:right;">
+31.1075
+</td>
+<td style="text-align:right;">
+168362400
+</td>
+<td style="text-align:right;">
+27.84982
+</td>
+<td style="text-align:right;">
+-0.03137
+</td>
+<td style="text-align:right;">
+-0.0112
+</td>
+<td style="text-align:right;">
+0.0304
+</td>
+<td style="text-align:right;">
+-0.0037
+</td>
+<td style="text-align:right;">
+0.0000
+</td>
+<td style="text-align:right;">
+-0.03137
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2015-04-30
+</td>
+<td style="text-align:right;">
+32.1600
+</td>
+<td style="text-align:right;">
+32.1600
+</td>
+<td style="text-align:right;">
+31.1450
+</td>
+<td style="text-align:right;">
+31.2875
+</td>
+<td style="text-align:right;">
+332781600
+</td>
+<td style="text-align:right;">
+28.01097
+</td>
+<td style="text-align:right;">
+0.00579
+</td>
+<td style="text-align:right;">
+0.0059
+</td>
+<td style="text-align:right;">
+-0.0306
+</td>
+<td style="text-align:right;">
+0.0182
+</td>
+<td style="text-align:right;">
+0.0000
+</td>
+<td style="text-align:right;">
+0.00579
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2015-05-29
+</td>
+<td style="text-align:right;">
+32.8075
+</td>
+<td style="text-align:right;">
+32.8625
+</td>
+<td style="text-align:right;">
+32.4750
+</td>
+<td style="text-align:right;">
+32.5700
+</td>
+<td style="text-align:right;">
+203538000
+</td>
+<td style="text-align:right;">
+29.28096
+</td>
+<td style="text-align:right;">
+0.04534
+</td>
+<td style="text-align:right;">
+0.0136
+</td>
+<td style="text-align:right;">
+0.0093
+</td>
+<td style="text-align:right;">
+-0.0114
+</td>
+<td style="text-align:right;">
+0.0000
+</td>
+<td style="text-align:right;">
+0.04534
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2015-06-30
+</td>
+<td style="text-align:right;">
+31.3925
+</td>
+<td style="text-align:right;">
+31.5300
+</td>
+<td style="text-align:right;">
+31.2150
+</td>
+<td style="text-align:right;">
+31.3575
+</td>
+<td style="text-align:right;">
+177482800
+</td>
+<td style="text-align:right;">
+28.19091
+</td>
+<td style="text-align:right;">
+-0.03723
+</td>
+<td style="text-align:right;">
+-0.0153
+</td>
+<td style="text-align:right;">
+0.0291
+</td>
+<td style="text-align:right;">
+-0.0079
+</td>
+<td style="text-align:right;">
+0.0000
+</td>
+<td style="text-align:right;">
+-0.03723
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2015-07-31
+</td>
+<td style="text-align:right;">
+30.6500
+</td>
+<td style="text-align:right;">
+30.6600
+</td>
+<td style="text-align:right;">
+30.2275
+</td>
+<td style="text-align:right;">
+30.3250
+</td>
+<td style="text-align:right;">
+171540000
+</td>
+<td style="text-align:right;">
+27.26267
+</td>
+<td style="text-align:right;">
+-0.03293
+</td>
+<td style="text-align:right;">
+0.0154
+</td>
+<td style="text-align:right;">
+-0.0417
+</td>
+<td style="text-align:right;">
+-0.0413
+</td>
+<td style="text-align:right;">
+0.0000
+</td>
+<td style="text-align:right;">
+-0.03293
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2015-08-31
+</td>
+<td style="text-align:right;">
+28.0075
+</td>
+<td style="text-align:right;">
+28.6325
+</td>
+<td style="text-align:right;">
+28.0000
+</td>
+<td style="text-align:right;">
+28.1900
+</td>
+<td style="text-align:right;">
+224917200
+</td>
+<td style="text-align:right;">
+25.45799
+</td>
+<td style="text-align:right;">
+-0.06620
+</td>
+<td style="text-align:right;">
+-0.0604
+</td>
+<td style="text-align:right;">
+0.0033
+</td>
+<td style="text-align:right;">
+0.0277
+</td>
+<td style="text-align:right;">
+0.0000
+</td>
+<td style="text-align:right;">
+-0.06620
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2015-09-30
+</td>
+<td style="text-align:right;">
+27.5425
+</td>
+<td style="text-align:right;">
+27.8850
+</td>
+<td style="text-align:right;">
+27.1825
+</td>
+<td style="text-align:right;">
+27.5750
+</td>
+<td style="text-align:right;">
+265892000
+</td>
+<td style="text-align:right;">
+24.90259
+</td>
+<td style="text-align:right;">
+-0.02182
+</td>
+<td style="text-align:right;">
+-0.0307
+</td>
+<td style="text-align:right;">
+-0.0262
+</td>
+<td style="text-align:right;">
+0.0056
+</td>
+<td style="text-align:right;">
+0.0000
+</td>
+<td style="text-align:right;">
+-0.02182
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2015-10-30
+</td>
+<td style="text-align:right;">
+30.2475
+</td>
+<td style="text-align:right;">
+30.3050
+</td>
+<td style="text-align:right;">
+29.8625
+</td>
+<td style="text-align:right;">
+29.8750
+</td>
+<td style="text-align:right;">
+197461200
+</td>
+<td style="text-align:right;">
+26.97969
+</td>
+<td style="text-align:right;">
+0.08341
+</td>
+<td style="text-align:right;">
+0.0775
+</td>
+<td style="text-align:right;">
+-0.0188
+</td>
+<td style="text-align:right;">
+-0.0046
+</td>
+<td style="text-align:right;">
+0.0000
+</td>
+<td style="text-align:right;">
+0.08341
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2015-11-30
+</td>
+<td style="text-align:right;">
+29.4975
+</td>
+<td style="text-align:right;">
+29.8525
+</td>
+<td style="text-align:right;">
+29.4375
+</td>
+<td style="text-align:right;">
+29.5750
+</td>
+<td style="text-align:right;">
+156721200
+</td>
+<td style="text-align:right;">
+26.82309
+</td>
+<td style="text-align:right;">
+-0.00580
+</td>
+<td style="text-align:right;">
+0.0056
+</td>
+<td style="text-align:right;">
+0.0360
+</td>
+<td style="text-align:right;">
+-0.0042
+</td>
+<td style="text-align:right;">
+0.0000
+</td>
+<td style="text-align:right;">
+-0.00580
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2015-12-31
+</td>
+<td style="text-align:right;">
+26.7525
+</td>
+<td style="text-align:right;">
+26.7575
+</td>
+<td style="text-align:right;">
+26.2050
+</td>
+<td style="text-align:right;">
+26.3150
+</td>
+<td style="text-align:right;">
+163649200
+</td>
+<td style="text-align:right;">
+23.86643
+</td>
+<td style="text-align:right;">
+-0.11023
+</td>
+<td style="text-align:right;">
+-0.0217
+</td>
+<td style="text-align:right;">
+-0.0284
+</td>
+<td style="text-align:right;">
+-0.0261
+</td>
+<td style="text-align:right;">
+0.0001
+</td>
+<td style="text-align:right;">
+-0.11033
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2016-01-29
+</td>
+<td style="text-align:right;">
+23.6975
+</td>
+<td style="text-align:right;">
+24.3350
+</td>
+<td style="text-align:right;">
+23.5875
+</td>
+<td style="text-align:right;">
+24.3350
+</td>
+<td style="text-align:right;">
+257666000
+</td>
+<td style="text-align:right;">
+22.07066
+</td>
+<td style="text-align:right;">
+-0.07524
+</td>
+<td style="text-align:right;">
+-0.0577
+</td>
+<td style="text-align:right;">
+-0.0342
+</td>
+<td style="text-align:right;">
+0.0209
+</td>
+<td style="text-align:right;">
+0.0001
+</td>
+<td style="text-align:right;">
+-0.07534
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2016-02-29
+</td>
+<td style="text-align:right;">
+24.2150
+</td>
+<td style="text-align:right;">
+24.5575
+</td>
+<td style="text-align:right;">
+24.1625
+</td>
+<td style="text-align:right;">
+24.1725
+</td>
+<td style="text-align:right;">
+140865200
+</td>
+<td style="text-align:right;">
+22.04224
+</td>
+<td style="text-align:right;">
+-0.00129
+</td>
+<td style="text-align:right;">
+-0.0007
+</td>
+<td style="text-align:right;">
+0.0073
+</td>
+<td style="text-align:right;">
+-0.0057
+</td>
+<td style="text-align:right;">
+0.0002
+</td>
+<td style="text-align:right;">
+-0.00149
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2016-03-31
+</td>
+<td style="text-align:right;">
+27.4300
+</td>
+<td style="text-align:right;">
+27.4750
+</td>
+<td style="text-align:right;">
+27.2200
+</td>
+<td style="text-align:right;">
+27.2475
+</td>
+<td style="text-align:right;">
+103553600
+</td>
+<td style="text-align:right;">
+24.84625
+</td>
+<td style="text-align:right;">
+0.12721
+</td>
+<td style="text-align:right;">
+0.0696
+</td>
+<td style="text-align:right;">
+0.0082
+</td>
+<td style="text-align:right;">
+0.0119
+</td>
+<td style="text-align:right;">
+0.0002
+</td>
+<td style="text-align:right;">
+0.12701
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2016-04-29
+</td>
+<td style="text-align:right;">
+23.4975
+</td>
+<td style="text-align:right;">
+23.6800
+</td>
+<td style="text-align:right;">
+23.1275
+</td>
+<td style="text-align:right;">
+23.4350
+</td>
+<td style="text-align:right;">
+274126000
+</td>
+<td style="text-align:right;">
+21.36974
+</td>
+<td style="text-align:right;">
+-0.13992
+</td>
+<td style="text-align:right;">
+0.0091
+</td>
+<td style="text-align:right;">
+0.0076
+</td>
+<td style="text-align:right;">
+0.0328
+</td>
+<td style="text-align:right;">
+0.0001
+</td>
+<td style="text-align:right;">
+-0.14002
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2016-05-31
+</td>
+<td style="text-align:right;">
+24.9000
+</td>
+<td style="text-align:right;">
+25.1000
+</td>
+<td style="text-align:right;">
+24.7050
+</td>
+<td style="text-align:right;">
+24.9650
+</td>
+<td style="text-align:right;">
+169228800
+</td>
+<td style="text-align:right;">
+22.90351
+</td>
+<td style="text-align:right;">
+0.07177
+</td>
+<td style="text-align:right;">
+0.0178
+</td>
+<td style="text-align:right;">
+-0.0017
+</td>
+<td style="text-align:right;">
+-0.0166
+</td>
+<td style="text-align:right;">
+0.0001
+</td>
+<td style="text-align:right;">
+0.07167
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2016-06-30
+</td>
+<td style="text-align:right;">
+23.6100
+</td>
+<td style="text-align:right;">
+23.9425
+</td>
+<td style="text-align:right;">
+23.5750
+</td>
+<td style="text-align:right;">
+23.9000
+</td>
+<td style="text-align:right;">
+143345600
+</td>
+<td style="text-align:right;">
+21.92646
+</td>
+<td style="text-align:right;">
+-0.04266
+</td>
+<td style="text-align:right;">
+-0.0005
+</td>
+<td style="text-align:right;">
+0.0061
+</td>
+<td style="text-align:right;">
+-0.0148
+</td>
+<td style="text-align:right;">
+0.0002
+</td>
+<td style="text-align:right;">
+-0.04286
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2016-07-29
+</td>
+<td style="text-align:right;">
+26.0475
+</td>
+<td style="text-align:right;">
+26.1375
+</td>
+<td style="text-align:right;">
+25.9200
+</td>
+<td style="text-align:right;">
+26.0525
+</td>
+<td style="text-align:right;">
+110934800
+</td>
+<td style="text-align:right;">
+23.90121
+</td>
+<td style="text-align:right;">
+0.09006
+</td>
+<td style="text-align:right;">
+0.0395
+</td>
+<td style="text-align:right;">
+0.0249
+</td>
+<td style="text-align:right;">
+-0.0132
+</td>
+<td style="text-align:right;">
+0.0002
+</td>
+<td style="text-align:right;">
+0.08986
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2016-08-31
+</td>
+<td style="text-align:right;">
+26.4150
+</td>
+<td style="text-align:right;">
+26.6425
+</td>
+<td style="text-align:right;">
+26.4100
+</td>
+<td style="text-align:right;">
+26.5250
+</td>
+<td style="text-align:right;">
+118649600
+</td>
+<td style="text-align:right;">
+24.46652
+</td>
+<td style="text-align:right;">
+0.02365
+</td>
+<td style="text-align:right;">
+0.0049
+</td>
+<td style="text-align:right;">
+0.0115
+</td>
+<td style="text-align:right;">
+0.0318
+</td>
+<td style="text-align:right;">
+0.0002
+</td>
+<td style="text-align:right;">
+0.02345
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2016-09-30
+</td>
+<td style="text-align:right;">
+28.1150
+</td>
+<td style="text-align:right;">
+28.3425
+</td>
+<td style="text-align:right;">
+27.9500
+</td>
+<td style="text-align:right;">
+28.2625
+</td>
+<td style="text-align:right;">
+145516400
+</td>
+<td style="text-align:right;">
+26.06917
+</td>
+<td style="text-align:right;">
+0.06550
+</td>
+<td style="text-align:right;">
+0.0025
+</td>
+<td style="text-align:right;">
+0.0212
+</td>
+<td style="text-align:right;">
+-0.0124
+</td>
+<td style="text-align:right;">
+0.0002
+</td>
+<td style="text-align:right;">
+0.06530
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2016-10-31
+</td>
+<td style="text-align:right;">
+28.4125
+</td>
+<td style="text-align:right;">
+28.5575
+</td>
+<td style="text-align:right;">
+28.3000
+</td>
+<td style="text-align:right;">
+28.3850
+</td>
+<td style="text-align:right;">
+105677600
+</td>
+<td style="text-align:right;">
+26.18217
+</td>
+<td style="text-align:right;">
+0.00433
+</td>
+<td style="text-align:right;">
+-0.0202
+</td>
+<td style="text-align:right;">
+-0.0440
+</td>
+<td style="text-align:right;">
+0.0409
+</td>
+<td style="text-align:right;">
+0.0002
+</td>
+<td style="text-align:right;">
+0.00413
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2016-11-30
+</td>
+<td style="text-align:right;">
+27.9000
+</td>
+<td style="text-align:right;">
+28.0500
+</td>
+<td style="text-align:right;">
+27.5675
+</td>
+<td style="text-align:right;">
+27.6300
+</td>
+<td style="text-align:right;">
+144649200
+</td>
+<td style="text-align:right;">
+25.61661
+</td>
+<td style="text-align:right;">
+-0.02160
+</td>
+<td style="text-align:right;">
+0.0486
+</td>
+<td style="text-align:right;">
+0.0571
+</td>
+<td style="text-align:right;">
+0.0821
+</td>
+<td style="text-align:right;">
+0.0001
+</td>
+<td style="text-align:right;">
+-0.02170
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2016-12-30
+</td>
+<td style="text-align:right;">
+29.1625
+</td>
+<td style="text-align:right;">
+29.3000
+</td>
+<td style="text-align:right;">
+28.8575
+</td>
+<td style="text-align:right;">
+28.9550
+</td>
+<td style="text-align:right;">
+122345200
+</td>
+<td style="text-align:right;">
+26.84506
+</td>
+<td style="text-align:right;">
+0.04796
+</td>
+<td style="text-align:right;">
+0.0182
+</td>
+<td style="text-align:right;">
+0.0010
+</td>
+<td style="text-align:right;">
+0.0353
+</td>
+<td style="text-align:right;">
+0.0003
+</td>
+<td style="text-align:right;">
+0.04766
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2017-01-31
+</td>
+<td style="text-align:right;">
+30.2875
+</td>
+<td style="text-align:right;">
+30.3475
+</td>
+<td style="text-align:right;">
+30.1550
+</td>
+<td style="text-align:right;">
+30.3375
+</td>
+<td style="text-align:right;">
+196804000
+</td>
+<td style="text-align:right;">
+28.12682
+</td>
+<td style="text-align:right;">
+0.04775
+</td>
+<td style="text-align:right;">
+0.0194
+</td>
+<td style="text-align:right;">
+-0.0119
+</td>
+<td style="text-align:right;">
+-0.0275
+</td>
+<td style="text-align:right;">
+0.0004
+</td>
+<td style="text-align:right;">
+0.04735
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2017-02-28
+</td>
+<td style="text-align:right;">
+34.2700
+</td>
+<td style="text-align:right;">
+34.3600
+</td>
+<td style="text-align:right;">
+34.1750
+</td>
+<td style="text-align:right;">
+34.2475
+</td>
+<td style="text-align:right;">
+93931600
+</td>
+<td style="text-align:right;">
+31.88955
+</td>
+<td style="text-align:right;">
+0.13378
+</td>
+<td style="text-align:right;">
+0.0357
+</td>
+<td style="text-align:right;">
+-0.0205
+</td>
+<td style="text-align:right;">
+-0.0167
+</td>
+<td style="text-align:right;">
+0.0004
+</td>
+<td style="text-align:right;">
+0.13338
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2017-03-31
+</td>
+<td style="text-align:right;">
+35.9300
+</td>
+<td style="text-align:right;">
+36.0675
+</td>
+<td style="text-align:right;">
+35.7525
+</td>
+<td style="text-align:right;">
+35.9150
+</td>
+<td style="text-align:right;">
+78646800
+</td>
+<td style="text-align:right;">
+33.44226
+</td>
+<td style="text-align:right;">
+0.04869
+</td>
+<td style="text-align:right;">
+0.0017
+</td>
+<td style="text-align:right;">
+0.0114
+</td>
+<td style="text-align:right;">
+-0.0335
+</td>
+<td style="text-align:right;">
+0.0003
+</td>
+<td style="text-align:right;">
+0.04839
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2017-04-28
+</td>
+<td style="text-align:right;">
+36.0225
+</td>
+<td style="text-align:right;">
+36.0750
+</td>
+<td style="text-align:right;">
+35.8175
+</td>
+<td style="text-align:right;">
+35.9125
+</td>
+<td style="text-align:right;">
+83441600
+</td>
+<td style="text-align:right;">
+33.43992
+</td>
+<td style="text-align:right;">
+-0.00007
+</td>
+<td style="text-align:right;">
+0.0109
+</td>
+<td style="text-align:right;">
+0.0073
+</td>
+<td style="text-align:right;">
+-0.0213
+</td>
+<td style="text-align:right;">
+0.0005
+</td>
+<td style="text-align:right;">
+-0.00057
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2017-05-31
+</td>
+<td style="text-align:right;">
+38.4925
+</td>
+<td style="text-align:right;">
+38.5425
+</td>
+<td style="text-align:right;">
+38.0950
+</td>
+<td style="text-align:right;">
+38.1900
+</td>
+<td style="text-align:right;">
+97804800
+</td>
+<td style="text-align:right;">
+35.70740
+</td>
+<td style="text-align:right;">
+0.06781
+</td>
+<td style="text-align:right;">
+0.0106
+</td>
+<td style="text-align:right;">
+-0.0257
+</td>
+<td style="text-align:right;">
+-0.0378
+</td>
+<td style="text-align:right;">
+0.0006
+</td>
+<td style="text-align:right;">
+0.06721
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2017-06-30
+</td>
+<td style="text-align:right;">
+36.1125
+</td>
+<td style="text-align:right;">
+36.2400
+</td>
+<td style="text-align:right;">
+35.9450
+</td>
+<td style="text-align:right;">
+36.0050
+</td>
+<td style="text-align:right;">
+92096400
+</td>
+<td style="text-align:right;">
+33.66443
+</td>
+<td style="text-align:right;">
+-0.05721
+</td>
+<td style="text-align:right;">
+0.0078
+</td>
+<td style="text-align:right;">
+0.0225
+</td>
+<td style="text-align:right;">
+0.0148
+</td>
+<td style="text-align:right;">
+0.0006
+</td>
+<td style="text-align:right;">
+-0.05781
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2017-07-31
+</td>
+<td style="text-align:right;">
+37.4750
+</td>
+<td style="text-align:right;">
+37.5825
+</td>
+<td style="text-align:right;">
+37.0325
+</td>
+<td style="text-align:right;">
+37.1825
+</td>
+<td style="text-align:right;">
+79383600
+</td>
+<td style="text-align:right;">
+34.76539
+</td>
+<td style="text-align:right;">
+0.03270
+</td>
+<td style="text-align:right;">
+0.0187
+</td>
+<td style="text-align:right;">
+-0.0151
+</td>
+<td style="text-align:right;">
+-0.0031
+</td>
+<td style="text-align:right;">
+0.0007
+</td>
+<td style="text-align:right;">
+0.03200
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2017-08-31
+</td>
+<td style="text-align:right;">
+40.9100
+</td>
+<td style="text-align:right;">
+41.1300
+</td>
+<td style="text-align:right;">
+40.8700
+</td>
+<td style="text-align:right;">
+41.0000
+</td>
+<td style="text-align:right;">
+107140400
+</td>
+<td style="text-align:right;">
+38.48526
+</td>
+<td style="text-align:right;">
+0.10700
+</td>
+<td style="text-align:right;">
+0.0016
+</td>
+<td style="text-align:right;">
+-0.0167
+</td>
+<td style="text-align:right;">
+-0.0210
+</td>
+<td style="text-align:right;">
+0.0009
+</td>
+<td style="text-align:right;">
+0.10610
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2017-09-29
+</td>
+<td style="text-align:right;">
+38.3025
+</td>
+<td style="text-align:right;">
+38.5325
+</td>
+<td style="text-align:right;">
+38.0000
+</td>
+<td style="text-align:right;">
+38.5300
+</td>
+<td style="text-align:right;">
+105199200
+</td>
+<td style="text-align:right;">
+36.16676
+</td>
+<td style="text-align:right;">
+-0.06024
+</td>
+<td style="text-align:right;">
+0.0251
+</td>
+<td style="text-align:right;">
+0.0447
+</td>
+<td style="text-align:right;">
+0.0313
+</td>
+<td style="text-align:right;">
+0.0009
+</td>
+<td style="text-align:right;">
+-0.06114
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2017-10-31
+</td>
+<td style="text-align:right;">
+41.9750
+</td>
+<td style="text-align:right;">
+42.4125
+</td>
+<td style="text-align:right;">
+41.7350
+</td>
+<td style="text-align:right;">
+42.2600
+</td>
+<td style="text-align:right;">
+144187200
+</td>
+<td style="text-align:right;">
+39.66799
+</td>
+<td style="text-align:right;">
+0.09681
+</td>
+<td style="text-align:right;">
+0.0225
+</td>
+<td style="text-align:right;">
+-0.0194
+</td>
+<td style="text-align:right;">
+0.0020
+</td>
+<td style="text-align:right;">
+0.0009
+</td>
+<td style="text-align:right;">
+0.09591
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2017-11-30
+</td>
+<td style="text-align:right;">
+42.6075
+</td>
+<td style="text-align:right;">
+43.0350
+</td>
+<td style="text-align:right;">
+42.1100
+</td>
+<td style="text-align:right;">
+42.9625
+</td>
+<td style="text-align:right;">
+166108800
+</td>
+<td style="text-align:right;">
+40.47239
+</td>
+<td style="text-align:right;">
+0.02028
+</td>
+<td style="text-align:right;">
+0.0312
+</td>
+<td style="text-align:right;">
+-0.0055
+</td>
+<td style="text-align:right;">
+-0.0003
+</td>
+<td style="text-align:right;">
+0.0008
+</td>
+<td style="text-align:right;">
+0.01948
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2017-12-29
+</td>
+<td style="text-align:right;">
+42.6300
+</td>
+<td style="text-align:right;">
+42.6475
+</td>
+<td style="text-align:right;">
+42.3050
+</td>
+<td style="text-align:right;">
+42.3075
+</td>
+<td style="text-align:right;">
+103999600
+</td>
+<td style="text-align:right;">
+39.85533
+</td>
+<td style="text-align:right;">
+-0.01525
+</td>
+<td style="text-align:right;">
+0.0106
+</td>
+<td style="text-align:right;">
+-0.0132
+</td>
+<td style="text-align:right;">
+0.0006
+</td>
+<td style="text-align:right;">
+0.0009
+</td>
+<td style="text-align:right;">
+-0.01615
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2018-01-31
+</td>
+<td style="text-align:right;">
+41.7175
+</td>
+<td style="text-align:right;">
+42.1100
+</td>
+<td style="text-align:right;">
+41.6250
+</td>
+<td style="text-align:right;">
+41.8575
+</td>
+<td style="text-align:right;">
+129915600
+</td>
+<td style="text-align:right;">
+39.43141
+</td>
+<td style="text-align:right;">
+-0.01064
+</td>
+<td style="text-align:right;">
+0.0557
+</td>
+<td style="text-align:right;">
+-0.0312
+</td>
+<td style="text-align:right;">
+-0.0129
+</td>
+<td style="text-align:right;">
+0.0012
+</td>
+<td style="text-align:right;">
+-0.01184
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2018-02-28
+</td>
+<td style="text-align:right;">
+44.8150
+</td>
+<td style="text-align:right;">
+45.1550
+</td>
+<td style="text-align:right;">
+44.5125
+</td>
+<td style="text-align:right;">
+44.5300
+</td>
+<td style="text-align:right;">
+151128400
+</td>
+<td style="text-align:right;">
+42.12004
+</td>
+<td style="text-align:right;">
+0.06818
+</td>
+<td style="text-align:right;">
+-0.0365
+</td>
+<td style="text-align:right;">
+0.0026
+</td>
+<td style="text-align:right;">
+-0.0104
+</td>
+<td style="text-align:right;">
+0.0011
+</td>
+<td style="text-align:right;">
+0.06708
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2018-03-29
+</td>
+<td style="text-align:right;">
+41.9525
+</td>
+<td style="text-align:right;">
+42.9375
+</td>
+<td style="text-align:right;">
+41.7250
+</td>
+<td style="text-align:right;">
+41.9450
+</td>
+<td style="text-align:right;">
+153594000
+</td>
+<td style="text-align:right;">
+39.67495
+</td>
+<td style="text-align:right;">
+-0.05805
+</td>
+<td style="text-align:right;">
+-0.0235
+</td>
+<td style="text-align:right;">
+0.0406
+</td>
+<td style="text-align:right;">
+-0.0021
+</td>
+<td style="text-align:right;">
+0.0011
+</td>
+<td style="text-align:right;">
+-0.05915
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2018-04-30
+</td>
+<td style="text-align:right;">
+40.5325
+</td>
+<td style="text-align:right;">
+41.8150
+</td>
+<td style="text-align:right;">
+40.4600
+</td>
+<td style="text-align:right;">
+41.3150
+</td>
+<td style="text-align:right;">
+169709600
+</td>
+<td style="text-align:right;">
+39.07904
+</td>
+<td style="text-align:right;">
+-0.01502
+</td>
+<td style="text-align:right;">
+0.0028
+</td>
+<td style="text-align:right;">
+0.0113
+</td>
+<td style="text-align:right;">
+0.0054
+</td>
+<td style="text-align:right;">
+0.0014
+</td>
+<td style="text-align:right;">
+-0.01642
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2018-05-31
+</td>
+<td style="text-align:right;">
+46.8050
+</td>
+<td style="text-align:right;">
+47.0575
+</td>
+<td style="text-align:right;">
+46.5350
+</td>
+<td style="text-align:right;">
+46.7175
+</td>
+<td style="text-align:right;">
+109931200
+</td>
+<td style="text-align:right;">
+44.35955
+</td>
+<td style="text-align:right;">
+0.13512
+</td>
+<td style="text-align:right;">
+0.0265
+</td>
+<td style="text-align:right;">
+0.0526
+</td>
+<td style="text-align:right;">
+-0.0322
+</td>
+<td style="text-align:right;">
+0.0014
+</td>
+<td style="text-align:right;">
+0.13372
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2018-06-29
+</td>
+<td style="text-align:right;">
+46.5725
+</td>
+<td style="text-align:right;">
+46.7975
+</td>
+<td style="text-align:right;">
+45.7275
+</td>
+<td style="text-align:right;">
+46.2775
+</td>
+<td style="text-align:right;">
+90950800
+</td>
+<td style="text-align:right;">
+43.94178
+</td>
+<td style="text-align:right;">
+-0.00942
+</td>
+<td style="text-align:right;">
+0.0048
+</td>
+<td style="text-align:right;">
+0.0113
+</td>
+<td style="text-align:right;">
+-0.0233
+</td>
+<td style="text-align:right;">
+0.0014
+</td>
+<td style="text-align:right;">
+-0.01082
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2018-07-31
+</td>
+<td style="text-align:right;">
+47.5750
+</td>
+<td style="text-align:right;">
+48.0350
+</td>
+<td style="text-align:right;">
+47.3350
+</td>
+<td style="text-align:right;">
+47.5725
+</td>
+<td style="text-align:right;">
+157492000
+</td>
+<td style="text-align:right;">
+45.17140
+</td>
+<td style="text-align:right;">
+0.02798
+</td>
+<td style="text-align:right;">
+0.0319
+</td>
+<td style="text-align:right;">
+-0.0222
+</td>
+<td style="text-align:right;">
+0.0045
+</td>
+<td style="text-align:right;">
+0.0016
+</td>
+<td style="text-align:right;">
+0.02638
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2018-08-31
+</td>
+<td style="text-align:right;">
+56.6275
+</td>
+<td style="text-align:right;">
+57.2175
+</td>
+<td style="text-align:right;">
+56.5000
+</td>
+<td style="text-align:right;">
+56.9075
+</td>
+<td style="text-align:right;">
+173360400
+</td>
+<td style="text-align:right;">
+54.22476
+</td>
+<td style="text-align:right;">
+0.20042
+</td>
+<td style="text-align:right;">
+0.0344
+</td>
+<td style="text-align:right;">
+0.0115
+</td>
+<td style="text-align:right;">
+-0.0400
+</td>
+<td style="text-align:right;">
+0.0016
+</td>
+<td style="text-align:right;">
+0.19882
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2018-09-28
+</td>
+<td style="text-align:right;">
+56.1975
+</td>
+<td style="text-align:right;">
+56.4600
+</td>
+<td style="text-align:right;">
+56.0050
+</td>
+<td style="text-align:right;">
+56.4350
+</td>
+<td style="text-align:right;">
+91717600
+</td>
+<td style="text-align:right;">
+53.77454
+</td>
+<td style="text-align:right;">
+-0.00830
+</td>
+<td style="text-align:right;">
+0.0006
+</td>
+<td style="text-align:right;">
+-0.0229
+</td>
+<td style="text-align:right;">
+-0.0170
+</td>
+<td style="text-align:right;">
+0.0015
+</td>
+<td style="text-align:right;">
+-0.00980
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2018-10-31
+</td>
+<td style="text-align:right;">
+54.2200
+</td>
+<td style="text-align:right;">
+55.1125
+</td>
+<td style="text-align:right;">
+54.1550
+</td>
+<td style="text-align:right;">
+54.7150
+</td>
+<td style="text-align:right;">
+153435600
+</td>
+<td style="text-align:right;">
+52.13561
+</td>
+<td style="text-align:right;">
+-0.03048
+</td>
+<td style="text-align:right;">
+-0.0768
+</td>
+<td style="text-align:right;">
+-0.0474
+</td>
+<td style="text-align:right;">
+0.0341
+</td>
+<td style="text-align:right;">
+0.0019
+</td>
+<td style="text-align:right;">
+-0.03238
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2018-11-30
+</td>
+<td style="text-align:right;">
+45.0725
+</td>
+<td style="text-align:right;">
+45.0825
+</td>
+<td style="text-align:right;">
+44.2575
+</td>
+<td style="text-align:right;">
+44.6450
+</td>
+<td style="text-align:right;">
+158126000
+</td>
+<td style="text-align:right;">
+42.68877
+</td>
+<td style="text-align:right;">
+-0.18120
+</td>
+<td style="text-align:right;">
+0.0169
+</td>
+<td style="text-align:right;">
+-0.0068
+</td>
+<td style="text-align:right;">
+0.0028
+</td>
+<td style="text-align:right;">
+0.0018
+</td>
+<td style="text-align:right;">
+-0.18300
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2018-12-31
+</td>
+<td style="text-align:right;">
+39.6325
+</td>
+<td style="text-align:right;">
+39.8400
+</td>
+<td style="text-align:right;">
+39.1200
+</td>
+<td style="text-align:right;">
+39.4350
+</td>
+<td style="text-align:right;">
+140014000
+</td>
+<td style="text-align:right;">
+37.70705
+</td>
+<td style="text-align:right;">
+-0.11670
+</td>
+<td style="text-align:right;">
+-0.0957
+</td>
+<td style="text-align:right;">
+-0.0237
+</td>
+<td style="text-align:right;">
+-0.0188
+</td>
+<td style="text-align:right;">
+0.0020
+</td>
+<td style="text-align:right;">
+-0.11870
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2019-01-31
+</td>
+<td style="text-align:right;">
+41.5275
+</td>
+<td style="text-align:right;">
+42.2500
+</td>
+<td style="text-align:right;">
+41.1400
+</td>
+<td style="text-align:right;">
+41.6100
+</td>
+<td style="text-align:right;">
+162958400
+</td>
+<td style="text-align:right;">
+39.78675
+</td>
+<td style="text-align:right;">
+0.05515
+</td>
+<td style="text-align:right;">
+0.0840
+</td>
+<td style="text-align:right;">
+0.0289
+</td>
+<td style="text-align:right;">
+-0.0044
+</td>
+<td style="text-align:right;">
+0.0021
+</td>
+<td style="text-align:right;">
+0.05305
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2019-02-28
+</td>
+<td style="text-align:right;">
+43.5800
+</td>
+<td style="text-align:right;">
+43.7275
+</td>
+<td style="text-align:right;">
+43.2300
+</td>
+<td style="text-align:right;">
+43.2875
+</td>
+<td style="text-align:right;">
+112861600
+</td>
+<td style="text-align:right;">
+41.56826
+</td>
+<td style="text-align:right;">
+0.04478
+</td>
+<td style="text-align:right;">
+0.0340
+</td>
+<td style="text-align:right;">
+0.0207
+</td>
+<td style="text-align:right;">
+-0.0270
+</td>
+<td style="text-align:right;">
+0.0018
+</td>
+<td style="text-align:right;">
+0.04298
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2019-03-29
+</td>
+<td style="text-align:right;">
+47.4575
+</td>
+<td style="text-align:right;">
+47.5200
+</td>
+<td style="text-align:right;">
+47.1350
+</td>
+<td style="text-align:right;">
+47.4875
+</td>
+<td style="text-align:right;">
+94256000
+</td>
+<td style="text-align:right;">
+45.60146
+</td>
+<td style="text-align:right;">
+0.09703
+</td>
+<td style="text-align:right;">
+0.0110
+</td>
+<td style="text-align:right;">
+-0.0306
+</td>
+<td style="text-align:right;">
+-0.0413
+</td>
+<td style="text-align:right;">
+0.0019
+</td>
+<td style="text-align:right;">
+0.09513
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2019-04-30
+</td>
+<td style="text-align:right;">
+50.7650
+</td>
+<td style="text-align:right;">
+50.8500
+</td>
+<td style="text-align:right;">
+49.7775
+</td>
+<td style="text-align:right;">
+50.1675
+</td>
+<td style="text-align:right;">
+186139600
+</td>
+<td style="text-align:right;">
+48.17503
+</td>
+<td style="text-align:right;">
+0.05644
+</td>
+<td style="text-align:right;">
+0.0397
+</td>
+<td style="text-align:right;">
+-0.0172
+</td>
+<td style="text-align:right;">
+0.0215
+</td>
+<td style="text-align:right;">
+0.0021
+</td>
+<td style="text-align:right;">
+0.05434
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2019-05-31
+</td>
+<td style="text-align:right;">
+44.0575
+</td>
+<td style="text-align:right;">
+44.4975
+</td>
+<td style="text-align:right;">
+43.7475
+</td>
+<td style="text-align:right;">
+43.7675
+</td>
+<td style="text-align:right;">
+108174400
+</td>
+<td style="text-align:right;">
+42.19107
+</td>
+<td style="text-align:right;">
+-0.12421
+</td>
+<td style="text-align:right;">
+-0.0694
+</td>
+<td style="text-align:right;">
+-0.0131
+</td>
+<td style="text-align:right;">
+-0.0237
+</td>
+<td style="text-align:right;">
+0.0021
+</td>
+<td style="text-align:right;">
+-0.12631
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2019-06-28
+</td>
+<td style="text-align:right;">
+49.6700
+</td>
+<td style="text-align:right;">
+49.8750
+</td>
+<td style="text-align:right;">
+49.2625
+</td>
+<td style="text-align:right;">
+49.4800
+</td>
+<td style="text-align:right;">
+124442400
+</td>
+<td style="text-align:right;">
+47.69780
+</td>
+<td style="text-align:right;">
+0.13052
+</td>
+<td style="text-align:right;">
+0.0693
+</td>
+<td style="text-align:right;">
+0.0028
+</td>
+<td style="text-align:right;">
+-0.0070
+</td>
+<td style="text-align:right;">
+0.0018
+</td>
+<td style="text-align:right;">
+0.12872
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2019-07-31
+</td>
+<td style="text-align:right;">
+54.1050
+</td>
+<td style="text-align:right;">
+55.3425
+</td>
+<td style="text-align:right;">
+52.8250
+</td>
+<td style="text-align:right;">
+53.2600
+</td>
+<td style="text-align:right;">
+277125600
+</td>
+<td style="text-align:right;">
+51.34164
+</td>
+<td style="text-align:right;">
+0.07639
+</td>
+<td style="text-align:right;">
+0.0119
+</td>
+<td style="text-align:right;">
+-0.0193
+</td>
+<td style="text-align:right;">
+0.0047
+</td>
+<td style="text-align:right;">
+0.0019
+</td>
+<td style="text-align:right;">
+0.07449
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2019-08-30
+</td>
+<td style="text-align:right;">
+52.5400
+</td>
+<td style="text-align:right;">
+52.6125
+</td>
+<td style="text-align:right;">
+51.8000
+</td>
+<td style="text-align:right;">
+52.1850
+</td>
+<td style="text-align:right;">
+84573600
+</td>
+<td style="text-align:right;">
+50.49651
+</td>
+<td style="text-align:right;">
+-0.01646
+</td>
+<td style="text-align:right;">
+-0.0258
+</td>
+<td style="text-align:right;">
+-0.0239
+</td>
+<td style="text-align:right;">
+-0.0479
+</td>
+<td style="text-align:right;">
+0.0016
+</td>
+<td style="text-align:right;">
+-0.01806
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2019-09-30
+</td>
+<td style="text-align:right;">
+55.2250
+</td>
+<td style="text-align:right;">
+56.1450
+</td>
+<td style="text-align:right;">
+55.1975
+</td>
+<td style="text-align:right;">
+55.9925
+</td>
+<td style="text-align:right;">
+103909600
+</td>
+<td style="text-align:right;">
+54.18081
+</td>
+<td style="text-align:right;">
+0.07296
+</td>
+<td style="text-align:right;">
+0.0143
+</td>
+<td style="text-align:right;">
+-0.0096
+</td>
+<td style="text-align:right;">
+0.0675
+</td>
+<td style="text-align:right;">
+0.0018
+</td>
+<td style="text-align:right;">
+0.07116
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2019-10-31
+</td>
+<td style="text-align:right;">
+61.8100
+</td>
+<td style="text-align:right;">
+62.2925
+</td>
+<td style="text-align:right;">
+59.3150
+</td>
+<td style="text-align:right;">
+62.1900
+</td>
+<td style="text-align:right;">
+139162000
+</td>
+<td style="text-align:right;">
+60.17778
+</td>
+<td style="text-align:right;">
+0.11068
+</td>
+<td style="text-align:right;">
+0.0206
+</td>
+<td style="text-align:right;">
+0.0030
+</td>
+<td style="text-align:right;">
+-0.0190
+</td>
+<td style="text-align:right;">
+0.0016
+</td>
+<td style="text-align:right;">
+0.10908
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2019-11-29
+</td>
+<td style="text-align:right;">
+66.6500
+</td>
+<td style="text-align:right;">
+67.0000
+</td>
+<td style="text-align:right;">
+66.4750
+</td>
+<td style="text-align:right;">
+66.8125
+</td>
+<td style="text-align:right;">
+46617600
+</td>
+<td style="text-align:right;">
+64.84483
+</td>
+<td style="text-align:right;">
+0.07755
+</td>
+<td style="text-align:right;">
+0.0388
+</td>
+<td style="text-align:right;">
+0.0079
+</td>
+<td style="text-align:right;">
+-0.0201
+</td>
+<td style="text-align:right;">
+0.0012
+</td>
+<td style="text-align:right;">
+0.07635
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2019-12-31
+</td>
+<td style="text-align:right;">
+72.4825
+</td>
+<td style="text-align:right;">
+73.4200
+</td>
+<td style="text-align:right;">
+72.3800
+</td>
+<td style="text-align:right;">
+73.4125
+</td>
+<td style="text-align:right;">
+100805600
+</td>
+<td style="text-align:right;">
+71.25044
+</td>
+<td style="text-align:right;">
+0.09878
+</td>
+<td style="text-align:right;">
+0.0277
+</td>
+<td style="text-align:right;">
+0.0074
+</td>
+<td style="text-align:right;">
+0.0177
+</td>
+<td style="text-align:right;">
+0.0014
+</td>
+<td style="text-align:right;">
+0.09738
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2020-01-31
+</td>
+<td style="text-align:right;">
+80.2325
+</td>
+<td style="text-align:right;">
+80.6700
+</td>
+<td style="text-align:right;">
+77.0725
+</td>
+<td style="text-align:right;">
+77.3775
+</td>
+<td style="text-align:right;">
+199588400
+</td>
+<td style="text-align:right;">
+75.09866
+</td>
+<td style="text-align:right;">
+0.05401
+</td>
+<td style="text-align:right;">
+-0.0011
+</td>
+<td style="text-align:right;">
+-0.0312
+</td>
+<td style="text-align:right;">
+-0.0628
+</td>
+<td style="text-align:right;">
+0.0013
+</td>
+<td style="text-align:right;">
+0.05271
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2020-02-28
+</td>
+<td style="text-align:right;">
+64.3150
+</td>
+<td style="text-align:right;">
+69.6025
+</td>
+<td style="text-align:right;">
+64.0925
+</td>
+<td style="text-align:right;">
+68.3400
+</td>
+<td style="text-align:right;">
+426510000
+</td>
+<td style="text-align:right;">
+66.48473
+</td>
+<td style="text-align:right;">
+-0.11470
+</td>
+<td style="text-align:right;">
+-0.0813
+</td>
+<td style="text-align:right;">
+0.0107
+</td>
+<td style="text-align:right;">
+-0.0380
+</td>
+<td style="text-align:right;">
+0.0012
+</td>
+<td style="text-align:right;">
+-0.11590
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2020-03-31
+</td>
+<td style="text-align:right;">
+63.9000
+</td>
+<td style="text-align:right;">
+65.6225
+</td>
+<td style="text-align:right;">
+63.0000
+</td>
+<td style="text-align:right;">
+63.5725
+</td>
+<td style="text-align:right;">
+197002000
+</td>
+<td style="text-align:right;">
+61.84666
+</td>
+<td style="text-align:right;">
+-0.06976
+</td>
+<td style="text-align:right;">
+-0.1338
+</td>
+<td style="text-align:right;">
+-0.0482
+</td>
+<td style="text-align:right;">
+-0.1383
+</td>
+<td style="text-align:right;">
+0.0013
+</td>
+<td style="text-align:right;">
+-0.07106
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2020-04-30
+</td>
+<td style="text-align:right;">
+72.4900
+</td>
+<td style="text-align:right;">
+73.6325
+</td>
+<td style="text-align:right;">
+72.0875
+</td>
+<td style="text-align:right;">
+73.4500
+</td>
+<td style="text-align:right;">
+183064000
+</td>
+<td style="text-align:right;">
+71.45601
+</td>
+<td style="text-align:right;">
+0.15537
+</td>
+<td style="text-align:right;">
+0.1365
+</td>
+<td style="text-align:right;">
+0.0246
+</td>
+<td style="text-align:right;">
+-0.0134
+</td>
+<td style="text-align:right;">
+0.0000
+</td>
+<td style="text-align:right;">
+0.15537
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2020-05-29
+</td>
+<td style="text-align:right;">
+79.8125
+</td>
+<td style="text-align:right;">
+80.2875
+</td>
+<td style="text-align:right;">
+79.1175
+</td>
+<td style="text-align:right;">
+79.4850
+</td>
+<td style="text-align:right;">
+153532400
+</td>
+<td style="text-align:right;">
+77.53652
+</td>
+<td style="text-align:right;">
+0.08509
+</td>
+<td style="text-align:right;">
+0.0558
+</td>
+<td style="text-align:right;">
+0.0249
+</td>
+<td style="text-align:right;">
+-0.0486
+</td>
+<td style="text-align:right;">
+0.0001
+</td>
+<td style="text-align:right;">
+0.08499
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2020-06-30
+</td>
+<td style="text-align:right;">
+90.0200
+</td>
+<td style="text-align:right;">
+91.4950
+</td>
+<td style="text-align:right;">
+90.0000
+</td>
+<td style="text-align:right;">
+91.2000
+</td>
+<td style="text-align:right;">
+140223200
+</td>
+<td style="text-align:right;">
+88.96431
+</td>
+<td style="text-align:right;">
+0.14739
+</td>
+<td style="text-align:right;">
+0.0246
+</td>
+<td style="text-align:right;">
+0.0269
+</td>
+<td style="text-align:right;">
+-0.0221
+</td>
+<td style="text-align:right;">
+0.0001
+</td>
+<td style="text-align:right;">
+0.14729
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2020-07-31
+</td>
+<td style="text-align:right;">
+102.8850
+</td>
+<td style="text-align:right;">
+106.4150
+</td>
+<td style="text-align:right;">
+100.8250
+</td>
+<td style="text-align:right;">
+106.2600
+</td>
+<td style="text-align:right;">
+374336800
+</td>
+<td style="text-align:right;">
+103.65514
+</td>
+<td style="text-align:right;">
+0.16513
+</td>
+<td style="text-align:right;">
+0.0577
+</td>
+<td style="text-align:right;">
+-0.0231
+</td>
+<td style="text-align:right;">
+-0.0141
+</td>
+<td style="text-align:right;">
+0.0001
+</td>
+<td style="text-align:right;">
+0.16503
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2020-08-31
+</td>
+<td style="text-align:right;">
+127.5800
+</td>
+<td style="text-align:right;">
+131.0000
+</td>
+<td style="text-align:right;">
+126.0000
+</td>
+<td style="text-align:right;">
+129.0400
+</td>
+<td style="text-align:right;">
+225702700
+</td>
+<td style="text-align:right;">
+126.10368
+</td>
+<td style="text-align:right;">
+0.21657
+</td>
+<td style="text-align:right;">
+0.0763
+</td>
+<td style="text-align:right;">
+-0.0024
+</td>
+<td style="text-align:right;">
+-0.0297
+</td>
+<td style="text-align:right;">
+0.0001
+</td>
+<td style="text-align:right;">
+0.21647
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2020-09-30
+</td>
+<td style="text-align:right;">
+113.7900
+</td>
+<td style="text-align:right;">
+117.2600
+</td>
+<td style="text-align:right;">
+113.6200
+</td>
+<td style="text-align:right;">
+115.8100
+</td>
+<td style="text-align:right;">
+142675200
+</td>
+<td style="text-align:right;">
+113.17474
+</td>
+<td style="text-align:right;">
+-0.10253
+</td>
+<td style="text-align:right;">
+-0.0363
+</td>
+<td style="text-align:right;">
+0.0002
+</td>
+<td style="text-align:right;">
+-0.0270
+</td>
+<td style="text-align:right;">
+0.0001
+</td>
+<td style="text-align:right;">
+-0.10263
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2020-10-30
+</td>
+<td style="text-align:right;">
+111.0600
+</td>
+<td style="text-align:right;">
+111.9900
+</td>
+<td style="text-align:right;">
+107.7200
+</td>
+<td style="text-align:right;">
+108.8600
+</td>
+<td style="text-align:right;">
+190272600
+</td>
+<td style="text-align:right;">
+106.38287
+</td>
+<td style="text-align:right;">
+-0.06001
+</td>
+<td style="text-align:right;">
+-0.0210
+</td>
+<td style="text-align:right;">
+0.0438
+</td>
+<td style="text-align:right;">
+0.0423
+</td>
+<td style="text-align:right;">
+0.0001
+</td>
+<td style="text-align:right;">
+-0.06011
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2020-11-30
+</td>
+<td style="text-align:right;">
+116.9700
+</td>
+<td style="text-align:right;">
+120.9700
+</td>
+<td style="text-align:right;">
+116.8100
+</td>
+<td style="text-align:right;">
+119.0500
+</td>
+<td style="text-align:right;">
+169410200
+</td>
+<td style="text-align:right;">
+116.54173
+</td>
+<td style="text-align:right;">
+0.09549
+</td>
+<td style="text-align:right;">
+0.1247
+</td>
+<td style="text-align:right;">
+0.0580
+</td>
+<td style="text-align:right;">
+0.0206
+</td>
+<td style="text-align:right;">
+0.0001
+</td>
+<td style="text-align:right;">
+0.09539
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2020-12-31
+</td>
+<td style="text-align:right;">
+134.0800
+</td>
+<td style="text-align:right;">
+134.7400
+</td>
+<td style="text-align:right;">
+131.7200
+</td>
+<td style="text-align:right;">
+132.6900
+</td>
+<td style="text-align:right;">
+99116600
+</td>
+<td style="text-align:right;">
+129.89435
+</td>
+<td style="text-align:right;">
+0.11457
+</td>
+<td style="text-align:right;">
+0.0463
+</td>
+<td style="text-align:right;">
+0.0488
+</td>
+<td style="text-align:right;">
+-0.0151
+</td>
+<td style="text-align:right;">
+0.0001
+</td>
+<td style="text-align:right;">
+0.11447
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2021-01-29
+</td>
+<td style="text-align:right;">
+135.8300
+</td>
+<td style="text-align:right;">
+136.7400
+</td>
+<td style="text-align:right;">
+130.2100
+</td>
+<td style="text-align:right;">
+131.9600
+</td>
+<td style="text-align:right;">
+177523800
+</td>
+<td style="text-align:right;">
+129.17975
+</td>
+<td style="text-align:right;">
+-0.00550
+</td>
+<td style="text-align:right;">
+-0.0003
+</td>
+<td style="text-align:right;">
+0.0737
+</td>
+<td style="text-align:right;">
+0.0304
+</td>
+<td style="text-align:right;">
+0.0001
+</td>
+<td style="text-align:right;">
+-0.00560
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2021-02-26
+</td>
+<td style="text-align:right;">
+122.5900
+</td>
+<td style="text-align:right;">
+124.8500
+</td>
+<td style="text-align:right;">
+121.2000
+</td>
+<td style="text-align:right;">
+121.2600
+</td>
+<td style="text-align:right;">
+164560400
+</td>
+<td style="text-align:right;">
+118.88253
+</td>
+<td style="text-align:right;">
+-0.07971
+</td>
+<td style="text-align:right;">
+0.0278
+</td>
+<td style="text-align:right;">
+0.0206
+</td>
+<td style="text-align:right;">
+0.0709
+</td>
+<td style="text-align:right;">
+0.0000
+</td>
+<td style="text-align:right;">
+-0.07971
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2021-03-31
+</td>
+<td style="text-align:right;">
+121.6500
+</td>
+<td style="text-align:right;">
+123.5200
+</td>
+<td style="text-align:right;">
+121.1500
+</td>
+<td style="text-align:right;">
+122.1500
+</td>
+<td style="text-align:right;">
+118323800
+</td>
+<td style="text-align:right;">
+119.75507
+</td>
+<td style="text-align:right;">
+0.00734
+</td>
+<td style="text-align:right;">
+0.0308
+</td>
+<td style="text-align:right;">
+-0.0236
+</td>
+<td style="text-align:right;">
+0.0740
+</td>
+<td style="text-align:right;">
+0.0000
+</td>
+<td style="text-align:right;">
+0.00734
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2021-04-30
+</td>
+<td style="text-align:right;">
+131.7800
+</td>
+<td style="text-align:right;">
+133.5600
+</td>
+<td style="text-align:right;">
+131.0700
+</td>
+<td style="text-align:right;">
+131.4600
+</td>
+<td style="text-align:right;">
+109839500
+</td>
+<td style="text-align:right;">
+128.88257
+</td>
+<td style="text-align:right;">
+0.07622
+</td>
+<td style="text-align:right;">
+0.0493
+</td>
+<td style="text-align:right;">
+-0.0319
+</td>
+<td style="text-align:right;">
+-0.0097
+</td>
+<td style="text-align:right;">
+0.0000
+</td>
+<td style="text-align:right;">
+0.07622
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2021-05-28
+</td>
+<td style="text-align:right;">
+125.5700
+</td>
+<td style="text-align:right;">
+125.8000
+</td>
+<td style="text-align:right;">
+124.5500
+</td>
+<td style="text-align:right;">
+124.6100
+</td>
+<td style="text-align:right;">
+71311100
+</td>
+<td style="text-align:right;">
+122.37436
+</td>
+<td style="text-align:right;">
+-0.05050
+</td>
+<td style="text-align:right;">
+0.0029
+</td>
+<td style="text-align:right;">
+-0.0021
+</td>
+<td style="text-align:right;">
+0.0708
+</td>
+<td style="text-align:right;">
+0.0000
+</td>
+<td style="text-align:right;">
+-0.05050
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2021-06-30
+</td>
+<td style="text-align:right;">
+136.1700
+</td>
+<td style="text-align:right;">
+137.4100
+</td>
+<td style="text-align:right;">
+135.8700
+</td>
+<td style="text-align:right;">
+136.9600
+</td>
+<td style="text-align:right;">
+63261400
+</td>
+<td style="text-align:right;">
+134.50279
+</td>
+<td style="text-align:right;">
+0.09911
+</td>
+<td style="text-align:right;">
+0.0275
+</td>
+<td style="text-align:right;">
+0.0166
+</td>
+<td style="text-align:right;">
+-0.0784
+</td>
+<td style="text-align:right;">
+0.0000
+</td>
+<td style="text-align:right;">
+0.09911
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2021-07-30
+</td>
+<td style="text-align:right;">
+144.3800
+</td>
+<td style="text-align:right;">
+146.3300
+</td>
+<td style="text-align:right;">
+144.1100
+</td>
+<td style="text-align:right;">
+145.8600
+</td>
+<td style="text-align:right;">
+70440600
+</td>
+<td style="text-align:right;">
+143.24313
+</td>
+<td style="text-align:right;">
+0.06498
+</td>
+<td style="text-align:right;">
+0.0127
+</td>
+<td style="text-align:right;">
+-0.0397
+</td>
+<td style="text-align:right;">
+-0.0184
+</td>
+<td style="text-align:right;">
+0.0000
+</td>
+<td style="text-align:right;">
+0.06498
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2021-08-31
+</td>
+<td style="text-align:right;">
+152.6600
+</td>
+<td style="text-align:right;">
+152.8000
+</td>
+<td style="text-align:right;">
+151.2900
+</td>
+<td style="text-align:right;">
+151.8300
+</td>
+<td style="text-align:right;">
+86453100
+</td>
+<td style="text-align:right;">
+149.32942
+</td>
+<td style="text-align:right;">
+0.04249
+</td>
+<td style="text-align:right;">
+0.0291
+</td>
+<td style="text-align:right;">
+-0.0041
+</td>
+<td style="text-align:right;">
+-0.0019
+</td>
+<td style="text-align:right;">
+0.0000
+</td>
+<td style="text-align:right;">
+0.04249
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2021-09-30
+</td>
+<td style="text-align:right;">
+143.6600
+</td>
+<td style="text-align:right;">
+144.3800
+</td>
+<td style="text-align:right;">
+141.2800
+</td>
+<td style="text-align:right;">
+141.5000
+</td>
+<td style="text-align:right;">
+89056700
+</td>
+<td style="text-align:right;">
+139.16954
+</td>
+<td style="text-align:right;">
+-0.06804
+</td>
+<td style="text-align:right;">
+-0.0437
+</td>
+<td style="text-align:right;">
+0.0068
+</td>
+<td style="text-align:right;">
+0.0515
+</td>
+<td style="text-align:right;">
+0.0000
+</td>
+<td style="text-align:right;">
+-0.06804
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2021-10-29
+</td>
+<td style="text-align:right;">
+147.2200
+</td>
+<td style="text-align:right;">
+149.9400
+</td>
+<td style="text-align:right;">
+146.4100
+</td>
+<td style="text-align:right;">
+149.8000
+</td>
+<td style="text-align:right;">
+124953200
+</td>
+<td style="text-align:right;">
+147.33286
+</td>
+<td style="text-align:right;">
+0.05866
+</td>
+<td style="text-align:right;">
+0.0665
+</td>
+<td style="text-align:right;">
+-0.0235
+</td>
+<td style="text-align:right;">
+-0.0045
+</td>
+<td style="text-align:right;">
+0.0000
+</td>
+<td style="text-align:right;">
+0.05866
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2021-11-30
+</td>
+<td style="text-align:right;">
+159.9900
+</td>
+<td style="text-align:right;">
+165.5200
+</td>
+<td style="text-align:right;">
+159.9200
+</td>
+<td style="text-align:right;">
+165.3000
+</td>
+<td style="text-align:right;">
+174048100
+</td>
+<td style="text-align:right;">
+162.81485
+</td>
+<td style="text-align:right;">
+0.10508
+</td>
+<td style="text-align:right;">
+-0.0155
+</td>
+<td style="text-align:right;">
+-0.0131
+</td>
+<td style="text-align:right;">
+-0.0044
+</td>
+<td style="text-align:right;">
+0.0000
+</td>
+<td style="text-align:right;">
+0.10508
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2021-12-31
+</td>
+<td style="text-align:right;">
+178.0900
+</td>
+<td style="text-align:right;">
+179.2300
+</td>
+<td style="text-align:right;">
+177.2600
+</td>
+<td style="text-align:right;">
+177.5700
+</td>
+<td style="text-align:right;">
+64062300
+</td>
+<td style="text-align:right;">
+174.90039
+</td>
+<td style="text-align:right;">
+0.07423
+</td>
+<td style="text-align:right;">
+0.0310
+</td>
+<td style="text-align:right;">
+-0.0168
+</td>
+<td style="text-align:right;">
+0.0325
+</td>
+<td style="text-align:right;">
+0.0001
+</td>
+<td style="text-align:right;">
+0.07413
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2022-01-31
+</td>
+<td style="text-align:right;">
+170.1600
+</td>
+<td style="text-align:right;">
+175.0000
+</td>
+<td style="text-align:right;">
+169.5100
+</td>
+<td style="text-align:right;">
+174.7800
+</td>
+<td style="text-align:right;">
+115541600
+</td>
+<td style="text-align:right;">
+172.15231
+</td>
+<td style="text-align:right;">
+-0.01571
+</td>
+<td style="text-align:right;">
+-0.0625
+</td>
+<td style="text-align:right;">
+-0.0595
+</td>
+<td style="text-align:right;">
+0.1288
+</td>
+<td style="text-align:right;">
+0.0000
+</td>
+<td style="text-align:right;">
+-0.01571
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2022-02-28
+</td>
+<td style="text-align:right;">
+163.0600
+</td>
+<td style="text-align:right;">
+165.4200
+</td>
+<td style="text-align:right;">
+162.4300
+</td>
+<td style="text-align:right;">
+165.1200
+</td>
+<td style="text-align:right;">
+95056600
+</td>
+<td style="text-align:right;">
+162.84474
+</td>
+<td style="text-align:right;">
+-0.05407
+</td>
+<td style="text-align:right;">
+-0.0229
+</td>
+<td style="text-align:right;">
+0.0220
+</td>
+<td style="text-align:right;">
+0.0311
+</td>
+<td style="text-align:right;">
+0.0000
+</td>
+<td style="text-align:right;">
+-0.05407
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2022-03-31
+</td>
+<td style="text-align:right;">
+177.8400
+</td>
+<td style="text-align:right;">
+178.0300
+</td>
+<td style="text-align:right;">
+174.4000
+</td>
+<td style="text-align:right;">
+174.6100
+</td>
+<td style="text-align:right;">
+103049300
+</td>
+<td style="text-align:right;">
+172.20399
+</td>
+<td style="text-align:right;">
+0.05747
+</td>
+<td style="text-align:right;">
+0.0305
+</td>
+<td style="text-align:right;">
+-0.0162
+</td>
+<td style="text-align:right;">
+-0.0181
+</td>
+<td style="text-align:right;">
+0.0001
+</td>
+<td style="text-align:right;">
+0.05737
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2022-04-29
+</td>
+<td style="text-align:right;">
+161.8400
+</td>
+<td style="text-align:right;">
+166.2000
+</td>
+<td style="text-align:right;">
+157.2500
+</td>
+<td style="text-align:right;">
+157.6500
+</td>
+<td style="text-align:right;">
+131747600
+</td>
+<td style="text-align:right;">
+155.47766
+</td>
+<td style="text-align:right;">
+-0.09713
+</td>
+<td style="text-align:right;">
+-0.0946
+</td>
+<td style="text-align:right;">
+-0.0139
+</td>
+<td style="text-align:right;">
+0.0620
+</td>
+<td style="text-align:right;">
+0.0001
+</td>
+<td style="text-align:right;">
+-0.09723
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2022-05-31
+</td>
+<td style="text-align:right;">
+149.0700
+</td>
+<td style="text-align:right;">
+150.6600
+</td>
+<td style="text-align:right;">
+146.8400
+</td>
+<td style="text-align:right;">
+148.8400
+</td>
+<td style="text-align:right;">
+103718400
+</td>
+<td style="text-align:right;">
+147.00476
+</td>
+<td style="text-align:right;">
+-0.05450
+</td>
+<td style="text-align:right;">
+-0.0034
+</td>
+<td style="text-align:right;">
+-0.0184
+</td>
+<td style="text-align:right;">
+0.0848
+</td>
+<td style="text-align:right;">
+0.0003
+</td>
+<td style="text-align:right;">
+-0.05480
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2022-06-30
+</td>
+<td style="text-align:right;">
+137.2500
+</td>
+<td style="text-align:right;">
+138.3700
+</td>
+<td style="text-align:right;">
+133.7700
+</td>
+<td style="text-align:right;">
+136.7200
+</td>
+<td style="text-align:right;">
+98964500
+</td>
+<td style="text-align:right;">
+135.03419
+</td>
+<td style="text-align:right;">
+-0.08143
+</td>
+<td style="text-align:right;">
+-0.0843
+</td>
+<td style="text-align:right;">
+0.0210
+</td>
+<td style="text-align:right;">
+-0.0601
+</td>
+<td style="text-align:right;">
+0.0006
+</td>
+<td style="text-align:right;">
+-0.08203
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2022-07-29
+</td>
+<td style="text-align:right;">
+161.2400
+</td>
+<td style="text-align:right;">
+163.6300
+</td>
+<td style="text-align:right;">
+159.5000
+</td>
+<td style="text-align:right;">
+162.5100
+</td>
+<td style="text-align:right;">
+101786900
+</td>
+<td style="text-align:right;">
+160.50621
+</td>
+<td style="text-align:right;">
+0.18863
+</td>
+<td style="text-align:right;">
+0.0957
+</td>
+<td style="text-align:right;">
+0.0280
+</td>
+<td style="text-align:right;">
+-0.0405
+</td>
+<td style="text-align:right;">
+0.0008
+</td>
+<td style="text-align:right;">
+0.18783
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2022-08-31
+</td>
+<td style="text-align:right;">
+160.3100
+</td>
+<td style="text-align:right;">
+160.5800
+</td>
+<td style="text-align:right;">
+157.1400
+</td>
+<td style="text-align:right;">
+157.2200
+</td>
+<td style="text-align:right;">
+87991100
+</td>
+<td style="text-align:right;">
+155.49712
+</td>
+<td style="text-align:right;">
+-0.03121
+</td>
+<td style="text-align:right;">
+-0.0377
+</td>
+<td style="text-align:right;">
+0.0140
+</td>
+<td style="text-align:right;">
+0.0029
+</td>
+<td style="text-align:right;">
+0.0019
+</td>
+<td style="text-align:right;">
+-0.03311
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2022-09-30
+</td>
+<td style="text-align:right;">
+141.2800
+</td>
+<td style="text-align:right;">
+143.1000
+</td>
+<td style="text-align:right;">
+138.0000
+</td>
+<td style="text-align:right;">
+138.2000
+</td>
+<td style="text-align:right;">
+124925300
+</td>
+<td style="text-align:right;">
+136.68555
+</td>
+<td style="text-align:right;">
+-0.12098
+</td>
+<td style="text-align:right;">
+-0.0935
+</td>
+<td style="text-align:right;">
+-0.0082
+</td>
+<td style="text-align:right;">
+0.0005
+</td>
+<td style="text-align:right;">
+0.0019
+</td>
+<td style="text-align:right;">
+-0.12288
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2022-10-31
+</td>
+<td style="text-align:right;">
+153.1600
+</td>
+<td style="text-align:right;">
+154.2400
+</td>
+<td style="text-align:right;">
+151.9200
+</td>
+<td style="text-align:right;">
+153.3400
+</td>
+<td style="text-align:right;">
+97943200
+</td>
+<td style="text-align:right;">
+151.65967
+</td>
+<td style="text-align:right;">
+0.10955
+</td>
+<td style="text-align:right;">
+0.0783
+</td>
+<td style="text-align:right;">
+0.0007
+</td>
+<td style="text-align:right;">
+0.0802
+</td>
+<td style="text-align:right;">
+0.0023
+</td>
+<td style="text-align:right;">
+0.10725
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2022-11-30
+</td>
+<td style="text-align:right;">
+141.4000
+</td>
+<td style="text-align:right;">
+148.7200
+</td>
+<td style="text-align:right;">
+140.5500
+</td>
+<td style="text-align:right;">
+148.0300
+</td>
+<td style="text-align:right;">
+111380900
+</td>
+<td style="text-align:right;">
+146.65068
+</td>
+<td style="text-align:right;">
+-0.03303
+</td>
+<td style="text-align:right;">
+0.0460
+</td>
+<td style="text-align:right;">
+-0.0350
+</td>
+<td style="text-align:right;">
+0.0138
+</td>
+<td style="text-align:right;">
+0.0029
+</td>
+<td style="text-align:right;">
+-0.03593
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2022-12-30
+</td>
+<td style="text-align:right;">
+128.4100
+</td>
+<td style="text-align:right;">
+129.9500
+</td>
+<td style="text-align:right;">
+127.4300
+</td>
+<td style="text-align:right;">
+129.9300
+</td>
+<td style="text-align:right;">
+77034200
+</td>
+<td style="text-align:right;">
+128.71935
+</td>
+<td style="text-align:right;">
+-0.12227
+</td>
+<td style="text-align:right;">
+-0.0641
+</td>
+<td style="text-align:right;">
+-0.0070
+</td>
+<td style="text-align:right;">
+0.0136
+</td>
+<td style="text-align:right;">
+0.0033
+</td>
+<td style="text-align:right;">
+-0.12557
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2023-01-31
+</td>
+<td style="text-align:right;">
+142.7000
+</td>
+<td style="text-align:right;">
+144.3400
+</td>
+<td style="text-align:right;">
+142.2800
+</td>
+<td style="text-align:right;">
+144.2900
+</td>
+<td style="text-align:right;">
+65874500
+</td>
+<td style="text-align:right;">
+142.94553
+</td>
+<td style="text-align:right;">
+0.11052
+</td>
+<td style="text-align:right;">
+0.0665
+</td>
+<td style="text-align:right;">
+0.0500
+</td>
+<td style="text-align:right;">
+-0.0402
+</td>
+<td style="text-align:right;">
+0.0035
+</td>
+<td style="text-align:right;">
+0.10702
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2023-02-28
+</td>
+<td style="text-align:right;">
+147.0500
+</td>
+<td style="text-align:right;">
+149.0800
+</td>
+<td style="text-align:right;">
+146.8300
+</td>
+<td style="text-align:right;">
+147.4100
+</td>
+<td style="text-align:right;">
+50547000
+</td>
+<td style="text-align:right;">
+146.25945
+</td>
+<td style="text-align:right;">
+0.02318
+</td>
+<td style="text-align:right;">
+-0.0258
+</td>
+<td style="text-align:right;">
+0.0117
+</td>
+<td style="text-align:right;">
+-0.0080
+</td>
+<td style="text-align:right;">
+0.0034
+</td>
+<td style="text-align:right;">
+0.01978
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2023-03-31
+</td>
+<td style="text-align:right;">
+162.4400
+</td>
+<td style="text-align:right;">
+165.0000
+</td>
+<td style="text-align:right;">
+161.9100
+</td>
+<td style="text-align:right;">
+164.9000
+</td>
+<td style="text-align:right;">
+68749800
+</td>
+<td style="text-align:right;">
+163.61293
+</td>
+<td style="text-align:right;">
+0.11865
+</td>
+<td style="text-align:right;">
+0.0251
+</td>
+<td style="text-align:right;">
+-0.0552
+</td>
+<td style="text-align:right;">
+-0.0887
+</td>
+<td style="text-align:right;">
+0.0036
+</td>
+<td style="text-align:right;">
+0.11505
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2023-04-28
+</td>
+<td style="text-align:right;">
+168.4900
+</td>
+<td style="text-align:right;">
+169.8500
+</td>
+<td style="text-align:right;">
+167.8800
+</td>
+<td style="text-align:right;">
+169.6800
+</td>
+<td style="text-align:right;">
+55209200
+</td>
+<td style="text-align:right;">
+168.35562
+</td>
+<td style="text-align:right;">
+0.02899
+</td>
+<td style="text-align:right;">
+0.0061
+</td>
+<td style="text-align:right;">
+-0.0335
+</td>
+<td style="text-align:right;">
+-0.0005
+</td>
+<td style="text-align:right;">
+0.0035
+</td>
+<td style="text-align:right;">
+0.02549
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2023-05-31
+</td>
+<td style="text-align:right;">
+177.3300
+</td>
+<td style="text-align:right;">
+179.3500
+</td>
+<td style="text-align:right;">
+176.7600
+</td>
+<td style="text-align:right;">
+177.2500
+</td>
+<td style="text-align:right;">
+99625300
+</td>
+<td style="text-align:right;">
+176.10980
+</td>
+<td style="text-align:right;">
+0.04606
+</td>
+<td style="text-align:right;">
+0.0035
+</td>
+<td style="text-align:right;">
+0.0160
+</td>
+<td style="text-align:right;">
+-0.0772
+</td>
+<td style="text-align:right;">
+0.0036
+</td>
+<td style="text-align:right;">
+0.04246
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2023-06-30
+</td>
+<td style="text-align:right;">
+191.6300
+</td>
+<td style="text-align:right;">
+194.4800
+</td>
+<td style="text-align:right;">
+191.2600
+</td>
+<td style="text-align:right;">
+193.9700
+</td>
+<td style="text-align:right;">
+85069600
+</td>
+<td style="text-align:right;">
+192.72223
+</td>
+<td style="text-align:right;">
+0.09433
+</td>
+<td style="text-align:right;">
+0.0646
+</td>
+<td style="text-align:right;">
+0.0154
+</td>
+<td style="text-align:right;">
+-0.0025
+</td>
+<td style="text-align:right;">
+0.0040
+</td>
+<td style="text-align:right;">
+0.09033
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2023-07-31
+</td>
+<td style="text-align:right;">
+196.0600
+</td>
+<td style="text-align:right;">
+196.4900
+</td>
+<td style="text-align:right;">
+195.2600
+</td>
+<td style="text-align:right;">
+196.4500
+</td>
+<td style="text-align:right;">
+38824100
+</td>
+<td style="text-align:right;">
+195.18628
+</td>
+<td style="text-align:right;">
+0.01279
+</td>
+<td style="text-align:right;">
+0.0321
+</td>
+<td style="text-align:right;">
+0.0207
+</td>
+<td style="text-align:right;">
+0.0409
+</td>
+<td style="text-align:right;">
+0.0045
+</td>
+<td style="text-align:right;">
+0.00829
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2023-08-31
+</td>
+<td style="text-align:right;">
+187.8400
+</td>
+<td style="text-align:right;">
+189.1200
+</td>
+<td style="text-align:right;">
+187.4800
+</td>
+<td style="text-align:right;">
+187.8700
+</td>
+<td style="text-align:right;">
+60794500
+</td>
+<td style="text-align:right;">
+186.91354
+</td>
+<td style="text-align:right;">
+-0.04238
+</td>
+<td style="text-align:right;">
+-0.0239
+</td>
+<td style="text-align:right;">
+-0.0312
+</td>
+<td style="text-align:right;">
+-0.0112
+</td>
+<td style="text-align:right;">
+0.0045
+</td>
+<td style="text-align:right;">
+-0.04688
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2023-09-29
+</td>
+<td style="text-align:right;">
+172.0200
+</td>
+<td style="text-align:right;">
+173.0700
+</td>
+<td style="text-align:right;">
+170.3400
+</td>
+<td style="text-align:right;">
+171.2100
+</td>
+<td style="text-align:right;">
+51814200
+</td>
+<td style="text-align:right;">
+170.33836
+</td>
+<td style="text-align:right;">
+-0.08868
+</td>
+<td style="text-align:right;">
+-0.0524
+</td>
+<td style="text-align:right;">
+-0.0249
+</td>
+<td style="text-align:right;">
+0.0151
+</td>
+<td style="text-align:right;">
+0.0043
+</td>
+<td style="text-align:right;">
+-0.09298
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2023-10-31
+</td>
+<td style="text-align:right;">
+169.3500
+</td>
+<td style="text-align:right;">
+170.9000
+</td>
+<td style="text-align:right;">
+167.9000
+</td>
+<td style="text-align:right;">
+170.7700
+</td>
+<td style="text-align:right;">
+44846000
+</td>
+<td style="text-align:right;">
+169.90060
+</td>
+<td style="text-align:right;">
+-0.00257
+</td>
+<td style="text-align:right;">
+-0.0318
+</td>
+<td style="text-align:right;">
+-0.0386
+</td>
+<td style="text-align:right;">
+0.0017
+</td>
+<td style="text-align:right;">
+0.0047
+</td>
+<td style="text-align:right;">
+-0.00727
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2023-11-30
+</td>
+<td style="text-align:right;">
+189.8400
+</td>
+<td style="text-align:right;">
+190.3200
+</td>
+<td style="text-align:right;">
+188.1900
+</td>
+<td style="text-align:right;">
+189.9500
+</td>
+<td style="text-align:right;">
+48794400
+</td>
+<td style="text-align:right;">
+189.23192
+</td>
+<td style="text-align:right;">
+0.11378
+</td>
+<td style="text-align:right;">
+0.0884
+</td>
+<td style="text-align:right;">
+-0.0001
+</td>
+<td style="text-align:right;">
+0.0161
+</td>
+<td style="text-align:right;">
+0.0044
+</td>
+<td style="text-align:right;">
+0.10938
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2023-12-29
+</td>
+<td style="text-align:right;">
+193.9000
+</td>
+<td style="text-align:right;">
+194.4000
+</td>
+<td style="text-align:right;">
+191.7300
+</td>
+<td style="text-align:right;">
+192.5300
+</td>
+<td style="text-align:right;">
+42628800
+</td>
+<td style="text-align:right;">
+191.80217
+</td>
+<td style="text-align:right;">
+0.01358
+</td>
+<td style="text-align:right;">
+0.0487
+</td>
+<td style="text-align:right;">
+0.0634
+</td>
+<td style="text-align:right;">
+0.0493
+</td>
+<td style="text-align:right;">
+0.0043
+</td>
+<td style="text-align:right;">
+0.00928
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Visualize excess returns of Apple and equity risk premium <span class="math inline">\((R_m-R_f)\)</span>.</p>
+<ul>
+<li>Give you a nice overview of the data.</li>
+<li>Spot any irregular patterns and do due diligence to ensure data quality. For instance, to check whether you got the unit right, missing values treatment.</li>
+</ul>
+<pre class="r"><code>plot_data &lt;- xts(reg_data[,c(&quot;eRi&quot;,&quot;rmrf&quot;)], order.by = reg_data$Date)
+plot_data</code></pre>
+<pre><code>##                     eRi    rmrf
+## 2014-12-31  0.000000000 -0.0006
+## 2015-01-30  0.061424541 -0.0311
+## 2015-02-27  0.100776673  0.0613
+## 2015-03-31 -0.031371808 -0.0112
+## 2015-04-30  0.005786323  0.0059
+## 2015-05-29  0.045338914  0.0136
+## 2015-06-30 -0.037227254 -0.0153
+## 2015-07-31 -0.032926784  0.0154
+## 2015-08-31 -0.066196136 -0.0604
+## 2015-09-30 -0.021816441 -0.0307
+##        ...                     
+## 2023-03-31  0.115048646  0.0251
+## 2023-04-28  0.025487263  0.0061
+## 2023-05-31  0.042458343  0.0035
+## 2023-06-30  0.090329938  0.0646
+## 2023-07-31  0.008285501  0.0321
+## 2023-08-31 -0.046883797 -0.0239
+## 2023-09-29 -0.092978325 -0.0524
+## 2023-10-31 -0.007269940 -0.0318
+## 2023-11-30  0.109380137  0.0884
+## 2023-12-29  0.009282547  0.0487</code></pre>
+<pre class="r"><code>col_vec &lt;- c(&quot;black&quot;, &quot;red&quot;)
+plot.xts(plot_data, col = col_vec, main = &quot;Excess Returns on Asset and Market&quot;)
+addLegend(&quot;topright&quot;, 
+          legend.names = c(&quot;AAPL&quot;, &quot;Equity Risk Premium&quot;), 
+          lty = c(1, 1), 
+          lwd = c(2, 2),
+          col = col_vec,
+          bg = &quot;white&quot;,
+          box.col = &quot;white&quot;)</code></pre>
+<p><img src="05_Sept_13_OLS-lab_files/figure-html/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<hr />
+</div>
+<div id="simple-linear-regression-capm" class="section level1">
+<h1>Simple linear regression – CAPM</h1>
+<p>Simple linear regression using CAPM use an example.</p>
+<p>CAPM as a regression can be expressed as</p>
+<p><span class="math display">\[
+r_{i,\color{red}{t}} - r_{f,\color{red}{t}} = \alpha_i + \beta_i (r_{m,\color{red}{t}}-r_{f,\color{red}{t}}) + \varepsilon_{i,\color{red}{t}}
+\]</span>
+where <span class="math inline">\(\alpha_i\)</span> (intercept) and <span class="math inline">\(\beta_i\)</span> (slope) are the parameters to estimate.</p>
+<p>We use the following data to estimate the parameters.</p>
+<ul>
+<li><span class="math inline">\(r_i\)</span> is the return of asset <span class="math inline">\(i\)</span>;</li>
+<li><span class="math inline">\(r_f\)</span> is the risk free rate of interest;</li>
+<li><span class="math inline">\(r_m\)</span> is the return of the market portfolio.</li>
+</ul>
+<pre class="r"><code>capm_ml &lt;- lm(eRi~rmrf, data=reg_data)
+summary(capm_ml)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = eRi ~ rmrf, data = reg_data)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.21365 -0.03010  0.00198  0.03993  0.14710 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 0.010306   0.005771   1.786    0.077 .  
+## rmrf        1.204085   0.120879   9.961   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.05916 on 107 degrees of freedom
+## Multiple R-squared:  0.4811, Adjusted R-squared:  0.4763 
+## F-statistic: 99.22 on 1 and 107 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p><code>stargazer</code> tabulates regression results neatly.</p>
+<pre class="r"><code>stargazer(capm_ml, type=&quot;html&quot;, title=&quot;Regression Results for AAPL&quot;)</code></pre>
+<table style="text-align:center">
+<caption>
+<strong>Regression Results for AAPL</strong>
+</caption>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="1" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+eRi
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+rmrf
+</td>
+<td>
+1.204<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.121)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+0.010<sup>*</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.006)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+109
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.481
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.476
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error
+</td>
+<td>
+0.059 (df = 107)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+99.222<sup>***</sup> (df = 1; 107)
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td style="text-align:right">
+<sup><em></sup>p&lt;0.1; <sup><strong></sup>p&lt;0.05; <sup></strong></em></sup>p&lt;0.01
+</td>
+</tr>
+</table>
+<p>Several things worth looking at:</p>
+<ul>
+<li><p>Explanatory power: the <span class="math inline">\(R^2\)</span> (<span class="math inline">\(0.48\)</span>) tells us that variation in the excess returns of the market index explains about 48.11% of the variation in Apple’s returns. The adjusted <span class="math inline">\(R^2\)</span> (which is slightly smaller) imposes a penalty for extra number of predictors.</p></li>
+<li><p>The intercept (<span class="math inline">\(0.01\)</span>) is the estimate of Apple’s alpha. The number in parentheses is the standard error (SE). <em>T</em>-statistic is about <span class="math inline">\(1.8\)</span>, lower than the conventional cutoff of 1.96 for statistical significance is a probability of less than <span class="math inline">\(5\%\)</span>.</p>
+<ul>
+<li>We fail to reject <span class="math inline">\(H_0: \alpha=0\)</span>.</li>
+</ul></li>
+<li><p>The slope (<span class="math inline">\(1.2\)</span>) is the estimate of beta, meaning that its share price tended to move 1.2% for every 1% move in the market index.</p>
+<ul>
+<li><p><span class="math inline">\(\beta&gt;1\)</span> means above-average sensitivity to economy, high exposure to the state of macroeconomy, high-risk equities.</p></li>
+<li><p>The SE is <span class="math inline">\(.12\)</span>. P-value in the table provides the significance level for <span class="math inline">\(H_0: \beta=0\)</span>. The p-value is basically zero, therefore, we reject <span class="math inline">\(H_0\)</span> in favor of <span class="math inline">\(H_1\)</span>.</p></li>
+<li><p>An alternative t-test would be <span class="math inline">\(H_0: \beta=1\)</span>.</p>
+<p><span class="math display">\[
+t = \frac{\hat{\beta}-\beta}{se_{\hat{\beta}}} = \frac{1.2-1}{0.12} = 1.67
+\]</span></p>
+<p>The p-value (<span class="math inline">\(9.5\%\)</span>) can be obtained by</p>
+<pre class="r"><code>pnorm(q = -1.67) * 2</code></pre>
+<pre><code>## [1] 0.09491936</code></pre>
+<p>Therefore, we fail to reject <span class="math inline">\(H_0: \hat{\beta}=1\)</span> at 5% significance level.</p></li>
+<li><p>Sometimes we are interested in the <span class="math inline">\(95\%\)</span> <em>Confidence Interval</em> (CI) that includes the true but unobserved value of beta with 95% probability.</p>
+<p>We would take the estimated value as the center of the interval, and then add and subtract about two standard errors.</p>
+<p>More precisely, the <span class="math inline">\(95\%\)</span> CI is given as <span class="math inline">\([\hat{\beta}-1.96 \cdot se_{\hat{\beta}}, \hat{\beta}+1.96 \cdot se_{\hat{\beta}}]\)</span>.</p>
+<pre class="r"><code>qnorm(p = 0.025) # critical value of 1.96</code></pre>
+<pre><code>## [1] -1.959964</code></pre>
+<pre class="r"><code>c(&quot;lower bound&quot;=1.2-1.96*0.12, &quot;upper bound&quot;=1.2+1.96*0.12) # 95% CI</code></pre>
+<pre><code>## lower bound upper bound 
+##      0.9648      1.4352</code></pre>
+<p>Note that <span class="math inline">\(0\)</span> is not included in the 95% CI, yet <span class="math inline">\(1\)</span> is included.</p></li>
+<li><p>The standard deviation of the residual is <span class="math inline">\(6\%\)</span> per month, or <span class="math inline">\(6\% \times \sqrt{12}=20.78\%\)</span>. This stands for firm-specific risk.</p></li>
+</ul></li>
+</ul>
+<hr />
+</div>
+<div id="multivariate-linear-regression-fama-french" class="section level1">
+<h1>Multivariate linear regression – Fama-French</h1>
+<p>The Fama-French three-factor model as a regression can be expressed as</p>
+<p><span class="math display">\[
+r_{i,\color{red}{t}} - r_{f,\color{red}{t}} = \alpha_i + \beta_i^{RMRF} (r_{m,\color{red}{t}}-r_{f,\color{red}{t}}) + \beta_i^{SMB}SMB_t + \beta_i^{HML}HML_t + \varepsilon_{i,\color{red}{t}}
+\]</span></p>
+<pre class="r"><code>FF_ml &lt;- lm(eRi~rmrf+SMB+HML, data=reg_data)
+summary(FF_ml)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = eRi ~ rmrf + SMB + HML, data = reg_data)
+## 
+## Residuals:
+##       Min        1Q    Median        3Q       Max 
+## -0.213812 -0.027582 -0.004805  0.030711  0.127464 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  0.008978   0.005377   1.670 0.097924 .  
+## rmrf         1.268105   0.117656  10.778  &lt; 2e-16 ***
+## SMB         -0.286620   0.202872  -1.413 0.160668    
+## HML         -0.551340   0.137259  -4.017 0.000111 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.05494 on 105 degrees of freedom
+## Multiple R-squared:  0.5608, Adjusted R-squared:  0.5483 
+## F-statistic: 44.69 on 3 and 105 DF,  p-value: &lt; 2.2e-16</code></pre>
+<pre class="r"><code>stargazer(capm_ml, FF_ml, type=&quot;html&quot;, 
+          title=&quot;Regression Results for AAPL&quot;, 
+          align = TRUE)</code></pre>
+<table style="text-align:center">
+<caption>
+<strong>Regression Results for AAPL</strong>
+</caption>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+eRi
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1)
+</td>
+<td>
+(2)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+rmrf
+</td>
+<td>
+1.204<sup>***</sup>
+</td>
+<td>
+1.268<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.121)
+</td>
+<td>
+(0.118)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+SMB
+</td>
+<td>
+</td>
+<td>
+-0.287
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(0.203)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+HML
+</td>
+<td>
+</td>
+<td>
+-0.551<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(0.137)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+0.010<sup>*</sup>
+</td>
+<td>
+0.009<sup>*</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.006)
+</td>
+<td>
+(0.005)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+109
+</td>
+<td>
+109
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.481
+</td>
+<td>
+0.561
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.476
+</td>
+<td>
+0.548
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error
+</td>
+<td>
+0.059 (df = 107)
+</td>
+<td>
+0.055 (df = 105)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+99.222<sup>***</sup> (df = 1; 107)
+</td>
+<td>
+44.694<sup>***</sup> (df = 3; 105)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td colspan="2" style="text-align:right">
+<sup><em></sup>p&lt;0.1; <sup><strong></sup>p&lt;0.05; <sup></strong></em></sup>p&lt;0.01
+</td>
+</tr>
+</table>
+<p> </p>
+<ul>
+<li>Under the FF 3-factor model, equity risk premium is still a significant factor with a slightly larger value (1.269 vs 1.204).</li>
+<li>SMB size factor is not significant.</li>
+<li>HML value factor is significantly negative, indicating Apple is a growth company with low HML.</li>
+<li>Larger explanatory power implied by Adjusted <span class="math inline">\(R^2\)</span> (54.8% vs 47.6%).</li>
+</ul>
+<pre class="r"><code>library(broom)
+coef &lt;- tidy(FF_ml, conf.int = TRUE)
+coef %&gt;% 
+    filter(term != &quot;(Intercept)&quot;) %&gt;% 
+    ggplot(aes(x = term, y = estimate) ) +
+    geom_point() +
+    geom_errorbar(aes(ymin = conf.low, ymax = conf.high)) +
+    labs(title = &quot;FF 3-Factor Coefficients for AAPL&quot;,
+         y = &quot;Coefficient&quot;) +
+    theme(axis.title.x = element_blank())</code></pre>
+<p><img src="05_Sept_13_OLS-lab_files/figure-html/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<!--End of script-------------------------------------------------------------->
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML.js";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -12,7 +12,7 @@ title: "Course website for FIN 5005"
 
 [Sept 13, 2024, OLS -- Lecture](images/matrix_OLS_NYU_notes.pdf)
 
-
+[Sept 13, 2024, Linear Regression -- Lab](05_Sept_13_OLS-lab.html)
 
 
 This webpage is based on materials from Bent Nielsen’s Lecture Notes for Core Econometrics. 

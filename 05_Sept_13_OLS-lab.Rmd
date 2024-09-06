@@ -1,0 +1,283 @@
+---
+title: "Linear Model -- Lab"
+author: "Menghan Yuan"
+date: "Sept 13, 2024"
+output: 
+    bookdown::html_document2:
+        mathjax: "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML.js"
+        self_contained: false
+        toc: true
+        toc_float: true
+        toc_depth: 4
+        number_sections: false
+        css: "style.css"
+editor_options: 
+  chunk_output_type: console
+---
+
+<SCRIPT language="JavaScript" SRC="my_jxscript.js"></SCRIPT>
+
+<a class="top-link" href="#top" id="js-top">↑</a>
+
+```{r setup, include=F, echo=F}
+library(knitr) # load packages
+library(kableExtra)
+library(tidyverse)
+library(latex2exp)
+library(stargazer)
+library(bookdown)
+library(quantmod)
+
+# don't show code unless we explicitly set echo = TRUE
+opts_chunk$set(echo = TRUE, message=FALSE, fig.align="center", fig.pos = "H")
+opts <- options(knitr.kable.NA = "")
+
+## control long outputs by using eg `max.lines = 10`
+hook_output_default <- knitr::knit_hooks$get('output')
+truncate_to_lines <- function(x, n) {
+   if (!is.null(n)) {
+      x = unlist(stringr::str_split(x, '\n'))
+      if (length(x) > n) {
+         # truncate the output
+         x = c(head(x, n), '...\n')
+      }
+      x = paste(x, collapse = '\n') # paste first n lines together
+   }
+   x
+}
+knitr::knit_hooks$set(output = function(x, options) {
+   max.lines <- options$max.lines
+   x <- truncate_to_lines(x, max.lines)
+   hook_output_default(x, options)
+})
+```
+
+
+# Regression Dataset Preparation 
+
+Using `AAPL` as an example to demonstrate linear regression.
+
+We use monthly data from 2014-12 to 2023-12. 
+
+- Equity data can be downloaded using `quantmod::getSymbols`.
+- Fama-French factors can be downloaded from Ken French's [website][FF-factor].
+
+
+```{r}
+price_data <- getSymbols("AAPL", 
+           src = 'yahoo', 
+           from = "2014-12-01", 
+           to = "2023-12-31",   
+           auto.assign = FALSE
+           )
+price_data
+```
+
+Convert to monthly and calculate returns.
+
+```{r}
+price_data <- price_data %>% 
+    apply.monthly(last)
+price_data$return <- monthlyReturn(price_data$AAPL.Adjusted, type='arithmetic')
+price_data
+```
+
+Load Fama-French factors.
+
+```{r}
+FF_factor <- read_csv("data/FF_3Factors_US_monthly.csv")
+FF_factor <- FF_factor %>% mutate_at(vars(-Date), ~./100)
+FF_factor <- FF_factor %>% 
+    mutate(year=year(Date),
+           mon=month(Date))
+
+FF_factor
+```
+
+Merge price data with FF-factor data to prepare the regression dataset.
+
+```{r}
+reg_data <- price_data %>% 
+    as_tibble() %>% 
+    add_column(Date=index(price_data), .before = 1)
+reg_data <- reg_data %>% 
+    mutate(year=year(Date),
+           mon=month(Date))
+reg_data <- reg_data %>% 
+    left_join(FF_factor[,-1], by=c("year","mon"))
+# calculate excess return
+reg_data <- reg_data %>% 
+    mutate(eRi = return-RF) %>% 
+    rename(rmrf=`Mkt-RF`)
+```
+
+
+```{r}
+# glimpse of data
+reg_data %>% 
+    select(-year,-mon) %>% 
+    knitr::kable(floating.environment="sidewaystable", digits = 5, escape=F) %>%
+    kable_styling(bootstrap_options = c("striped", "hover"), full_width = F, latex_options="scale_down") %>% 
+    scroll_box(width = "100%", height = "500px")
+```
+
+
+Visualize excess returns of Apple and equity risk premium $(R_m-R_f)$.
+
+- Give you a nice overview of the data.
+- Spot any irregular patterns and do due diligence to ensure data quality. For instance, to check whether you got the unit right, missing values treatment.
+
+```{r fig.keep=2}
+plot_data <- xts(reg_data[,c("eRi","rmrf")], order.by = reg_data$Date)
+plot_data
+col_vec <- c("black", "red")
+plot.xts(plot_data, col = col_vec, main = "Excess Returns on Asset and Market")
+addLegend("topright", 
+          legend.names = c("AAPL", "Equity Risk Premium"), 
+          lty = c(1, 1), 
+          lwd = c(2, 2),
+          col = col_vec,
+          bg = "white",
+          box.col = "white")
+
+```
+
+
+
+___
+
+# Simple linear regression -- CAPM
+
+Simple linear regression using CAPM use an example.
+
+CAPM as a regression can be expressed as
+
+$$
+r_{i,\color{red}{t}} - r_{f,\color{red}{t}} = \alpha_i + \beta_i (r_{m,\color{red}{t}}-r_{f,\color{red}{t}}) + \varepsilon_{i,\color{red}{t}}
+$$ 
+where $\alpha_i$ (intercept) and $\beta_i$ (slope) are the parameters to estimate.
+
+We use the following data to estimate the parameters.
+
+-   $r_i$ is the return of asset $i$;
+-   $r_f$ is the risk free rate of interest;
+-   $r_m$ is the return of the market portfolio.
+
+```{r CAPM}
+capm_ml <- lm(eRi~rmrf, data=reg_data)
+summary(capm_ml)
+```
+
+`stargazer` tabulates regression results neatly.
+
+
+```{r, results='asis'}
+stargazer(capm_ml, type="html", title="Regression Results for AAPL")
+```
+
+
+Several things worth looking at:
+
+-   Explanatory power: the $R^2$ ($0.48$) tells us that variation in the excess returns of the market index explains about 48.11% of the variation in Apple's returns. The adjusted $R^2$ (which is slightly smaller) imposes a penalty for extra number of predictors.
+
+-   The intercept ($0.01$) is the estimate of Apple's alpha. The number in parentheses is the standard error (SE). *T*-statistic is about $1.8$, lower than the conventional cutoff of 1.96 for statistical significance is a probability of less than $5\%$.
+
+    -   We fail to reject $H_0: \alpha=0$.
+
+-   The slope ($1.2$) is the estimate of beta, meaning that its share price tended to move 1.2% for every 1% move in the market index.
+
+    -   $\beta>1$ means above-average sensitivity to economy, high exposure to the state of macroeconomy, high-risk equities.
+
+    -   The SE is $.12$. P-value in the table provides the significance level for $H_0: \beta=0$. The p-value is basically zero, therefore, we reject $H_0$ in favor of $H_1$.
+
+    -   An alternative t-test would be $H_0: \beta=1$.
+
+        $$
+        t = \frac{\hat{\beta}-\beta}{se_{\hat{\beta}}} = \frac{1.2-1}{0.12} = 1.67
+        $$
+
+        The p-value ($9.5\%$) can be obtained by
+
+        ```{r}
+        pnorm(q = -1.67) * 2
+        ```
+
+        Therefore, we fail to reject $H_0: \hat{\beta}=1$ at 5% significance level.
+
+    -   Sometimes we are interested in the $95\%$ *Confidence Interval* (CI) that includes the true but unobserved value of beta with 95% probability.
+
+        We would take the estimated value as the center of the interval, and then add and subtract about two standard errors.
+
+        More precisely, the $95\%$ CI is given as $[\hat{\beta}-1.96 \cdot se_{\hat{\beta}}, \hat{\beta}+1.96 \cdot se_{\hat{\beta}}]$.
+
+        ```{r}
+        qnorm(p = 0.025) # critical value of 1.96
+        c("lower bound"=1.2-1.96*0.12, "upper bound"=1.2+1.96*0.12) # 95% CI
+        ```
+        
+        Note that $0$ is not included in the 95\% CI, yet $1$ is included.
+        
+    -   The standard deviation of the residual is $6\%$ per month, or $6\% \times \sqrt{12}=20.78\%$. This stands for firm-specific risk.
+
+
+___
+
+# Multivariate linear regression -- Fama-French
+
+The Fama-French three-factor model as a regression can be expressed as
+
+$$
+r_{i,\color{red}{t}} - r_{f,\color{red}{t}} = \alpha_i + \beta_i^{RMRF} (r_{m,\color{red}{t}}-r_{f,\color{red}{t}}) + \beta_i^{SMB}SMB_t + \beta_i^{HML}HML_t + \varepsilon_{i,\color{red}{t}}
+$$ 
+
+
+
+
+```{r FF}
+FF_ml <- lm(eRi~rmrf+SMB+HML, data=reg_data)
+summary(FF_ml)
+```
+
+
+
+```{r, results='asis'}
+stargazer(capm_ml, FF_ml, type="html", 
+          title="Regression Results for AAPL", 
+          align = TRUE)
+```
+
+
+&nbsp;
+
+- Under the FF 3-factor model, equity risk premium is still a significant factor with a slightly larger value (1.269 vs 1.204).
+- SMB size factor is not significant.
+- HML value factor is significantly negative, indicating Apple is a growth company with low HML.
+- Larger explanatory power implied by Adjusted $R^2$ (54.8% vs 47.6%).
+
+
+```{r}
+library(broom)
+coef <- tidy(FF_ml, conf.int = TRUE)
+coef %>% 
+    filter(term != "(Intercept)") %>% 
+    ggplot(aes(x = term, y = estimate) ) +
+    geom_point() +
+    geom_errorbar(aes(ymin = conf.low, ymax = conf.high)) +
+    labs(title = "FF 3-Factor Coefficients for AAPL",
+         y = "Coefficient") +
+    theme(axis.title.x = element_blank())
+```
+
+
+<!--End of script-------------------------------------------------------------->
+[FF-factor]: http://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html
+
+
+
+
+
+
+
+
+
+
