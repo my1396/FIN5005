@@ -178,7 +178,7 @@ stargazer(capm_ml, type="html", title="Regression Results for AAPL")
 
 Several things worth looking at:
 
--   Explanatory power: the $R^2$ ($0.48$) tells us that variation in the excess returns of the market index explains about 48.11% of the variation in Apple's returns. The adjusted $R^2$ (which is slightly smaller) imposes a penalty for extra number of predictors.
+-   Explanatory power: the $R^2$ ($0.48$) tells us that variation in the excess returns of the market index explains about $48\%$ of the variation in Apple's returns. The adjusted $R^2$ (which is slightly smaller) imposes a penalty for extra number of predictors.
 
 -   The intercept ($0.01$) is the estimate of Apple's alpha. The number in parentheses is the standard error (SE). *T*-statistic is about $1.8$, lower than the conventional cutoff of 1.96 for statistical significance is a probability of less than $5\%$.
 
@@ -188,7 +188,7 @@ Several things worth looking at:
 
     -   $\beta>1$ means above-average sensitivity to economy, high exposure to the state of macroeconomy, high-risk equities.
 
-    -   The SE is $.12$. P-value in the table provides the significance level for $H_0: \beta=0$. The p-value is basically zero, therefore, we reject $H_0$ in favor of $H_1$.
+    -   The SE is $0.12$. P-value in the table provides the significance level for $H_0: \beta=0$. The p-value is basically zero, therefore, we reject $H_0$ in favor of $H_1$.
 
     -   An alternative t-test would be $H_0: \beta=1$.
 
