@@ -88,7 +88,7 @@ X_2-\mathbb{E}(X_2)
 \end{pmatrix}
 \end{aligned} 
 $$
-This is called the variance (or also the covariance) matrix. 
+This is called the <span style='color:#008B45FF'>variance</span> (or also the <span style='color:#008B45FF'>covariance</span>) <span style='color:#008B45FF'>matrix</span>. 
 This matrix is, by definition, symmetric.
 
 
@@ -179,7 +179,7 @@ Or we can also write as
 Note: The CLT is a very powerful result. $X_1, \ldots, X_n$ can be from <span style='color:#337ab7'>any possible distribution</span> (*iid* with *finite mean and variance*), and still their normalized sample mean will be <span style='color:#008B45FF'>standard normal</span>.
 
 
-- The scaling by $\sqrt{n}$ is crucial.
+- The scaling by $\color{#337ab7}{\sqrt{n}}$ is crucial.
 
 - Once we suitably scale by $\sqrt{n}$, we can invoke the CLT and obtain that $\sqrt{n} (\overline{X}-\mu)$ or $\sqrt{n}\cdot\frac{\overline{X}-\mu}{\sigma}$ are asymptotically normal as $n\to\infty$.
 
@@ -188,11 +188,11 @@ Note: The CLT is a very powerful result. $X_1, \ldots, X_n$ can be from <span st
 - Population variance estimators, $\widehat{\sigma}^2$. Two versions: 
   - <span style='color:#337ab7'>Biased</span> sample variance: 
   $$
-  s_1^2 = \frac{1}{n} \sum_{i=1}^n [(X_i-\overline{X})^2]
+  s_1^2 = \frac{1}{n} \sum_{i=1}^n [(X_i-\overline{X})^2] ,
   $$ and 
   - <span style='color:#337ab7'>Unbiased</span> sample variance: 
   $$
-  s_2^2 = \frac{1}{n-1} \sum_{i=1}^n [(X_i-\overline{X})^2]
+  s_2^2 = \frac{1}{n-1} \sum_{i=1}^n [(X_i-\overline{X})^2] .
   $$
   - Both options are consistent; using either is fine.
 
