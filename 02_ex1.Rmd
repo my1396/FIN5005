@@ -28,7 +28,7 @@ library(knitr) # load packages
 </li>
 
 <!---------------- question 2 ---------------->
-<li> Let $Y_1, \ldots, Y_n$ be independent $\text{Bernoulli}(p)$. Consider the two estimatros $\hat{p}=\overline{Y}$ and $\tilde{p}=Y_n$.
+<li> Let $Y_1, \ldots, Y_n$ be independent $\text{Bernoulli}(p)$. Consider the two estimators $\hat{p}=\overline{Y}$ and $\tilde{p}=Y_n$.
     <ol type="pa">
         <li>Show that $\mathbb{E}(\hat{p})=\mathbb{E}(\tilde{p})=p .$</li>
         <li>Find and compare the variances of $\hat{p}$ and $\tilde{p}$. Which has smaller variance?</li>
