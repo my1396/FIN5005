@@ -1,0 +1,97 @@
+---
+title: "OLS -- Lecture"
+author: "Menghan Yuan"
+date: "Sept 11, 2024"
+output: 
+    bookdown::html_document2:
+        mathjax: "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML.js"
+        self_contained: false
+        toc: true
+        toc_float: true
+        toc_depth: 4
+        number_sections: false
+        css: "style.css"
+---
+
+<SCRIPT language="JavaScript" SRC="my_jxscript.js"></SCRIPT>
+
+<link href="https://fonts.cdnfonts.com/css/helvetica-neue-5" rel="stylesheet">
+
+<a class="top-link" href="#top" id="js-top">↑</a>
+
+```{r setup, include=F, echo=F}
+library(knitr) # load packages
+library(kableExtra)
+library(tidyverse)
+library(latex2exp)
+library(stargazer)
+library(bookdown)
+
+# don't show code unless we explicitly set echo = TRUE
+opts_chunk$set(echo = TRUE, message=FALSE, fig.align="center", fig.pos = "H")
+opts <- options(knitr.kable.NA = "")
+
+## control long outputs by using eg `max.lines = 10`
+hook_output_default <- knitr::knit_hooks$get('output')
+truncate_to_lines <- function(x, n) {
+   if (!is.null(n)) {
+      x = unlist(stringr::str_split(x, '\n'))
+      if (length(x) > n) {
+         # truncate the output
+         x = c(head(x, n), '...\n')
+      }
+      x = paste(x, collapse = '\n') # paste first n lines together
+   }
+   x
+}
+knitr::knit_hooks$set(output = function(x, options) {
+   max.lines <- options$max.lines
+   x <- truncate_to_lines(x, max.lines)
+   hook_output_default(x, options)
+})
+```
+
+
+# Linear Regression Model
+
+
+The multiple linear regression model is used to study the relationship between a <span style='color:#337ab7'>dependent variable</span> and one or more <span style='color:#337ab7'>independent variables</span>. The generic form of the linear regression model is
+
+$$
+\begin{aligned}
+y &= f(x_1, x_2, \ldots, x_K) + \varepsilon \\
+&= x_1 \beta_1 + x_2 \beta_2 + \cdots + x_K \beta_K + \varepsilon
+\end{aligned}
+$$
+where 
+
+- $y$ is the <span style='color:#337ab7'>dependent</span> or <span style='color:#337ab7'>explained</span> variable;
+- $x_1, x_2, \ldots, x_K$ are the independent or explanatory variables, also called the <span style='color:#337ab7'>regressors</span> or <span style='color:#337ab7'>covariates</span>.
+
+
+We usually let $x_1=1$; the parameter $\beta_1$ corresponds to the intercept.
+
+
+The error term $\varepsilon$ is a random disturbance, so named because it "disturbs" an otherwise stable relationship. $\varepsilon$ reflects the combined effect of all additional influences on the outcome variable $y$. 
+
+Several reasons why we need the error term:
+
+- the effect of relevant variables not included in our set of $K$ explanatory variables (omitted variables); 
+- any non-linear effects of our included variables;
+- measurement errors: For example, the difficulty of obtaining reasonable measures of incomes and expenditures. People might overstate incomes to make it look better.
+- the factor is not observable. For instance, the propensity or soft skills of people affect their income levels. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

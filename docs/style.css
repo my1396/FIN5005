@@ -2,7 +2,7 @@
 
 /* general typesetting */
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", SimSun, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, SimSun, sans-serif;
   font-size: 16px;
   overflow-x: hidden;
 }
