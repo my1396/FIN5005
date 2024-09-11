@@ -125,7 +125,7 @@ For a $q\times 1$ random vector $Y$ (such as $Y=A+BX$ defined before), the varia
 
 The appropriate concept is called <span style='color:#008B45FF'>non-negative definiteness</span> or <span style='color:#008B45FF'>positive semi-definiteness</span>.
 
-A $q \times q$ square matrix $\Sigma$ is called non-negative definite (or positive semi-definite) if for any non-zero $q\times 1$ vector $a$ it holds that
+Formal definition: A $q \times q$ square matrix $\Sigma$ is called non-negative definite (or positive semi-definite) if for any non-zero $q\times 1$ vector $a$ it holds that
 $$
 a'\Sigma a \ge 0.
 $$
@@ -136,11 +136,13 @@ ___
 
 # Central Limit Theorem
 
-Suppose that $X_1, \ldots, X_n$ is an iid sequence with mean $\mathbb{E}(X_i)=\mu$ and $\text{Var}(X_i)=\sigma^2$. 
+Suppose that $X_1, \ldots, X_n$ is an independent and identically distributed (iid) sequence with a finite mean $\mathbb{E}(X_i)=\mu$ and variance  $\text{Var}(X_i)=\sigma^2$. 
 
-Let $\overline{X}=\sum_{i=1}^n X_i.$ 
+Define a sample mean: $\overline{X}=\frac{1}{n}\sum_{i=1}^n X_i.$ It is also written as $\overline{X}_\color{#008B45FF}{n}$, we sometimes to write a subscript $n$ to denote the sample size. 
 
-We have shown in the last lecture that $\mathbb{E}[\overline{X}]=\mu$ and $\text{Var}[\overline{X}]=\sigma^2/n$ (Refer to the expectation and variance of the sample mean).
+<span style='color:#337ab7'>Aim</span>: We would like to obtain a distributional approximation to  $\overline{X}.$
+
+We have shown in the last lecture that in finite samples, $\mathbb{E}[\overline{X}]=\mu$ and $\text{Var}[\overline{X}]=\sigma^2/n$ (Refer to the expectation and variance of the sample mean).
 
 Then, the <span style='color:#008B45FF'>**Lindeberg-Lévy CLT**</span> states that
 
@@ -152,6 +154,10 @@ $$
 $$
 
 $\xrightarrow{d}$ means convergence in distribution.
+
+
+CLT shows the simple process of <span style='color:#008B45FF'>averaging induces normality</span>.
+
 
 
 Equivalently, we can write 
@@ -166,7 +172,7 @@ Or we can also write as
 
 \begin{array}{rlrl}
 	\sqrt{n} (\overline{X}-\mu)  &\xrightarrow{d} N(0,\sigma^2),  &
-  \sqrt{n} (\overline{X}-\mu)  &\overset{a}{\sim} N(0,\sigma^2) \\
+  \color{#008B45FF}{\sqrt{n} (\overline{X}-\mu)}  & \color{#008B45FF}{\overset{a}{\sim} N(0,\sigma^2)} \\
   
   \overline{X} -\mu  &\xrightarrow{d} N(0,\sigma^2/n), &
   \overline{X} -\mu  &\overset{a}{\sim} N(0,\sigma^2/n) \\
@@ -176,7 +182,7 @@ Or we can also write as
 \end{array} 
 
 
-Note: The CLT is a very powerful result. $X_1, \ldots, X_n$ can be from <span style='color:#337ab7'>any possible distribution</span> (*iid* with *finite mean and variance*), and still their normalized sample mean will be <span style='color:#008B45FF'>standard normal</span>.
+**Note**: The CLT is a very powerful result. $X_1, \ldots, X_n$ can be from <span style='color:#337ab7'>any possible distribution</span> (as long as it's *iid* with *finite mean and variance*), and still their <span style='color:#337ab7'>**normalized sample mean**</span> will be <span style='color:#008B45FF'>**standard normal**</span>.
 
 
 - The scaling by $\color{#337ab7}{\sqrt{n}}$ is crucial.
@@ -351,16 +357,17 @@ The critical values for typical levels of significance are:
 
 
 
+___
+
+# Reading for this week
+
+B. Hansen (2022), *Econometrics*, Princeton University Press, chaps 2-6.
 
 
+W.H. Greene (2018), *Econometric Analysis*, 8th ed, Pearson Education, chaps 2-4.
 
 
-
-
-
-
-
-
+If you want to brush up on your knowledge about matrix and basic probability theories, W.H. Greene (2018)'s appendix provides a good refresher.
 
 
 
