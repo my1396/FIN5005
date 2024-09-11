@@ -15,8 +15,6 @@ output:
 
 <SCRIPT language="JavaScript" SRC="my_jxscript.js"></SCRIPT>
 
-<link href="https://fonts.cdnfonts.com/css/helvetica-neue-5" rel="stylesheet">
-
 <a class="top-link" href="#top" id="js-top">↑</a>
 
 ```{r setup, include=F, echo=F}
