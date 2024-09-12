@@ -53,31 +53,212 @@ knitr::knit_hooks$set(output = function(x, options) {
 # Linear Regression Model
 
 
-The multiple linear regression model is used to study the relationship between a <span style='color:#337ab7'>dependent variable</span> and one or more <span style='color:#337ab7'>independent variables</span>. The generic form of the linear regression model is
+The multiple linear regression model is used to study the relationship between a <span style='color:#337ab7'>dependent variable</span> and one or more <span style='color:#337ab7'>independent variables</span>. The **generic form of the linear regression model** is
 
 $$
+\begin{equation} 
 \begin{aligned}
-y &= f(x_1, x_2, \ldots, x_K) + \varepsilon \\
-&= x_1 \beta_1 + x_2 \beta_2 + \cdots + x_K \beta_K + \varepsilon
-\end{aligned}
+y_i &= f(x_{1i}, x_{2i}, \ldots, x_{Ki}) + \varepsilon_i \\
+&= x_{1i} \beta_1 + x_{2i} \beta_2 + \cdots + x_{Ki} \beta_K + \varepsilon_i
+\end{aligned}(\#eq:scalar-form)
+\end{equation}
 $$
 where 
 
-- $y$ is the <span style='color:#337ab7'>dependent</span> or <span style='color:#337ab7'>explained</span> variable;
-- $x_1, x_2, \ldots, x_K$ are the independent or explanatory variables, also called the <span style='color:#337ab7'>regressors</span> or <span style='color:#337ab7'>covariates</span>.
+- $y_i$ is the <span style='color:#337ab7'>dependent</span> or <span style='color:#337ab7'>explained</span> variable for observation $i$;
+- $x_{1i}, x_{2i}, \ldots, x_{Ki}$ are the <span style='color:#337ab7'>independent</span> or <span style='color:#337ab7'>explanatory variables</span>, also called the <span style='color:#337ab7'>regressors</span>, <span style='color:#337ab7'>predictors</span>, or <span style='color:#337ab7'>covariates</span>.
+- $\beta_1, \beta_2, \ldots, \beta_K$ are the unknown parameters that we want to estimate.
+
+and a sample of $n$ observations indexed $i = 1, 2, \ldots, n.$
+
+Eq. \@ref(eq:scalar-form) is referred to as the scalar form.
+
+We usually let $x_{1i}=1$ for all $i=1, 2, \ldots, n,$; where the parameter $\beta_1$ corresponds to the <span style='color:#008B45FF'>intercept</span>.
 
 
-We usually let $x_1=1$; the parameter $\beta_1$ corresponds to the intercept.
+The error term $\varepsilon_i$ is a random disturbance, so named because it "disturbs" an otherwise stable relationship, hence also called as "disturbances." \
+$\varepsilon_i$ reflects the combined effect of all additional influences on the outcome variable $y_i$. 
 
-
-The error term $\varepsilon$ is a random disturbance, so named because it "disturbs" an otherwise stable relationship. $\varepsilon$ reflects the combined effect of all additional influences on the outcome variable $y$. 
-
-Several reasons why we need the error term:
+Several reasons why we need the error term $\varepsilon_i$:
 
 - the effect of relevant variables not included in our set of $K$ explanatory variables (omitted variables); 
-- any non-linear effects of our included variables;
+- any non-linear effects of our included variables $(x_{1i}, x_{2i}, \ldots, x_{Ki})$;
 - measurement errors: For example, the difficulty of obtaining reasonable measures of incomes and expenditures. People might overstate incomes to make it look better.
-- the factor is not observable. For instance, the propensity or soft skills of people affect their income levels. 
+- the factor is not observable. For instance, the aptitude or soft skills of people affect their income levels. 
+
+
+
+**Notation**
+
+<span style='color:#008B45FF'>The scalar form</span>
+$$
+\color{#008B45FF}{y_i = x_{1i} \beta_1 + x_{2i} \beta_2 + \cdots + x_{Ki} \beta_K + \varepsilon_i}
+$$
+can be written in <span style='color:#008B45FF'>vector form</span>:
+
+$$
+\color{#008B45FF}{y_i = \boldsymbol{x}_i'\boldsymbol{\beta} + \varepsilon_i}
+$$
+where $\boldsymbol{x}_i$ and $\boldsymbol{\beta}$ denote the $K\times 1$ column vectors:
+
+$$
+\boldsymbol{x}_i = \begin{pmatrix}
+x_{1i} \\
+x_{2i} \\
+\vdots \\
+x_{Ki}
+\end{pmatrix}_{K\times 1} \quad \text{and} \quad
+\boldsymbol{\beta} = \begin{pmatrix}
+\beta_{1} \\
+\beta_{2} \\
+\vdots \\
+\beta_{K}
+\end{pmatrix}_{K\times 1}
+$$
+Sometimes you may see the $i$ subscripts omitted and the model written as
+$$
+y = \boldsymbol{x}'\boldsymbol{\beta} + \varepsilon
+$$
+for a typical observation.
+
+
+
+We can also stack the observations for a sample of size $n$, and express the linear regression model in <span style='color:#008B45FF'>matrix form</span>:
+$$
+\color{#008B45FF}{\boldsymbol{y} = \boldsymbol{X}\boldsymbol{\beta} + \boldsymbol{\varepsilon}} ,
+$$
+where
+
+$$
+\boldsymbol{y} = \begin{pmatrix}
+y_1 \\
+y_2 \\
+\vdots \\
+y_n
+\end{pmatrix}_{n\times 1},   \quad
+\boldsymbol{X} = \begin{pmatrix}
+x_1'\\
+x_2'\\
+\vdots \\
+x_n'\\ 
+\end{pmatrix}
+= \begin{pmatrix}
+x_{11} & x_{21} &  \cdots & x_{K1} \\
+x_{12} & x_{22} & \cdots & x_{K2} \\
+\vdots & \vdots & \ddots & \vdots \\
+x_{1n} & x_{2n} & \cdots & x_{Kn} 
+\end{pmatrix}_{n\times K},    \quad
+\boldsymbol{\beta} = \begin{pmatrix}
+\beta_{1} \\
+\beta_{2} \\
+\vdots \\
+\beta_{K}
+\end{pmatrix}_{K\times 1},   \quad \text{and }\;
+\varepsilon = \begin{pmatrix}
+\varepsilon_1 \\
+\varepsilon_2 \\
+\vdots \\
+\varepsilon_n
+\end{pmatrix}_{n\times 1}.
+$$
+$\boldsymbol{y}$ and $\boldsymbol{\varepsilon}$ are $n\times 1$ column vectors and $X$ is an $n\times K$ matrix.
+
+
+Linear models often have an intercept term. We may have $x_{1i}=1,$ for all $i=1,\ldots, n,$, in which case the parameter $\beta_1$ correspond to the intercept.
+
+___
+
+**A notational convention**
+
+We use lower-case $\boldsymbol{x}$ to denote either a column or a row of $\boldsymbol{X}$, you should tell which it refers to from the context.
+
+- We use subscripts $i$ and $t$ to denote row observations of $\boldsymbol{X}$, and
+- subscripts $j$ and $k$ to denote columns (variables) of $\boldsymbol{X}$.
+
+
+For instance, 
+$$
+y_i = \boldsymbol{x}_i'\boldsymbol{\beta} + \varepsilon_i
+$$
+$\boldsymbol{x}_i,$ $i=1,\ldots,n,$ denotes the $i^{\text{th}}$ <span style='color:#337ab7'>row</span> of $\boldsymbol{X}$, referring to a single observation $i$.
+
+$$
+\boldsymbol{x}_i = \begin{pmatrix}
+x_{1i} \\
+x_{2i} \\
+\vdots \\
+x_{Ki}
+\end{pmatrix}_{K\times 1}
+$$
+
+Sometimes we see the following form:
+$$
+\color{#008B45FF}{\boldsymbol{y} = \beta_1 \boldsymbol{x}_1 + \beta_2 \boldsymbol{x}_2 + \ldots + \beta_K \boldsymbol{x}_K + \varepsilon}
+$$
+Here $\boldsymbol{x}_k,$ $k=1,\ldots, K,$ denotes the $k^{\text{th}}$ <span style='color:#337ab7'>column</span> of $\boldsymbol{X}$, referring to a single variable $k$.
+
+$$
+\boldsymbol{x}_k = \begin{pmatrix}
+x_{k1} \\
+x_{k2} \\
+\vdots \\
+x_{kn}
+\end{pmatrix}_{n\times 1}
+$$
+
+Note that we typically use **boldface** to indicate vectors and matrices, and regular typeface for scalars. \
+But this convention is only loosely followed as it can be cumbersome for typing.
+
+___
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

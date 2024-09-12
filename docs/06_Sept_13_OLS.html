@@ -345,27 +345,137 @@ div.tocify {
 <p><a class="top-link" href="#top" id="js-top">↑</a></p>
 <div id="linear-regression-model" class="section level1">
 <h1>Linear Regression Model</h1>
-<p>The multiple linear regression model is used to study the relationship between a <span style="color:#337ab7">dependent variable</span> and one or more <span style="color:#337ab7">independent variables</span>. The generic form of the linear regression model is</p>
-<p><span class="math display">\[
+<p>The multiple linear regression model is used to study the relationship between a <span style="color:#337ab7">dependent variable</span> and one or more <span style="color:#337ab7">independent variables</span>. The <strong>generic form of the linear regression model</strong> is</p>
+<p><span class="math display" id="eq:scalar-form">\[
+\begin{equation}
 \begin{aligned}
-y &amp;= f(x_1, x_2, \ldots, x_K) + \varepsilon \\
-&amp;= x_1 \beta_1 + x_2 \beta_2 + \cdots + x_K \beta_K + \varepsilon
-\end{aligned}
+y_i &amp;= f(x_{1i}, x_{2i}, \ldots, x_{Ki}) + \varepsilon_i \\
+&amp;= x_{1i} \beta_1 + x_{2i} \beta_2 + \cdots + x_{Ki} \beta_K + \varepsilon_i
+\end{aligned}\tag{1}
+\end{equation}
 \]</span>
 where</p>
 <ul>
-<li><span class="math inline">\(y\)</span> is the <span style="color:#337ab7">dependent</span> or <span style="color:#337ab7">explained</span> variable;</li>
-<li><span class="math inline">\(x_1, x_2, \ldots, x_K\)</span> are the independent or explanatory variables, also called the <span style="color:#337ab7">regressors</span> or <span style="color:#337ab7">covariates</span>.</li>
+<li><span class="math inline">\(y_i\)</span> is the <span style="color:#337ab7">dependent</span> or <span style="color:#337ab7">explained</span> variable for observation <span class="math inline">\(i\)</span>;</li>
+<li><span class="math inline">\(x_{1i}, x_{2i}, \ldots, x_{Ki}\)</span> are the <span style="color:#337ab7">independent</span> or <span style="color:#337ab7">explanatory variables</span>, also called the <span style="color:#337ab7">regressors</span>, <span style="color:#337ab7">predictors</span>, or <span style="color:#337ab7">covariates</span>.</li>
+<li><span class="math inline">\(\beta_1, \beta_2, \ldots, \beta_K\)</span> are the unknown parameters that we want to estimate.</li>
 </ul>
-<p>We usually let <span class="math inline">\(x_1=1\)</span>; the parameter <span class="math inline">\(\beta_1\)</span> corresponds to the intercept.</p>
-<p>The error term <span class="math inline">\(\varepsilon\)</span> is a random disturbance, so named because it “disturbs” an otherwise stable relationship. <span class="math inline">\(\varepsilon\)</span> reflects the combined effect of all additional influences on the outcome variable <span class="math inline">\(y\)</span>.</p>
-<p>Several reasons why we need the error term:</p>
+<p>and a sample of <span class="math inline">\(n\)</span> observations indexed <span class="math inline">\(i = 1, 2, \ldots, n.\)</span></p>
+<p>Eq. <a href="#eq:scalar-form">(1)</a> is referred to as the scalar form.</p>
+<p>We usually let <span class="math inline">\(x_{1i}=1\)</span> for all <span class="math inline">\(i=1, 2, \ldots, n,\)</span>; where the parameter <span class="math inline">\(\beta_1\)</span> corresponds to the <span style="color:#008B45FF">intercept</span>.</p>
+<p>The error term <span class="math inline">\(\varepsilon_i\)</span> is a random disturbance, so named because it “disturbs” an otherwise stable relationship, hence also called as “disturbances.”<br />
+<span class="math inline">\(\varepsilon_i\)</span> reflects the combined effect of all additional influences on the outcome variable <span class="math inline">\(y_i\)</span>.</p>
+<p>Several reasons why we need the error term <span class="math inline">\(\varepsilon_i\)</span>:</p>
 <ul>
 <li>the effect of relevant variables not included in our set of <span class="math inline">\(K\)</span> explanatory variables (omitted variables);</li>
-<li>any non-linear effects of our included variables;</li>
+<li>any non-linear effects of our included variables <span class="math inline">\((x_{1i}, x_{2i}, \ldots, x_{Ki})\)</span>;</li>
 <li>measurement errors: For example, the difficulty of obtaining reasonable measures of incomes and expenditures. People might overstate incomes to make it look better.</li>
-<li>the factor is not observable. For instance, the propensity or soft skills of people affect their income levels.</li>
+<li>the factor is not observable. For instance, the aptitude or soft skills of people affect their income levels.</li>
 </ul>
+<p><strong>Notation</strong></p>
+<p><span style="color:#008B45FF">The scalar form</span>
+<span class="math display">\[
+\color{#008B45FF}{y_i = x_{1i} \beta_1 + x_{2i} \beta_2 + \cdots + x_{Ki} \beta_K + \varepsilon_i}
+\]</span>
+can be written in <span style="color:#008B45FF">vector form</span>:</p>
+<p><span class="math display">\[
+\color{#008B45FF}{y_i = \boldsymbol{x}_i&#39;\boldsymbol{\beta} + \varepsilon_i}
+\]</span>
+where <span class="math inline">\(\boldsymbol{x}_i\)</span> and <span class="math inline">\(\boldsymbol{\beta}\)</span> denote the <span class="math inline">\(K\times 1\)</span> column vectors:</p>
+<p><span class="math display">\[
+\boldsymbol{x}_i = \begin{pmatrix}
+x_{1i} \\
+x_{2i} \\
+\vdots \\
+x_{Ki}
+\end{pmatrix}_{K\times 1} \quad \text{and} \quad
+\boldsymbol{\beta} = \begin{pmatrix}
+\beta_{1} \\
+\beta_{2} \\
+\vdots \\
+\beta_{K}
+\end{pmatrix}_{K\times 1}
+\]</span>
+Sometimes you may see the <span class="math inline">\(i\)</span> subscripts omitted and the model written as
+<span class="math display">\[
+y = \boldsymbol{x}&#39;\boldsymbol{\beta} + \varepsilon
+\]</span>
+for a typical observation.</p>
+<p>We can also stack the observations for a sample of size <span class="math inline">\(n\)</span>, and express the linear regression model in <span style="color:#008B45FF">matrix form</span>:
+<span class="math display">\[
+\color{#008B45FF}{\boldsymbol{y} = \boldsymbol{X}\boldsymbol{\beta} + \boldsymbol{\varepsilon}} ,
+\]</span>
+where</p>
+<p><span class="math display">\[
+\boldsymbol{y} = \begin{pmatrix}
+y_1 \\
+y_2 \\
+\vdots \\
+y_n
+\end{pmatrix}_{n\times 1},   \quad
+\boldsymbol{X} = \begin{pmatrix}
+x_1&#39;\\
+x_2&#39;\\
+\vdots \\
+x_n&#39;\\
+\end{pmatrix}
+= \begin{pmatrix}
+x_{11} &amp; x_{21} &amp;  \cdots &amp; x_{K1} \\
+x_{12} &amp; x_{22} &amp; \cdots &amp; x_{K2} \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+x_{1n} &amp; x_{2n} &amp; \cdots &amp; x_{Kn}
+\end{pmatrix}_{n\times K},    \quad
+\boldsymbol{\beta} = \begin{pmatrix}
+\beta_{1} \\
+\beta_{2} \\
+\vdots \\
+\beta_{K}
+\end{pmatrix}_{K\times 1},   \quad \text{and }\;
+\varepsilon = \begin{pmatrix}
+\varepsilon_1 \\
+\varepsilon_2 \\
+\vdots \\
+\varepsilon_n
+\end{pmatrix}_{n\times 1}.
+\]</span>
+<span class="math inline">\(\boldsymbol{y}\)</span> and <span class="math inline">\(\boldsymbol{\varepsilon}\)</span> are <span class="math inline">\(n\times 1\)</span> column vectors and <span class="math inline">\(X\)</span> is an <span class="math inline">\(n\times K\)</span> matrix.</p>
+<p>Linear models often have an intercept term. We may have <span class="math inline">\(x_{1i}=1,\)</span> for all <span class="math inline">\(i=1,\ldots, n,\)</span>, in which case the parameter <span class="math inline">\(\beta_1\)</span> correspond to the intercept.</p>
+<hr />
+<p><strong>A notational convention</strong></p>
+<p>We use lower-case <span class="math inline">\(\boldsymbol{x}\)</span> to denote either a column or a row of <span class="math inline">\(\boldsymbol{X}\)</span>, you should tell which it refers to from the context.</p>
+<ul>
+<li>We use subscripts <span class="math inline">\(i\)</span> and <span class="math inline">\(t\)</span> to denote row observations of <span class="math inline">\(\boldsymbol{X}\)</span>, and</li>
+<li>subscripts <span class="math inline">\(j\)</span> and <span class="math inline">\(k\)</span> to denote columns (variables) of <span class="math inline">\(\boldsymbol{X}\)</span>.</li>
+</ul>
+<p>For instance,
+<span class="math display">\[
+y_i = \boldsymbol{x}_i&#39;\boldsymbol{\beta} + \varepsilon_i
+\]</span>
+<span class="math inline">\(\boldsymbol{x}_i,\)</span> <span class="math inline">\(i=1,\ldots,n,\)</span> denotes the <span class="math inline">\(i^{\text{th}}\)</span> <span style="color:#337ab7">row</span> of <span class="math inline">\(\boldsymbol{X}\)</span>, referring to a single observation <span class="math inline">\(i\)</span>.</p>
+<p><span class="math display">\[
+\boldsymbol{x}_i = \begin{pmatrix}
+x_{1i} \\
+x_{2i} \\
+\vdots \\
+x_{Ki}
+\end{pmatrix}_{K\times 1}
+\]</span></p>
+<p>Sometimes we see the following form:
+<span class="math display">\[
+\color{#008B45FF}{\boldsymbol{y} = \beta_1 \boldsymbol{x}_1 + \beta_2 \boldsymbol{x}_2 + \ldots + \beta_K \boldsymbol{x}_K + \varepsilon}
+\]</span>
+Here <span class="math inline">\(\boldsymbol{x}_k,\)</span> <span class="math inline">\(k=1,\ldots, K,\)</span> denotes the <span class="math inline">\(k^{\text{th}}\)</span> <span style="color:#337ab7">column</span> of <span class="math inline">\(\boldsymbol{X}\)</span>, referring to a single variable <span class="math inline">\(k\)</span>.</p>
+<p><span class="math display">\[
+\boldsymbol{x}_k = \begin{pmatrix}
+x_{k1} \\
+x_{k2} \\
+\vdots \\
+x_{kn}
+\end{pmatrix}_{n\times 1}
+\]</span></p>
+<p>Note that we typically use <strong>boldface</strong> to indicate vectors and matrices, and regular typeface for scalars.<br />
+But this convention is only loosely followed as it can be cumbersome for typing.</p>
+<hr />
 </div>
 
 
