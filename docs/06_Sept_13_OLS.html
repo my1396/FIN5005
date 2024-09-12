@@ -458,7 +458,13 @@ x_{1i} \\
 x_{2i} \\
 \vdots \\
 x_{Ki}
-\end{pmatrix}_{K\times 1}
+\end{pmatrix}_{K\times 1} \quad \text{and} \quad
+X=\begin{pmatrix}
+x_1&#39; \\
+x_2&#39; \\
+\vdots \\
+x_n&#39; \\
+\end{pmatrix}_{n\times K}
 \]</span></p>
 <p>Sometimes we see the following form:
 <span class="math display">\[
@@ -471,11 +477,130 @@ x_{k1} \\
 x_{k2} \\
 \vdots \\
 x_{kn}
-\end{pmatrix}_{n\times 1}
+\end{pmatrix}_{n\times 1} \quad \text{and} \quad
+X = \begin{pmatrix}x_1, x_2, \ldots, x_K\end{pmatrix}_{n\times K}
 \]</span></p>
 <p>Note that we typically use <strong>boldface</strong> to indicate vectors and matrices, and regular typeface for scalars.<br />
 But this convention is only loosely followed as it can be cumbersome for typing.</p>
 <hr />
+</div>
+<div id="ordinary-least-squares-ols" class="section level1">
+<h1>Ordinary Least Squares (OLS)</h1>
+<p>The OLS estimator finds the parameter vector <span class="math inline">\(\boldsymbol{\beta}\)</span> which minimizes the sum of the squared errors, <span class="math inline">\(\sum_{i=1}^n \varepsilon_i^2\)</span>.</p>
+<p>Formally
+<span class="math display">\[
+\hat{\boldsymbol{\beta}} = \arg\underset{\boldsymbol{\beta}}{\min} \sum_{i=1}^n \varepsilon_i^2
+\]</span></p>
+<p>In matrix form:
+<span class="math display">\[
+\begin{aligned}
+\hat{\boldsymbol{\beta}} &amp;= \arg\underset{\boldsymbol{\beta}}{\min} \boldsymbol{\varepsilon}&#39;\boldsymbol{\varepsilon} \\
+&amp;= \arg\underset{\boldsymbol{\beta}}{\min} (\boldsymbol{y} - \boldsymbol{X}\boldsymbol{\beta})&#39;(\boldsymbol{y} - \boldsymbol{X}\boldsymbol{\beta})
+\end{aligned}
+\]</span></p>
+<p>To obtain the OLS estimator, we minimize <span class="math inline">\(\phi(\boldsymbol{\beta})=\boldsymbol{\varepsilon}&#39;\boldsymbol{\varepsilon}\)</span> with respect to <span class="math inline">\(\boldsymbol{\beta}\)</span>, where <span class="math inline">\(\boldsymbol{\varepsilon}=\boldsymbol{y} - \boldsymbol{X}\boldsymbol{\beta}\)</span>.</p>
+<p>Apply the first-order conditions:
+<span class="math display" id="eq:normal-eqn">\[
+\begin{equation} \tag{2}
+\frac{\partial\phi(\beta)}{\partial\beta} = -2X&#39;(y-X\beta) = 0
+\end{equation}
+\]</span>
+and the second-order conditions
+<span class="math display">\[
+\frac{\partial^2\phi(\beta)}{\partial\beta\partial\beta&#39;} = 2X&#39;X &gt;0,
+\]</span>
+confirming that we obtain a unique minimum if <span class="math inline">\((X&#39;X)^{-1}\)</span> exists.</p>
+<p><a href="#eq:normal-eqn">(2)</a> is referred to as the “normal equations.”</p>
+<p>The OLS estimator of <span class="math inline">\(\beta\)</span> is given by:
+<span class="math display">\[
+\color{#EE0000FF}{\hat{\beta}_{\text{OLS}} = (X&#39;X)^{-1}X&#39;y} .
+\]</span>
+Note that</p>
+<ul>
+<li><span class="math inline">\((X&#39;X)^{-1}\)</span> is a symmetric square <span class="math inline">\(K \times K\)</span> matrix.</li>
+<li>For <span class="math inline">\((X&#39;X)^{-1}\)</span> to exist, we need <span class="math inline">\(X\)</span> to be full rank. This is referred to as the full rank assumption.</li>
+</ul>
+<div class="boxed">
+<p><em>Assumption:</em> <span class="math inline">\(X\)</span> is an <span class="math inline">\(n\times K\)</span> matrix with full rank <span class="math inline">\(K\)</span>.</p>
+</div>
+<p>In plain language, full rank means there are no exact linear relationships among the variables.<br />
+This assumption is known as the <span style="color:#337ab7">identification condition</span>.</p>
+<p><span class="math inline">\((X&#39;X)^{-1}\)</span> may not exist. If this is the case, then this matrix is called <span style="color:#337ab7">non-invertible</span> or <span style="color:#337ab7">singular</span> and is said to be of <span style="color:#337ab7">less than full rank</span>.</p>
+<p>There are two possible reasons why this matrix might be non-invertible.</p>
+<ul>
+<li>One, based on a trivial theorem about rank, is that <span class="math inline">\(n &lt; k\)</span> i.e., we have more independent variables than observations. This is unlikely to be a problem for us in practice.</li>
+<li>The other is that one or more of the independent variables are a linear combination of the other variables i.e. <em>perfect</em> multicollinearity.</li>
+</ul>
+<div class="example">
+<p><span id="exm:unnamed-chunk-1" class="example"><strong>Example 1  (Short Rank) </strong></span>Suppose we have the following linear model:
+<span class="math display">\[
+    y=\beta_1 + \beta_2 x_2 + \beta_3 x_3 + \beta_4 x_4 + \varepsilon,
+    \]</span>
+where
+<span class="math display">\[
+    x_4 = x_2 + x_3 ,
+    \]</span>
+meaning there is an exact linear dependency in the model.</p>
+<p>Aim: We want to show that <span class="math inline">\(\boldsymbol{\beta}&#39; = (\beta_1, \beta_2, \beta_3, \beta_4)\)</span> cannot be uniquely identified.</p>
+<p>Now we let <span class="math inline">\(\boldsymbol{\tilde{\beta}}&#39; = (\beta_1, \tilde{\beta_2}+a, \tilde{\beta_3}+a, \tilde{\beta_4}-a)\)</span> for any constant <span class="math inline">\(a\)</span>.</p>
+<p>Then we find that <span class="math inline">\(\boldsymbol{x}&#39;\boldsymbol{\beta} = \boldsymbol{x}&#39;\boldsymbol{\tilde{\beta}}\)</span>.</p>
+<p>In other words, there is no way to estimate the parameters of this model.</p>
+</div>
+</div>
+<div id="properties-of-ols-estimators" class="section level1">
+<h1>Properties of OLS Estimators</h1>
+<p>The residuals for observations <span class="math inline">\(i\)</span> is <span class="math inline">\(e_i=y_i-\hat{y}_i=y_i-x_i&#39;\hat{\beta}_{\text{OLS}}\)</span>.</p>
+<p>Note that we distinguish the error term <span class="math inline">\(\varepsilon\)</span> from residuals <span class="math inline">\(e\)</span>.</p>
+<ul>
+<li>the error term <span class="math inline">\(\varepsilon\)</span> is from the population that cannot be observed;</li>
+<li>residuals <span class="math inline">\(e\)</span> are from samples that can be observed.</li>
+</ul>
+<p>We will introduce essential properties of OLS estimators. These properties do not depend on any assumptions – they will always be true so long as we compute them by minimizing the sum of squared errors.</p>
+<p>We plug in <span class="math inline">\(\hat{\beta}\)</span> to the normal equations:
+<span class="math display">\[
+(X&#39;X)\hat{\beta} = X&#39;y
+\]</span>
+Plug in <span class="math inline">\(y=X\hat{\beta}+e\)</span>.
+<span class="math display">\[
+\begin{split}
+(X&#39;X)\hat{\beta} &amp;= X&#39;(X\hat{\beta}+e) \\
+(X&#39;X)\hat{\beta} &amp;= X&#39;X\hat{\beta} + X&#39;e \\
+X&#39;e &amp;= \boldsymbol{0}
+\end{split}
+\]</span>
+or we can express in matrix form:
+<span class="math display">\[
+\begin{pmatrix}
+x_1&#39; \\
+x_2&#39; \\
+\vdots \\
+x_K&#39;
+\end{pmatrix}_{K\times n} \cdot e_{n\times 1} =
+\begin{pmatrix}
+x_1&#39;e \\
+x_2&#39;e \\
+\vdots \\
+x_K&#39;e
+\end{pmatrix}_{K\times 1} =
+\begin{pmatrix}
+0 \\
+0 \\
+\vdots \\
+0
+\end{pmatrix}_{K\times 1}
+\]</span>
+This implies that, by construction, the OLS residuals <span class="math inline">\(\boldsymbol{e}\)</span> in our sample are <span style="color:#337ab7">uncorrelated</span> with each of the <span class="math inline">\(K\)</span> explanatory variables included in the model.</p>
+<div class="proof">
+<p><span id="unlabeled-div-1" class="proof"><em>Proof</em>. </span>Uncorrelated means that <span class="math inline">\(\text{Cov}(x_k, e)=0\)</span>.</p>
+<p><span class="math display">\[
+\begin{split}
+\text{Cov}(x_k, e) &amp;= E\left\{\left[x_k-E(x_k)\right] \left[e-E(e)\right]^T \right\} \\
+&amp;= E[x_ke^T] - E[x_k]E[e]^T \\
+&amp;= \boldsymbol{0} - E[x_k] \boldsymbol{0} \\
+&amp;= 0
+\end{split}
+\]</span></p>
+</div>
 </div>
 
 

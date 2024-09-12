@@ -188,7 +188,13 @@ x_{1i} \\
 x_{2i} \\
 \vdots \\
 x_{Ki}
-\end{pmatrix}_{K\times 1}
+\end{pmatrix}_{K\times 1} \quad \text{and} \quad
+X=\begin{pmatrix}
+x_1' \\
+x_2' \\
+\vdots \\
+x_n' \\
+\end{pmatrix}_{n\times K}
 $$
 
 Sometimes we see the following form:
@@ -203,7 +209,8 @@ x_{k1} \\
 x_{k2} \\
 \vdots \\
 x_{kn}
-\end{pmatrix}_{n\times 1}
+\end{pmatrix}_{n\times 1} \quad \text{and} \quad
+X = \begin{pmatrix}x_1, x_2, \ldots, x_K\end{pmatrix}_{n\times K}
 $$
 
 Note that we typically use **boldface** to indicate vectors and matrices, and regular typeface for scalars. \
@@ -212,15 +219,146 @@ But this convention is only loosely followed as it can be cumbersome for typing.
 ___
 
 
+# Ordinary Least Squares (OLS)
 
 
+The OLS estimator finds the parameter vector $\boldsymbol{\beta}$ which minimizes the sum of the squared errors, $\sum_{i=1}^n \varepsilon_i^2$.
+
+Formally
+$$
+\hat{\boldsymbol{\beta}} = \arg\underset{\boldsymbol{\beta}}{\min} \sum_{i=1}^n \varepsilon_i^2
+$$
+
+In matrix form:
+$$
+\begin{aligned}
+\hat{\boldsymbol{\beta}} &= \arg\underset{\boldsymbol{\beta}}{\min} \boldsymbol{\varepsilon}'\boldsymbol{\varepsilon} \\
+&= \arg\underset{\boldsymbol{\beta}}{\min} (\boldsymbol{y} - \boldsymbol{X}\boldsymbol{\beta})'(\boldsymbol{y} - \boldsymbol{X}\boldsymbol{\beta})
+\end{aligned}
+$$
+
+To obtain the OLS estimator, we minimize $\phi(\boldsymbol{\beta})=\boldsymbol{\varepsilon}'\boldsymbol{\varepsilon}$ with respect to $\boldsymbol{\beta}$, where $\boldsymbol{\varepsilon}=\boldsymbol{y} - \boldsymbol{X}\boldsymbol{\beta}$.
+
+Apply the first-order conditions:
+$$
+\begin{equation} (\#eq:normal-eqn)
+\frac{\partial\phi(\beta)}{\partial\beta} = -2X'(y-X\beta) = 0
+\end{equation}
+$$
+and the second-order conditions
+$$
+\frac{\partial^2\phi(\beta)}{\partial\beta\partial\beta'} = 2X'X >0,
+$$
+confirming that we obtain a unique minimum if $(X'X)^{-1}$ exists.
+
+\@ref(eq:normal-eqn) is referred to as the "normal equations."
+
+The OLS estimator of $\beta$ is given by:
+$$
+\color{#EE0000FF}{\hat{\beta}_{\text{OLS}} = (X'X)^{-1}X'y} .
+$$
+Note that
+
+- $(X'X)^{-1}$ is a symmetric square $K \times K$ matrix.
+- For $(X'X)^{-1}$ to exist, we need $X$ to be full rank. This is referred to as the full rank assumption. 
 
 
+<div class = "boxed">
+<em>Assumption:</em> $X$ is an $n\times K$ matrix with full rank $K$.
+</div>
+
+In plain language, full rank means there are no exact linear relationships among the variables. \
+This assumption is known as the <span style='color:#337ab7'>identification condition</span>.
+
+$(X'X)^{-1}$ may not exist. If this is the case, then this matrix is called <span style='color:#337ab7'>non-invertible</span> or <span style='color:#337ab7'>singular</span> and is said to be of <span style='color:#337ab7'>less than full rank</span>. 
+
+There are two possible reasons why this matrix might be non-invertible. 
+
+- One, based on a trivial theorem about rank, is that $n < k$ i.e., we have more independent variables than observations. This is unlikely to be a problem for us in practice. 
+- The other is that one or more of the independent variables are a linear combination of the other variables i.e. *perfect* multicollinearity.
 
 
+```{example, name="Short Rank"}
+Suppose we have the following linear model:
+    $$
+    y=\beta_1 + \beta_2 x_2 + \beta_3 x_3 + \beta_4 x_4 + \varepsilon,
+    $$
+where
+    $$
+    x_4 = x_2 + x_3 ,
+    $$
+meaning there is an exact linear dependency in the model.
+
+Aim: We want to show that $\boldsymbol{\beta}' = (\beta_1, \beta_2, \beta_3, \beta_4)$ cannot be uniquely identified.
+
+Now we let $\boldsymbol{\tilde{\beta}}' = (\beta_1, \tilde{\beta_2}+a, \tilde{\beta_3}+a, \tilde{\beta_4}-a)$ for any constant $a$. 
+
+Then we find that $\boldsymbol{x}'\boldsymbol{\beta} = \boldsymbol{x}'\boldsymbol{\tilde{\beta}}$. 
+
+In other words, there is no way to estimate the parameters of this model.
+```
 
 
+# Properties of OLS Estimators
 
+The residuals for observations $i$ is $e_i=y_i-\hat{y}_i=y_i-x_i'\hat{\beta}_{\text{OLS}}$.
+
+Note that we distinguish the error term $\varepsilon$ from residuals $e$.
+
+- the error term $\varepsilon$ is from the population that cannot be observed;
+- residuals $e$ are from samples that can be observed.
+
+We will introduce essential properties of OLS estimators. These properties do not depend on any assumptions -- they will always be true so long as we compute them by minimizing the sum of squared errors.
+
+
+We plug in $\hat{\beta}$ to the normal equations:
+$$
+(X'X)\hat{\beta} = X'y
+$$
+Plug in $y=X\hat{\beta}+e$.
+$$
+\begin{split}
+(X'X)\hat{\beta} &= X'(X\hat{\beta}+e) \\
+(X'X)\hat{\beta} &= X'X\hat{\beta} + X'e \\
+X'e &= \boldsymbol{0}
+\end{split}
+$$
+or we can express in matrix form:
+$$
+\begin{pmatrix}
+x_1' \\
+x_2' \\
+\vdots \\
+x_K'
+\end{pmatrix}_{K\times n} \cdot e_{n\times 1} =
+\begin{pmatrix}
+x_1'e \\
+x_2'e \\
+\vdots \\
+x_K'e
+\end{pmatrix}_{K\times 1} =
+\begin{pmatrix}
+0 \\
+0 \\
+\vdots \\
+0
+\end{pmatrix}_{K\times 1}
+$$
+This implies that, by construction, the OLS residuals $\boldsymbol{e}$ in our sample are <span style='color:#337ab7'>uncorrelated</span> with each of the $K$ explanatory variables included in the model.
+
+
+```{proof}
+Uncorrelated means that $\text{Cov}(x_k, e)=0$.
+
+$$
+\begin{align*}
+\text{Cov}(x_k, e) &= E\left\{\left[x_k-E(x_k)\right] \left[e-E(e)\right]^T \right\} \\
+&= E[x_ke^T] - E[x_k]E[e]^T \\
+&= \boldsymbol{0} - E[x_k] \boldsymbol{0} \\
+&= 0
+\end{align*} 
+$$
+```
 
 
 
