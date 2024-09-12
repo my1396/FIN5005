@@ -308,6 +308,21 @@ Note that we distinguish the error term $\varepsilon$ from residuals $e$.
 - the error term $\varepsilon$ is from the population that cannot be observed;
 - residuals $e$ are from samples that can be observed.
 
+Observed value $y$ corresponds to error term $\varepsilon$:
+$$
+y=X\beta + \varepsilon
+$$
+
+Predicted value $\hat{y}$ corresponds to residuals $e$:
+$$
+\begin{aligned}
+\hat{y} &= X\hat{\beta} \\
+y&=  X\hat{\beta} + e = \hat{y} + e
+\end{aligned}
+$$
+
+
+
 We will introduce essential properties of OLS estimators. These properties do not depend on any assumptions -- they will always be true so long as we compute them by minimizing the sum of squared errors.
 
 
@@ -344,35 +359,202 @@ x_K'e
 0
 \end{pmatrix}_{K\times 1}
 $$
-This implies that, by construction, the OLS residuals $\boldsymbol{e}$ in our sample are <span style='color:#337ab7'>uncorrelated</span> with each of the $K$ explanatory variables included in the model.
 
 
-```{proof}
-Uncorrelated means that $\text{Cov}(x_k, e)=0$.
+Note that 
+
+1. $x_1'e=0$, where $x_1$ is a $n\times 1$ column vector of 1, indicating the sum of the residuals is zero, i.e., $\sum_{i=1}^n e_i =0$.
+
+2. Following the last property, the sample average of residuals is zero. $\overline{e}=\frac{1}{n}\sum_{i=1}^n e_i=0.$
+
+3. By construction, the OLS residuals $\boldsymbol{e}$ in our sample are <span style='color:#337ab7'>uncorrelated</span> with each of the $K$ explanatory variables included in the model.
+
+    Uncorrelated means that $\text{Cov}(x_k, e)=0$.
+
+    $$
+    \begin{align*}
+    \text{Cov}(x_k, e) &= E\left\{\left[x_k-E(x_k)\right] \left[e-E(e)\right]^T \right\} \\
+    &= E[x_ke^T] - E[x_k]E[e]^T \\
+    &= \boldsymbol{0} - E[x_k] \boldsymbol{0}  \qquad (E[e]=0 \text{ as } x_1'e=0) \\
+    &= 0
+    \end{align*} 
+    $$
+
+
+4. $\overline{y}= \overline{x}\hat{\beta}$. This follows from the property $\overline{e}=0$.
+$$
+e=y-X\hat{\beta}
+$$
+Sum all observations and divide by $n$:
+$$
+\overline{e} = \overline{y} - \overline{X}\hat{\beta}.
+$$
+Given $\overline{e}=0$, we have $\overline{y} = \overline{X}\hat{\beta}.$ That is, The regression hyperplane passes through the means of the observed values ($\overline{X}$ and $\overline{y}$).
+
+5. The predicted values of $\hat{y}$ are uncorrelated with the residuals.
+$$
+\begin{aligned}
+\hat{y}'e &= (X\hat{\beta})'e \\
+&= \hat{\beta}'X'e \\
+&= 0 \qquad (X'e=0)
+\end{aligned}
+$$
+6. The mean of the predicted $y$’s for the sample will equal the mean of the observed $y$’s i.e. $\overline{\hat{y}} = \overline{y}.$
+$$
+\begin{aligned}
+\overline{y} &= \frac{1}{n} \sum_{i=1}^n y_i \\
+&= \frac{1}{n} \sum_{i=1}^n (\hat{y}_i+e_i) \qquad (y_i=\hat{y}_i+e_i) \\
+&= \frac{1}{n} \sum_{i=1}^n \hat{y}_i + \frac{1}{n} \sum_{i=1}^n e_i \qquad (\overline{e}=0) \\
+&= \overline{\hat{y}}
+\end{aligned}
+$$
+
+These properties always hold true. You should be careful not to infer anything from the residuals about the disturbances. 
+For example, you cannot infer that the sum of the disturbances is zero or that the mean of the disturbances is zero just because this is true of the residuals -- this is true of the residuals just because we decided to minimize the sum of squared residuals.
+
+___
+
+# The Gauss-Markov Assumptions
+
+
+Recall that $\hat{\beta}$ comes from our sample, but we want to learn about the true parameters $\beta$.
+In order to do appropriate estimation and inference, we need a list of assumptions.
+
+1. **Linearity** 
+
+    $Y=X\beta+\varepsilon$ states that there is a linear relationship between $y$ and $X$.
+
+
+2. **Full rank**
+    
+    $X$ is an $n\times K$ matrix of full rank. \
+    This assumption states that there is no perfect multicollinearity. In other words, the columns
+    of X are linearly independent. This assumption is known as the identification condition.
+
+3. **Exogeneity of the independent variables**
+    
+    $E[\boldsymbol{\varepsilon}_i |\boldsymbol{X}] =0$ for $i=1,\ldots,n,$ or in vector form
+    
+    $$
+    E[\boldsymbol{\varepsilon} |\boldsymbol{X}] = E\begin{bmatrix}
+    \varepsilon_1 |\boldsymbol{X} \\
+    \varepsilon_2 |\boldsymbol{X} \\
+    \vdots \\
+    \varepsilon_n |\boldsymbol{X} \\
+    \end{bmatrix} = \boldsymbol{0}
+    $$
+
+4. **Homoskedasticity and no autocorrelation**
+
+    $E[\boldsymbol{\varepsilon}\boldsymbol{\varepsilon}'|X] = \sigma^2 \boldsymbol{I}$ or in matrix form 
+    
+    $$
+    \begin{aligned}
+    E[\boldsymbol{\varepsilon}\boldsymbol{\varepsilon}'|X] &= 
+    \begin{bmatrix} 
+    E[\epsilon_1^2 \vert \boldsymbol{X} ] & E[\epsilon_1\epsilon_2 \vert \boldsymbol{X}] & \cdots  & E[\epsilon_1\epsilon_n \vert \boldsymbol{X}] \\
+    E[\epsilon_2\epsilon_1 \vert \boldsymbol{X} ] & E[\epsilon_2^2 \vert \boldsymbol{X}] & \cdots  & E[\epsilon_2\epsilon_n \vert \boldsymbol{X}] \\
+    \vdots & \vdots & \ddots & \vdots \\
+    E[\epsilon_n\epsilon_1 \vert \boldsymbol{X} ] & E[\epsilon_n\epsilon_2 \vert \boldsymbol{X}] & \cdots  & E[\epsilon_n^2 \vert \boldsymbol{X}] \\
+    \end{bmatrix}  \\
+    &= \begin{bmatrix}
+    \sigma^2 & 0 & \cdots & 0 \\
+    0 & \sigma^2 & \cdots & 0 \\
+    \vdots & \vdots & \ddots & \vdots \\
+    0 & 0 & \cdots &\sigma^2 \\
+    \end{bmatrix}
+    \end{aligned}
+    $$
+
+    - Variance of the disturbances:
+    $$
+    \text{Var}[\epsilon\vert \boldsymbol{X}] = \sigma^2
+    $$
+    for all $i=1,\ldots,n.$
+    Constant variance is labeled <span style='color:#008B45FF'>**homoskedasticity**</span>.
+    
+    - Covariance of the disturbances:
+    $$
+    \text{Cov}[\epsilon_i, \epsilon_j\vert \boldsymbol{X}] = 0
+    $$
+    Uncorrelatedness across observations is labeled as <span style='color:#008B45FF'>**nonautocorrelation**</span>.
+    
+    - We often denote the variacne-covariance matrix of the disturbances as $\Omega=E[\boldsymbol{\varepsilon}\boldsymbol{\varepsilon}'|X]$.
+    
+    In case of homoskedasticity and nonautocorrelation, we have $\Omega=\sigma^2\boldsymbol{I}.$ And we call the disturbances spherical disturbances.
+    
+5. **Normal distribution of disturbances**
+
+    $\boldsymbol{e}\vert \boldsymbol{X} \sim N(\boldsymbol{0}, \sigma^2\boldsymbol{I})$. We assume that the disturbances are normally distributed, with zero mean and constant variance.
+    
+    - A useful implication of this assumption is that it implies that observations on $\varepsilon_i$ are statistically independent as well as uncorrelated.
+    - Normality is not necessary to obtainmanyof the resultsweuse in multiple regression analysis, although it will enable us to obtain several exact statistical results. It does prove useful in constructing test statistics. Later, it will be possible to relax this assumption and retain most of the statistical results we obtain here. 
+
+We call models satisfying assumptions 1--5 as the "Classical Linear Regression Model."
+
+The Gauss-Markov Theorem states that, conditional on assumptions 1-5, there will be no other linear and unbiased estimator of the $\beta$ coefficients that has a smaller sampling variance. In other words, the OLS estimator is the <span style='color:#008B45FF'>**Best Linear, Unbiased and Efficient estimator (BLUE)**</span>.
+
+___
+
+## Mean and Variance of Least-Squres Estimator
+
+Prove unbiasedness, $E(\hat{\boldsymbol{\beta}}|\boldsymbol{X}) = \boldsymbol{\beta}$.
+$$
+\begin{aligned}
+\hat{\boldsymbol{\beta}} &= (X'X)^{-1}X'y \\
+&= (X'X)^{-1}X'(X\boldsymbol{\beta}+\varepsilon) \\
+&= (X'X)^{-1}X'X\boldsymbol{\beta} + (X'X)^{-1}(X'\varepsilon) \\
+&= \boldsymbol{\beta} + (X'X)^{-1}X'\boldsymbol{\varepsilon}
+\end{aligned}
+$$
+Taking the expectation with respect to $\hat{\beta}-\beta$.
+$$
+\begin{aligned}
+E[\hat{\beta}-\beta \vert X] &= E[ (X'X)^{-1}(X'\varepsilon) \vert X] \\
+&= (X'X)^{-1}X'E[\varepsilon \vert X] \\
+&= \boldsymbol{0}.
+\end{aligned}
+$$
+
+
+Variance of least-squares estimator:
 
 $$
-\begin{align*}
-\text{Cov}(x_k, e) &= E\left\{\left[x_k-E(x_k)\right] \left[e-E(e)\right]^T \right\} \\
-&= E[x_ke^T] - E[x_k]E[e]^T \\
-&= \boldsymbol{0} - E[x_k] \boldsymbol{0} \\
-&= 0
-\end{align*} 
+\begin{aligned}
+\text{Var}(\boldsymbol{\hat{\beta}} \vert X) &= E[(\hat{\boldsymbol{\beta}}-\boldsymbol{\beta})(\hat{\boldsymbol{\beta}}-\boldsymbol{\beta})^T \vert \boldsymbol{X}] \\
+&= E[(X'X)^{-1}X'\varepsilon\varepsilon'X(X'X)^{-1} \vert \boldsymbol{X}] \\
+&= (X'X)^{-1}X'\, E[\boldsymbol{\varepsilon\varepsilon}'\vert \boldsymbol{X}] \, X(X'X)^{-1} \\
+&= (X'X)^{-1}X'\, \Omega \, X(X'X)^{-1}
+\end{aligned}
 $$
-```
+where $\Omega=E[\boldsymbol{\varepsilon\varepsilon}'\vert \boldsymbol{X}]$.
 
+In case of the linear homoskedastic regression model, we have $E[\boldsymbol{\varepsilon\varepsilon}'\vert \boldsymbol{X}]=\sigma^2\boldsymbol{I}$. The variance matrix simplifies to 
+$$
+\boldsymbol{V}_{\hat{\boldsymbol{\hat{\beta}}}} = \text{Var}(\boldsymbol{\hat{\beta}} \vert X) = \sigma^2(X'X)^{-1}
+$$
+We estimate $\sigma^2$ with $\hat{\sigma}^2$:
+$$
+\hat{\sigma}^2 = \frac{\sum_{i=1}^ne_i^2}{n-K}.
+$$
+What does the variance-covariance matrix of the OLS estimator look like?
 
+$$
+E[(\hat{\boldsymbol{\beta}}-\boldsymbol{\beta})(\hat{\boldsymbol{\beta}}-\boldsymbol{\beta})^T \vert \boldsymbol{X}] = \begin{bmatrix}
+\text{Var}(\hat{\beta}_1 \vert \boldsymbol{X}) & \text{Cov}(\hat{\beta}_1, \hat{\beta}_2 \vert \boldsymbol{X}) & \cdots & \text{Cov}(\hat{\beta}_1, \hat{\beta}_K \vert \boldsymbol{X})  \\
+\text{Cov}(\hat{\beta}_1, \hat{\beta}_2 \vert \boldsymbol{X}) & \text{Var}(\hat{\beta}_2 \vert \boldsymbol{X}) & \cdots & \text{Cov}(\hat{\beta}_2, \hat{\beta}_K \vert \boldsymbol{X})  \\
+\vdots & \vdots & \ddots & \vdots \\
+\text{Cov}(\hat{\beta}_1, \hat{\beta}_K \vert \boldsymbol{X}) & \text{Cov}(\hat{\beta}_2, \hat{\beta}_K \boldsymbol{X}) & \cdots & \text{Var}(\hat{\beta}_K \vert \boldsymbol{X})  \\
+\end{bmatrix}
+$$
+The standard errors of the $\hat{\beta}$ are given by the square root of the main diagonal of the variance-covariance matrix.
 
+Under the assumption of normally distributed errors, $\boldsymbol{\varepsilon} \vert \boldsymbol{X} \sim N(\boldsymbol{0}, \sigma^2\boldsymbol{I})$, we have 
 
-
-
-
-
-
-
-
-
-
-
+$$
+\hat{\boldsymbol{\beta}} \sim N(\boldsymbol{\beta}, \sigma^2 (\boldsymbol{X}'\boldsymbol{X})^{-1}).
+$$
+Based on the distribution, we can conduct the hypothesis testing we are familiar with.
 
 
 
