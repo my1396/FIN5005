@@ -267,14 +267,23 @@ Note that
 <em>Assumption:</em> $X$ is an $n\times K$ matrix with full rank $K$.
 </div>
 
-In plain language, full rank means there are no exact linear relationships among the variables. \
+In plain language, <span style='color:#008B45FF'>full rank</span> means there are no exact linear relationships among the variables. \
 This assumption is known as the <span style='color:#337ab7'>identification condition</span>.
 
 $(X'X)^{-1}$ may not exist. If this is the case, then this matrix is called <span style='color:#337ab7'>non-invertible</span> or <span style='color:#337ab7'>singular</span> and is said to be of <span style='color:#337ab7'>less than full rank</span>. 
 
+In practice, we calculate the determinant of a matrix to determine whether a matrix is invertible.
+
+$$
+\text{det}(A) \begin{cases}
+\vert A \vert =0 \Longleftrightarrow A \text{ is singular ( or non-invertible), the inverse does not exist.} \\
+\vert A \vert \ne 0 \Longleftrightarrow A \text{ is non-singular (or invertible), the inverse exists.} 
+\end{cases}
+$$
+
 There are two possible reasons why this matrix might be non-invertible. 
 
-- One, based on a trivial theorem about rank, is that $n < k$ i.e., we have more independent variables than observations. This is unlikely to be a problem for us in practice. 
+- One is that $n < k,$ i.e., we have more independent variables than observations. This is unlikely to be a problem for us in practice. 
 - The other is that one or more of the independent variables are a linear combination of the other variables i.e. *perfect* multicollinearity.
 
 
@@ -291,13 +300,26 @@ meaning there is an exact linear dependency in the model.
 
 Aim: We want to show that $\boldsymbol{\beta}' = (\beta_1, \beta_2, \beta_3, \beta_4)$ cannot be uniquely identified.
 
-Now we let $\boldsymbol{\tilde{\beta}}' = (\beta_1, \tilde{\beta_2}+a, \tilde{\beta_3}+a, \tilde{\beta_4}-a)$ for any constant $a$. 
+Now we let $\boldsymbol{\tilde{\beta}}' = (\beta_1, \beta_2+a, \beta_3+a, \beta_4-a)$ for any constant $a$. That is
+
+$$
+\begin{aligned}
+\tilde{\beta_1} &= \beta_1 \\
+\tilde{\beta_2} &= \beta_2+a \\
+\tilde{\beta_3} &= \beta_3+a \\
+\tilde{\beta_4} &= \beta_4-a \\
+\end{aligned}
+$$
 
 Then we find that $\boldsymbol{x}'\boldsymbol{\beta} = \boldsymbol{x}'\boldsymbol{\tilde{\beta}}$. 
 
 In other words, there is no way to estimate the parameters of this model.
 ```
 
+
+
+
+___
 
 # Properties of OLS Estimators
 
@@ -443,6 +465,21 @@ In order to do appropriate estimation and inference, we need a list of assumptio
     \varepsilon_n |\boldsymbol{X} \\
     \end{bmatrix} = \boldsymbol{0}
     $$
+    
+    
+    $E[\boldsymbol{\varepsilon}_i |\boldsymbol{X}] =0$ means that the mean of each $\varepsilon_i$ conditional on all observations $\boldsymbol{x}_i$ is zero.
+    In plain language, no observations on $\boldsymbol{x}$ convey information about the expected value of the disturbance.
+
+    > This is not likely to be true in a time-series setting. The observation at $t$ might provide information about $E[\varepsilon_{t+1}]$, that is $E[\varepsilon_{t+1} \vert x_t} \ne 0$. This is called autocorrelation. 
+
+
+    The zero conditional mean implies that the unconditional mean is also zero. By the Law of Iterated Expectation (LIE),
+    
+    $$
+    E[\boldsymbol{\varepsilon}] = E_\boldsymbol{X}[E[\boldsymbol{\varepsilon} \vert \boldsymbol{X}]] = E_\boldsymbol{X}[\boldsymbol{0}] = \boldsymbol{0}
+    $$
+    Assumption 3 also implies that $\text{Cov}(\varepsilon_i|\boldsymbol{X})=0$ for all $i$.
+
 
 4. **Homoskedasticity and no autocorrelation**
 
@@ -493,6 +530,7 @@ In order to do appropriate estimation and inference, we need a list of assumptio
 We call models satisfying assumptions 1--5 as the "Classical Linear Regression Model."
 
 The Gauss-Markov Theorem states that, conditional on assumptions 1-5, there will be no other linear and unbiased estimator of the $\beta$ coefficients that has a smaller sampling variance. In other words, the OLS estimator is the <span style='color:#008B45FF'>**Best Linear, Unbiased and Efficient estimator (BLUE)**</span>.
+
 
 ___
 
