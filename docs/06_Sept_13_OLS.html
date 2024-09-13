@@ -683,16 +683,23 @@ E[\boldsymbol{\varepsilon} |\boldsymbol{X}] = E\begin{bmatrix}
 \varepsilon_n |\boldsymbol{X} \\
 \end{bmatrix} = \boldsymbol{0}
 \]</span></p>
-<p><span class="math inline">\(E[\boldsymbol{\varepsilon}_i |\boldsymbol{X}] =0\)</span> means that the mean of each <span class="math inline">\(\varepsilon_i\)</span> conditional on all observations <span class="math inline">\(\boldsymbol{x}_i\)</span> is zero.
-In plain language, no observations on <span class="math inline">\(\boldsymbol{x}\)</span> convey information about the expected value of the disturbance.</p>
+<ul>
+<li><span class="math inline">\(E[\boldsymbol{\varepsilon}_i |\boldsymbol{X}] =0\)</span> means that the mean of each <span class="math inline">\(\varepsilon_i\)</span> conditional on all observations <span class="math inline">\(\boldsymbol{x}_i\)</span> is zero.<br />
+In plain language, no observations on <span class="math inline">\(\boldsymbol{x}\)</span> convey information about the expected value of the disturbance.</li>
+</ul>
 <blockquote>
-<p>This is not likely to be true in a time-series setting. The observation at <span class="math inline">\(t\)</span> might provide information about <span class="math inline">\(E[\varepsilon_{t+1}]\)</span>, that is <span class="math inline">\(E[\varepsilon_{t+1} \vert x_t] \ne 0\)</span>. This is called autocorrelation.</p>
+<p>This is not likely to be true in a time-series setting. The observation at <span class="math inline">\(t\)</span>, <span class="math inline">\(x_t\)</span>, might provide information about <span class="math inline">\(E[\varepsilon_{t+1}]\)</span>, that is <span class="math inline">\(E[\varepsilon_{t+1} \vert x_t] \ne 0\)</span>. This is called <span style="color:#008B45FF">autocorrelation</span>.</p>
 </blockquote>
-<p>The zero conditional mean implies that the unconditional mean is also zero. By the Law of Iterated Expectation (LIE),</p>
+<ul>
+<li>The zero conditional mean implies that the unconditional mean is also zero. By the Law of Iterated Expectation (LIE),</li>
+</ul>
 <p><span class="math display">\[
-E[\boldsymbol{\varepsilon}] = E_\boldsymbol{X}[E[\boldsymbol{\varepsilon} \vert \boldsymbol{X}]] = E_\boldsymbol{X}[\boldsymbol{0}] = \boldsymbol{0}
-\]</span>
-Assumption 3 also implies that <span class="math inline">\(\text{Cov}(\varepsilon_i|\boldsymbol{X})=0\)</span> for all <span class="math inline">\(i\)</span>.</p></li>
+E[\boldsymbol{\varepsilon}] = E_\boldsymbol{X}\left[E[\boldsymbol{\varepsilon} \vert \boldsymbol{X}]\right] = E_\boldsymbol{X}[\boldsymbol{0}] = \boldsymbol{0}
+\]</span></p>
+<ul>
+<li><p>Assumption 3 also implies that <span class="math inline">\(\text{Cov}(\varepsilon_i|\boldsymbol{X})=0\)</span> for all <span class="math inline">\(i\)</span>.</p></li>
+<li><p><span class="math inline">\(E[\boldsymbol{y}|\boldsymbol{X}] = \boldsymbol{X\beta}\)</span>. That is, <span class="math inline">\(\boldsymbol{X\beta}\)</span> is the conditional mean function.</p></li>
+</ul></li>
 <li><p><strong>Homoskedasticity and no autocorrelation</strong></p>
 <p><span class="math inline">\(E[\boldsymbol{\varepsilon}\boldsymbol{\varepsilon}&#39;|X] = \sigma^2 \boldsymbol{I}\)</span> or in matrix form</p>
 <p><span class="math display">\[
@@ -715,12 +722,12 @@ E[\varepsilon_n\varepsilon_1 \vert \boldsymbol{X} ] &amp; E[\varepsilon_n\vareps
 <ul>
 <li><p>Variance of the disturbances:
 <span class="math display">\[
-\text{Var}[\varepsilon_i\vert \boldsymbol{X}] = \sigma^2 \qquad \text{ for all } i=1,\ldots,n.
+\text{Var}[\varepsilon_i\vert \boldsymbol{X}] = \sigma^2, \qquad \text{ for all } i=1,\ldots,n.
 \]</span>
-Constant variance is labeled <span style="color:#008B45FF"><strong>homoskedasticity</strong></span>.</p></li>
+Constant variance is labeled as <span style="color:#008B45FF"><strong>homoskedasticity</strong></span>.</p></li>
 <li><p>Covariance of the disturbances:
 <span class="math display">\[
-\text{Cov}[\varepsilon_i, \varepsilon_j\vert \boldsymbol{X}] = 0  \qquad \text{for all } i\ne j.
+\text{Cov}[\varepsilon_i, \varepsilon_j\vert \boldsymbol{X}] = 0,  \qquad \text{for all } i\ne j.
 \]</span>
 Uncorrelatedness across observations is labeled as <span style="color:#008B45FF"><strong>nonautocorrelation</strong></span>.</p></li>
 <li><p>We often denote the variacne-covariance matrix of the disturbances as <span class="math inline">\(\Omega=E[\boldsymbol{\varepsilon}\boldsymbol{\varepsilon}&#39;|X]\)</span>.</p></li>

@@ -469,20 +469,24 @@ In order to do appropriate estimation and inference, we need a list of assumptio
     $$
     
     
-    $E[\boldsymbol{\varepsilon}_i |\boldsymbol{X}] =0$ means that the mean of each $\varepsilon_i$ conditional on all observations $\boldsymbol{x}_i$ is zero.
+    - $E[\boldsymbol{\varepsilon}_i |\boldsymbol{X}] =0$ means that the mean of each $\varepsilon_i$ conditional on all observations $\boldsymbol{x}_i$ is zero. \
     In plain language, no observations on $\boldsymbol{x}$ convey information about the expected value of the disturbance.
 
-    > This is not likely to be true in a time-series setting. The observation at $t$ might provide information about $E[\varepsilon_{t+1}]$, that is $E[\varepsilon_{t+1} \vert x_t] \ne 0$. This is called autocorrelation. 
+    > This is not likely to be true in a time-series setting. The observation at $t$, $x_t$, might provide information about $E[\varepsilon_{t+1}]$, that is $E[\varepsilon_{t+1} \vert x_t] \ne 0$. This is called <span style='color:#008B45FF'>autocorrelation</span>. 
 
 
-    The zero conditional mean implies that the unconditional mean is also zero. By the Law of Iterated Expectation (LIE),
+    - The zero conditional mean implies that the unconditional mean is also zero. By the Law of Iterated Expectation (LIE),
     
     $$
-    E[\boldsymbol{\varepsilon}] = E_\boldsymbol{X}[E[\boldsymbol{\varepsilon} \vert \boldsymbol{X}]] = E_\boldsymbol{X}[\boldsymbol{0}] = \boldsymbol{0}
+    E[\boldsymbol{\varepsilon}] = E_\boldsymbol{X}\left[E[\boldsymbol{\varepsilon} \vert \boldsymbol{X}]\right] = E_\boldsymbol{X}[\boldsymbol{0}] = \boldsymbol{0}
     $$
-    Assumption 3 also implies that $\text{Cov}(\varepsilon_i|\boldsymbol{X})=0$ for all $i$.
+    
+    - Assumption 3 also implies that $\text{Cov}(\varepsilon_i|\boldsymbol{X})=0$ for all $i$.
+    
+    - $E[\boldsymbol{y}|\boldsymbol{X}] = \boldsymbol{X\beta}$. That is, $\boldsymbol{X\beta}$ is the conditional mean function.
 
 
+    
 4. **Homoskedasticity and no autocorrelation**
 
     $E[\boldsymbol{\varepsilon}\boldsymbol{\varepsilon}'|X] = \sigma^2 \boldsymbol{I}$ or in matrix form 
@@ -507,13 +511,13 @@ In order to do appropriate estimation and inference, we need a list of assumptio
 
     - Variance of the disturbances:
     $$
-    \text{Var}[\varepsilon_i\vert \boldsymbol{X}] = \sigma^2 \qquad \text{ for all } i=1,\ldots,n.
+    \text{Var}[\varepsilon_i\vert \boldsymbol{X}] = \sigma^2, \qquad \text{ for all } i=1,\ldots,n.
     $$
-    Constant variance is labeled <span style='color:#008B45FF'>**homoskedasticity**</span>.
+    Constant variance is labeled as <span style='color:#008B45FF'>**homoskedasticity**</span>.
     
     - Covariance of the disturbances:
     $$
-    \text{Cov}[\varepsilon_i, \varepsilon_j\vert \boldsymbol{X}] = 0  \qquad \text{for all } i\ne j.
+    \text{Cov}[\varepsilon_i, \varepsilon_j\vert \boldsymbol{X}] = 0,  \qquad \text{for all } i\ne j.
     $$
     Uncorrelatedness across observations is labeled as <span style='color:#008B45FF'>**nonautocorrelation**</span>.
     
