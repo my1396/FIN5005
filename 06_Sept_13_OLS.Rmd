@@ -415,7 +415,7 @@ $$
     
     Given $\overline{e}=0$, we have $\overline{y} = \overline{X}\hat{\beta}.$ That is, The regression hyperplane passes through the means of the observed values ($\overline{X}$ and $\overline{y}$).
 
-5. The predicted values of $\hat{y}$ are uncorrelated with the residuals.
+5. The predicted values, $\hat{\boldsymbol{y}}$, are uncorrelated with the residuals $\boldsymbol{e}$.
 $$
 \begin{aligned}
 \hat{\boldsymbol{y}}'\boldsymbol{e} &= (\boldsymbol{X}\hat{\boldsymbol{\beta}})'\boldsymbol{e} \\
@@ -423,7 +423,7 @@ $$
 &= \boldsymbol{0} \qquad (\boldsymbol{X}'\boldsymbol{e} = \boldsymbol{0})
 \end{aligned}
 $$
-6. The mean of the predicted $y$’s for the sample will equal the mean of the observed $y$’s i.e. $\overline{\hat{y}} = \overline{y}.$
+6. The mean of the predicted $y$’s for the sample will equal the mean of the observed $y$’s, i.e., $\overline{\hat{y}} = \overline{y}.$
 $$
 \begin{aligned}
 \overline{y} &= \frac{1}{n} \sum_{i=1}^n y_i \\
