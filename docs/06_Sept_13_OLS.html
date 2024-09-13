@@ -478,7 +478,7 @@ x_{k2} \\
 \vdots \\
 x_{kn}
 \end{pmatrix}_{n\times 1} \quad \text{and} \quad
-X = \begin{pmatrix}x_1, x_2, \ldots, x_K\end{pmatrix}_{n\times K}
+X = \begin{pmatrix}\boldsymbol{x}_1, \boldsymbol{x}_2, \ldots, \boldsymbol{x}_K\end{pmatrix}_{n\times K}
 \]</span></p>
 <p>Note that we typically use <strong>boldface</strong> to indicate vectors and matrices, and regular typeface for scalars.<br />
 But this convention is only loosely followed as it can be cumbersome for typing.</p>
@@ -552,10 +552,10 @@ meaning there is an exact linear dependency in the model.</p>
 <p>Now we let <span class="math inline">\(\boldsymbol{\tilde{\beta}}&#39; = (\beta_1, \beta_2+a, \beta_3+a, \beta_4-a)\)</span> for any constant <span class="math inline">\(a\)</span>. That is</p>
 <p><span class="math display">\[
 \begin{aligned}
-\tilde{\beta_1} &amp;= \beta_1 \\
-\tilde{\beta_2} &amp;= \beta_2+a \\
-\tilde{\beta_3} &amp;= \beta_3+a \\
-\tilde{\beta_4} &amp;= \beta_4-a \\
+\tilde{\beta}_1 &amp;= \beta_1 \\
+\tilde{\beta}_2 &amp;= \beta_2+a \\
+\tilde{\beta}_3 &amp;= \beta_3+a \\
+\tilde{\beta}_4 &amp;= \beta_4-a \\
 \end{aligned}
 \]</span></p>
 <p>Then we find that <span class="math inline">\(\boldsymbol{x}&#39;\boldsymbol{\beta} = \boldsymbol{x}&#39;\boldsymbol{\tilde{\beta}}\)</span>.</p>
@@ -571,7 +571,7 @@ meaning there is an exact linear dependency in the model.</p>
 <li>the error term <span class="math inline">\(\varepsilon\)</span> is from the population that cannot be observed;</li>
 <li>residuals <span class="math inline">\(e\)</span> are from samples that can be observed.</li>
 </ul>
-<p>Observed value <span class="math inline">\(y\)</span> corresponds to error term <span class="math inline">\(\varepsilon\)</span>:
+<p>Observed value <span class="math inline">\(y\)</span> corresponds to the error term <span class="math inline">\(\varepsilon\)</span>:
 <span class="math display">\[
 y=X\beta + \varepsilon
 \]</span></p>
@@ -618,33 +618,34 @@ x_K&#39;e
 \]</span></p>
 <p>Note that</p>
 <ol style="list-style-type: decimal">
-<li><p><span class="math inline">\(x_1&#39;e=0\)</span>, where <span class="math inline">\(x_1\)</span> is a <span class="math inline">\(n\times 1\)</span> column vector of 1, indicating the sum of the residuals is zero, i.e., <span class="math inline">\(\sum_{i=1}^n e_i =0\)</span>.</p></li>
+<li><p><span class="math inline">\(\boldsymbol{x}_1&#39;\boldsymbol{e}=0\)</span>, where <span class="math inline">\(\boldsymbol{x}_1\)</span> is a <span class="math inline">\(n\times 1\)</span> column vector of 1, indicating the sum of the residuals is zero, i.e., <span class="math inline">\(\sum_{i=1}^n e_i =0\)</span>.</p></li>
 <li><p>Following the last property, the sample average of residuals is zero. <span class="math inline">\(\overline{e}=\frac{1}{n}\sum_{i=1}^n e_i=0.\)</span></p></li>
 <li><p>By construction, the OLS residuals <span class="math inline">\(\boldsymbol{e}\)</span> in our sample are <span style="color:#337ab7">uncorrelated</span> with each of the <span class="math inline">\(K\)</span> explanatory variables included in the model.</p>
-<p>Uncorrelated means that <span class="math inline">\(\text{Cov}(x_k, e)=0\)</span>.</p>
+<p>Uncorrelated means that <span class="math inline">\(\text{Cov}(\boldsymbol{x}_k, \boldsymbol{e})=0\)</span>.</p>
 <p><span class="math display">\[
 \begin{align*}
-\text{Cov}(x_k, e) &amp;= E\left\{\left[x_k-E(x_k)\right] \left[e-E(e)\right]^T \right\} \\
-&amp;= E[x_ke^T] - E[x_k]E[e]^T \\
-&amp;= \boldsymbol{0} - E[x_k] \boldsymbol{0}  \qquad (E[e]=0 \text{ as } x_1&#39;e=0) \\
-&amp;= 0
+\text{Cov}(\boldsymbol{x}_k, \boldsymbol{e})  
+&amp;= E\left\{\left[\boldsymbol{x}_k - E(\boldsymbol{x}_k)\right] \left[\boldsymbol{e} - E(\boldsymbol{e})\right]^T \right\} \\
+&amp;= E[\boldsymbol{x}_k \boldsymbol{e}^T] - E[\boldsymbol{x}_k]E[\boldsymbol{e}]^T \\
+&amp;= \boldsymbol{0} - E[\boldsymbol{x}_k] \boldsymbol{0}^T  \qquad (E[\boldsymbol{e}]=0 \text{ as } \boldsymbol{x}_1&#39;\boldsymbol{e}=0) \\
+&amp;= \boldsymbol{0}
 \end{align*}
 \]</span></p></li>
-<li><p><span class="math inline">\(\overline{y}= \overline{x}\hat{\beta}\)</span>. This follows from the property <span class="math inline">\(\overline{e}=0\)</span>.
+<li><p><span class="math inline">\(\overline{\boldsymbol{y}}= \overline{\boldsymbol{X}}\hat{\boldsymbol{\beta}}\)</span>. This follows from the property <span class="math inline">\(\overline{e}=0\)</span>.
 <span class="math display">\[
-e=y-X\hat{\beta}
+\boldsymbol{e} = \boldsymbol{y} - \boldsymbol{X}\hat{\boldsymbol{\beta}}
 \]</span>
 Sum all observations and divide by <span class="math inline">\(n\)</span>:
 <span class="math display">\[
 \overline{e} = \overline{y} - \overline{X}\hat{\beta}.
-\]</span>
-Given <span class="math inline">\(\overline{e}=0\)</span>, we have <span class="math inline">\(\overline{y} = \overline{X}\hat{\beta}.\)</span> That is, The regression hyperplane passes through the means of the observed values (<span class="math inline">\(\overline{X}\)</span> and <span class="math inline">\(\overline{y}\)</span>).</p></li>
+\]</span></p>
+<p>Given <span class="math inline">\(\overline{e}=0\)</span>, we have <span class="math inline">\(\overline{y} = \overline{X}\hat{\beta}.\)</span> That is, The regression hyperplane passes through the means of the observed values (<span class="math inline">\(\overline{X}\)</span> and <span class="math inline">\(\overline{y}\)</span>).</p></li>
 <li><p>The predicted values of <span class="math inline">\(\hat{y}\)</span> are uncorrelated with the residuals.
 <span class="math display">\[
 \begin{aligned}
-\hat{y}&#39;e &amp;= (X\hat{\beta})&#39;e \\
-&amp;= \hat{\beta}&#39;X&#39;e \\
-&amp;= 0 \qquad (X&#39;e=0)
+\hat{\boldsymbol{y}}&#39;\boldsymbol{e} &amp;= (\boldsymbol{X}\hat{\boldsymbol{\beta}})&#39;\boldsymbol{e} \\
+&amp;= \hat{\boldsymbol{\beta}}&#39;\boldsymbol{X}&#39;\boldsymbol{e} \\
+&amp;= \boldsymbol{0} \qquad (\boldsymbol{X}&#39;\boldsymbol{e} = \boldsymbol{0})
 \end{aligned}
 \]</span></p></li>
 <li><p>The mean of the predicted <span class="math inline">\(y\)</span>’s for the sample will equal the mean of the observed <span class="math inline">\(y\)</span>’s i.e. <span class="math inline">\(\overline{\hat{y}} = \overline{y}.\)</span>
@@ -698,10 +699,10 @@ Assumption 3 also implies that <span class="math inline">\(\text{Cov}(\varepsilo
 \begin{aligned}
 E[\boldsymbol{\varepsilon}\boldsymbol{\varepsilon}&#39;|X] &amp;=
 \begin{bmatrix}
-E[\epsilon_1^2 \vert \boldsymbol{X} ] &amp; E[\epsilon_1\epsilon_2 \vert \boldsymbol{X}] &amp; \cdots  &amp; E[\epsilon_1\epsilon_n \vert \boldsymbol{X}] \\
-E[\epsilon_2\epsilon_1 \vert \boldsymbol{X} ] &amp; E[\epsilon_2^2 \vert \boldsymbol{X}] &amp; \cdots  &amp; E[\epsilon_2\epsilon_n \vert \boldsymbol{X}] \\
+E[\varepsilon_1^2 \vert \boldsymbol{X} ] &amp; E[\varepsilon_1\varepsilon_2 \vert \boldsymbol{X}] &amp; \cdots  &amp; E[\varepsilon_1\varepsilon_n \vert \boldsymbol{X}] \\
+E[\varepsilon_2\varepsilon_1 \vert \boldsymbol{X} ] &amp; E[\varepsilon_2^2 \vert \boldsymbol{X}] &amp; \cdots  &amp; E[\varepsilon_2\varepsilon_n \vert \boldsymbol{X}] \\
 \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
-E[\epsilon_n\epsilon_1 \vert \boldsymbol{X} ] &amp; E[\epsilon_n\epsilon_2 \vert \boldsymbol{X}] &amp; \cdots  &amp; E[\epsilon_n^2 \vert \boldsymbol{X}] \\
+E[\varepsilon_n\varepsilon_1 \vert \boldsymbol{X} ] &amp; E[\varepsilon_n\varepsilon_2 \vert \boldsymbol{X}] &amp; \cdots  &amp; E[\varepsilon_n^2 \vert \boldsymbol{X}] \\
 \end{bmatrix}  \\
 &amp;= \begin{bmatrix}
 \sigma^2 &amp; 0 &amp; \cdots &amp; 0 \\
@@ -714,26 +715,25 @@ E[\epsilon_n\epsilon_1 \vert \boldsymbol{X} ] &amp; E[\epsilon_n\epsilon_2 \vert
 <ul>
 <li><p>Variance of the disturbances:
 <span class="math display">\[
-\text{Var}[\epsilon\vert \boldsymbol{X}] = \sigma^2
+\text{Var}[\varepsilon_i\vert \boldsymbol{X}] = \sigma^2 \qquad \text{ for all } i=1,\ldots,n.
 \]</span>
-for all <span class="math inline">\(i=1,\ldots,n.\)</span>
 Constant variance is labeled <span style="color:#008B45FF"><strong>homoskedasticity</strong></span>.</p></li>
 <li><p>Covariance of the disturbances:
 <span class="math display">\[
-\text{Cov}[\epsilon_i, \epsilon_j\vert \boldsymbol{X}] = 0
+\text{Cov}[\varepsilon_i, \varepsilon_j\vert \boldsymbol{X}] = 0  \qquad \text{for all } i\ne j.
 \]</span>
 Uncorrelatedness across observations is labeled as <span style="color:#008B45FF"><strong>nonautocorrelation</strong></span>.</p></li>
 <li><p>We often denote the variacne-covariance matrix of the disturbances as <span class="math inline">\(\Omega=E[\boldsymbol{\varepsilon}\boldsymbol{\varepsilon}&#39;|X]\)</span>.</p></li>
 </ul>
-<p>In case of homoskedasticity and nonautocorrelation, we have <span class="math inline">\(\Omega=\sigma^2\boldsymbol{I}.\)</span> And we call the disturbances spherical disturbances.</p></li>
+<p>In case of homoskedasticity and nonautocorrelation, we have <span class="math inline">\(\Omega=\sigma^2\boldsymbol{I}.\)</span> And we call the disturbances <span style="color:#337ab7">spherical disturbances</span>.</p></li>
 <li><p><strong>Normal distribution of disturbances</strong></p>
-<p><span class="math inline">\(\boldsymbol{e}\vert \boldsymbol{X} \sim N(\boldsymbol{0}, \sigma^2\boldsymbol{I})\)</span>. We assume that the disturbances are normally distributed, with zero mean and constant variance.</p>
+<p><span class="math inline">\(\boldsymbol{\varepsilon}\vert \boldsymbol{X} \sim N(\boldsymbol{0}, \sigma^2\boldsymbol{I})\)</span>. We assume that the disturbances are normally distributed, with zero mean and constant variance.</p>
 <ul>
 <li>A useful implication of this assumption is that it implies that observations on <span class="math inline">\(\varepsilon_i\)</span> are statistically independent as well as uncorrelated.</li>
 <li>Normality is not necessary to obtainmanyof the resultsweuse in multiple regression analysis, although it will enable us to obtain several exact statistical results. It does prove useful in constructing test statistics. Later, it will be possible to relax this assumption and retain most of the statistical results we obtain here.</li>
 </ul></li>
 </ol>
-<p>We call models satisfying assumptions 1–5 as the “Classical Linear Regression Model.”</p>
+<p>We call models satisfying assumptions 1–5 as the “<span style="color:#337ab7"><strong>Classical Linear Regression Model</strong></span>.”</p>
 <p>The Gauss-Markov Theorem states that, conditional on assumptions 1-5, there will be no other linear and unbiased estimator of the <span class="math inline">\(\beta\)</span> coefficients that has a smaller sampling variance. In other words, the OLS estimator is the <span style="color:#008B45FF"><strong>Best Linear, Unbiased and Efficient estimator (BLUE)</strong></span>.</p>
 <hr />
 <div id="mean-and-variance-of-least-squres-estimator" class="section level2">
@@ -758,16 +758,16 @@ E[\hat{\beta}-\beta \vert X] &amp;= E[ (X&#39;X)^{-1}(X&#39;\varepsilon) \vert X
 <p>Variance of least-squares estimator:</p>
 <p><span class="math display">\[
 \begin{aligned}
-\text{Var}(\boldsymbol{\hat{\beta}} \vert X) &amp;= E[(\hat{\boldsymbol{\beta}}-\boldsymbol{\beta})(\hat{\boldsymbol{\beta}}-\boldsymbol{\beta})^T \vert \boldsymbol{X}] \\
-&amp;= E[(X&#39;X)^{-1}X&#39;\varepsilon\varepsilon&#39;X(X&#39;X)^{-1} \vert \boldsymbol{X}] \\
-&amp;= (X&#39;X)^{-1}X&#39;\, E[\boldsymbol{\varepsilon\varepsilon}&#39;\vert \boldsymbol{X}] \, X(X&#39;X)^{-1} \\
+\text{Var}(\boldsymbol{\hat{\beta}} \vert \boldsymbol{X}) &amp;= E\left[(\hat{\boldsymbol{\beta}}-\boldsymbol{\beta})(\hat{\boldsymbol{\beta}}-\boldsymbol{\beta})^T \vert \boldsymbol{X} \right] \\
+&amp;= E\left[(X&#39;X)^{-1}X&#39;\varepsilon\varepsilon&#39;X(X&#39;X)^{-1} \vert \boldsymbol{X}\right] \\
+&amp;= (X&#39;X)^{-1}X&#39;\, E\left[\boldsymbol{\varepsilon\varepsilon}&#39;\vert \boldsymbol{X}\right] \, X(X&#39;X)^{-1} \\
 &amp;= (X&#39;X)^{-1}X&#39;\, \Omega \, X(X&#39;X)^{-1}
 \end{aligned}
 \]</span>
 where <span class="math inline">\(\Omega=E[\boldsymbol{\varepsilon\varepsilon}&#39;\vert \boldsymbol{X}]\)</span>.</p>
 <p>In case of the linear homoskedastic regression model, we have <span class="math inline">\(E[\boldsymbol{\varepsilon\varepsilon}&#39;\vert \boldsymbol{X}]=\sigma^2\boldsymbol{I}\)</span>. The variance matrix simplifies to
 <span class="math display">\[
-\boldsymbol{V}_{\hat{\boldsymbol{\hat{\beta}}}} = \text{Var}(\boldsymbol{\hat{\beta}} \vert X) = \sigma^2(X&#39;X)^{-1}
+\boldsymbol{V}_{\hat{\boldsymbol{\beta}}} = \text{Var}(\hat{\boldsymbol{\beta}} \vert \boldsymbol{X}) = \sigma^2(\boldsymbol{X}&#39;\boldsymbol{X})^{-1}
 \]</span>
 We estimate <span class="math inline">\(\sigma^2\)</span> with <span class="math inline">\(\hat{\sigma}^2\)</span>:
 <span class="math display">\[

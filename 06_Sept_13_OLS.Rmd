@@ -210,7 +210,7 @@ x_{k2} \\
 \vdots \\
 x_{kn}
 \end{pmatrix}_{n\times 1} \quad \text{and} \quad
-X = \begin{pmatrix}x_1, x_2, \ldots, x_K\end{pmatrix}_{n\times K}
+X = \begin{pmatrix}\boldsymbol{x}_1, \boldsymbol{x}_2, \ldots, \boldsymbol{x}_K\end{pmatrix}_{n\times K}
 $$
 
 Note that we typically use **boldface** to indicate vectors and matrices, and regular typeface for scalars. \
@@ -304,10 +304,10 @@ Now we let $\boldsymbol{\tilde{\beta}}' = (\beta_1, \beta_2+a, \beta_3+a, \beta_
 
 $$
 \begin{aligned}
-\tilde{\beta_1} &= \beta_1 \\
-\tilde{\beta_2} &= \beta_2+a \\
-\tilde{\beta_3} &= \beta_3+a \\
-\tilde{\beta_4} &= \beta_4-a \\
+\tilde{\beta}_1 &= \beta_1 \\
+\tilde{\beta}_2 &= \beta_2+a \\
+\tilde{\beta}_3 &= \beta_3+a \\
+\tilde{\beta}_4 &= \beta_4-a \\
 \end{aligned}
 $$
 
@@ -330,7 +330,7 @@ Note that we distinguish the error term $\varepsilon$ from residuals $e$.
 - the error term $\varepsilon$ is from the population that cannot be observed;
 - residuals $e$ are from samples that can be observed.
 
-Observed value $y$ corresponds to error term $\varepsilon$:
+Observed value $y$ corresponds to the error term $\varepsilon$:
 $$
 y=X\beta + \varepsilon
 $$
@@ -385,40 +385,42 @@ $$
 
 Note that 
 
-1. $x_1'e=0$, where $x_1$ is a $n\times 1$ column vector of 1, indicating the sum of the residuals is zero, i.e., $\sum_{i=1}^n e_i =0$.
+1. $\boldsymbol{x}_1'\boldsymbol{e}=0$, where $\boldsymbol{x}_1$ is a $n\times 1$ column vector of 1, indicating the sum of the residuals is zero, i.e., $\sum_{i=1}^n e_i =0$.
 
 2. Following the last property, the sample average of residuals is zero. $\overline{e}=\frac{1}{n}\sum_{i=1}^n e_i=0.$
 
 3. By construction, the OLS residuals $\boldsymbol{e}$ in our sample are <span style='color:#337ab7'>uncorrelated</span> with each of the $K$ explanatory variables included in the model.
 
-    Uncorrelated means that $\text{Cov}(x_k, e)=0$.
+    Uncorrelated means that $\text{Cov}(\boldsymbol{x}_k, \boldsymbol{e})=0$.
 
     $$
     \begin{align*}
-    \text{Cov}(x_k, e) &= E\left\{\left[x_k-E(x_k)\right] \left[e-E(e)\right]^T \right\} \\
-    &= E[x_ke^T] - E[x_k]E[e]^T \\
-    &= \boldsymbol{0} - E[x_k] \boldsymbol{0}  \qquad (E[e]=0 \text{ as } x_1'e=0) \\
-    &= 0
+    \text{Cov}(\boldsymbol{x}_k, \boldsymbol{e})  
+    &= E\left\{\left[\boldsymbol{x}_k - E(\boldsymbol{x}_k)\right] \left[\boldsymbol{e} - E(\boldsymbol{e})\right]^T \right\} \\
+    &= E[\boldsymbol{x}_k \boldsymbol{e}^T] - E[\boldsymbol{x}_k]E[\boldsymbol{e}]^T \\
+    &= \boldsymbol{0} - E[\boldsymbol{x}_k] \boldsymbol{0}^T  \qquad (E[\boldsymbol{e}]=0 \text{ as } \boldsymbol{x}_1'\boldsymbol{e}=0) \\
+    &= \boldsymbol{0}
     \end{align*} 
     $$
 
 
-4. $\overline{y}= \overline{x}\hat{\beta}$. This follows from the property $\overline{e}=0$.
+4. $\overline{\boldsymbol{y}}= \overline{\boldsymbol{X}}\hat{\boldsymbol{\beta}}$. This follows from the property $\overline{e}=0$.
 $$
-e=y-X\hat{\beta}
+\boldsymbol{e} = \boldsymbol{y} - \boldsymbol{X}\hat{\boldsymbol{\beta}}
 $$
-Sum all observations and divide by $n$:
-$$
-\overline{e} = \overline{y} - \overline{X}\hat{\beta}.
-$$
-Given $\overline{e}=0$, we have $\overline{y} = \overline{X}\hat{\beta}.$ That is, The regression hyperplane passes through the means of the observed values ($\overline{X}$ and $\overline{y}$).
+    Sum all observations and divide by $n$:
+    $$
+    \overline{e} = \overline{y} - \overline{X}\hat{\beta}.
+    $$
+    
+    Given $\overline{e}=0$, we have $\overline{y} = \overline{X}\hat{\beta}.$ That is, The regression hyperplane passes through the means of the observed values ($\overline{X}$ and $\overline{y}$).
 
 5. The predicted values of $\hat{y}$ are uncorrelated with the residuals.
 $$
 \begin{aligned}
-\hat{y}'e &= (X\hat{\beta})'e \\
-&= \hat{\beta}'X'e \\
-&= 0 \qquad (X'e=0)
+\hat{\boldsymbol{y}}'\boldsymbol{e} &= (\boldsymbol{X}\hat{\boldsymbol{\beta}})'\boldsymbol{e} \\
+&= \hat{\boldsymbol{\beta}}'\boldsymbol{X}'\boldsymbol{e} \\
+&= \boldsymbol{0} \qquad (\boldsymbol{X}'\boldsymbol{e} = \boldsymbol{0})
 \end{aligned}
 $$
 6. The mean of the predicted $y$’s for the sample will equal the mean of the observed $y$’s i.e. $\overline{\hat{y}} = \overline{y}.$
@@ -489,10 +491,10 @@ In order to do appropriate estimation and inference, we need a list of assumptio
     \begin{aligned}
     E[\boldsymbol{\varepsilon}\boldsymbol{\varepsilon}'|X] &= 
     \begin{bmatrix} 
-    E[\epsilon_1^2 \vert \boldsymbol{X} ] & E[\epsilon_1\epsilon_2 \vert \boldsymbol{X}] & \cdots  & E[\epsilon_1\epsilon_n \vert \boldsymbol{X}] \\
-    E[\epsilon_2\epsilon_1 \vert \boldsymbol{X} ] & E[\epsilon_2^2 \vert \boldsymbol{X}] & \cdots  & E[\epsilon_2\epsilon_n \vert \boldsymbol{X}] \\
+    E[\varepsilon_1^2 \vert \boldsymbol{X} ] & E[\varepsilon_1\varepsilon_2 \vert \boldsymbol{X}] & \cdots  & E[\varepsilon_1\varepsilon_n \vert \boldsymbol{X}] \\
+    E[\varepsilon_2\varepsilon_1 \vert \boldsymbol{X} ] & E[\varepsilon_2^2 \vert \boldsymbol{X}] & \cdots  & E[\varepsilon_2\varepsilon_n \vert \boldsymbol{X}] \\
     \vdots & \vdots & \ddots & \vdots \\
-    E[\epsilon_n\epsilon_1 \vert \boldsymbol{X} ] & E[\epsilon_n\epsilon_2 \vert \boldsymbol{X}] & \cdots  & E[\epsilon_n^2 \vert \boldsymbol{X}] \\
+    E[\varepsilon_n\varepsilon_1 \vert \boldsymbol{X} ] & E[\varepsilon_n\varepsilon_2 \vert \boldsymbol{X}] & \cdots  & E[\varepsilon_n^2 \vert \boldsymbol{X}] \\
     \end{bmatrix}  \\
     &= \begin{bmatrix}
     \sigma^2 & 0 & \cdots & 0 \\
@@ -505,29 +507,28 @@ In order to do appropriate estimation and inference, we need a list of assumptio
 
     - Variance of the disturbances:
     $$
-    \text{Var}[\epsilon\vert \boldsymbol{X}] = \sigma^2
+    \text{Var}[\varepsilon_i\vert \boldsymbol{X}] = \sigma^2 \qquad \text{ for all } i=1,\ldots,n.
     $$
-    for all $i=1,\ldots,n.$
     Constant variance is labeled <span style='color:#008B45FF'>**homoskedasticity**</span>.
     
     - Covariance of the disturbances:
     $$
-    \text{Cov}[\epsilon_i, \epsilon_j\vert \boldsymbol{X}] = 0
+    \text{Cov}[\varepsilon_i, \varepsilon_j\vert \boldsymbol{X}] = 0  \qquad \text{for all } i\ne j.
     $$
     Uncorrelatedness across observations is labeled as <span style='color:#008B45FF'>**nonautocorrelation**</span>.
     
     - We often denote the variacne-covariance matrix of the disturbances as $\Omega=E[\boldsymbol{\varepsilon}\boldsymbol{\varepsilon}'|X]$.
     
-    In case of homoskedasticity and nonautocorrelation, we have $\Omega=\sigma^2\boldsymbol{I}.$ And we call the disturbances spherical disturbances.
+    In case of homoskedasticity and nonautocorrelation, we have $\Omega=\sigma^2\boldsymbol{I}.$ And we call the disturbances <span style='color:#337ab7'>spherical disturbances</span>.
     
 5. **Normal distribution of disturbances**
 
-    $\boldsymbol{e}\vert \boldsymbol{X} \sim N(\boldsymbol{0}, \sigma^2\boldsymbol{I})$. We assume that the disturbances are normally distributed, with zero mean and constant variance.
+    $\boldsymbol{\varepsilon}\vert \boldsymbol{X} \sim N(\boldsymbol{0}, \sigma^2\boldsymbol{I})$. We assume that the disturbances are normally distributed, with zero mean and constant variance.
     
     - A useful implication of this assumption is that it implies that observations on $\varepsilon_i$ are statistically independent as well as uncorrelated.
     - Normality is not necessary to obtainmanyof the resultsweuse in multiple regression analysis, although it will enable us to obtain several exact statistical results. It does prove useful in constructing test statistics. Later, it will be possible to relax this assumption and retain most of the statistical results we obtain here. 
 
-We call models satisfying assumptions 1--5 as the "<span style='color:#337ab7'>Classical Linear Regression Model</span>."
+We call models satisfying assumptions 1--5 as the "<span style='color:#337ab7'>**Classical Linear Regression Model**</span>."
 
 The Gauss-Markov Theorem states that, conditional on assumptions 1-5, there will be no other linear and unbiased estimator of the $\beta$ coefficients that has a smaller sampling variance. In other words, the OLS estimator is the <span style='color:#008B45FF'>**Best Linear, Unbiased and Efficient estimator (BLUE)**</span>.
 
@@ -559,9 +560,9 @@ Variance of least-squares estimator:
 
 $$
 \begin{aligned}
-\text{Var}(\boldsymbol{\hat{\beta}} \vert X) &= E[(\hat{\boldsymbol{\beta}}-\boldsymbol{\beta})(\hat{\boldsymbol{\beta}}-\boldsymbol{\beta})^T \vert \boldsymbol{X}] \\
-&= E[(X'X)^{-1}X'\varepsilon\varepsilon'X(X'X)^{-1} \vert \boldsymbol{X}] \\
-&= (X'X)^{-1}X'\, E[\boldsymbol{\varepsilon\varepsilon}'\vert \boldsymbol{X}] \, X(X'X)^{-1} \\
+\text{Var}(\boldsymbol{\hat{\beta}} \vert \boldsymbol{X}) &= E\left[(\hat{\boldsymbol{\beta}}-\boldsymbol{\beta})(\hat{\boldsymbol{\beta}}-\boldsymbol{\beta})^T \vert \boldsymbol{X} \right] \\
+&= E\left[(X'X)^{-1}X'\varepsilon\varepsilon'X(X'X)^{-1} \vert \boldsymbol{X}\right] \\
+&= (X'X)^{-1}X'\, E\left[\boldsymbol{\varepsilon\varepsilon}'\vert \boldsymbol{X}\right] \, X(X'X)^{-1} \\
 &= (X'X)^{-1}X'\, \Omega \, X(X'X)^{-1}
 \end{aligned}
 $$
@@ -569,7 +570,7 @@ where $\Omega=E[\boldsymbol{\varepsilon\varepsilon}'\vert \boldsymbol{X}]$.
 
 In case of the linear homoskedastic regression model, we have $E[\boldsymbol{\varepsilon\varepsilon}'\vert \boldsymbol{X}]=\sigma^2\boldsymbol{I}$. The variance matrix simplifies to 
 $$
-\boldsymbol{V}_{\hat{\boldsymbol{\hat{\beta}}}} = \text{Var}(\boldsymbol{\hat{\beta}} \vert X) = \sigma^2(X'X)^{-1}
+\boldsymbol{V}_{\hat{\boldsymbol{\beta}}} = \text{Var}(\hat{\boldsymbol{\beta}} \vert \boldsymbol{X}) = \sigma^2(\boldsymbol{X}'\boldsymbol{X})^{-1}
 $$
 We estimate $\sigma^2$ with $\hat{\sigma}^2$:
 $$
