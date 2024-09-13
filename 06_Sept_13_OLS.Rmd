@@ -470,7 +470,7 @@ In order to do appropriate estimation and inference, we need a list of assumptio
     $E[\boldsymbol{\varepsilon}_i |\boldsymbol{X}] =0$ means that the mean of each $\varepsilon_i$ conditional on all observations $\boldsymbol{x}_i$ is zero.
     In plain language, no observations on $\boldsymbol{x}$ convey information about the expected value of the disturbance.
 
-    > This is not likely to be true in a time-series setting. The observation at $t$ might provide information about $E[\varepsilon_{t+1}]$, that is $E[\varepsilon_{t+1} \vert x_t} \ne 0$. This is called autocorrelation. 
+    > This is not likely to be true in a time-series setting. The observation at $t$ might provide information about $E[\varepsilon_{t+1}]$, that is $E[\varepsilon_{t+1} \vert x_t] \ne 0$. This is called autocorrelation. 
 
 
     The zero conditional mean implies that the unconditional mean is also zero. By the Law of Iterated Expectation (LIE),
@@ -527,7 +527,7 @@ In order to do appropriate estimation and inference, we need a list of assumptio
     - A useful implication of this assumption is that it implies that observations on $\varepsilon_i$ are statistically independent as well as uncorrelated.
     - Normality is not necessary to obtainmanyof the resultsweuse in multiple regression analysis, although it will enable us to obtain several exact statistical results. It does prove useful in constructing test statistics. Later, it will be possible to relax this assumption and retain most of the statistical results we obtain here. 
 
-We call models satisfying assumptions 1--5 as the "Classical Linear Regression Model."
+We call models satisfying assumptions 1--5 as the "<span style='color:#337ab7'>Classical Linear Regression Model</span>."
 
 The Gauss-Markov Theorem states that, conditional on assumptions 1-5, there will be no other linear and unbiased estimator of the $\beta$ coefficients that has a smaller sampling variance. In other words, the OLS estimator is the <span style='color:#008B45FF'>**Best Linear, Unbiased and Efficient estimator (BLUE)**</span>.
 

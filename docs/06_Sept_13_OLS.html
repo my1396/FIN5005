@@ -14,10 +14,9 @@
 
 <title>OLS – Lecture</title>
 
-<script src="site_libs/header-attrs-2.24/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -30,8 +29,11 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 
 <style type="text/css">
@@ -221,6 +223,69 @@ $(document).ready(function () {
 
 
 
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
 
 </head>
 
@@ -228,6 +293,16 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -270,75 +345,43 @@ $(document).ready(function () {
 <p><a class="top-link" href="#top" id="js-top">↑</a></p>
 <div id="linear-regression-model" class="section level1">
 <h1>Linear Regression Model</h1>
-<p>The multiple linear regression model is used to study the
-relationship between a <span style="color:#337ab7">dependent
-variable</span> and one or more <span style="color:#337ab7">independent
-variables</span>. The <strong>generic form of the linear regression
-model</strong> is</p>
-<p><span class="math display">\[
+<p>The multiple linear regression model is used to study the relationship between a <span style="color:#337ab7">dependent variable</span> and one or more <span style="color:#337ab7">independent variables</span>. The <strong>generic form of the linear regression model</strong> is</p>
+<p><span class="math display" id="eq:scalar-form">\[
 \begin{equation}
 \begin{aligned}
 y_i &amp;= f(x_{1i}, x_{2i}, \ldots, x_{Ki}) + \varepsilon_i \\
-&amp;= x_{1i} \beta_1 + x_{2i} \beta_2 + \cdots + x_{Ki} \beta_K +
-\varepsilon_i
-\end{aligned}(\#eq:scalar-form)
+&amp;= x_{1i} \beta_1 + x_{2i} \beta_2 + \cdots + x_{Ki} \beta_K + \varepsilon_i
+\end{aligned}\tag{1}
 \end{equation}
-\]</span> where</p>
+\]</span>
+where</p>
 <ul>
-<li><span class="math inline">\(y_i\)</span> is the <span
-style="color:#337ab7">dependent</span> or <span
-style="color:#337ab7">explained</span> variable for observation <span
-class="math inline">\(i\)</span>;</li>
-<li><span class="math inline">\(x_{1i}, x_{2i}, \ldots, x_{Ki}\)</span>
-are the <span style="color:#337ab7">independent</span> or <span
-style="color:#337ab7">explanatory variables</span>, also called the
-<span style="color:#337ab7">regressors</span>, <span
-style="color:#337ab7">predictors</span>, or <span
-style="color:#337ab7">covariates</span>.</li>
-<li><span class="math inline">\(\beta_1, \beta_2, \ldots,
-\beta_K\)</span> are the unknown parameters that we want to
-estimate.</li>
+<li><span class="math inline">\(y_i\)</span> is the <span style="color:#337ab7">dependent</span> or <span style="color:#337ab7">explained</span> variable for observation <span class="math inline">\(i\)</span>;</li>
+<li><span class="math inline">\(x_{1i}, x_{2i}, \ldots, x_{Ki}\)</span> are the <span style="color:#337ab7">independent</span> or <span style="color:#337ab7">explanatory variables</span>, also called the <span style="color:#337ab7">regressors</span>, <span style="color:#337ab7">predictors</span>, or <span style="color:#337ab7">covariates</span>.</li>
+<li><span class="math inline">\(\beta_1, \beta_2, \ldots, \beta_K\)</span> are the unknown parameters that we want to estimate.</li>
 </ul>
-<p>and a sample of <span class="math inline">\(n\)</span> observations
-indexed <span class="math inline">\(i = 1, 2, \ldots, n.\)</span></p>
-<p>Eq. @ref(eq:scalar-form) is referred to as the scalar form.</p>
-<p>We usually let <span class="math inline">\(x_{1i}=1\)</span> for all
-<span class="math inline">\(i=1, 2, \ldots, n,\)</span>; where the
-parameter <span class="math inline">\(\beta_1\)</span> corresponds to
-the <span style="color:#008B45FF">intercept</span>.</p>
-<p>The error term <span class="math inline">\(\varepsilon_i\)</span> is
-a random disturbance, so named because it “disturbs” an otherwise stable
-relationship, hence also called as “disturbances.”<br />
-<span class="math inline">\(\varepsilon_i\)</span> reflects the combined
-effect of all additional influences on the outcome variable <span
-class="math inline">\(y_i\)</span>.</p>
-<p>Several reasons why we need the error term <span
-class="math inline">\(\varepsilon_i\)</span>:</p>
+<p>and a sample of <span class="math inline">\(n\)</span> observations indexed <span class="math inline">\(i = 1, 2, \ldots, n.\)</span></p>
+<p>Eq. <a href="#eq:scalar-form">(1)</a> is referred to as the scalar form.</p>
+<p>We usually let <span class="math inline">\(x_{1i}=1\)</span> for all <span class="math inline">\(i=1, 2, \ldots, n,\)</span>; where the parameter <span class="math inline">\(\beta_1\)</span> corresponds to the <span style="color:#008B45FF">intercept</span>.</p>
+<p>The error term <span class="math inline">\(\varepsilon_i\)</span> is a random disturbance, so named because it “disturbs” an otherwise stable relationship, hence also called as “disturbances.”<br />
+<span class="math inline">\(\varepsilon_i\)</span> reflects the combined effect of all additional influences on the outcome variable <span class="math inline">\(y_i\)</span>.</p>
+<p>Several reasons why we need the error term <span class="math inline">\(\varepsilon_i\)</span>:</p>
 <ul>
-<li>the effect of relevant variables not included in our set of <span
-class="math inline">\(K\)</span> explanatory variables (omitted
-variables);</li>
-<li>any non-linear effects of our included variables <span
-class="math inline">\((x_{1i}, x_{2i}, \ldots, x_{Ki})\)</span>;</li>
-<li>measurement errors: For example, the difficulty of obtaining
-reasonable measures of incomes and expenditures. People might overstate
-incomes to make it look better.</li>
-<li>the factor is not observable. For instance, the aptitude or soft
-skills of people affect their income levels.</li>
+<li>the effect of relevant variables not included in our set of <span class="math inline">\(K\)</span> explanatory variables (omitted variables);</li>
+<li>any non-linear effects of our included variables <span class="math inline">\((x_{1i}, x_{2i}, \ldots, x_{Ki})\)</span>;</li>
+<li>measurement errors: For example, the difficulty of obtaining reasonable measures of incomes and expenditures. People might overstate incomes to make it look better.</li>
+<li>the factor is not observable. For instance, the aptitude or soft skills of people affect their income levels.</li>
 </ul>
 <p><strong>Notation</strong></p>
-<p><span style="color:#008B45FF">The scalar form</span> <span
-class="math display">\[
-\color{#008B45FF}{y_i = x_{1i} \beta_1 + x_{2i} \beta_2 + \cdots +
-x_{Ki} \beta_K + \varepsilon_i}
-\]</span> can be written in <span style="color:#008B45FF">vector
-form</span>:</p>
+<p><span style="color:#008B45FF">The scalar form</span>
+<span class="math display">\[
+\color{#008B45FF}{y_i = x_{1i} \beta_1 + x_{2i} \beta_2 + \cdots + x_{Ki} \beta_K + \varepsilon_i}
+\]</span>
+can be written in <span style="color:#008B45FF">vector form</span>:</p>
 <p><span class="math display">\[
-\color{#008B45FF}{y_i = \boldsymbol{x}_i&#39;\boldsymbol{\beta} +
-\varepsilon_i}
-\]</span> where <span class="math inline">\(\boldsymbol{x}_i\)</span>
-and <span class="math inline">\(\boldsymbol{\beta}\)</span> denote the
-<span class="math inline">\(K\times 1\)</span> column vectors:</p>
+\color{#008B45FF}{y_i = \boldsymbol{x}_i&#39;\boldsymbol{\beta} + \varepsilon_i}
+\]</span>
+where <span class="math inline">\(\boldsymbol{x}_i\)</span> and <span class="math inline">\(\boldsymbol{\beta}\)</span> denote the <span class="math inline">\(K\times 1\)</span> column vectors:</p>
 <p><span class="math display">\[
 \boldsymbol{x}_i = \begin{pmatrix}
 x_{1i} \\
@@ -352,18 +395,17 @@ x_{Ki}
 \vdots \\
 \beta_{K}
 \end{pmatrix}_{K\times 1}
-\]</span> Sometimes you may see the <span
-class="math inline">\(i\)</span> subscripts omitted and the model
-written as <span class="math display">\[
+\]</span>
+Sometimes you may see the <span class="math inline">\(i\)</span> subscripts omitted and the model written as
+<span class="math display">\[
 y = \boldsymbol{x}&#39;\boldsymbol{\beta} + \varepsilon
-\]</span> for a typical observation.</p>
-<p>We can also stack the observations for a sample of size <span
-class="math inline">\(n\)</span>, and express the linear regression
-model in <span style="color:#008B45FF">matrix form</span>: <span
-class="math display">\[
-\color{#008B45FF}{\boldsymbol{y} = \boldsymbol{X}\boldsymbol{\beta} +
-\boldsymbol{\varepsilon}} ,
-\]</span> where</p>
+\]</span>
+for a typical observation.</p>
+<p>We can also stack the observations for a sample of size <span class="math inline">\(n\)</span>, and express the linear regression model in <span style="color:#008B45FF">matrix form</span>:
+<span class="math display">\[
+\color{#008B45FF}{\boldsymbol{y} = \boldsymbol{X}\boldsymbol{\beta} + \boldsymbol{\varepsilon}} ,
+\]</span>
+where</p>
 <p><span class="math display">\[
 \boldsymbol{y} = \begin{pmatrix}
 y_1 \\
@@ -395,38 +437,21 @@ x_{1n} &amp; x_{2n} &amp; \cdots &amp; x_{Kn}
 \vdots \\
 \varepsilon_n
 \end{pmatrix}_{n\times 1}.
-\]</span> <span class="math inline">\(\boldsymbol{y}\)</span> and <span
-class="math inline">\(\boldsymbol{\varepsilon}\)</span> are <span
-class="math inline">\(n\times 1\)</span> column vectors and <span
-class="math inline">\(X\)</span> is an <span
-class="math inline">\(n\times K\)</span> matrix.</p>
-<p>Linear models often have an intercept term. We may have <span
-class="math inline">\(x_{1i}=1,\)</span> for all <span
-class="math inline">\(i=1,\ldots, n,\)</span>, in which case the
-parameter <span class="math inline">\(\beta_1\)</span> correspond to the
-intercept.</p>
+\]</span>
+<span class="math inline">\(\boldsymbol{y}\)</span> and <span class="math inline">\(\boldsymbol{\varepsilon}\)</span> are <span class="math inline">\(n\times 1\)</span> column vectors and <span class="math inline">\(X\)</span> is an <span class="math inline">\(n\times K\)</span> matrix.</p>
+<p>Linear models often have an intercept term. We may have <span class="math inline">\(x_{1i}=1,\)</span> for all <span class="math inline">\(i=1,\ldots, n,\)</span>, in which case the parameter <span class="math inline">\(\beta_1\)</span> correspond to the intercept.</p>
 <hr />
 <p><strong>A notational convention</strong></p>
-<p>We use lower-case <span class="math inline">\(\boldsymbol{x}\)</span>
-to denote either a column or a row of <span
-class="math inline">\(\boldsymbol{X}\)</span>, you should tell which it
-refers to from the context.</p>
+<p>We use lower-case <span class="math inline">\(\boldsymbol{x}\)</span> to denote either a column or a row of <span class="math inline">\(\boldsymbol{X}\)</span>, you should tell which it refers to from the context.</p>
 <ul>
-<li>We use subscripts <span class="math inline">\(i\)</span> and <span
-class="math inline">\(t\)</span> to denote row observations of <span
-class="math inline">\(\boldsymbol{X}\)</span>, and</li>
-<li>subscripts <span class="math inline">\(j\)</span> and <span
-class="math inline">\(k\)</span> to denote columns (variables) of <span
-class="math inline">\(\boldsymbol{X}\)</span>.</li>
+<li>We use subscripts <span class="math inline">\(i\)</span> and <span class="math inline">\(t\)</span> to denote row observations of <span class="math inline">\(\boldsymbol{X}\)</span>, and</li>
+<li>subscripts <span class="math inline">\(j\)</span> and <span class="math inline">\(k\)</span> to denote columns (variables) of <span class="math inline">\(\boldsymbol{X}\)</span>.</li>
 </ul>
-<p>For instance, <span class="math display">\[
+<p>For instance,
+<span class="math display">\[
 y_i = \boldsymbol{x}_i&#39;\boldsymbol{\beta} + \varepsilon_i
-\]</span> <span class="math inline">\(\boldsymbol{x}_i,\)</span> <span
-class="math inline">\(i=1,\ldots,n,\)</span> denotes the <span
-class="math inline">\(i^{\text{th}}\)</span> <span
-style="color:#337ab7">row</span> of <span
-class="math inline">\(\boldsymbol{X}\)</span>, referring to a single
-observation <span class="math inline">\(i\)</span>.</p>
+\]</span>
+<span class="math inline">\(\boldsymbol{x}_i,\)</span> <span class="math inline">\(i=1,\ldots,n,\)</span> denotes the <span class="math inline">\(i^{\text{th}}\)</span> <span style="color:#337ab7">row</span> of <span class="math inline">\(\boldsymbol{X}\)</span>, referring to a single observation <span class="math inline">\(i\)</span>.</p>
 <p><span class="math display">\[
 \boldsymbol{x}_i = \begin{pmatrix}
 x_{1i} \\
@@ -441,15 +466,11 @@ x_2&#39; \\
 x_n&#39; \\
 \end{pmatrix}_{n\times K}
 \]</span></p>
-<p>Sometimes we see the following form: <span class="math display">\[
-\color{#008B45FF}{\boldsymbol{y} = \beta_1 \boldsymbol{x}_1 + \beta_2
-\boldsymbol{x}_2 + \ldots + \beta_K \boldsymbol{x}_K + \varepsilon}
-\]</span> Here <span class="math inline">\(\boldsymbol{x}_k,\)</span>
-<span class="math inline">\(k=1,\ldots, K,\)</span> denotes the <span
-class="math inline">\(k^{\text{th}}\)</span> <span
-style="color:#337ab7">column</span> of <span
-class="math inline">\(\boldsymbol{X}\)</span>, referring to a single
-variable <span class="math inline">\(k\)</span>.</p>
+<p>Sometimes we see the following form:
+<span class="math display">\[
+\color{#008B45FF}{\boldsymbol{y} = \beta_1 \boldsymbol{x}_1 + \beta_2 \boldsymbol{x}_2 + \ldots + \beta_K \boldsymbol{x}_K + \varepsilon}
+\]</span>
+Here <span class="math inline">\(\boldsymbol{x}_k,\)</span> <span class="math inline">\(k=1,\ldots, K,\)</span> denotes the <span class="math inline">\(k^{\text{th}}\)</span> <span style="color:#337ab7">column</span> of <span class="math inline">\(\boldsymbol{X}\)</span>, referring to a single variable <span class="math inline">\(k\)</span>.</p>
 <p><span class="math display">\[
 \boldsymbol{x}_k = \begin{pmatrix}
 x_{k1} \\
@@ -459,107 +480,76 @@ x_{kn}
 \end{pmatrix}_{n\times 1} \quad \text{and} \quad
 X = \begin{pmatrix}x_1, x_2, \ldots, x_K\end{pmatrix}_{n\times K}
 \]</span></p>
-<p>Note that we typically use <strong>boldface</strong> to indicate
-vectors and matrices, and regular typeface for scalars.<br />
-But this convention is only loosely followed as it can be cumbersome for
-typing.</p>
+<p>Note that we typically use <strong>boldface</strong> to indicate vectors and matrices, and regular typeface for scalars.<br />
+But this convention is only loosely followed as it can be cumbersome for typing.</p>
 <hr />
 </div>
 <div id="ordinary-least-squares-ols" class="section level1">
 <h1>Ordinary Least Squares (OLS)</h1>
-<p>The OLS estimator finds the parameter vector <span
-class="math inline">\(\boldsymbol{\beta}\)</span> which minimizes the
-sum of the squared errors, <span class="math inline">\(\sum_{i=1}^n
-\varepsilon_i^2\)</span>.</p>
-<p>Formally <span class="math display">\[
-\hat{\boldsymbol{\beta}} = \arg\underset{\boldsymbol{\beta}}{\min}
-\sum_{i=1}^n \varepsilon_i^2
+<p>The OLS estimator finds the parameter vector <span class="math inline">\(\boldsymbol{\beta}\)</span> which minimizes the sum of the squared errors, <span class="math inline">\(\sum_{i=1}^n \varepsilon_i^2\)</span>.</p>
+<p>Formally
+<span class="math display">\[
+\hat{\boldsymbol{\beta}} = \arg\underset{\boldsymbol{\beta}}{\min} \sum_{i=1}^n \varepsilon_i^2
 \]</span></p>
-<p>In matrix form: <span class="math display">\[
+<p>In matrix form:
+<span class="math display">\[
 \begin{aligned}
-\hat{\boldsymbol{\beta}} &amp;= \arg\underset{\boldsymbol{\beta}}{\min}
-\boldsymbol{\varepsilon}&#39;\boldsymbol{\varepsilon} \\
-&amp;= \arg\underset{\boldsymbol{\beta}}{\min} (\boldsymbol{y} -
-\boldsymbol{X}\boldsymbol{\beta})&#39;(\boldsymbol{y} -
-\boldsymbol{X}\boldsymbol{\beta})
+\hat{\boldsymbol{\beta}} &amp;= \arg\underset{\boldsymbol{\beta}}{\min} \boldsymbol{\varepsilon}&#39;\boldsymbol{\varepsilon} \\
+&amp;= \arg\underset{\boldsymbol{\beta}}{\min} (\boldsymbol{y} - \boldsymbol{X}\boldsymbol{\beta})&#39;(\boldsymbol{y} - \boldsymbol{X}\boldsymbol{\beta})
 \end{aligned}
 \]</span></p>
-<p>To obtain the OLS estimator, we minimize <span
-class="math inline">\(\phi(\boldsymbol{\beta})=\boldsymbol{\varepsilon}&#39;\boldsymbol{\varepsilon}\)</span>
-with respect to <span class="math inline">\(\boldsymbol{\beta}\)</span>,
-where <span
-class="math inline">\(\boldsymbol{\varepsilon}=\boldsymbol{y} -
-\boldsymbol{X}\boldsymbol{\beta}\)</span>.</p>
-<p>Apply the first-order conditions: <span class="math display">\[
-\begin{equation} (\#eq:normal-eqn)
+<p>To obtain the OLS estimator, we minimize <span class="math inline">\(\phi(\boldsymbol{\beta})=\boldsymbol{\varepsilon}&#39;\boldsymbol{\varepsilon}\)</span> with respect to <span class="math inline">\(\boldsymbol{\beta}\)</span>, where <span class="math inline">\(\boldsymbol{\varepsilon}=\boldsymbol{y} - \boldsymbol{X}\boldsymbol{\beta}\)</span>.</p>
+<p>Apply the first-order conditions:
+<span class="math display" id="eq:normal-eqn">\[
+\begin{equation} \tag{2}
 \frac{\partial\phi(\beta)}{\partial\beta} = -2X&#39;(y-X\beta) = 0
 \end{equation}
-\]</span> and the second-order conditions <span class="math display">\[
-\frac{\partial^2\phi(\beta)}{\partial\beta\partial\beta&#39;} = 2X&#39;X
-&gt;0,
-\]</span> confirming that we obtain a unique minimum if <span
-class="math inline">\((X&#39;X)^{-1}\)</span> exists.</p>
-<p>@ref(eq:normal-eqn) is referred to as the “normal equations.”</p>
-<p>The OLS estimator of <span class="math inline">\(\beta\)</span> is
-given by: <span class="math display">\[
+\]</span>
+and the second-order conditions
+<span class="math display">\[
+\frac{\partial^2\phi(\beta)}{\partial\beta\partial\beta&#39;} = 2X&#39;X &gt;0,
+\]</span>
+confirming that we obtain a unique minimum if <span class="math inline">\((X&#39;X)^{-1}\)</span> exists.</p>
+<p><a href="#eq:normal-eqn">(2)</a> is referred to as the “normal equations.”</p>
+<p>The OLS estimator of <span class="math inline">\(\beta\)</span> is given by:
+<span class="math display">\[
 \color{#EE0000FF}{\hat{\beta}_{\text{OLS}} = (X&#39;X)^{-1}X&#39;y} .
-\]</span> Note that</p>
+\]</span>
+Note that</p>
 <ul>
-<li><span class="math inline">\((X&#39;X)^{-1}\)</span> is a symmetric
-square <span class="math inline">\(K \times K\)</span> matrix.</li>
-<li>For <span class="math inline">\((X&#39;X)^{-1}\)</span> to exist, we
-need <span class="math inline">\(X\)</span> to be full rank. This is
-referred to as the full rank assumption.</li>
+<li><span class="math inline">\((X&#39;X)^{-1}\)</span> is a symmetric square <span class="math inline">\(K \times K\)</span> matrix.</li>
+<li>For <span class="math inline">\((X&#39;X)^{-1}\)</span> to exist, we need <span class="math inline">\(X\)</span> to be full rank. This is referred to as the full rank assumption.</li>
 </ul>
 <div class="boxed">
-<p><em>Assumption:</em> <span class="math inline">\(X\)</span> is an
-<span class="math inline">\(n\times K\)</span> matrix with full rank
-<span class="math inline">\(K\)</span>.</p>
+<p><em>Assumption:</em> <span class="math inline">\(X\)</span> is an <span class="math inline">\(n\times K\)</span> matrix with full rank <span class="math inline">\(K\)</span>.</p>
 </div>
-<p>In plain language, <span style="color:#008B45FF">full rank</span>
-means there are no exact linear relationships among the variables.<br />
-This assumption is known as the <span
-style="color:#337ab7">identification condition</span>.</p>
-<p><span class="math inline">\((X&#39;X)^{-1}\)</span> may not exist. If
-this is the case, then this matrix is called <span
-style="color:#337ab7">non-invertible</span> or <span
-style="color:#337ab7">singular</span> and is said to be of <span
-style="color:#337ab7">less than full rank</span>.</p>
-<p>In practice, we calculate the determinant of a matrix to determine
-whether a matrix is invertible.</p>
+<p>In plain language, <span style="color:#008B45FF">full rank</span> means there are no exact linear relationships among the variables.<br />
+This assumption is known as the <span style="color:#337ab7">identification condition</span>.</p>
+<p><span class="math inline">\((X&#39;X)^{-1}\)</span> may not exist. If this is the case, then this matrix is called <span style="color:#337ab7">non-invertible</span> or <span style="color:#337ab7">singular</span> and is said to be of <span style="color:#337ab7">less than full rank</span>.</p>
+<p>In practice, we calculate the determinant of a matrix to determine whether a matrix is invertible.</p>
 <p><span class="math display">\[
 \text{det}(A) \begin{cases}
-\vert A \vert =0 \Longleftrightarrow A \text{ is singular ( or
-non-invertible), the inverse does not exist.} \\
-\vert A \vert \ne 0 \Longleftrightarrow A \text{ is non-singular (or
-invertible), the inverse exists.}
+\vert A \vert =0 \Longleftrightarrow A \text{ is singular ( or non-invertible), the inverse does not exist.} \\
+\vert A \vert \ne 0 \Longleftrightarrow A \text{ is non-singular (or invertible), the inverse exists.}
 \end{cases}
 \]</span></p>
-<p>There are two possible reasons why this matrix might be
-non-invertible.</p>
+<p>There are two possible reasons why this matrix might be non-invertible.</p>
 <ul>
-<li>One is that <span class="math inline">\(n &lt; k,\)</span> i.e., we
-have more independent variables than observations. This is unlikely to
-be a problem for us in practice.</li>
-<li>The other is that one or more of the independent variables are a
-linear combination of the other variables i.e. <em>perfect</em>
-multicollinearity.</li>
+<li>One is that <span class="math inline">\(n &lt; k,\)</span> i.e., we have more independent variables than observations. This is unlikely to be a problem for us in practice.</li>
+<li>The other is that one or more of the independent variables are a linear combination of the other variables i.e. <em>perfect</em> multicollinearity.</li>
 </ul>
-<div id="unnamed-chunk-1" class="example" name="Short Rank">
-<p>Suppose we have the following linear model: <span
-class="math display">\[
+<div class="example">
+<p><span id="exm:unnamed-chunk-1" class="example"><strong>Example 1  (Short Rank) </strong></span>Suppose we have the following linear model:
+<span class="math display">\[
     y=\beta_1 + \beta_2 x_2 + \beta_3 x_3 + \beta_4 x_4 + \varepsilon,
-    \]</span> where <span class="math display">\[
+    \]</span>
+where
+<span class="math display">\[
     x_4 = x_2 + x_3 ,
-    \]</span> meaning there is an exact linear dependency in the
-model.</p>
-<p>Aim: We want to show that <span
-class="math inline">\(\boldsymbol{\beta}&#39; = (\beta_1, \beta_2,
-\beta_3, \beta_4)\)</span> cannot be uniquely identified.</p>
-<p>Now we let <span
-class="math inline">\(\boldsymbol{\tilde{\beta}}&#39; = (\beta_1,
-\beta_2+a, \beta_3+a, \beta_4-a)\)</span> for any constant <span
-class="math inline">\(a\)</span>. That is</p>
+    \]</span>
+meaning there is an exact linear dependency in the model.</p>
+<p>Aim: We want to show that <span class="math inline">\(\boldsymbol{\beta}&#39; = (\beta_1, \beta_2, \beta_3, \beta_4)\)</span> cannot be uniquely identified.</p>
+<p>Now we let <span class="math inline">\(\boldsymbol{\tilde{\beta}}&#39; = (\beta_1, \beta_2+a, \beta_3+a, \beta_4-a)\)</span> for any constant <span class="math inline">\(a\)</span>. That is</p>
 <p><span class="math display">\[
 \begin{aligned}
 \tilde{\beta_1} &amp;= \beta_1 \\
@@ -568,56 +558,45 @@ class="math inline">\(a\)</span>. That is</p>
 \tilde{\beta_4} &amp;= \beta_4-a \\
 \end{aligned}
 \]</span></p>
-<p>Then we find that <span
-class="math inline">\(\boldsymbol{x}&#39;\boldsymbol{\beta} =
-\boldsymbol{x}&#39;\boldsymbol{\tilde{\beta}}\)</span>.</p>
-<p>In other words, there is no way to estimate the parameters of this
-model.</p>
+<p>Then we find that <span class="math inline">\(\boldsymbol{x}&#39;\boldsymbol{\beta} = \boldsymbol{x}&#39;\boldsymbol{\tilde{\beta}}\)</span>.</p>
+<p>In other words, there is no way to estimate the parameters of this model.</p>
 </div>
 <hr />
 </div>
 <div id="properties-of-ols-estimators" class="section level1">
 <h1>Properties of OLS Estimators</h1>
-<p>The residuals for observations <span class="math inline">\(i\)</span>
-is <span
-class="math inline">\(e_i=y_i-\hat{y}_i=y_i-x_i&#39;\hat{\beta}_{\text{OLS}}\)</span>.</p>
-<p>Note that we distinguish the error term <span
-class="math inline">\(\varepsilon\)</span> from residuals <span
-class="math inline">\(e\)</span>.</p>
+<p>The residuals for observations <span class="math inline">\(i\)</span> is <span class="math inline">\(e_i=y_i-\hat{y}_i=y_i-x_i&#39;\hat{\beta}_{\text{OLS}}\)</span>.</p>
+<p>Note that we distinguish the error term <span class="math inline">\(\varepsilon\)</span> from residuals <span class="math inline">\(e\)</span>.</p>
 <ul>
-<li>the error term <span class="math inline">\(\varepsilon\)</span> is
-from the population that cannot be observed;</li>
-<li>residuals <span class="math inline">\(e\)</span> are from samples
-that can be observed.</li>
+<li>the error term <span class="math inline">\(\varepsilon\)</span> is from the population that cannot be observed;</li>
+<li>residuals <span class="math inline">\(e\)</span> are from samples that can be observed.</li>
 </ul>
-<p>Observed value <span class="math inline">\(y\)</span> corresponds to
-error term <span class="math inline">\(\varepsilon\)</span>: <span
-class="math display">\[
+<p>Observed value <span class="math inline">\(y\)</span> corresponds to error term <span class="math inline">\(\varepsilon\)</span>:
+<span class="math display">\[
 y=X\beta + \varepsilon
 \]</span></p>
-<p>Predicted value <span class="math inline">\(\hat{y}\)</span>
-corresponds to residuals <span class="math inline">\(e\)</span>: <span
-class="math display">\[
+<p>Predicted value <span class="math inline">\(\hat{y}\)</span> corresponds to residuals <span class="math inline">\(e\)</span>:
+<span class="math display">\[
 \begin{aligned}
 \hat{y} &amp;= X\hat{\beta} \\
 y&amp;=  X\hat{\beta} + e = \hat{y} + e
 \end{aligned}
 \]</span></p>
-<p>We will introduce essential properties of OLS estimators. These
-properties do not depend on any assumptions – they will always be true
-so long as we compute them by minimizing the sum of squared errors.</p>
-<p>We plug in <span class="math inline">\(\hat{\beta}\)</span> to the
-normal equations: <span class="math display">\[
+<p>We will introduce essential properties of OLS estimators. These properties do not depend on any assumptions – they will always be true so long as we compute them by minimizing the sum of squared errors.</p>
+<p>We plug in <span class="math inline">\(\hat{\beta}\)</span> to the normal equations:
+<span class="math display">\[
 (X&#39;X)\hat{\beta} = X&#39;y
-\]</span> Plug in <span class="math inline">\(y=X\hat{\beta}+e\)</span>.
+\]</span>
+Plug in <span class="math inline">\(y=X\hat{\beta}+e\)</span>.
 <span class="math display">\[
 \begin{split}
 (X&#39;X)\hat{\beta} &amp;= X&#39;(X\hat{\beta}+e) \\
 (X&#39;X)\hat{\beta} &amp;= X&#39;X\hat{\beta} + X&#39;e \\
 X&#39;e &amp;= \boldsymbol{0}
 \end{split}
-\]</span> or we can express in matrix form: <span
-class="math display">\[
+\]</span>
+or we can express in matrix form:
+<span class="math display">\[
 \begin{pmatrix}
 x_1&#39; \\
 x_2&#39; \\
@@ -639,99 +618,62 @@ x_K&#39;e
 \]</span></p>
 <p>Note that</p>
 <ol style="list-style-type: decimal">
-<li><p><span class="math inline">\(x_1&#39;e=0\)</span>, where <span
-class="math inline">\(x_1\)</span> is a <span
-class="math inline">\(n\times 1\)</span> column vector of 1, indicating
-the sum of the residuals is zero, i.e., <span
-class="math inline">\(\sum_{i=1}^n e_i =0\)</span>.</p></li>
-<li><p>Following the last property, the sample average of residuals is
-zero. <span class="math inline">\(\overline{e}=\frac{1}{n}\sum_{i=1}^n
-e_i=0.\)</span></p></li>
-<li><p>By construction, the OLS residuals <span
-class="math inline">\(\boldsymbol{e}\)</span> in our sample are <span
-style="color:#337ab7">uncorrelated</span> with each of the <span
-class="math inline">\(K\)</span> explanatory variables included in the
-model.</p>
-<p>Uncorrelated means that <span class="math inline">\(\text{Cov}(x_k,
-e)=0\)</span>.</p>
+<li><p><span class="math inline">\(x_1&#39;e=0\)</span>, where <span class="math inline">\(x_1\)</span> is a <span class="math inline">\(n\times 1\)</span> column vector of 1, indicating the sum of the residuals is zero, i.e., <span class="math inline">\(\sum_{i=1}^n e_i =0\)</span>.</p></li>
+<li><p>Following the last property, the sample average of residuals is zero. <span class="math inline">\(\overline{e}=\frac{1}{n}\sum_{i=1}^n e_i=0.\)</span></p></li>
+<li><p>By construction, the OLS residuals <span class="math inline">\(\boldsymbol{e}\)</span> in our sample are <span style="color:#337ab7">uncorrelated</span> with each of the <span class="math inline">\(K\)</span> explanatory variables included in the model.</p>
+<p>Uncorrelated means that <span class="math inline">\(\text{Cov}(x_k, e)=0\)</span>.</p>
 <p><span class="math display">\[
 \begin{align*}
-\text{Cov}(x_k, e) &amp;= E\left\{\left[x_k-E(x_k)\right]
-\left[e-E(e)\right]^T \right\} \\
+\text{Cov}(x_k, e) &amp;= E\left\{\left[x_k-E(x_k)\right] \left[e-E(e)\right]^T \right\} \\
 &amp;= E[x_ke^T] - E[x_k]E[e]^T \\
-&amp;= \boldsymbol{0} - E[x_k] \boldsymbol{0}  \qquad (E[e]=0 \text{ as
-} x_1&#39;e=0) \\
+&amp;= \boldsymbol{0} - E[x_k] \boldsymbol{0}  \qquad (E[e]=0 \text{ as } x_1&#39;e=0) \\
 &amp;= 0
 \end{align*}
 \]</span></p></li>
-<li><p><span class="math inline">\(\overline{y}=
-\overline{x}\hat{\beta}\)</span>. This follows from the property <span
-class="math inline">\(\overline{e}=0\)</span>. <span
-class="math display">\[
+<li><p><span class="math inline">\(\overline{y}= \overline{x}\hat{\beta}\)</span>. This follows from the property <span class="math inline">\(\overline{e}=0\)</span>.
+<span class="math display">\[
 e=y-X\hat{\beta}
-\]</span> Sum all observations and divide by <span
-class="math inline">\(n\)</span>: <span class="math display">\[
+\]</span>
+Sum all observations and divide by <span class="math inline">\(n\)</span>:
+<span class="math display">\[
 \overline{e} = \overline{y} - \overline{X}\hat{\beta}.
-\]</span> Given <span class="math inline">\(\overline{e}=0\)</span>, we
-have <span class="math inline">\(\overline{y} =
-\overline{X}\hat{\beta}.\)</span> That is, The regression hyperplane
-passes through the means of the observed values (<span
-class="math inline">\(\overline{X}\)</span> and <span
-class="math inline">\(\overline{y}\)</span>).</p></li>
-<li><p>The predicted values of <span
-class="math inline">\(\hat{y}\)</span> are uncorrelated with the
-residuals. <span class="math display">\[
+\]</span>
+Given <span class="math inline">\(\overline{e}=0\)</span>, we have <span class="math inline">\(\overline{y} = \overline{X}\hat{\beta}.\)</span> That is, The regression hyperplane passes through the means of the observed values (<span class="math inline">\(\overline{X}\)</span> and <span class="math inline">\(\overline{y}\)</span>).</p></li>
+<li><p>The predicted values of <span class="math inline">\(\hat{y}\)</span> are uncorrelated with the residuals.
+<span class="math display">\[
 \begin{aligned}
 \hat{y}&#39;e &amp;= (X\hat{\beta})&#39;e \\
 &amp;= \hat{\beta}&#39;X&#39;e \\
 &amp;= 0 \qquad (X&#39;e=0)
 \end{aligned}
 \]</span></p></li>
-<li><p>The mean of the predicted <span
-class="math inline">\(y\)</span>’s for the sample will equal the mean of
-the observed <span class="math inline">\(y\)</span>’s i.e. <span
-class="math inline">\(\overline{\hat{y}} = \overline{y}.\)</span> <span
-class="math display">\[
+<li><p>The mean of the predicted <span class="math inline">\(y\)</span>’s for the sample will equal the mean of the observed <span class="math inline">\(y\)</span>’s i.e. <span class="math inline">\(\overline{\hat{y}} = \overline{y}.\)</span>
+<span class="math display">\[
 \begin{aligned}
 \overline{y} &amp;= \frac{1}{n} \sum_{i=1}^n y_i \\
-&amp;= \frac{1}{n} \sum_{i=1}^n (\hat{y}_i+e_i) \qquad
-(y_i=\hat{y}_i+e_i) \\
-&amp;= \frac{1}{n} \sum_{i=1}^n \hat{y}_i + \frac{1}{n} \sum_{i=1}^n e_i
-\qquad (\overline{e}=0) \\
+&amp;= \frac{1}{n} \sum_{i=1}^n (\hat{y}_i+e_i) \qquad (y_i=\hat{y}_i+e_i) \\
+&amp;= \frac{1}{n} \sum_{i=1}^n \hat{y}_i + \frac{1}{n} \sum_{i=1}^n e_i \qquad (\overline{e}=0) \\
 &amp;= \overline{\hat{y}}
 \end{aligned}
 \]</span></p></li>
 </ol>
-<p>These properties always hold true. You should be careful not to infer
-anything from the residuals about the disturbances. For example, you
-cannot infer that the sum of the disturbances is zero or that the mean
-of the disturbances is zero just because this is true of the residuals –
-this is true of the residuals just because we decided to minimize the
-sum of squared residuals.</p>
+<p>These properties always hold true. You should be careful not to infer anything from the residuals about the disturbances.
+For example, you cannot infer that the sum of the disturbances is zero or that the mean of the disturbances is zero just because this is true of the residuals – this is true of the residuals just because we decided to minimize the sum of squared residuals.</p>
 <hr />
 </div>
 <div id="the-gauss-markov-assumptions" class="section level1">
 <h1>The Gauss-Markov Assumptions</h1>
-<p>Recall that <span class="math inline">\(\hat{\beta}\)</span> comes
-from our sample, but we want to learn about the true parameters <span
-class="math inline">\(\beta\)</span>. In order to do appropriate
-estimation and inference, we need a list of assumptions.</p>
+<p>Recall that <span class="math inline">\(\hat{\beta}\)</span> comes from our sample, but we want to learn about the true parameters <span class="math inline">\(\beta\)</span>.
+In order to do appropriate estimation and inference, we need a list of assumptions.</p>
 <ol style="list-style-type: decimal">
 <li><p><strong>Linearity</strong></p>
-<p><span class="math inline">\(Y=X\beta+\varepsilon\)</span> states that
-there is a linear relationship between <span
-class="math inline">\(y\)</span> and <span
-class="math inline">\(X\)</span>.</p></li>
+<p><span class="math inline">\(Y=X\beta+\varepsilon\)</span> states that there is a linear relationship between <span class="math inline">\(y\)</span> and <span class="math inline">\(X\)</span>.</p></li>
 <li><p><strong>Full rank</strong></p>
-<p><span class="math inline">\(X\)</span> is an <span
-class="math inline">\(n\times K\)</span> matrix of full rank.<br />
-This assumption states that there is no perfect multicollinearity. In
-other words, the columns of X are linearly independent. This assumption
-is known as the identification condition.</p></li>
+<p><span class="math inline">\(X\)</span> is an <span class="math inline">\(n\times K\)</span> matrix of full rank.<br />
+This assumption states that there is no perfect multicollinearity. In other words, the columns
+of X are linearly independent. This assumption is known as the identification condition.</p></li>
 <li><p><strong>Exogeneity of the independent variables</strong></p>
-<p><span class="math inline">\(E[\boldsymbol{\varepsilon}_i
-|\boldsymbol{X}] =0\)</span> for <span
-class="math inline">\(i=1,\ldots,n,\)</span> or in vector form</p>
+<p><span class="math inline">\(E[\boldsymbol{\varepsilon}_i |\boldsymbol{X}] =0\)</span> for <span class="math inline">\(i=1,\ldots,n,\)</span> or in vector form</p>
 <p><span class="math display">\[
 E[\boldsymbol{\varepsilon} |\boldsymbol{X}] = E\begin{bmatrix}
 \varepsilon_1 |\boldsymbol{X} \\
@@ -740,48 +682,26 @@ E[\boldsymbol{\varepsilon} |\boldsymbol{X}] = E\begin{bmatrix}
 \varepsilon_n |\boldsymbol{X} \\
 \end{bmatrix} = \boldsymbol{0}
 \]</span></p>
-<p><span class="math inline">\(E[\boldsymbol{\varepsilon}_i
-|\boldsymbol{X}] =0\)</span> means that the mean of each <span
-class="math inline">\(\varepsilon_i\)</span> conditional on all
-observations <span class="math inline">\(\boldsymbol{x}_i\)</span> is
-zero. In plain language, no observations on <span
-class="math inline">\(\boldsymbol{x}\)</span> convey information about
-the expected value of the disturbance.</p>
+<p><span class="math inline">\(E[\boldsymbol{\varepsilon}_i |\boldsymbol{X}] =0\)</span> means that the mean of each <span class="math inline">\(\varepsilon_i\)</span> conditional on all observations <span class="math inline">\(\boldsymbol{x}_i\)</span> is zero.
+In plain language, no observations on <span class="math inline">\(\boldsymbol{x}\)</span> convey information about the expected value of the disturbance.</p>
 <blockquote>
-<p>This is not likely to be true in a time-series setting. The
-observation at <span class="math inline">\(t\)</span> might provide
-information about <span
-class="math inline">\(E[\varepsilon_{t+1}]\)</span>, that is <span
-class="math inline">\(E[\varepsilon_{t+1} \vert x_t}\)</span>. This is
-called autocorrelation.</p>
+<p>This is not likely to be true in a time-series setting. The observation at <span class="math inline">\(t\)</span> might provide information about <span class="math inline">\(E[\varepsilon_{t+1}]\)</span>, that is <span class="math inline">\(E[\varepsilon_{t+1} \vert x_t] \ne 0\)</span>. This is called autocorrelation.</p>
 </blockquote>
-<p>The zero conditional mean implies that the unconditional mean is also
-zero. By the Law of Iterated Expectation (LIE),</p>
+<p>The zero conditional mean implies that the unconditional mean is also zero. By the Law of Iterated Expectation (LIE),</p>
 <p><span class="math display">\[
-E[\boldsymbol{\varepsilon}] =
-E_\boldsymbol{X}[E[\boldsymbol{\varepsilon} \vert \boldsymbol{X}]] =
-E_\boldsymbol{X}[\boldsymbol{0}] = \boldsymbol{0}
-\]</span> Assumption 3 also implies that <span
-class="math inline">\(\text{Cov}(\varepsilon_i|\boldsymbol{X})=0\)</span>
-for all <span class="math inline">\(i\)</span>.</p></li>
+E[\boldsymbol{\varepsilon}] = E_\boldsymbol{X}[E[\boldsymbol{\varepsilon} \vert \boldsymbol{X}]] = E_\boldsymbol{X}[\boldsymbol{0}] = \boldsymbol{0}
+\]</span>
+Assumption 3 also implies that <span class="math inline">\(\text{Cov}(\varepsilon_i|\boldsymbol{X})=0\)</span> for all <span class="math inline">\(i\)</span>.</p></li>
 <li><p><strong>Homoskedasticity and no autocorrelation</strong></p>
-<p><span
-class="math inline">\(E[\boldsymbol{\varepsilon}\boldsymbol{\varepsilon}&#39;|X]
-= \sigma^2 \boldsymbol{I}\)</span> or in matrix form</p>
+<p><span class="math inline">\(E[\boldsymbol{\varepsilon}\boldsymbol{\varepsilon}&#39;|X] = \sigma^2 \boldsymbol{I}\)</span> or in matrix form</p>
 <p><span class="math display">\[
 \begin{aligned}
 E[\boldsymbol{\varepsilon}\boldsymbol{\varepsilon}&#39;|X] &amp;=
 \begin{bmatrix}
-E[\epsilon_1^2 \vert \boldsymbol{X} ] &amp; E[\epsilon_1\epsilon_2 \vert
-\boldsymbol{X}] &amp; \cdots  &amp; E[\epsilon_1\epsilon_n \vert
-\boldsymbol{X}] \\
-E[\epsilon_2\epsilon_1 \vert \boldsymbol{X} ] &amp; E[\epsilon_2^2 \vert
-\boldsymbol{X}] &amp; \cdots  &amp; E[\epsilon_2\epsilon_n \vert
-\boldsymbol{X}] \\
+E[\epsilon_1^2 \vert \boldsymbol{X} ] &amp; E[\epsilon_1\epsilon_2 \vert \boldsymbol{X}] &amp; \cdots  &amp; E[\epsilon_1\epsilon_n \vert \boldsymbol{X}] \\
+E[\epsilon_2\epsilon_1 \vert \boldsymbol{X} ] &amp; E[\epsilon_2^2 \vert \boldsymbol{X}] &amp; \cdots  &amp; E[\epsilon_2\epsilon_n \vert \boldsymbol{X}] \\
 \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
-E[\epsilon_n\epsilon_1 \vert \boldsymbol{X} ] &amp;
-E[\epsilon_n\epsilon_2 \vert \boldsymbol{X}] &amp; \cdots  &amp;
-E[\epsilon_n^2 \vert \boldsymbol{X}] \\
+E[\epsilon_n\epsilon_1 \vert \boldsymbol{X} ] &amp; E[\epsilon_n\epsilon_2 \vert \boldsymbol{X}] &amp; \cdots  &amp; E[\epsilon_n^2 \vert \boldsymbol{X}] \\
 \end{bmatrix}  \\
 &amp;= \begin{bmatrix}
 \sigma^2 &amp; 0 &amp; \cdots &amp; 0 \\
@@ -792,66 +712,45 @@ E[\epsilon_n^2 \vert \boldsymbol{X}] \\
 \end{aligned}
 \]</span></p>
 <ul>
-<li><p>Variance of the disturbances: <span class="math display">\[
+<li><p>Variance of the disturbances:
+<span class="math display">\[
 \text{Var}[\epsilon\vert \boldsymbol{X}] = \sigma^2
-\]</span> for all <span class="math inline">\(i=1,\ldots,n.\)</span>
-Constant variance is labeled <span
-style="color:#008B45FF"><strong>homoskedasticity</strong></span>.</p></li>
-<li><p>Covariance of the disturbances: <span class="math display">\[
+\]</span>
+for all <span class="math inline">\(i=1,\ldots,n.\)</span>
+Constant variance is labeled <span style="color:#008B45FF"><strong>homoskedasticity</strong></span>.</p></li>
+<li><p>Covariance of the disturbances:
+<span class="math display">\[
 \text{Cov}[\epsilon_i, \epsilon_j\vert \boldsymbol{X}] = 0
-\]</span> Uncorrelatedness across observations is labeled as <span
-style="color:#008B45FF"><strong>nonautocorrelation</strong></span>.</p></li>
-<li><p>We often denote the variacne-covariance matrix of the
-disturbances as <span
-class="math inline">\(\Omega=E[\boldsymbol{\varepsilon}\boldsymbol{\varepsilon}&#39;|X]\)</span>.</p></li>
+\]</span>
+Uncorrelatedness across observations is labeled as <span style="color:#008B45FF"><strong>nonautocorrelation</strong></span>.</p></li>
+<li><p>We often denote the variacne-covariance matrix of the disturbances as <span class="math inline">\(\Omega=E[\boldsymbol{\varepsilon}\boldsymbol{\varepsilon}&#39;|X]\)</span>.</p></li>
 </ul>
-<p>In case of homoskedasticity and nonautocorrelation, we have <span
-class="math inline">\(\Omega=\sigma^2\boldsymbol{I}.\)</span> And we
-call the disturbances spherical disturbances.</p></li>
+<p>In case of homoskedasticity and nonautocorrelation, we have <span class="math inline">\(\Omega=\sigma^2\boldsymbol{I}.\)</span> And we call the disturbances spherical disturbances.</p></li>
 <li><p><strong>Normal distribution of disturbances</strong></p>
-<p><span class="math inline">\(\boldsymbol{e}\vert \boldsymbol{X} \sim
-N(\boldsymbol{0}, \sigma^2\boldsymbol{I})\)</span>. We assume that the
-disturbances are normally distributed, with zero mean and constant
-variance.</p>
+<p><span class="math inline">\(\boldsymbol{e}\vert \boldsymbol{X} \sim N(\boldsymbol{0}, \sigma^2\boldsymbol{I})\)</span>. We assume that the disturbances are normally distributed, with zero mean and constant variance.</p>
 <ul>
-<li>A useful implication of this assumption is that it implies that
-observations on <span class="math inline">\(\varepsilon_i\)</span> are
-statistically independent as well as uncorrelated.</li>
-<li>Normality is not necessary to obtainmanyof the resultsweuse in
-multiple regression analysis, although it will enable us to obtain
-several exact statistical results. It does prove useful in constructing
-test statistics. Later, it will be possible to relax this assumption and
-retain most of the statistical results we obtain here.</li>
+<li>A useful implication of this assumption is that it implies that observations on <span class="math inline">\(\varepsilon_i\)</span> are statistically independent as well as uncorrelated.</li>
+<li>Normality is not necessary to obtainmanyof the resultsweuse in multiple regression analysis, although it will enable us to obtain several exact statistical results. It does prove useful in constructing test statistics. Later, it will be possible to relax this assumption and retain most of the statistical results we obtain here.</li>
 </ul></li>
 </ol>
-<p>We call models satisfying assumptions 1–5 as the “Classical Linear
-Regression Model.”</p>
-<p>The Gauss-Markov Theorem states that, conditional on assumptions 1-5,
-there will be no other linear and unbiased estimator of the <span
-class="math inline">\(\beta\)</span> coefficients that has a smaller
-sampling variance. In other words, the OLS estimator is the <span
-style="color:#008B45FF"><strong>Best Linear, Unbiased and Efficient
-estimator (BLUE)</strong></span>.</p>
+<p>We call models satisfying assumptions 1–5 as the “Classical Linear Regression Model.”</p>
+<p>The Gauss-Markov Theorem states that, conditional on assumptions 1-5, there will be no other linear and unbiased estimator of the <span class="math inline">\(\beta\)</span> coefficients that has a smaller sampling variance. In other words, the OLS estimator is the <span style="color:#008B45FF"><strong>Best Linear, Unbiased and Efficient estimator (BLUE)</strong></span>.</p>
 <hr />
-<div id="mean-and-variance-of-least-squres-estimator"
-class="section level2">
+<div id="mean-and-variance-of-least-squres-estimator" class="section level2">
 <h2>Mean and Variance of Least-Squres Estimator</h2>
-<p>Prove unbiasedness, <span
-class="math inline">\(E(\hat{\boldsymbol{\beta}}|\boldsymbol{X}) =
-\boldsymbol{\beta}\)</span>. <span class="math display">\[
+<p>Prove unbiasedness, <span class="math inline">\(E(\hat{\boldsymbol{\beta}}|\boldsymbol{X}) = \boldsymbol{\beta}\)</span>.
+<span class="math display">\[
 \begin{aligned}
 \hat{\boldsymbol{\beta}} &amp;= (X&#39;X)^{-1}X&#39;y \\
 &amp;= (X&#39;X)^{-1}X&#39;(X\boldsymbol{\beta}+\varepsilon) \\
-&amp;= (X&#39;X)^{-1}X&#39;X\boldsymbol{\beta} +
-(X&#39;X)^{-1}(X&#39;\varepsilon) \\
+&amp;= (X&#39;X)^{-1}X&#39;X\boldsymbol{\beta} + (X&#39;X)^{-1}(X&#39;\varepsilon) \\
 &amp;= \boldsymbol{\beta} + (X&#39;X)^{-1}X&#39;\boldsymbol{\varepsilon}
 \end{aligned}
-\]</span> Taking the expectation with respect to <span
-class="math inline">\(\hat{\beta}-\beta\)</span>. <span
-class="math display">\[
+\]</span>
+Taking the expectation with respect to <span class="math inline">\(\hat{\beta}-\beta\)</span>.
+<span class="math display">\[
 \begin{aligned}
-E[\hat{\beta}-\beta \vert X] &amp;= E[ (X&#39;X)^{-1}(X&#39;\varepsilon)
-\vert X] \\
+E[\hat{\beta}-\beta \vert X] &amp;= E[ (X&#39;X)^{-1}(X&#39;\varepsilon) \vert X] \\
 &amp;= (X&#39;X)^{-1}X&#39;E[\varepsilon \vert X] \\
 &amp;= \boldsymbol{0}.
 \end{aligned}
@@ -859,62 +758,43 @@ E[\hat{\beta}-\beta \vert X] &amp;= E[ (X&#39;X)^{-1}(X&#39;\varepsilon)
 <p>Variance of least-squares estimator:</p>
 <p><span class="math display">\[
 \begin{aligned}
-\text{Var}(\boldsymbol{\hat{\beta}} \vert X) &amp;=
-E[(\hat{\boldsymbol{\beta}}-\boldsymbol{\beta})(\hat{\boldsymbol{\beta}}-\boldsymbol{\beta})^T
-\vert \boldsymbol{X}] \\
-&amp;= E[(X&#39;X)^{-1}X&#39;\varepsilon\varepsilon&#39;X(X&#39;X)^{-1}
-\vert \boldsymbol{X}] \\
-&amp;= (X&#39;X)^{-1}X&#39;\,
-E[\boldsymbol{\varepsilon\varepsilon}&#39;\vert \boldsymbol{X}] \,
-X(X&#39;X)^{-1} \\
+\text{Var}(\boldsymbol{\hat{\beta}} \vert X) &amp;= E[(\hat{\boldsymbol{\beta}}-\boldsymbol{\beta})(\hat{\boldsymbol{\beta}}-\boldsymbol{\beta})^T \vert \boldsymbol{X}] \\
+&amp;= E[(X&#39;X)^{-1}X&#39;\varepsilon\varepsilon&#39;X(X&#39;X)^{-1} \vert \boldsymbol{X}] \\
+&amp;= (X&#39;X)^{-1}X&#39;\, E[\boldsymbol{\varepsilon\varepsilon}&#39;\vert \boldsymbol{X}] \, X(X&#39;X)^{-1} \\
 &amp;= (X&#39;X)^{-1}X&#39;\, \Omega \, X(X&#39;X)^{-1}
 \end{aligned}
-\]</span> where <span
-class="math inline">\(\Omega=E[\boldsymbol{\varepsilon\varepsilon}&#39;\vert
-\boldsymbol{X}]\)</span>.</p>
-<p>In case of the linear homoskedastic regression model, we have <span
-class="math inline">\(E[\boldsymbol{\varepsilon\varepsilon}&#39;\vert
-\boldsymbol{X}]=\sigma^2\boldsymbol{I}\)</span>. The variance matrix
-simplifies to <span class="math display">\[
-\boldsymbol{V}_{\hat{\boldsymbol{\hat{\beta}}}} =
-\text{Var}(\boldsymbol{\hat{\beta}} \vert X) = \sigma^2(X&#39;X)^{-1}
-\]</span> We estimate <span class="math inline">\(\sigma^2\)</span> with
-<span class="math inline">\(\hat{\sigma}^2\)</span>: <span
-class="math display">\[
+\]</span>
+where <span class="math inline">\(\Omega=E[\boldsymbol{\varepsilon\varepsilon}&#39;\vert \boldsymbol{X}]\)</span>.</p>
+<p>In case of the linear homoskedastic regression model, we have <span class="math inline">\(E[\boldsymbol{\varepsilon\varepsilon}&#39;\vert \boldsymbol{X}]=\sigma^2\boldsymbol{I}\)</span>. The variance matrix simplifies to
+<span class="math display">\[
+\boldsymbol{V}_{\hat{\boldsymbol{\hat{\beta}}}} = \text{Var}(\boldsymbol{\hat{\beta}} \vert X) = \sigma^2(X&#39;X)^{-1}
+\]</span>
+We estimate <span class="math inline">\(\sigma^2\)</span> with <span class="math inline">\(\hat{\sigma}^2\)</span>:
+<span class="math display">\[
 \hat{\sigma}^2 = \frac{\sum_{i=1}^ne_i^2}{n-K}.
-\]</span> What does the variance-covariance matrix of the OLS estimator
-look like?</p>
+\]</span>
+What does the variance-covariance matrix of the OLS estimator look like?</p>
 <p><span class="math display">\[
-E[(\hat{\boldsymbol{\beta}}-\boldsymbol{\beta})(\hat{\boldsymbol{\beta}}-\boldsymbol{\beta})^T
-\vert \boldsymbol{X}] = \begin{bmatrix}
-\text{Var}(\hat{\beta}_1 \vert \boldsymbol{X}) &amp;
-\text{Cov}(\hat{\beta}_1, \hat{\beta}_2 \vert \boldsymbol{X}) &amp;
-\cdots &amp; \text{Cov}(\hat{\beta}_1, \hat{\beta}_K \vert
-\boldsymbol{X})  \\
-\text{Cov}(\hat{\beta}_1, \hat{\beta}_2 \vert \boldsymbol{X}) &amp;
-\text{Var}(\hat{\beta}_2 \vert \boldsymbol{X}) &amp; \cdots &amp;
-\text{Cov}(\hat{\beta}_2, \hat{\beta}_K \vert \boldsymbol{X})  \\
+E[(\hat{\boldsymbol{\beta}}-\boldsymbol{\beta})(\hat{\boldsymbol{\beta}}-\boldsymbol{\beta})^T \vert \boldsymbol{X}] = \begin{bmatrix}
+\text{Var}(\hat{\beta}_1 \vert \boldsymbol{X}) &amp; \text{Cov}(\hat{\beta}_1, \hat{\beta}_2 \vert \boldsymbol{X}) &amp; \cdots &amp; \text{Cov}(\hat{\beta}_1, \hat{\beta}_K \vert \boldsymbol{X})  \\
+\text{Cov}(\hat{\beta}_1, \hat{\beta}_2 \vert \boldsymbol{X}) &amp; \text{Var}(\hat{\beta}_2 \vert \boldsymbol{X}) &amp; \cdots &amp; \text{Cov}(\hat{\beta}_2, \hat{\beta}_K \vert \boldsymbol{X})  \\
 \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
-\text{Cov}(\hat{\beta}_1, \hat{\beta}_K \vert \boldsymbol{X}) &amp;
-\text{Cov}(\hat{\beta}_2, \hat{\beta}_K \boldsymbol{X}) &amp; \cdots
-&amp; \text{Var}(\hat{\beta}_K \vert \boldsymbol{X})  \\
+\text{Cov}(\hat{\beta}_1, \hat{\beta}_K \vert \boldsymbol{X}) &amp; \text{Cov}(\hat{\beta}_2, \hat{\beta}_K \boldsymbol{X}) &amp; \cdots &amp; \text{Var}(\hat{\beta}_K \vert \boldsymbol{X})  \\
 \end{bmatrix}
-\]</span> The standard errors of the <span
-class="math inline">\(\hat{\beta}\)</span> are given by the square root
-of the main diagonal of the variance-covariance matrix.</p>
-<p>Under the assumption of normally distributed errors, <span
-class="math inline">\(\boldsymbol{\varepsilon} \vert \boldsymbol{X} \sim
-N(\boldsymbol{0}, \sigma^2\boldsymbol{I})\)</span>, we have</p>
+\]</span>
+The standard errors of the <span class="math inline">\(\hat{\beta}\)</span> are given by the square root of the main diagonal of the variance-covariance matrix.</p>
+<p>Under the assumption of normally distributed errors, <span class="math inline">\(\boldsymbol{\varepsilon} \vert \boldsymbol{X} \sim N(\boldsymbol{0}, \sigma^2\boldsymbol{I})\)</span>, we have</p>
 <p><span class="math display">\[
-\hat{\boldsymbol{\beta}} \sim N(\boldsymbol{\beta}, \sigma^2
-(\boldsymbol{X}&#39;\boldsymbol{X})^{-1}).
-\]</span> Based on the distribution, we can conduct the hypothesis
-testing we are familiar with.</p>
+\hat{\boldsymbol{\beta}} \sim N(\boldsymbol{\beta}, \sigma^2 (\boldsymbol{X}&#39;\boldsymbol{X})^{-1}).
+\]</span>
+Based on the distribution, we can conduct the hypothesis testing we are familiar with.</p>
 </div>
 </div>
 
 
 
+</div>
+</div>
 
 </div>
 
@@ -947,13 +827,42 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML.js";
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>
