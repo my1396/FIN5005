@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Menghan Yuan" />
+
+
+<title>Linear Model – Lab2</title>
+
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Course Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Linear Model – Lab2</h1>
+<h4 class="author">Menghan Yuan</h4>
+<h4 class="date">Sept 18, 2024</h4>
+
+</div>
+
+
+<SCRIPT language="JavaScript" SRC="my_jxscript.js"></SCRIPT>
+<p><a class="top-link" href="#top" id="js-top">↑</a></p>
+<pre class="r"><code>library(readxl)
+cps_data &lt;- read_excel(&quot;data/cps09mar.xlsx&quot;)
+cps_data</code></pre>
+<pre><code>## # A tibble: 50,742 × 12
+##      age female  hisp education earnings hours  week union uncov region  race
+##    &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
+##  1    52      0     0        12   146000    45    52     0     0      1     1
+##  2    38      0     0        18    50000    45    52     0     0      1     1
+##  3    38      0     0        14    32000    40    51     0     0      1     1
+##  4    41      1     0        13    47000    40    52     0     0      1     1
+##  5    42      0     0        13   161525    50    52     1     0      1     1
+##  6    66      1     0        13    33000    40    52     0     0      1     1
+##  7    51      0     0        16    37000    44    52     0     0      1     1
+##  8    49      1     0        16    37000    44    52     0     0      1     1
+##  9    33      0     0        16    80000    40    52     0     0      1     1
+## 10    52      1     0        14    32000    40    52     0     0      1     1
+## # ℹ 50,732 more rows
+## # ℹ 1 more variable: marital &lt;dbl&gt;</code></pre>
+<p>Define two variables: experience and its square (we divide by 100 to simplify reporting).
+Experience is defined as potential labor market experience:
+<span class="math display">\[
+\begin{aligned}
+\text{experience} &amp;= \text{age}-\text{education}-6 \\
+\text{exp2} &amp;= \text{experience}^2/100
+\end{aligned}
+\]</span></p>
+<pre class="r"><code>cps_data &lt;- cps_data %&gt;% 
+    mutate(experience =  age-education-6,
+           exp2=experience^2/100)
+colnames(cps_data)</code></pre>
+<pre><code>##  [1] &quot;age&quot;        &quot;female&quot;     &quot;hisp&quot;       &quot;education&quot;  &quot;earnings&quot;  
+##  [6] &quot;hours&quot;      &quot;week&quot;       &quot;union&quot;      &quot;uncov&quot;      &quot;region&quot;    
+## [11] &quot;race&quot;       &quot;marital&quot;    &quot;experience&quot; &quot;exp2&quot;</code></pre>
+<p>Calculate a new column for hourly wage using the following equation, and call it <code>wage</code>, then take the logarithm of it and call it <code>lwage</code>.
+<span class="math display">\[
+\begin{aligned}
+\text{wage} &amp;= \frac{\text{earnings}}{\text{hours}\times\text{week}}  \\
+\text{lwage} &amp;= \log (\text{wage})
+\end{aligned}
+\]</span></p>
+<pre class="r"><code>cps_data &lt;- cps_data %&gt;% 
+    mutate(wage =  earnings/(hours*week),
+           lwage = log(wage))
+cps_data</code></pre>
+<pre><code>## # A tibble: 50,742 × 16
+##      age female  hisp education earnings hours  week union uncov region  race
+##    &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
+##  1    52      0     0        12   146000    45    52     0     0      1     1
+##  2    38      0     0        18    50000    45    52     0     0      1     1
+##  3    38      0     0        14    32000    40    51     0     0      1     1
+##  4    41      1     0        13    47000    40    52     0     0      1     1
+##  5    42      0     0        13   161525    50    52     1     0      1     1
+##  6    66      1     0        13    33000    40    52     0     0      1     1
+##  7    51      0     0        16    37000    44    52     0     0      1     1
+##  8    49      1     0        16    37000    44    52     0     0      1     1
+##  9    33      0     0        16    80000    40    52     0     0      1     1
+## 10    52      1     0        14    32000    40    52     0     0      1     1
+## # ℹ 50,732 more rows
+## # ℹ 5 more variables: marital &lt;dbl&gt;, experience &lt;dbl&gt;, exp2 &lt;dbl&gt;, wage &lt;dbl&gt;,
+## #   lwage &lt;dbl&gt;</code></pre>
+<hr />
+<div id="simple-regression" class="section level1">
+<h1>Simple Regression</h1>
+<p>For this illustration, we use the sub-sample of married (spouse present) black female wage earners with 12 years potential work experience. This sub-sample has 20 observations.</p>
+<pre class="r"><code>sample1 &lt;- cps_data %&gt;% 
+    filter(marital&lt;3 &amp; race==2 &amp; female==1 &amp; experience==12)
+sample1</code></pre>
+<pre><code>## # A tibble: 20 × 16
+##      age female  hisp education earnings hours  week union uncov region  race
+##    &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
+##  1    36      1     0        18    71000    36    52     0     0      1     2
+##  2    36      1     0        18    85000    40    52     0     0      1     2
+##  3    31      1     1        13    29500    40    52     0     0      1     2
+##  4    34      1     0        16    35000    40    52     0     0      1     2
+##  5    34      1     0        16    69000    40    52     0     0      2     2
+##  6    36      1     0        18    62000    40    52     0     0      3     2
+##  7    34      1     0        16   127800    45    52     0     0      3     2
+##  8    36      1     0        18   112000    50    52     0     0      3     2
+##  9    30      1     0        12    30000    40    52     0     0      3     2
+## 10    34      1     0        16    31000    40    52     0     0      3     2
+## 11    36      1     0        18    45000    40    52     0     0      3     2
+## 12    34      1     0        16    30000    52    52     0     0      3     2
+## 13    31      1     0        13    20800    40    52     0     0      3     2
+## 14    32      1     0        14    66000    40    52     0     0      3     2
+## 15    30      1     0        12    23000    40    52     0     0      3     2
+## 16    34      1     0        16    39000    40    52     0     0      3     2
+## 17    32      1     0        14    64000    45    52     0     0      3     2
+## 18    34      1     0        16    50000    40    52     0     0      3     2
+## 19    36      1     0        18    75000    40    52     0     0      4     2
+## 20    34      1     0        16    48000    40    52     0     0      4     2
+## # ℹ 5 more variables: marital &lt;dbl&gt;, experience &lt;dbl&gt;, exp2 &lt;dbl&gt;, wage &lt;dbl&gt;,
+## #   lwage &lt;dbl&gt;</code></pre>
+<p>Now we want to estimate the following simple regression model:
+<span class="math display">\[
+\log (\text{Wage}) = \beta_1 + \beta_2\; \text{education} + \varepsilon
+\]</span></p>
+<p>Manually calculated OLS using algebraic operations.</p>
+<ul>
+<li>matrix multiplication: <code>%*%</code></li>
+<li>inverse of a matrix <span class="math inline">\(A\)</span>: <code>solve(A)</code></li>
+<li>inverse of matrix multiplication <span class="math inline">\(A\times B\)</span>: <code>solve(A)%*%B</code> or <code>solve(A, B)</code>.</li>
+</ul>
+<pre class="r"><code>y &lt;- as.matrix(sample1$lwage)
+x &lt;- cbind(1, sample1[,&quot;education&quot;]) %&gt;% as.matrix()
+n &lt;- length(y)
+K &lt;- ncol(x)
+xx &lt;- t(x) %*% x
+xy &lt;- t(x) %*% y
+beta &lt;- solve(xx,xy)
+beta</code></pre>
+<pre><code>##                [,1]
+## 1         0.6978150
+## education 0.1550389</code></pre>
+<p>Variance matrix, <span class="math inline">\(V_{\hat{\beta}}\)</span></p>
+<pre class="r"><code>e &lt;- y-x%*%beta
+sigma_hat &lt;- sum(e^2)/(n-K)
+v0 &lt;- sigma_hat * solve(xx)
+s0 &lt;- diag(v0) %&gt;% sqrt()
+s0</code></pre>
+<pre><code>##          1  education 
+## 0.70665339 0.04464806</code></pre>
+<p>We can write the estimated equation as:
+<span class="math display">\[
+\widehat{\log \text{(Wage)}} = 0.698 + 0.155\; \text{education} .
+\]</span></p>
+<p>Compare your estimate with the output from <code>lm</code> function.</p>
+<pre class="r"><code>lm_model1 &lt;- lm(lwage~education, data=sample1)
+summary(lm_model1)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = lwage ~ education, data = sample1)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.77197 -0.27430 -0.01919  0.23494  0.82188 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)   
+## (Intercept)  0.69782    0.70665   0.987  0.33649   
+## education    0.15504    0.04465   3.472  0.00272 **
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.3998 on 18 degrees of freedom
+## Multiple R-squared:  0.4012, Adjusted R-squared:  0.3679 
+## F-statistic: 12.06 on 1 and 18 DF,  p-value: 0.002718</code></pre>
+<hr />
+</div>
+<div id="multivariate-regression" class="section level1">
+<h1>Multivariate Regression</h1>
+<p>Now let’s carry out a multivariate regression model by introducing two additional regressors: experience and its square (<span class="math inline">\(\text{experience}^2/100\)</span>, we divide by 100 to simplify reporting).</p>
+<p>This time, we use the sub-sample of single (never married) Asian men, which has 268 observations.</p>
+<pre class="r"><code>sample2 &lt;- cps_data %&gt;% filter(race==4 &amp; marital==7 &amp; female==0)
+sample2</code></pre>
+<pre><code>## # A tibble: 268 × 16
+##      age female  hisp education earnings hours  week union uncov region  race
+##    &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
+##  1    21      0     0        13    11960    36    52     0     0      1     4
+##  2    38      0     0        18   125000    50    52     0     0      1     4
+##  3    25      0     0        14    35000    40    52     0     0      1     4
+##  4    55      0     0        20   110000    60    52     0     0      1     4
+##  5    27      0     1        18    52000    40    48     0     0      1     4
+##  6    27      0     0        12    26000    40    52     0     0      1     4
+##  7    37      0     0        16    40000    40    52     0     0      1     4
+##  8    22      0     0        14    12000    40    52     0     0      1     4
+##  9    25      0     0        16    40000    40    52     0     0      1     4
+## 10    24      0     0        16    40000    40    52     0     0      1     4
+## # ℹ 258 more rows
+## # ℹ 5 more variables: marital &lt;dbl&gt;, experience &lt;dbl&gt;, exp2 &lt;dbl&gt;, wage &lt;dbl&gt;,
+## #   lwage &lt;dbl&gt;</code></pre>
+<pre class="r"><code>lm_model2 &lt;- lm(lwage~education+experience+exp2, data=sample2)
+summary(lm_model2)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = lwage ~ education + experience + exp2, data = sample2)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -1.80706 -0.29973  0.03816  0.35345  2.73619 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  0.57536    0.18683   3.080  0.00229 ** 
+## education    0.14332    0.01163  12.322  &lt; 2e-16 ***
+## experience   0.03558    0.01086   3.277  0.00119 ** 
+## exp2        -0.07138    0.02957  -2.414  0.01647 *  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.5608 on 264 degrees of freedom
+## Multiple R-squared:  0.3876, Adjusted R-squared:  0.3806 
+## F-statistic: 55.69 on 3 and 264 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>We obtain the estimates:
+<span class="math display">\[
+\widehat{\log \text{(Wage)}} = 0.575 + 0.143\; \text{education} + 0.036 \; \text{experience} - 0.071 \; \text{experience}^2/100.
+\]</span></p>
+<p><span class="math display">\[
+\sum_{i=1}^n e_i
+\]</span></p>
+<pre class="r"><code>e &lt;- lm_model2$residuals
+sum(e)</code></pre>
+<pre><code>## [1] 7.931156e-15</code></pre>
+<p>Let <span class="math inline">\(x_{2i}\)</span> be education and <span class="math inline">\(x_{3i}\)</span> be experience, calculate
+<span class="math display">\[
+\begin{aligned}
+&amp;\sum_{i=1}^n x_{2i}\, e_i \\
+&amp;\sum_{i=1}^n x_{3i}\, e_i \quad \text{, and} \quad \\
+&amp;\sum_{i=1}^n x_{3i}^2\, e_i
+\end{aligned}
+\]</span></p>
+<pre class="r"><code>sum(sample2$education * e)</code></pre>
+<pre><code>## [1] 8.256312e-13</code></pre>
+<pre class="r"><code>sum(sample2$experience * e)</code></pre>
+<pre><code>## [1] -1.30812e-13</code></pre>
+<pre class="r"><code>sum(sample2$exp2 * e)</code></pre>
+<pre><code>## [1] -2.919019e-14</code></pre>
+<p>Calculate
+<span class="math display">\[
+\sum_{i=1}^n \hat{y}_i \,e_i
+\]</span></p>
+<pre class="r"><code>sum(lm_model2$fitted.values * e)</code></pre>
+<pre><code>## [1] 7.457576e-15</code></pre>
+<p>Visualize residuals.</p>
+<ol style="list-style-type: decimal">
+<li>“Residuals vs Fitted” plot</li>
+</ol>
+<pre class="r"><code>plot(lm_model2, which=1)</code></pre>
+<p><img src="07_Sept_18_lab_files/figure-html/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<ol start="2" style="list-style-type: decimal">
+<li>“Residual Q-Q” plot</li>
+</ol>
+<pre class="r"><code>plot(lm_model2, which=2)</code></pre>
+<p><img src="07_Sept_18_lab_files/figure-html/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML.js";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -176,6 +176,12 @@ stargazer(capm_ml, type="html", title="Regression Results for AAPL")
 ```
 
 
+Note that is is common practice to put standard error in the parentheses below the coefficient estimates. 
+
+- Sometimes, $t$-statistics are reported in parentheses. 
+- To avoid any misunderstanding, it is recommended to specify in the table footnote what is enclosed in parentheses.
+
+
 Several things worth looking at:
 
 -   Explanatory power: the $R^2$ ($0.48$) tells us that variation in the excess returns of the market index explains about $48\%$ of the variation in Apple's returns. The adjusted $R^2$ (which is slightly smaller) imposes a penalty for extra number of predictors.

@@ -1,0 +1,226 @@
+---
+title: "Linear Model -- Lab2"
+author: "Menghan Yuan"
+date: "Sept 18, 2024"
+output: 
+    bookdown::html_document2:
+        mathjax: "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML.js"
+        self_contained: false
+        toc: true
+        toc_float: true
+        toc_depth: 4
+        number_sections: false
+        css: "style.css"
+editor_options: 
+  chunk_output_type: console
+---
+
+<SCRIPT language="JavaScript" SRC="my_jxscript.js"></SCRIPT>
+
+<a class="top-link" href="#top" id="js-top">↑</a>
+
+```{r setup, include=F, echo=F}
+library(knitr) # load packages
+library(kableExtra)
+library(tidyverse)
+library(latex2exp)
+library(stargazer)
+library(bookdown)
+library(quantmod)
+
+# don't show code unless we explicitly set echo = TRUE
+opts_chunk$set(echo = TRUE, message=FALSE, fig.align="center", fig.pos = "H")
+opts <- options(knitr.kable.NA = "")
+
+## control long outputs by using eg `max.lines = 10`
+hook_output_default <- knitr::knit_hooks$get('output')
+truncate_to_lines <- function(x, n) {
+   if (!is.null(n)) {
+      x = unlist(stringr::str_split(x, '\n'))
+      if (length(x) > n) {
+         # truncate the output
+         x = c(head(x, n), '...\n')
+      }
+      x = paste(x, collapse = '\n') # paste first n lines together
+   }
+   x
+}
+knitr::knit_hooks$set(output = function(x, options) {
+   max.lines <- options$max.lines
+   x <- truncate_to_lines(x, max.lines)
+   hook_output_default(x, options)
+})
+```
+
+
+
+```{r}
+library(readxl)
+cps_data <- read_excel("data/cps09mar.xlsx")
+cps_data
+```
+
+Define two variables: experience and its square (we divide by 100 to simplify reporting).
+Experience is defined as potential labor market experience:
+$$
+\begin{aligned}
+\text{experience} &= \text{age}-\text{education}-6 \\
+\text{exp2} &= \text{experience}^2/100
+\end{aligned}
+$$
+
+```{r}
+cps_data <- cps_data %>% 
+    mutate(experience =  age-education-6,
+           exp2=experience^2/100)
+colnames(cps_data)
+```
+
+Calculate a new column for hourly wage using the following equation, and call it `wage`, then take the logarithm of it and call it `lwage`.
+$$
+\begin{aligned}
+\text{wage} &= \frac{\text{earnings}}{\text{hours}\times\text{week}}  \\
+\text{lwage} &= \log (\text{wage})
+\end{aligned}
+$$
+```{r}
+cps_data <- cps_data %>% 
+    mutate(wage =  earnings/(hours*week),
+           lwage = log(wage))
+cps_data
+```
+
+
+___
+
+# Simple Regression
+
+For this illustration, we use the sub-sample of married (spouse present) black female wage earners with 12 years potential work experience. This sub-sample has 20 observations.
+```{r}
+sample1 <- cps_data %>% 
+    filter(marital<3 & race==2 & female==1 & experience==12)
+sample1
+```
+
+Now we want to estimate the following simple regression model:
+$$
+\log (\text{Wage}) = \beta_1 + \beta_2\; \text{education} + \varepsilon
+$$
+
+Manually calculated OLS using algebraic operations.
+
+- matrix multiplication: `%*%`
+- inverse of a matrix $A$: `solve(A)`
+- inverse of matrix multiplication $A\times B$: `solve(A)%*%B` or `solve(A, B)`.
+
+```{r}
+y <- as.matrix(sample1$lwage)
+x <- cbind(1, sample1[,"education"]) %>% as.matrix()
+n <- length(y)
+K <- ncol(x)
+xx <- t(x) %*% x
+xy <- t(x) %*% y
+beta <- solve(xx,xy)
+beta
+```
+
+Variance matrix, $V_{\hat{\beta}}$
+```{r}
+e <- y-x%*%beta
+sigma_hat <- sum(e^2)/(n-K)
+v0 <- sigma_hat * solve(xx)
+s0 <- diag(v0) %>% sqrt()
+s0
+```
+
+We can write the estimated equation as:
+$$
+\widehat{\log \text{(Wage)}} = 0.698 + 0.155\; \text{education} .
+$$
+
+Compare your estimate with the output from `lm` function.
+```{r}
+lm_model1 <- lm(lwage~education, data=sample1)
+summary(lm_model1)
+```
+
+
+___
+
+# Multivariate Regression
+
+Now let's carry out a multivariate regression model by introducing two additional regressors: experience and its square ($\text{experience}^2/100$, we divide by 100 to simplify reporting).
+
+This time, we use the sub-sample of single (never married) Asian men, which has 268 observations.
+```{r}
+sample2 <- cps_data %>% filter(race==4 & marital==7 & female==0)
+sample2
+```
+
+
+```{r}
+lm_model2 <- lm(lwage~education+experience+exp2, data=sample2)
+summary(lm_model2)
+```
+
+
+
+We obtain the estimates:
+$$
+\widehat{\log \text{(Wage)}} = 0.575 + 0.143\; \text{education} + 0.036 \; \text{experience} - 0.071 \; \text{experience}^2/100.
+$$
+
+$$
+\sum_{i=1}^n e_i
+$$
+
+```{r}
+e <- lm_model2$residuals
+sum(e)
+```
+
+
+Let $x_{2i}$ be education and $x_{3i}$ be experience, calculate 
+$$
+\begin{aligned}
+&\sum_{i=1}^n x_{2i}\, e_i \\
+&\sum_{i=1}^n x_{3i}\, e_i \quad \text{, and} \quad \\
+&\sum_{i=1}^n x_{3i}^2\, e_i
+\end{aligned}
+$$
+```{r}
+sum(sample2$education * e)
+sum(sample2$experience * e)
+sum(sample2$exp2 * e)
+```
+
+Calculate 
+$$
+\sum_{i=1}^n \hat{y}_i \,e_i
+$$
+
+```{r}
+sum(lm_model2$fitted.values * e)
+```
+
+
+Visualize residuals.
+
+1. "Residuals vs Fitted" plot 
+```{r}
+plot(lm_model2, which=1)
+```
+
+2. "Residual Q-Q" plot 
+```{r}
+plot(lm_model2, which=2)
+```
+
+
+
+
+
+
+
+
+
