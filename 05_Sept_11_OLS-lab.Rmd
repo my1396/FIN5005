@@ -1,7 +1,7 @@
 ---
 title: "Linear Model -- Lab"
 author: "Menghan Yuan"
-date: "Sept 13, 2024"
+date: "Sept 11, 2024"
 output: 
     bookdown::html_document2:
         mathjax: "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML.js"
@@ -233,7 +233,7 @@ ___
 The Fama-French three-factor model as a regression can be expressed as
 
 $$
-r_{i,\color{red}{t}} - r_{f,\color{red}{t}} = \alpha_i + \beta_i^{RMRF} (r_{m,\color{red}{t}}-r_{f,\color{red}{t}}) + \beta_i^{SMB}SMB_t + \beta_i^{HML}HML_t + \varepsilon_{i,\color{red}{t}}
+r_{i,\color{red}{t}} - r_{f,\color{red}{t}} = \alpha_i + \beta_i^{RMRF} (r_{m,\color{red}{t}}-r_{f,\color{red}{t}}) + \beta_i^{SMB}SMB_\color{red}{t} + \beta_i^{HML}HML_\color{red}{t} + \varepsilon_{i,\color{red}{t}}
 $$ 
 
 

@@ -10,7 +10,7 @@ title: "Course website for FIN 5005"
 
 [Sept 11, 2024, Hypothesis Testing -- Lecture](04_Sept_11_lecture.html) 
 
-[Sept 11, 2024, Linear Regression -- Lab](05_Sept_13_OLS-lab.html)
+[Sept 11, 2024, Linear Regression -- Lab](05_Sept_11_OLS-lab.html)
 
 [Sept 13, 2024, OLS -- External Resource](images/matrix_OLS_NYU_notes.pdf)
 
