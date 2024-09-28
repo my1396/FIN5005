@@ -758,6 +758,7 @@ $$
 - Covariance provides information about the direction of comovement between two random variables.
 - Covariance between $X$ and $Y$ is also written as $\sigma_{XY}$.
 - The magnitude of covariance does not give any information on the strength of association between two random variables. In other words, $\text{Cov}(X, Y) = 100$ and $\text{Cov}(W, Z) = 1$ does not necessarily mean that $X$ and $Y$ are much strongly related compared to $W$ and $Z$.
+- A shortcut formula to calculate covaraince: $\text{Cov}(X,Y) = \mathbb{E}[XY] - \mathbb{E}[X]\mathbb{E}[Y].$
 
 
 More formally

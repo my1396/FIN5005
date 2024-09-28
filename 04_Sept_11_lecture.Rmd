@@ -362,8 +362,19 @@ The critical values for typical levels of significance are:
 
 - For two-sided tests,
     - 1\% level of significance : $c_\alpha = 2.58$,
-    - 5\% level of significance : $\color{#337ab7}{c_\alpha = 1.95}$, 
+    ```{r}
+    qnorm(p=.995)
+    ```
+    
+    - 5\% level of significance : $\color{#337ab7}{c_\alpha = 1.96}$, 
+    ```{r}
+        qnorm(p=.975)
+    ```
+    
     - 10\% level of significance : $c_\alpha= 1.64$.
+    ```{r}
+        qnorm(p=.95)
+    ```
 
 
 

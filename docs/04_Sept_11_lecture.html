@@ -595,9 +595,19 @@ Otherwise, we fail to reject <span class="math inline">\(H_0.\)</span></p></li>
 <li>For two-sided tests,
 <ul>
 <li>1% level of significance : <span class="math inline">\(c_\alpha = 2.58\)</span>,</li>
-<li>5% level of significance : <span class="math inline">\(\color{#337ab7}{c_\alpha = 1.95}\)</span>,</li>
+</ul>
+<pre class="r"><code>qnorm(p=.995)</code></pre>
+<pre><code>## [1] 2.575829</code></pre>
+<ul>
+<li>5% level of significance : <span class="math inline">\(\color{#337ab7}{c_\alpha = 1.96}\)</span>,</li>
+</ul>
+<pre class="r"><code>    qnorm(p=.975)</code></pre>
+<pre><code>## [1] 1.959964</code></pre>
+<ul>
 <li>10% level of significance : <span class="math inline">\(c_\alpha= 1.64\)</span>.</li>
-</ul></li>
+</ul>
+<pre class="r"><code>    qnorm(p=.95)</code></pre>
+<pre><code>## [1] 1.644854</code></pre></li>
 </ul>
 <hr />
 </div>
