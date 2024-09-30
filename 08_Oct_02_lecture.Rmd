@@ -27,7 +27,7 @@ library(stargazer)
 library(bookdown)
 
 # don't show code unless we explicitly set echo = TRUE
-opts_chunk$set(echo = TRUE, message=FALSE, fig.align="center", fig.pos = "H")
+opts_chunk$set(echo = TRUE, message=FALSE, fig.align="center", fig.pos = "H", paged.print=FALSE)
 opts <- options(knitr.kable.NA = "")
 
 ## control long outputs by using eg `max.lines = 10`
@@ -52,9 +52,20 @@ knitr::knit_hooks$set(output = function(x, options) {
 
 
 
-# One-way Anova test
+# One-way ANOVA test
+
+ANOVA stands for “analysis of variance”.
+We use $F$-test for one-way ANOVA to test whether the regression equation as a whole is significant.
 
 ## Variance decomposition
+
+
+Consider the following model setting:
+
+$$
+y_i = x_{1i} \beta_1 + x_{2i} \beta_2 + \cdots + x_{Ki} \beta_K + \varepsilon_i\, ,
+$$
+where $\varepsilon_i \overset{iid}{\sim} N(0, \sigma^2)$.
 
 - Total Sum of Squares (TSS)
 $$
@@ -89,11 +100,13 @@ $$
     &= \frac{ESS}{TSS}.
     \end{aligned}
     $$
+    
     Note that
     
+    - $R^2$ is called “<span style='color:#008B45FF'>the coefficient of determination</span>”.
     - $0\le R^2\le 1$, is a measure of goodness of fit. 
         - $R^2=1$ (perfit fit) occurs when $y=\hat{y}$.
-        - $R^2=0$ occurs when there is only one intercept in the model, i.e., $y_i=\beta_1+\varepsilon$. The predicted value will be the sample average. $\hat{y}_i=\overline{y}$ for $i=1,2,\ldots,n,$ so that $\sum_{i=1}^n (\hat{y}_i-\overline{y})^2.$
+        - <span style='color:#337ab7'>$R^2=0$ occurs when there is only one intercept in the model</span>, i.e., $y_i=\beta_1+\varepsilon$. The predicted value will be the sample average. $\hat{y}_i=\overline{y}$ for $i=1,2,\ldots,n,$ so that $\sum_{i=1}^n (\hat{y}_i-\overline{y})^2.$
     - $R^2$ is the square of the sample correlation coefficient between $y_i$ and $\hat{y}_i$.
     - $R^2$ measures the proportion of the total variation in the dependent variable
     that is “accounted for” or “explained” by the model.
@@ -110,7 +123,7 @@ $$
     $$
     \overline{R}^2 = 1- \frac{n-1}{n-K}(1-R^2) ,
     $$
-    which impose a penalty as $K$ increases in a given sample size $n$.
+    which imposes a penalty as $K$ increases in a given sample size $n$.
     
     
 
@@ -122,16 +135,37 @@ $$
 &\text{H}_1: \text{At least one of the } \beta_2, \beta_3,\ldots, \beta_K,\text{is not zero.}
 \end{aligned}
 $$
-    This is sometimes referred to as the <span style='color:#008B45FF'>F-test</span> of <span style='color:#008B45FF'>one-way Anova</span>.
+    This is sometimes referred to as the <span style='color:#008B45FF'>F-test</span> for <span style='color:#008B45FF'>one-way ANOVA</span>.
     
     The test statistic is given by:
     $$
     F = \left(\frac{n-K}{K-1}\right) \left(\frac{R^2}{1-R^2}\right) \sim F(K-1, n-K) .
     $$
 
+    where $F$ is $F$-distributed with $K-1$ and $n-K$ degrees of freedom.
+    
+    We reject $\text{H}_0$ if $F>F_{\alpha}(K-1,n-K)$. 
+    
+    - $F_{\alpha}(K-1,n-K)$ is the $(1-\alpha)$ percentile in the $F(K-1, n-K)$ distribution, corresponding to the level of significance, $\alpha$.
+    
+    
+    <img src="https://drive.google.com/thumbnail?id=1LSF9a8en1SvwZDL76SHeZ0BpDYhHbLz-&sz=w1000" alt="F distribution" style="display: block; margin-right: auto; margin-left: auto; zoom:80%;" />
+    
+    The $p$-value is found by:
+    $$
+    \text{P-value} = \mathbb{P}(F>F_{\text{obs}}) ,
+    $$
+    where $F_{\text{obs}}$ is your calcualted/observed test statistic based on your data sample.
+    
+    - Large values of $F$ give evidence against the validity of the null hypothesis. Note that a large $F$ is induced by a large value of $R^2$.
+    
+    - The logic of the test is that the $F$ statistic is a measure of the loss of fit (namely, all of $R^2$) that results when we impose the restriction that all the slopes are zero. If $F$ is large, then the hypothesis is rejected.
+
+
 ___
 
-# T-test
+
+# T-test for the effect of a single predictor
 
 Quite often it is not very interesting to test the null hypothesis that none of the covariates have an effect. 
 <span style='color:#008B45FF'>T-test</span> is used to test for if one specific covariate, $\beta_j$ has an effect.
@@ -147,6 +181,12 @@ $$
 t = \frac{\hat{\beta}_j-\beta_j}{se_{\hat{\beta}_j}}  \sim t(n-K) .
 $$
 We reject $\text{H}_0$ if $|t|>c_{\alpha/2}$, where $c_{\alpha/2}$ is the $\left(1-\frac{\alpha}{2}\right)$ quantile of the $t$-distribution with $n-K$ degrees of freedom.
+
+The two-sided $p$-value is found by:
+$$
+p\text{-value} = 2\,\mathbb{P}(T>|t|) ,
+$$
+where $T$ is $t$-distribution with $n-K$ degrees of freedom.
 
 The $(1-\alpha)$ confidence interval for $\beta_j$: 
 $$
@@ -218,7 +258,7 @@ $$
 
 Run the regression.
 ```{r }
-# define group to be a categorical covariate (facotr)
+# define group to be a categorical covariate (factor)
 bonedensity <- bonedensity %>% mutate(group = factor(group))
 bonedensity
 ```
@@ -228,15 +268,15 @@ lm.density <- lm(density~group,data=bonedensity)
 summary(lm.density)
 ```
 
-
+Summarize the output in a regression table.
 ```{r, echo=FALSE, results='asis'}
 stargazer(lm.density, type="html", title="Regression Results for bone density", notes="<span>&#42;&#42;&#42;</span>: p<0.01; <span>&#42;&#42;</span>: <strong>p<0.05</strong>; <span>&#42;</span>: p<0.1", notes.append=F)
 ```
 
 &nbsp;
 
-- The intercept (0.219) is the mean in group 1 (the reference group).
-- The slope estimate for group2 (0.016) is the difference between the means in the two groups.
+- The intercept (0.219) is the mean bone density in group 1 (the reference group).
+- The slope estimate for group2 (0.016) is the difference between the means of bone density in the two groups.
     - The $t$-value (2.844) and p-value (0.00823) equals the $t$-test. Given that the p-value is smaller than 5%, we conclude that the treatment of isoflavone has significant effect on the bone density of rats.
     
 
@@ -257,7 +297,7 @@ boxplot(density~group, data=bonedensity)
 
 ___
 
-# $t$-test for equal sample means
+# $T$-test for equal sample means
 
 We would like to determine a confidence interval for the treatment effect and test if the difference is statistically significant -- <span style='color:#008B45FF'>$t$-test for equal sample means</span>.
 
@@ -265,13 +305,14 @@ We would like to determine a confidence interval for the treatment effect and te
 t.test(density~group, data=bonedensity, var.equal=T)
 ```
 
+**Mathematical formulations**
 
 Suppose that the data for the two independent groups are random samples from $N(\mu_1, \sigma^2)$ and $N(\mu_1, \sigma^2)$, respectively. Here we assume equal variance.
 
 The observations are denotes:
 
 - group 1: $x_{11}, x_{12}, \ldots, x_{1,n_1}$
-- group 2: $x_{21}, x_{22}, \ldots, x_{1,2_1}$
+- group 2: $x_{21}, x_{22}, \ldots, x_{1,n_2}$
 
 We have all together $n=n_1+n_2$ observations.
 
@@ -301,6 +342,8 @@ ___
 
 # Interactions
 
+Come back to our Current Population Survey (CPS) dataset and earnings regressions. 
+
 Now suppose we have two dummy variables $x_1$ and $x_2$.
 
 $$
@@ -316,19 +359,209 @@ x_2 &= \begin{cases}
 \end{aligned}
 $$
 
+We consider the following regression model:
+$$
+y=\beta_0 + \beta_1x_1 + \beta_2x_2 + \beta_3x_1x_2 + \varepsilon .  
+$$
+Here we have $x_3=x_1x_2$, i.e., the product of $x_1$ and $x_2$. 
+
+- We often describe $\beta_3$ as measuring the <span style='color:#008B45FF'>interaction</span> between the two dummy variables, or the <span style='color:#008B45FF'>interaction effect</span>, and describe 
+- $\beta_3 = 0$ as the case when the interaction effect is zero.
+
+
+The conditional mean given $x_1$ and $x_2$ ($E[y|x_1,x_2]$) takes at most four possible values:
+
+```{r, echo=FALSE}
+math_df <- data.frame(scenario=c(1,2,3,4),
+    x_1=c(0,1,0,1),
+    x_2=c(0,0,1,1),
+    EY=c("$\\mu_{00}$", "$\\mu_{10}$", "$\\mu_{01}$", "$\\mu_{11}$")
+    )
+colnames(math_df) <- c("Scenario", "$x_1$", "$x_2$", "$E[y|x_1,x_2]$")
+math_df %>% 
+    knitr::kable(floating.environment="sidewaystable", escape=F) %>%
+    kable_styling(bootstrap_options = c("striped", "hover"), full_width = F, latex_options="scale_down") 
+```
+
+We want to build a relationship between the four $\beta$'s and the four $\mu$'s. Plugging in the four scenarios, we have the following system of equations:
+$$
+\begin{cases}
+\beta_0 &= \mu_{00} \\
+\beta_0 + \beta_1 &= \mu_{10} \\
+\beta_0 + \beta_2 &= \mu_{01} \\
+\beta_0 + \beta_1 + \beta_2 + \beta_3 &= \mu_{11} \\
+\end{cases} .
+$$
+
+Solving the system of equations gives us
+$$
+\begin{cases}
+\beta_0 &= \mu_{00} \\
+\beta_1 &= \mu_{10} - \mu_{00} \\
+\beta_2 &= \mu_{01} - \mu_{00} \\
+\beta_3 &= \mu_{11} - \mu_{10} - \mu_{01} + \mu_{00} \\
+\end{cases} .
+$$
+
+We can view 
+
+- the regression intercept $\beta_0$ as the expected earnings for unmarried men;
+- the coefficient $\beta_1$ as the effect of sex on expected earnings for unmarried wage earners;
+- the coefficient $\beta_2$ as the effect of marriage on expected earnings for men wage earners;
+- the coefficient $\beta_3$ has two equivalent interpretations:
+    - $(\mu_{11} - \mu_{10}) - (\mu_{01} - \mu_{00})$ stands for difference between the effects of marriage on expected earnings among women and men, or rearranging the terms,
+    - $(\mu_{11} - \mu_{01}) - (\mu_{10} - \mu_{00})$ stands for difference between the effects of sex on expected earnings among married and non-married wage earners.
+
+
+Back to our CPS earning regression example.
+
+```{r}
+# prepare the dataset
+cps_data <- read_csv("https://raw.githubusercontent.com/my1396/course_dataset/refs/heads/main/cps09mar.csv")
+cps_data <- cps_data %>% 
+    mutate(wage =  earnings/(hours*week),
+           lwage = log(wage), 
+           female = factor(female),
+           married = ifelse(marital<4, 1, 0) %>% factor()
+           )
+cps_data %>% select(lwage, female, married)
+```
+
+
+```{r}
+dummy_lm <- lm(lwage~female+married+female:married, data=cps_data)
+summary(dummy_lm)
+```
+
+Summarize the output in a regression table.
+
+```{r echo=FALSE, results='asis'}
+stargazer(dummy_lm, type="html", 
+          title="Regression including dummay variables and interactions", 
+          align = TRUE, notes="<span>&#42;&#42;&#42;</span>: p<0.01; <span>&#42;&#42;</span>: <strong>p<0.05</strong>; <span>&#42;</span>: p<0.1", notes.append=F)
+```
+
+
+We write the regression model as
+
+$$
+\log (wage) = 2.79 - 0.06\, Female + 0.35\, Married - 0.22\, Female \times Married + e
+$$
+Note that we have the log transformation for the wage variable. This changes the interpretation of the coefficients. The coefficient can be interpreted as a one-unit change in the independent variable is associated with a 100 times the coefficient percent change in the dependent variable.
+
+The regression results show that 
+
+- the coefficient $\beta_1$ ($-0.06$) indicates that the effects of sex on expected earnings for unmarried wage earners is 6% lower. 
+    - That is, unmarried female earn 6% less than unmarried male.
+
+- the coefficient $\beta_2$ ($0.35$) indicates that the effects of marriage on expected earnings for males is 35%. 
+    - That is married male earns 35% more than unmarried male.
+
+- the coefficient $\beta_3$ ($-0.22$) indicates that 
+    - the effects of marriage on female is $11\%=(35-22)\%$, or equivalently
+    - the effects for sex on married is $-28\%=(-6-22)\%$.
+
 
 ___
 
-
-# Two-way Anova test
-
+# Two-way ANOVA test
 
 
+The two-way ANOVA test is used to compare the fits of two regression models.
+
+- Test for Improvement: It tests whether adding more predictors (variables) to a model significantly improves the model’s ability to explain the variability in the response variable.
+
+- Model Selection: Helps in deciding between a simpler model with fewer variables and a more complex one with more variables.
 
 
+**When to Use ANOVA for Comparing Regression Models?**
+
+- Nested Models: Applicable when you have two nested models - one is a special case of the other. For example, Model 1 might include predictors $X_1$ and $X_2$, while Model 2 includes $X_1$, $X_2$, and $X_3$.
+
+- Same Response Variable: Both models must be trying to predict the same response variable.
+
+- Linear Models: Typically used for comparing linear regression models.
 
 
+**How to perform the comparison?**
 
+1. Fit both models: Fit the simpler model and the more complex model to your data.
+
+2. Conduct ANOVA test: Use an ANOVA test to compare the models. In R, this can be done using the `anova()` function.
+
+3. Interpret the results: If the $p$-value from the ANOVA test is low (typically <0.05), it suggests that the more complex model provides a significantly better fit to the data.
+
+
+**Mathematical formulations**
+
+For instance, consider we have two models:
+
+- Model 1: $y=\beta_1 + \beta_2 x_{2} + \varepsilon$, and
+- Model 2: $y=\beta_1 + \beta_2 x_{2} + \beta_3 x_3 + \beta_3 x_4 + \varepsilon$.
+
+We can form a test by comparing the $R^2$ from the two models.
+
+$$
+\begin{aligned}
+&\text{H}_0: \beta_3=\beta_4=0 \\
+&\text{H}_1: \beta_3\ne 0 \text{ or } \beta_4\ne 0 ,
+\end{aligned}
+$$
+which imposes two exclusion restrictions.
+
+Note that this is similar to the $F$-test for the significance of the overall regression, which test for 
+$$
+\begin{aligned}
+&\text{H}_0: \beta_2=\beta_3=\cdots=\beta_K=0 \\
+&\text{H}_1: \text{At least one of the } \beta_2, \beta_3,\ldots, \beta_K,\text{is not zero.}
+\end{aligned}
+$$
+
+In stead of having a $F(K-1, n-K)$ test statistic, we can form a $F(p, n-K)$ test statistic, where $p$ is the number of exclusion restrictions. In this case, we have $p=2$. 
+
+To fix ideas, we call Model 1 as the “restricted model”, and Model 2 the “unrestricted model” or the “full model”.
+
+Denote 
+
+- the $R^2$ obtained from the unrestricted model by $R_U^2$, and 
+- the $R^2$ obtained from the restricted model by $R_R^2$.
+- Noting that $R_U^2 > R_R^2$.
+
+
+The test statistic is given by
+
+$$
+F = \left(\frac{n-K}{p}\right) \left(\frac{R_U^2-R_R^2}{1-R_U^2}\right) \sim F(p, n-K) .
+$$
+
+The null hypothesis is rejected if the exclusion of these $p$ explanatory variables results in a sufficiently large fall in the $R^2$ goodness of fit measure.
+
+
+```{r}
+dummy_lm_restricted <- lm(lwage~female+married, data=cps_data)
+summary(dummy_lm_restricted)
+```
+
+Summarize the unrestricted and restricted models in a table.
+
+```{r, echo=FALSE, results='asis'}
+stargazer(dummy_lm_restricted, dummy_lm, type="html", title="Regression Results for bone density", notes="<span>&#42;&#42;&#42;</span>: p<0.01; <span>&#42;&#42;</span>: <strong>p<0.05</strong>; <span>&#42;</span>: p<0.1", notes.append=F)
+```
+
+
+&nbsp;
+
+
+**Two-way Anova test.**
+
+```{r}
+# Compare the restricted with the full model
+anova(dummy_lm_restricted, dummy_lm)
+```
+
+
+- The result shows a Df of 1 (indicating that the unrestricted model has one additional parameter, i.e., $p=1$), and a very small $p$-value ($< .001$). 
+- This means that adding the interaction to the model did lead to a significantly improved fit over the model 1.
 
 
 

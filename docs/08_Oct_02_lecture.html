@@ -14,10 +14,9 @@
 
 <title>Linear Regression Model – Lecture</title>
 
-<script src="site_libs/header-attrs-2.24/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -30,9 +29,16 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -221,6 +227,69 @@ $(document).ready(function () {
 
 
 
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
 
 </head>
 
@@ -228,6 +297,16 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -269,143 +348,129 @@ $(document).ready(function () {
 <SCRIPT language="JavaScript" SRC="my_jxscript.js"></SCRIPT>
 <p><a class="top-link" href="#top" id="js-top">↑</a></p>
 <div id="one-way-anova-test" class="section level1">
-<h1>One-way Anova test</h1>
+<h1>One-way ANOVA test</h1>
+<p>ANOVA stands for “analysis of variance”.
+We use <span class="math inline">\(F\)</span>-test for one-way ANOVA to test whether the regression equation as a whole is significant.</p>
 <div id="variance-decomposition" class="section level2">
 <h2>Variance decomposition</h2>
+<p>Consider the following model setting:</p>
+<p><span class="math display">\[
+y_i = x_{1i} \beta_1 + x_{2i} \beta_2 + \cdots + x_{Ki} \beta_K + \varepsilon_i\, ,
+\]</span>
+where <span class="math inline">\(\varepsilon_i \overset{iid}{\sim} N(0, \sigma^2)\)</span>.</p>
 <ul>
-<li><p>Total Sum of Squares (TSS) <span class="math display">\[
+<li><p>Total Sum of Squares (TSS)
+<span class="math display">\[
 \text{TSS} = \sum_{i=1}^n (y_i-\overline{y})^2,
-\]</span> where <span class="math inline">\(\overline{y}=\frac{1}{n}
-\sum_{i=1}^n y_i\)</span></p></li>
-<li><p>Explained/Model Sum of Squares (ESS or MSS) <span
-class="math display">\[
+\]</span>
+where <span class="math inline">\(\overline{y}=\frac{1}{n} \sum_{i=1}^n y_i\)</span></p></li>
+<li><p>Explained/Model Sum of Squares (ESS or MSS)
+<span class="math display">\[
 \text{ESS} = \sum_{i=1}^n (\hat{y}_i-\overline{y})^2
 \]</span></p></li>
-<li><p>Residual sum of squares <span class="math display">\[
+<li><p>Residual sum of squares
+<span class="math display">\[
 \text{RSS} = \sum_{i=1}^n (y_i-\hat{y}_i)^2
 \]</span></p></li>
 <li><p><span class="math inline">\(TSS = ESS + RSS\)</span>, that is
 <span class="math display">\[
-\sum_{i=1}^n (y_i-\overline{y})^2 = \sum_{i=1}^n
-(\hat{y}_i-\overline{y})^2 + \sum_{i=1}^n (y_i-\hat{y}_i)^2 .
-\]</span> Dividing both sides by <span
-class="math inline">\(\sum_{i=1}^n (y_i-\overline{y})^2\)</span> gives
+\sum_{i=1}^n (y_i-\overline{y})^2 = \sum_{i=1}^n (\hat{y}_i-\overline{y})^2 + \sum_{i=1}^n (y_i-\hat{y}_i)^2 .
+\]</span>
+Dividing both sides by <span class="math inline">\(\sum_{i=1}^n (y_i-\overline{y})^2\)</span> gives
 <span class="math display">\[
-  1 = \frac{\sum_{i=1}^n (\hat{y}_i-\overline{y})^2}{\sum_{i=1}^n
-(y_i-\overline{y})^2} - \frac{\sum_{i=1}^n
-(y_i-\hat{y}_i)^2}{\sum_{i=1}^n (y_i-\overline{y})^2} .
-  \]</span> Define <span style="color:#008B45FF"><span
-class="math inline">\(R^2=\frac{\sum_{i=1}^n
-(\hat{y}_i-\overline{y})^2}{\sum_{i=1}^n (y_i-\overline{y})^2}\)</span>,
-which is the ratio of <span class="math inline">\(ESS\)</span> to <span
-class="math inline">\(TSS\)</span></span>. Rearranging the equation, we
-have <span class="math display">\[
+  1 = \frac{\sum_{i=1}^n (\hat{y}_i-\overline{y})^2}{\sum_{i=1}^n (y_i-\overline{y})^2} - \frac{\sum_{i=1}^n (y_i-\hat{y}_i)^2}{\sum_{i=1}^n (y_i-\overline{y})^2} .
+  \]</span>
+Define <span style="color:#008B45FF"><span class="math inline">\(R^2=\frac{\sum_{i=1}^n (\hat{y}_i-\overline{y})^2}{\sum_{i=1}^n (y_i-\overline{y})^2}\)</span>, which is the ratio of <span class="math inline">\(ESS\)</span> to <span class="math inline">\(TSS\)</span></span>.
+Rearranging the equation, we have
+<span class="math display">\[
   \begin{aligned}
-  R^2 &amp;= 1-\frac{\sum_{i=1}^n (y_i-\hat{y}_i)^2}{\sum_{i=1}^n
-(y_i-\overline{y})^2} \\
+  R^2 &amp;= 1-\frac{\sum_{i=1}^n (y_i-\hat{y}_i)^2}{\sum_{i=1}^n (y_i-\overline{y})^2} \\
   &amp;= 1-\frac{RSS}{TSS} \\
   &amp;= \frac{ESS}{TSS}.
   \end{aligned}
-  \]</span> Note that</p>
+  \]</span></p>
+<p>Note that</p>
 <ul>
-<li><span class="math inline">\(0\le R^2\le 1\)</span>, is a measure of
-goodness of fit.
+<li><span class="math inline">\(R^2\)</span> is called “<span style="color:#008B45FF">the coefficient of determination</span>”.</li>
+<li><span class="math inline">\(0\le R^2\le 1\)</span>, is a measure of goodness of fit.
 <ul>
-<li><span class="math inline">\(R^2=1\)</span> (perfit fit) occurs when
-<span class="math inline">\(y=\hat{y}\)</span>.</li>
-<li><span class="math inline">\(R^2=0\)</span> occurs when there is only
-one intercept in the model, i.e., <span
-class="math inline">\(y_i=\beta_1+\varepsilon\)</span>. The predicted
-value will be the sample average. <span
-class="math inline">\(\hat{y}_i=\overline{y}\)</span> for <span
-class="math inline">\(i=1,2,\ldots,n,\)</span> so that <span
-class="math inline">\(\sum_{i=1}^n
-(\hat{y}_i-\overline{y})^2.\)</span></li>
+<li><span class="math inline">\(R^2=1\)</span> (perfit fit) occurs when <span class="math inline">\(y=\hat{y}\)</span>.</li>
+<li><span style="color:#337ab7"><span class="math inline">\(R^2=0\)</span> occurs when there is only one intercept in the model</span>, i.e., <span class="math inline">\(y_i=\beta_1+\varepsilon\)</span>. The predicted value will be the sample average. <span class="math inline">\(\hat{y}_i=\overline{y}\)</span> for <span class="math inline">\(i=1,2,\ldots,n,\)</span> so that <span class="math inline">\(\sum_{i=1}^n (\hat{y}_i-\overline{y})^2.\)</span></li>
 </ul></li>
-<li><span class="math inline">\(R^2\)</span> is the square of the sample
-correlation coefficient between <span class="math inline">\(y_i\)</span>
-and <span class="math inline">\(\hat{y}_i\)</span>.</li>
-<li><span class="math inline">\(R^2\)</span> measures the proportion of
-the total variation in the dependent variable that is “accounted for” or
-“explained” by the model.</li>
+<li><span class="math inline">\(R^2\)</span> is the square of the sample correlation coefficient between <span class="math inline">\(y_i\)</span> and <span class="math inline">\(\hat{y}_i\)</span>.</li>
+<li><span class="math inline">\(R^2\)</span> measures the proportion of the total variation in the dependent variable
+that is “accounted for” or “explained” by the model.</li>
 </ul></li>
-<li><p>Note that in a sample of size <span
-class="math inline">\(n\)</span>, we could always obtain a perfect fit
-(<span class="math inline">\(R^2 = 1\)</span>) simply by regressing
-<span class="math inline">\(y_i\)</span> on a set of <span
-class="math inline">\(n\)</span> linearly independent explanatory
-variables.</p>
-<p>More generally, increasing the number of explanatory variables cannot
-reduce the fit as measured by <span
-class="math inline">\(R^2\)</span>.</p>
-<p>Adding an explanatory variable that is irrelevant in the sample (s.t.
-the estimated coe¢cient on this variable is zero) leaves the fit
-unchanged.</p>
-<p>While adding a variable that is not irrelevant in the sample (s.t.
-the estimated coefficient is not zero) improves the fit.</p>
-<p>Some researchers prefer to report an “<span
-style="color:#008B45FF">adjusted <span
-class="math inline">\(R^2\)</span></span>” or “<span
-style="color:#008B45FF">R-bar-squared</span>”, defined by <span
-class="math display">\[
+<li><p>Note that in a sample of size <span class="math inline">\(n\)</span>, we could always obtain a perfect fit (<span class="math inline">\(R^2 = 1\)</span>) simply by regressing <span class="math inline">\(y_i\)</span> on a set of <span class="math inline">\(n\)</span> linearly independent explanatory variables.</p>
+<p>More generally, increasing the number of explanatory variables cannot reduce the fit as measured by <span class="math inline">\(R^2\)</span>.</p>
+<p>Adding an explanatory variable that is irrelevant in the sample (s.t. the estimated coe¢cient on this variable is zero) leaves the fit unchanged.</p>
+<p>While adding a variable that is not irrelevant in the sample (s.t. the estimated coefficient is not zero) improves the fit.</p>
+<p>Some researchers prefer to report an “<span style="color:#008B45FF">adjusted <span class="math inline">\(R^2\)</span></span>” or “<span style="color:#008B45FF">R-bar-squared</span>”, defined by
+<span class="math display">\[
   \overline{R}^2 = 1- \frac{n-1}{n-K}(1-R^2) ,
-  \]</span> which impose a penalty as <span
-class="math inline">\(K\)</span> increases in a given sample size <span
-class="math inline">\(n\)</span>.</p></li>
-<li><p>F-test for that all <span class="math inline">\(K-1\)</span> of
-the slope coefficients in a linear model are equal to zero, i.e., to
-test the exclusion of all explanatory variables except the intercept,
-<span class="math inline">\(\beta_1\)</span>. Formally speaking. <span
-class="math display">\[
+  \]</span>
+which imposes a penalty as <span class="math inline">\(K\)</span> increases in a given sample size <span class="math inline">\(n\)</span>.</p></li>
+<li><p>F-test for that all <span class="math inline">\(K-1\)</span> of the slope coefficients in a linear model are equal to zero, i.e., to test the exclusion of all explanatory variables except the intercept, <span class="math inline">\(\beta_1\)</span>.
+Formally speaking.
+<span class="math display">\[
 \begin{aligned}
 &amp;\text{H}_0: \beta_2=\beta_3=\cdots=\beta_K=0 \\
-&amp;\text{H}_1: \text{At least one of the } \beta_2, \beta_3,\ldots,
-\beta_K,\text{is not zero.}
+&amp;\text{H}_1: \text{At least one of the } \beta_2, \beta_3,\ldots, \beta_K,\text{is not zero.}
 \end{aligned}
-\]</span> This is sometimes referred to as the <span
-style="color:#008B45FF">F-test</span> of <span
-style="color:#008B45FF">one-way Anova</span>.</p>
-<p>The test statistic is given by: <span class="math display">\[
-  F = \left(\frac{n-K}{K-1}\right) \left(\frac{R^2}{1-R^2}\right) \sim
-F(K-1, n-K) .
-  \]</span></p></li>
+\]</span>
+This is sometimes referred to as the <span style="color:#008B45FF">F-test</span> for <span style="color:#008B45FF">one-way ANOVA</span>.</p>
+<p>The test statistic is given by:
+<span class="math display">\[
+  F = \left(\frac{n-K}{K-1}\right) \left(\frac{R^2}{1-R^2}\right) \sim F(K-1, n-K) .
+  \]</span></p>
+<p>where <span class="math inline">\(F\)</span> is <span class="math inline">\(F\)</span>-distributed with <span class="math inline">\(K-1\)</span> and <span class="math inline">\(n-K\)</span> degrees of freedom.</p>
+<p>We reject <span class="math inline">\(\text{H}_0\)</span> if <span class="math inline">\(F&gt;F_{\alpha}(K-1,n-K)\)</span>.</p>
+<ul>
+<li><span class="math inline">\(F_{\alpha}(K-1,n-K)\)</span> is the <span class="math inline">\((1-\alpha)\)</span> percentile in the <span class="math inline">\(F(K-1, n-K)\)</span> distribution, corresponding to the level of significance, <span class="math inline">\(\alpha\)</span>.</li>
+</ul>
+<p><img src="https://drive.google.com/thumbnail?id=1LSF9a8en1SvwZDL76SHeZ0BpDYhHbLz-&sz=w1000" alt="F distribution" style="display: block; margin-right: auto; margin-left: auto; zoom:80%;" /></p>
+<p>The <span class="math inline">\(p\)</span>-value is found by:
+<span class="math display">\[
+  \text{P-value} = \mathbb{P}(F&gt;F_{\text{obs}}) ,
+  \]</span>
+where <span class="math inline">\(F_{\text{obs}}\)</span> is your calcualted/observed test statistic based on your data sample.</p>
+<ul>
+<li><p>Large values of <span class="math inline">\(F\)</span> give evidence against the validity of the null hypothesis. Note that a large <span class="math inline">\(F\)</span> is induced by a large value of <span class="math inline">\(R^2\)</span>.</p></li>
+<li><p>The logic of the test is that the <span class="math inline">\(F\)</span> statistic is a measure of the loss of fit (namely, all of <span class="math inline">\(R^2\)</span>) that results when we impose the restriction that all the slopes are zero. If <span class="math inline">\(F\)</span> is large, then the hypothesis is rejected.</p></li>
+</ul></li>
 </ul>
 <hr />
 </div>
 </div>
-<div id="t-test" class="section level1">
-<h1>T-test</h1>
-<p>Quite often it is not very interesting to test the null hypothesis
-that none of the covariates have an effect. <span
-style="color:#008B45FF">T-test</span> is used to test for if one
-specific covariate, <span class="math inline">\(\beta_j\)</span> has an
-effect. <span class="math display">\[
+<div id="t-test-for-the-effect-of-a-single-predictor" class="section level1">
+<h1>T-test for the effect of a single predictor</h1>
+<p>Quite often it is not very interesting to test the null hypothesis that none of the covariates have an effect.
+<span style="color:#008B45FF">T-test</span> is used to test for if one specific covariate, <span class="math inline">\(\beta_j\)</span> has an effect.
+<span class="math display">\[
 \begin{aligned}
 &amp;\text{H}_0: \beta_j=0 , \\
 &amp;\text{H}_1: \beta_j\ne0 .
 \end{aligned}
 \]</span></p>
-<p>We use the following statistic <span class="math display">\[
+<p>We use the following statistic
+<span class="math display">\[
 t = \frac{\hat{\beta}_j-\beta_j}{se_{\hat{\beta}_j}}  \sim t(n-K) .
-\]</span> We reject <span class="math inline">\(\text{H}_0\)</span> if
-<span class="math inline">\(|t|&gt;c_{\alpha/2}\)</span>, where <span
-class="math inline">\(c_{\alpha/2}\)</span> is the <span
-class="math inline">\(\left(1-\frac{\alpha}{2}\right)\)</span> quantile
-of the <span class="math inline">\(t\)</span>-distribution with <span
-class="math inline">\(n-K\)</span> degrees of freedom.</p>
-<p>The <span class="math inline">\((1-\alpha)\)</span> confidence
-interval for <span class="math inline">\(\beta_j\)</span>: <span
-class="math display">\[
-[\hat{\beta}_j-c_{\alpha/2} \cdot se_{\hat{\beta}_j},
-\hat{\beta}_j+c_{\alpha/2} \cdot se_{\hat{\beta}_j}] .
+\]</span>
+We reject <span class="math inline">\(\text{H}_0\)</span> if <span class="math inline">\(|t|&gt;c_{\alpha/2}\)</span>, where <span class="math inline">\(c_{\alpha/2}\)</span> is the <span class="math inline">\(\left(1-\frac{\alpha}{2}\right)\)</span> quantile of the <span class="math inline">\(t\)</span>-distribution with <span class="math inline">\(n-K\)</span> degrees of freedom.</p>
+<p>The two-sided <span class="math inline">\(p\)</span>-value is found by:
+<span class="math display">\[
+p\text{-value} = 2\,\mathbb{P}(T&gt;|t|) ,
+\]</span>
+where <span class="math inline">\(T\)</span> is <span class="math inline">\(t\)</span>-distribution with <span class="math inline">\(n-K\)</span> degrees of freedom.</p>
+<p>The <span class="math inline">\((1-\alpha)\)</span> confidence interval for <span class="math inline">\(\beta_j\)</span>:
+<span class="math display">\[
+[\hat{\beta}_j-c_{\alpha/2} \cdot se_{\hat{\beta}_j}, \hat{\beta}_j+c_{\alpha/2} \cdot se_{\hat{\beta}_j}] .
 \]</span></p>
 <hr />
 </div>
 <div id="dummy-variables" class="section level1">
 <h1>Dummy variables</h1>
-<p>Dummy variables are useful to represent categorical predictors. For
-example, we usually set the variable <em>woman</em> as a dummy variable
-that only takes the values <span class="math inline">\(\{0,1\}\)</span>.
+<p>Dummy variables are useful to represent categorical predictors. For example, we usually set the variable <em>woman</em> as a dummy variable that only takes the values <span class="math inline">\(\{0,1\}\)</span>.
 <span class="math display">\[
 x_{1} = \begin{cases}
 1 &amp; \text{ if sex=woman} \\
@@ -413,70 +478,53 @@ x_{1} = \begin{cases}
 \end{cases} .
 \]</span></p>
 <ul>
-<li>We call the level where <span class="math inline">\(x_1=0\)</span>
-as the <span style="color:#337ab7">reference level</span>.</li>
+<li>We call the level where <span class="math inline">\(x_1=0\)</span> as the <span style="color:#337ab7">reference level</span>.</li>
 </ul>
-<p>Given this notation we can formulate the regression model that
-involves a single dummy variable <span
-class="math inline">\(x_1\)</span>: <span class="math display">\[
+<p>Given this notation we can formulate the regression model that involves a single dummy variable <span class="math inline">\(x_1\)</span>:
+<span class="math display">\[
 y_i = \beta_0 + \beta_1 x_{1,i}  + \varepsilon_i .
-\]</span> In this example,</p>
+\]</span>
+In this example,</p>
 <ul>
-<li><p>the intercept <span class="math inline">\(\beta_0\)</span> is
-equal to the conditional mean of <span
-class="math inline">\(y_i\)</span> for the <span
-class="math inline">\(x_{1,i}=0\)</span> subpopulation (men).</p></li>
-<li><p>the slope <span class="math inline">\(\beta_1\)</span> is equal
-to the difference in the conditional means between <span
-class="math inline">\(x_{1,i}=1\)</span> (women) and <span
-class="math inline">\(x_{1,i}=0\)</span> (men).</p></li>
+<li><p>the intercept <span class="math inline">\(\beta_0\)</span> is equal to the conditional mean of <span class="math inline">\(y_i\)</span> for the <span class="math inline">\(x_{1,i}=0\)</span> subpopulation (men).</p></li>
+<li><p>the slope <span class="math inline">\(\beta_1\)</span> is equal to the difference in the conditional means between <span class="math inline">\(x_{1,i}=1\)</span> (women) and <span class="math inline">\(x_{1,i}=0\)</span> (men).</p></li>
 </ul>
-<p>We considered a study of bone mineral density (in g/cm<span
-class="math inline">\(^2\)</span>) for rats given isoflavone and for
-rats in a control group. We want to test if isoflavone have an effect on
-bone mineral density.</p>
+<p>We considered a study of bone mineral density (in g/cm<span class="math inline">\(^2\)</span>) for rats given isoflavone and for rats in a control group. We want to test if isoflavone have an effect on bone mineral density.</p>
 <pre class="r"><code># load dataset
 bonedensity &lt;- read_csv(&quot;https://raw.githubusercontent.com/my1396/course_dataset/refs/heads/main/bonedensity.csv&quot;)
 bonedensity</code></pre>
-<pre><code>## # A tibble: 30 × 2
-##    density group
-##      &lt;dbl&gt; &lt;dbl&gt;
-##  1   0.228     1
-##  2   0.207     1
-##  3   0.234     1
-##  4   0.22      1
-##  5   0.217     1
-##  6   0.228     1
-##  7   0.209     1
-##  8   0.221     1
-##  9   0.204     1
-## 10   0.22      1
-## # ℹ 20 more rows</code></pre>
-<p>We formulate as the following equation: <span class="math display">\[
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["density"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["group"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"0.228","2":"1"},{"1":"0.207","2":"1"},{"1":"0.234","2":"1"},{"1":"0.220","2":"1"},{"1":"0.217","2":"1"},{"1":"0.228","2":"1"},{"1":"0.209","2":"1"},{"1":"0.221","2":"1"},{"1":"0.204","2":"1"},{"1":"0.220","2":"1"},{"1":"0.203","2":"1"},{"1":"0.219","2":"1"},{"1":"0.218","2":"1"},{"1":"0.245","2":"1"},{"1":"0.210","2":"1"},{"1":"0.250","2":"2"},{"1":"0.237","2":"2"},{"1":"0.217","2":"2"},{"1":"0.206","2":"2"},{"1":"0.247","2":"2"},{"1":"0.228","2":"2"},{"1":"0.245","2":"2"},{"1":"0.232","2":"2"},{"1":"0.267","2":"2"},{"1":"0.261","2":"2"},{"1":"0.221","2":"2"},{"1":"0.219","2":"2"},{"1":"0.232","2":"2"},{"1":"0.209","2":"2"},{"1":"0.255","2":"2"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<p>We formulate as the following equation:
+<span class="math display">\[
 y = \beta_0 + \beta_1x_1 + \varepsilon ,
-\]</span> where <span class="math inline">\(x_1\)</span> is a dummy
-variable indicating control/treatment groups. <span
-class="math display">\[
+\]</span>
+where <span class="math inline">\(x_1\)</span> is a dummy variable indicating control/treatment groups.
+<span class="math display">\[
 x_1 = \begin{cases}
 1 &amp; \text{ if group=2 (treatment)} \\
 0 &amp; \text{ if group=1 (control/reference)}
 \end{cases} .
-\]</span> Let <span class="math inline">\(\mu_1\)</span> be the expected
-outcome in the reference group and <span
-class="math inline">\(\mu_2\)</span> be the expected outcome in the
-treatment group. That is <span class="math display">\[
+\]</span>
+Let <span class="math inline">\(\mu_1\)</span> be the expected outcome in the reference group and <span class="math inline">\(\mu_2\)</span> be the expected outcome in the treatment group. That is
+<span class="math display">\[
 E(y|x_1) = \begin{cases}
 \mu_0 &amp; \text{ if group=1} \\
 \mu_1 &amp; \text{ if group=2} \\
 \end{cases} .
-\]</span> This indicates <span class="math display">\[
+\]</span>
+This indicates
+<span class="math display">\[
 \begin{aligned}
 \beta_0 &amp;= \mu_0\, , \\
 \beta_1 &amp;= \mu_1-\mu_0 \,.
 \end{aligned}
 \]</span></p>
 <p>Run the regression.</p>
-<pre class="r"><code># define group to be a categorical covariate (facotr)
+<pre class="r"><code># define group to be a categorical covariate (factor)
 bonedensity &lt;- bonedensity %&gt;% mutate(group = factor(group))
 bonedensity</code></pre>
 <pre><code>## # A tibble: 30 × 2
@@ -513,6 +561,7 @@ summary(lm.density)</code></pre>
 ## Residual standard error: 0.0156 on 28 degrees of freedom
 ## Multiple R-squared:  0.2242, Adjusted R-squared:  0.1964 
 ## F-statistic:  8.09 on 1 and 28 DF,  p-value: 0.008227</code></pre>
+<p>Summarize the output in a regression table.</p>
 <table style="text-align:center">
 <caption>
 <strong>Regression Results for bone density</strong>
@@ -640,23 +689,20 @@ F Statistic
 <em>Note:</em>
 </td>
 <td style="text-align:right">
-<span>***</span>: p&lt;0.01; <span>**</span>:
-<strong>p&lt;0.05</strong>; <span>*</span>: p&lt;0.1
+<span>***</span>: p&lt;0.01; <span>**</span>: <strong>p&lt;0.05</strong>; <span>*</span>: p&lt;0.1
 </td>
 </tr>
 </table>
 <p> </p>
 <ul>
-<li>The intercept is the mean in group 1 (the reference group).</li>
-<li>The estimate for group2 is the difference between the means in the
-two groups.
+<li>The intercept (0.219) is the mean bone density in group 1 (the reference group).</li>
+<li>The slope estimate for group2 (0.016) is the difference between the means of bone density in the two groups.
 <ul>
-<li>The t-value (2.844) and p-value (0.0082) equals the t-test. Given
-that the p-value is smaller than 5%, we conclude that the treatment of
-isoflavone has significant effect on the bone density of rats.</li>
+<li>The <span class="math inline">\(t\)</span>-value (2.844) and p-value (0.00823) equals the <span class="math inline">\(t\)</span>-test. Given that the p-value is smaller than 5%, we conclude that the treatment of isoflavone has significant effect on the bone density of rats.</li>
 </ul></li>
 </ul>
-<p>Box plots of the two groups. Box plot statistics:</p>
+<p>Visualize the distribution of the two groups – <strong>Box plots</strong>.</p>
+<p>Box plot statistics:</p>
 <ul>
 <li>extreme of the lower whisker: minimum</li>
 <li>the lower hinge: first quartile or 25th percentile</li>
@@ -669,12 +715,8 @@ isoflavone has significant effect on the bone density of rats.</li>
 <hr />
 </div>
 <div id="t-test-for-equal-sample-means" class="section level1">
-<h1><span class="math inline">\(t\)</span>-test for equal sample
-means</h1>
-<p>We would like to determine a confidence interval for the treatment
-effect and test if the difference is statistically significant – <span
-style="color:#008B45FF"><span class="math inline">\(t\)</span>-test for
-equal sample means</span>.</p>
+<h1><span class="math inline">\(T\)</span>-test for equal sample means</h1>
+<p>We would like to determine a confidence interval for the treatment effect and test if the difference is statistically significant – <span style="color:#008B45FF"><span class="math inline">\(t\)</span>-test for equal sample means</span>.</p>
 <pre class="r"><code>t.test(density~group, data=bonedensity, var.equal=T)</code></pre>
 <pre><code>## 
 ##  Two Sample t-test
@@ -687,43 +729,39 @@ equal sample means</span>.</p>
 ## sample estimates:
 ## mean in group 1 mean in group 2 
 ##       0.2188667       0.2350667</code></pre>
-<p>Suppose that the data for the two groups are random samples from
-<span class="math inline">\(N(\mu_1, \sigma^2)\)</span> and <span
-class="math inline">\(N(\mu_1, \sigma^2)\)</span>, respectively. Here we
-assume equal variance.</p>
+<p><strong>Mathematical formulations</strong></p>
+<p>Suppose that the data for the two independent groups are random samples from <span class="math inline">\(N(\mu_1, \sigma^2)\)</span> and <span class="math inline">\(N(\mu_1, \sigma^2)\)</span>, respectively. Here we assume equal variance.</p>
 <p>The observations are denotes:</p>
 <ul>
-<li>group 1: <span class="math inline">\(x_{11}, x_{12}, \ldots,
-x_{1,n_1}\)</span></li>
-<li>group 2: <span class="math inline">\(x_{21}, x_{22}, \ldots,
-x_{1,2_1}\)</span></li>
+<li>group 1: <span class="math inline">\(x_{11}, x_{12}, \ldots, x_{1,n_1}\)</span></li>
+<li>group 2: <span class="math inline">\(x_{21}, x_{22}, \ldots, x_{1,n_2}\)</span></li>
 </ul>
-<p>We have all together <span class="math inline">\(n=n_1+n_2\)</span>
-observations.</p>
+<p>We have all together <span class="math inline">\(n=n_1+n_2\)</span> observations.</p>
 <p><span class="math display">\[
 \begin{aligned}
 &amp;\text{H}_0: \mu_1 = \mu_2 \\
 &amp;\text{H}_1: \mu_1 \ne \mu_2
 \end{aligned}
-\]</span> Test statistic: <span class="math display">\[
-t =
-\frac{\overline{x_2}-\overline{x_1}}{se(\overline{x_2}-\overline{x_1})}
-\sim t(n_1+n_2-2) ,
-\]</span> where <span class="math display">\[
-se(\overline{x_2}-\overline{x_1}) =
-s_p\sqrt{\left(\frac{1}{n_1}+\frac{1}{n_2}\right)}
-\]</span> with <span class="math display">\[
-s_p = \sqrt{\frac{n_1-1}{n_1+n_2-2}s_1^2 +
-\frac{n_2-1}{n_1+n_2-2}s_2^2}.
-\]</span> We reject <span class="math inline">\(\text{H}_0\)</span> if
-<span class="math inline">\(|t|&gt;c_{\alpha/2}\)</span>.</p>
+\]</span>
+Test statistic:
+<span class="math display">\[
+t = \frac{\overline{x_2}-\overline{x_1}}{se(\overline{x_2}-\overline{x_1})} \sim t(n_1+n_2-2) ,
+\]</span>
+where
+<span class="math display">\[
+se(\overline{x_2}-\overline{x_1}) = s_p\sqrt{\left(\frac{1}{n_1}+\frac{1}{n_2}\right)}
+\]</span>
+with
+<span class="math display">\[
+s_p = \sqrt{\frac{n_1-1}{n_1+n_2-2}s_1^2 + \frac{n_2-1}{n_1+n_2-2}s_2^2}.
+\]</span>
+We reject <span class="math inline">\(\text{H}_0\)</span> if <span class="math inline">\(|t|&gt;c_{\alpha/2}\)</span>.</p>
 <hr />
 </div>
 <div id="interactions" class="section level1">
 <h1>Interactions</h1>
-<p>Now suppose we have two dummy variables <span
-class="math inline">\(x_1\)</span> and <span
-class="math inline">\(x_2\)</span>.</p>
+<p>Come back to our Current Population Survey (CPS) dataset and earnings regressions.</p>
+<p>Now suppose we have two dummy variables <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span>.</p>
 <p><span class="math display">\[
 \begin{aligned}
 x_{1} &amp;= \begin{cases}
@@ -736,14 +774,690 @@ x_2 &amp;= \begin{cases}
 \end{cases}
 \end{aligned}
 \]</span></p>
+<p>We consider the following regression model:
+<span class="math display">\[
+y=\beta_0 + \beta_1x_1 + \beta_2x_2 + \beta_3x_1x_2 + \varepsilon .  
+\]</span>
+Here we have <span class="math inline">\(x_3=x_1x_2\)</span>, i.e., the product of <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span>.</p>
+<ul>
+<li>We often describe <span class="math inline">\(\beta_3\)</span> as measuring the <span style="color:#008B45FF">interaction</span> between the two dummy variables, or the <span style="color:#008B45FF">interaction effect</span>, and describe</li>
+<li><span class="math inline">\(\beta_3 = 0\)</span> as the case when the interaction effect is zero.</li>
+</ul>
+<p>The conditional mean given <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span> (<span class="math inline">\(E[y|x_1,x_2]\)</span>) takes at most four possible values:</p>
+<table class="table table-striped table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+Scenario
+</th>
+<th style="text-align:right;">
+<span class="math inline">\(x_1\)</span>
+</th>
+<th style="text-align:right;">
+<span class="math inline">\(x_2\)</span>
+</th>
+<th style="text-align:left;">
+<span class="math inline">\(E[y|x_1,x_2]\)</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(\mu_{00}\)</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(\mu_{10}\)</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(\mu_{01}\)</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(\mu_{11}\)</span>
+</td>
+</tr>
+</tbody>
+</table>
+<p>We want to build a relationship between the four <span class="math inline">\(\beta\)</span>’s and the four <span class="math inline">\(\mu\)</span>’s. Plugging in the four scenarios, we have the following system of equations:
+<span class="math display">\[
+\begin{cases}
+\beta_0 &amp;= \mu_{00} \\
+\beta_0 + \beta_1 &amp;= \mu_{10} \\
+\beta_0 + \beta_2 &amp;= \mu_{01} \\
+\beta_0 + \beta_1 + \beta_2 + \beta_3 &amp;= \mu_{11} \\
+\end{cases} .
+\]</span></p>
+<p>Solving the system of equations gives us
+<span class="math display">\[
+\begin{cases}
+\beta_0 &amp;= \mu_{00} \\
+\beta_1 &amp;= \mu_{10} - \mu_{00} \\
+\beta_2 &amp;= \mu_{01} - \mu_{00} \\
+\beta_3 &amp;= \mu_{11} - \mu_{10} - \mu_{01} + \mu_{00} \\
+\end{cases} .
+\]</span></p>
+<p>We can view</p>
+<ul>
+<li>the regression intercept <span class="math inline">\(\beta_0\)</span> as the expected earnings for unmarried men;</li>
+<li>the coefficient <span class="math inline">\(\beta_1\)</span> as the effect of sex on expected earnings for unmarried wage earners;</li>
+<li>the coefficient <span class="math inline">\(\beta_2\)</span> as the effect of marriage on expected earnings for men wage earners;</li>
+<li>the coefficient <span class="math inline">\(\beta_3\)</span> has two equivalent interpretations:
+<ul>
+<li><span class="math inline">\((\mu_{11} - \mu_{10}) - (\mu_{01} - \mu_{00})\)</span> stands for difference between the effects of marriage on expected earnings among women and men, or rearranging the terms,</li>
+<li><span class="math inline">\((\mu_{11} - \mu_{01}) - (\mu_{10} - \mu_{00})\)</span> stands for difference between the effects of sex on expected earnings among married and non-married wage earners.</li>
+</ul></li>
+</ul>
+<p>Back to our CPS earning regression example.</p>
+<pre class="r"><code># prepare the dataset
+cps_data &lt;- read_csv(&quot;https://raw.githubusercontent.com/my1396/course_dataset/refs/heads/main/cps09mar.csv&quot;)
+cps_data &lt;- cps_data %&gt;% 
+    mutate(wage =  earnings/(hours*week),
+           lwage = log(wage), 
+           female = factor(female),
+           married = ifelse(marital&lt;4, 1, 0) %&gt;% factor()
+           )
+cps_data %&gt;% select(lwage, female, married)</code></pre>
+<pre><code>## # A tibble: 50,742 × 3
+##    lwage female married
+##    &lt;dbl&gt; &lt;fct&gt;  &lt;fct&gt;  
+##  1  4.13 0      1      
+##  2  3.06 0      1      
+##  3  2.75 0      1      
+##  4  3.12 1      1      
+##  5  4.13 0      1      
+##  6  2.76 1      0      
+##  7  2.78 0      1      
+##  8  2.78 1      1      
+##  9  3.65 0      1      
+## 10  2.73 1      1      
+## # ℹ 50,732 more rows</code></pre>
+<pre class="r"><code>dummy_lm &lt;- lm(lwage~female+married+female:married, data=cps_data)
+summary(dummy_lm)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = lwage ~ female + married + female:married, data = cps_data)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -11.0081  -0.3779   0.0014   0.3855   2.7890 
+## 
+## Coefficients:
+##                   Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)       2.794187   0.007211 387.513  &lt; 2e-16 ***
+## female1          -0.062195   0.010023  -6.205 5.51e-10 ***
+## married1          0.350636   0.008510  41.205  &lt; 2e-16 ***
+## female1:married1 -0.216118   0.012422 -17.398  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.6537 on 50738 degrees of freedom
+## Multiple R-squared:  0.06475,    Adjusted R-squared:  0.0647 
+## F-statistic:  1171 on 3 and 50738 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>Summarize the output in a regression table.</p>
+<table style="text-align:center">
+<caption>
+<strong>Regression including dummay variables and interactions</strong>
+</caption>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="1" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+lwage
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+female1
+</td>
+<td>
+-0.062<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.010)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+married1
+</td>
+<td>
+0.351<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.009)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+female1:married1
+</td>
+<td>
+-0.216<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.012)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+2.794<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.007)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+50,742
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.065
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.065
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error
+</td>
+<td>
+0.654 (df = 50738)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+1,170.951<sup>***</sup> (df = 3; 50738)
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td style="text-align:right">
+<span>***</span>: p&lt;0.01; <span>**</span>: <strong>p&lt;0.05</strong>; <span>*</span>: p&lt;0.1
+</td>
+</tr>
+</table>
+<p>We write the regression model as</p>
+<p><span class="math display">\[
+\log (wage) = 2.79 - 0.06\, Female + 0.35\, Married - 0.22\, Female \times Married + e
+\]</span>
+Note that we have the log transformation for the wage variable. This changes the interpretation of the coefficients. The coefficient can be interpreted as a one-unit change in the independent variable is associated with a 100 times the coefficient percent change in the dependent variable.</p>
+<p>The regression results show that</p>
+<ul>
+<li>the coefficient <span class="math inline">\(\beta_1\)</span> (<span class="math inline">\(-0.06\)</span>) indicates that the effects of sex on expected earnings for unmarried wage earners is 6% lower.
+<ul>
+<li>That is, unmarried female earn 6% less than unmarried male.</li>
+</ul></li>
+<li>the coefficient <span class="math inline">\(\beta_2\)</span> (<span class="math inline">\(0.35\)</span>) indicates that the effects of marriage on expected earnings for males is 35%.
+<ul>
+<li>That is married male earns 35% more than unmarried male.</li>
+</ul></li>
+<li>the coefficient <span class="math inline">\(\beta_3\)</span> (<span class="math inline">\(-0.22\)</span>) indicates that
+<ul>
+<li>the effects of marriage on female is <span class="math inline">\(11\%=(35-22)\%\)</span>, or equivalently</li>
+<li>the effects for sex on married is <span class="math inline">\(-28\%=(-6-22)\%\)</span>.</li>
+</ul></li>
+</ul>
 <hr />
 </div>
 <div id="two-way-anova-test" class="section level1">
-<h1>Two-way Anova test</h1>
+<h1>Two-way ANOVA test</h1>
+<p>The two-way ANOVA test is used to compare the fits of two regression models.</p>
+<ul>
+<li><p>Test for Improvement: It tests whether adding more predictors (variables) to a model significantly improves the model’s ability to explain the variability in the response variable.</p></li>
+<li><p>Model Selection: Helps in deciding between a simpler model with fewer variables and a more complex one with more variables.</p></li>
+</ul>
+<p><strong>When to Use ANOVA for Comparing Regression Models?</strong></p>
+<ul>
+<li><p>Nested Models: Applicable when you have two nested models - one is a special case of the other. For example, Model 1 might include predictors <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span>, while Model 2 includes <span class="math inline">\(X_1\)</span>, <span class="math inline">\(X_2\)</span>, and <span class="math inline">\(X_3\)</span>.</p></li>
+<li><p>Same Response Variable: Both models must be trying to predict the same response variable.</p></li>
+<li><p>Linear Models: Typically used for comparing linear regression models.</p></li>
+</ul>
+<p><strong>How to perform the comparison?</strong></p>
+<ol style="list-style-type: decimal">
+<li><p>Fit both models: Fit the simpler model and the more complex model to your data.</p></li>
+<li><p>Conduct ANOVA test: Use an ANOVA test to compare the models. In R, this can be done using the <code>anova()</code> function.</p></li>
+<li><p>Interpret the results: If the <span class="math inline">\(p\)</span>-value from the ANOVA test is low (typically &lt;0.05), it suggests that the more complex model provides a significantly better fit to the data.</p></li>
+</ol>
+<p><strong>Mathematical formulations</strong></p>
+<p>For instance, consider we have two models:</p>
+<ul>
+<li>Model 1: <span class="math inline">\(y=\beta_1 + \beta_2 x_{2} + \varepsilon\)</span>, and</li>
+<li>Model 2: <span class="math inline">\(y=\beta_1 + \beta_2 x_{2} + \beta_3 x_3 + \beta_3 x_4 + \varepsilon\)</span>.</li>
+</ul>
+<p>We can form a test by comparing the <span class="math inline">\(R^2\)</span> from the two models.</p>
+<p><span class="math display">\[
+\begin{aligned}
+&amp;\text{H}_0: \beta_3=\beta_4=0 \\
+&amp;\text{H}_1: \beta_3\ne 0 \text{ or } \beta_4\ne 0 ,
+\end{aligned}
+\]</span>
+which imposes two exclusion restrictions.</p>
+<p>Note that this is similar to the <span class="math inline">\(F\)</span>-test for the significance of the overall regression, which test for
+<span class="math display">\[
+\begin{aligned}
+&amp;\text{H}_0: \beta_2=\beta_3=\cdots=\beta_K=0 \\
+&amp;\text{H}_1: \text{At least one of the } \beta_2, \beta_3,\ldots, \beta_K,\text{is not zero.}
+\end{aligned}
+\]</span></p>
+<p>In stead of having a <span class="math inline">\(F(K-1, n-K)\)</span> test statistic, we can form a <span class="math inline">\(F(p, n-K)\)</span> test statistic, where <span class="math inline">\(p\)</span> is the number of exclusion restrictions. In this case, we have <span class="math inline">\(p=2\)</span>.</p>
+<p>To fix ideas, we call Model 1 as the “restricted model”, and Model 2 the “unrestricted model” or the “full model”.</p>
+<p>Denote</p>
+<ul>
+<li>the <span class="math inline">\(R^2\)</span> obtained from the unrestricted model by <span class="math inline">\(R_U^2\)</span>, and</li>
+<li>the <span class="math inline">\(R^2\)</span> obtained from the restricted model by <span class="math inline">\(R_R^2\)</span>.</li>
+<li>Noting that <span class="math inline">\(R_U^2 &gt; R_R^2\)</span>.</li>
+</ul>
+<p>The test statistic is given by</p>
+<p><span class="math display">\[
+F = \left(\frac{n-K}{p}\right) \left(\frac{R_U^2-R_R^2}{1-R_U^2}\right) \sim F(p, n-K) .
+\]</span></p>
+<p>The null hypothesis is rejected if the exclusion of these <span class="math inline">\(p\)</span> explanatory variables results in a sufficiently large fall in the <span class="math inline">\(R^2\)</span> goodness of fit measure.</p>
+<pre class="r"><code>dummy_lm_restricted &lt;- lm(lwage~female+married, data=cps_data)
+summary(dummy_lm_restricted)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = lwage ~ female + married, data = cps_data)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -10.9795  -0.3814   0.0047   0.3947   2.7494 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  2.867008   0.005889  486.85   &lt;2e-16 ***
+## female1     -0.202913   0.005938  -34.17   &lt;2e-16 ***
+## married1     0.249212   0.006218   40.08   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.6556 on 50739 degrees of freedom
+## Multiple R-squared:  0.05917,    Adjusted R-squared:  0.05914 
+## F-statistic:  1596 on 2 and 50739 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>Summarize the unrestricted and restricted models in a table.</p>
+<table style="text-align:center">
+<caption>
+<strong>Regression Results for bone density</strong>
+</caption>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+lwage
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1)
+</td>
+<td>
+(2)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+female1
+</td>
+<td>
+-0.203<sup>***</sup>
+</td>
+<td>
+-0.062<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.006)
+</td>
+<td>
+(0.010)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+married1
+</td>
+<td>
+0.249<sup>***</sup>
+</td>
+<td>
+0.351<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.006)
+</td>
+<td>
+(0.009)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+female1:married1
+</td>
+<td>
+</td>
+<td>
+-0.216<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(0.012)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+2.867<sup>***</sup>
+</td>
+<td>
+2.794<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.006)
+</td>
+<td>
+(0.007)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+50,742
+</td>
+<td>
+50,742
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.059
+</td>
+<td>
+0.065
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.059
+</td>
+<td>
+0.065
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error
+</td>
+<td>
+0.656 (df = 50739)
+</td>
+<td>
+0.654 (df = 50738)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+1,595.591<sup>***</sup> (df = 2; 50739)
+</td>
+<td>
+1,170.951<sup>***</sup> (df = 3; 50738)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td colspan="2" style="text-align:right">
+<span>***</span>: p&lt;0.01; <span>**</span>: <strong>p&lt;0.05</strong>; <span>*</span>: p&lt;0.1
+</td>
+</tr>
+</table>
+<p> </p>
+<p><strong>Two-way Anova test.</strong></p>
+<pre class="r"><code># Compare the restricted with the full model
+anova(dummy_lm_restricted, dummy_lm)</code></pre>
+<pre><code>## Analysis of Variance Table
+## 
+## Model 1: lwage ~ female + married
+## Model 2: lwage ~ female + married + female:married
+##   Res.Df   RSS Df Sum of Sq     F    Pr(&gt;F)    
+## 1  50739 21808                                 
+## 2  50738 21679  1    129.33 302.7 &lt; 2.2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<ul>
+<li>The result shows a Df of 1 (indicating that the unrestricted model has one additional parameter, i.e., <span class="math inline">\(p=1\)</span>), and a very small <span class="math inline">\(p\)</span>-value (<span class="math inline">\(&lt; .001\)</span>).</li>
+<li>This means that adding the interaction to the model did lead to a significantly improved fit over the model 1.</li>
+</ul>
 </div>
 
 
 
+</div>
+</div>
 
 </div>
 
@@ -776,13 +1490,42 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML.js";
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>
