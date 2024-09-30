@@ -1,0 +1,338 @@
+---
+title: "Linear Regression Model -- Lecture"
+author: "Menghan Yuan"
+date: "Oct 2, 2024"
+output: 
+    bookdown::html_document2:
+        mathjax: "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML.js"
+        self_contained: false
+        toc: true
+        toc_float: true
+        toc_depth: 4
+        number_sections: false
+        df_print: paged
+        css: "style.css"
+---
+
+<SCRIPT language="JavaScript" SRC="my_jxscript.js"></SCRIPT>
+
+<a class="top-link" href="#top" id="js-top">↑</a>
+
+```{r setup, include=F, echo=F}
+library(knitr) # load packages
+library(kableExtra)
+library(tidyverse)
+library(latex2exp)
+library(stargazer)
+library(bookdown)
+
+# don't show code unless we explicitly set echo = TRUE
+opts_chunk$set(echo = TRUE, message=FALSE, fig.align="center", fig.pos = "H")
+opts <- options(knitr.kable.NA = "")
+
+## control long outputs by using eg `max.lines = 10`
+hook_output_default <- knitr::knit_hooks$get('output')
+truncate_to_lines <- function(x, n) {
+   if (!is.null(n)) {
+      x = unlist(stringr::str_split(x, '\n'))
+      if (length(x) > n) {
+         # truncate the output
+         x = c(head(x, n), '...\n')
+      }
+      x = paste(x, collapse = '\n') # paste first n lines together
+   }
+   x
+}
+knitr::knit_hooks$set(output = function(x, options) {
+   max.lines <- options$max.lines
+   x <- truncate_to_lines(x, max.lines)
+   hook_output_default(x, options)
+})
+```
+
+
+
+# One-way Anova test
+
+## Variance decomposition
+
+- Total Sum of Squares (TSS)
+$$
+\text{TSS} = \sum_{i=1}^n (y_i-\overline{y})^2,
+$$
+where $\overline{y}=\frac{1}{n} \sum_{i=1}^n y_i$
+
+- Explained/Model Sum of Squares (ESS or MSS)
+$$
+\text{ESS} = \sum_{i=1}^n (\hat{y}_i-\overline{y})^2
+$$
+
+- Residual sum of squares
+$$
+\text{RSS} = \sum_{i=1}^n (y_i-\hat{y}_i)^2
+$$
+
+- $TSS = ESS + RSS$, that is 
+$$
+\sum_{i=1}^n (y_i-\overline{y})^2 = \sum_{i=1}^n (\hat{y}_i-\overline{y})^2 + \sum_{i=1}^n (y_i-\hat{y}_i)^2 .
+$$
+    Dividing both sides by $\sum_{i=1}^n (y_i-\overline{y})^2$ gives
+    $$
+    1 = \frac{\sum_{i=1}^n (\hat{y}_i-\overline{y})^2}{\sum_{i=1}^n (y_i-\overline{y})^2} - \frac{\sum_{i=1}^n (y_i-\hat{y}_i)^2}{\sum_{i=1}^n (y_i-\overline{y})^2} .
+    $$
+    Define <span style='color:#008B45FF'>$R^2=\frac{\sum_{i=1}^n (\hat{y}_i-\overline{y})^2}{\sum_{i=1}^n (y_i-\overline{y})^2}$, which is the ratio of $ESS$ to $TSS$</span>. 
+    Rearranging the equation, we have
+    $$
+    \begin{aligned}
+    R^2 &= 1-\frac{\sum_{i=1}^n (y_i-\hat{y}_i)^2}{\sum_{i=1}^n (y_i-\overline{y})^2} \\
+    &= 1-\frac{RSS}{TSS} \\
+    &= \frac{ESS}{TSS}.
+    \end{aligned}
+    $$
+    Note that
+    
+    - $0\le R^2\le 1$, is a measure of goodness of fit. 
+        - $R^2=1$ (perfit fit) occurs when $y=\hat{y}$.
+        - $R^2=0$ occurs when there is only one intercept in the model, i.e., $y_i=\beta_1+\varepsilon$. The predicted value will be the sample average. $\hat{y}_i=\overline{y}$ for $i=1,2,\ldots,n,$ so that $\sum_{i=1}^n (\hat{y}_i-\overline{y})^2.$
+    - $R^2$ is the square of the sample correlation coefficient between $y_i$ and $\hat{y}_i$.
+    - $R^2$ measures the proportion of the total variation in the dependent variable
+    that is “accounted for” or “explained” by the model.
+
+- Note that in a sample of size $n$, we could always obtain a perfect fit ($R^2 = 1$) simply by regressing $y_i$ on a set of $n$ linearly independent explanatory variables.
+
+    More generally, increasing the number of explanatory variables cannot reduce the fit as measured by $R^2$.
+    
+    Adding an explanatory variable that is irrelevant in the sample (s.t. the estimated coe¢cient on this variable is zero) leaves the fit unchanged.
+    
+    While adding a variable that is not irrelevant in the sample (s.t. the estimated coefficient is not zero) improves the fit.
+    
+    Some researchers prefer to report an “<span style='color:#008B45FF'>adjusted $R^2$</span>” or “<span style='color:#008B45FF'>R-bar-squared</span>”, defined by
+    $$
+    \overline{R}^2 = 1- \frac{n-1}{n-K}(1-R^2) ,
+    $$
+    which impose a penalty as $K$ increases in a given sample size $n$.
+    
+    
+
+- F-test for that all $K-1$ of the slope coefficients in a linear model are equal to zero, i.e., to test the exclusion of all explanatory variables except the intercept, $\beta_1$. 
+Formally speaking.
+$$
+\begin{aligned}
+&\text{H}_0: \beta_2=\beta_3=\cdots=\beta_K=0 \\
+&\text{H}_1: \text{At least one of the } \beta_2, \beta_3,\ldots, \beta_K,\text{is not zero.}
+\end{aligned}
+$$
+    This is sometimes referred to as the <span style='color:#008B45FF'>F-test</span> of <span style='color:#008B45FF'>one-way Anova</span>.
+    
+    The test statistic is given by:
+    $$
+    F = \left(\frac{n-K}{K-1}\right) \left(\frac{R^2}{1-R^2}\right) \sim F(K-1, n-K) .
+    $$
+
+___
+
+# T-test
+
+Quite often it is not very interesting to test the null hypothesis that none of the covariates have an effect. 
+<span style='color:#008B45FF'>T-test</span> is used to test for if one specific covariate, $\beta_j$ has an effect.
+$$
+\begin{aligned}
+&\text{H}_0: \beta_j=0 , \\
+&\text{H}_1: \beta_j\ne0 .
+\end{aligned}
+$$
+
+We use the following statistic
+$$
+t = \frac{\hat{\beta}_j-\beta_j}{se_{\hat{\beta}_j}}  \sim t(n-K) .
+$$
+We reject $\text{H}_0$ if $|t|>c_{\alpha/2}$, where $c_{\alpha/2}$ is the $\left(1-\frac{\alpha}{2}\right)$ quantile of the $t$-distribution with $n-K$ degrees of freedom.
+
+The $(1-\alpha)$ confidence interval for $\beta_j$: 
+$$
+[\hat{\beta}_j-c_{\alpha/2} \cdot se_{\hat{\beta}_j}, \hat{\beta}_j+c_{\alpha/2} \cdot se_{\hat{\beta}_j}] .
+$$ 
+
+___
+
+# Dummy variables
+
+Dummy variables are useful to represent categorical predictors. For example, we usually set the variable *woman* as a dummy variable that only takes the values $\{0,1\}$.
+$$
+x_{1} = \begin{cases}
+1 & \text{ if sex=woman} \\
+0 & \text{ otherwise}
+\end{cases} .
+$$
+
+- We call the level where $x_1=0$ as the <span style='color:#337ab7'>reference level</span>.
+
+
+Given this notation we can formulate the regression model that involves a single dummy variable $x_1$:
+$$
+y_i = \beta_0 + \beta_1 x_{1,i}  + \varepsilon_i .
+$$
+In this example, 
+
+- the intercept $\beta_0$ is equal to the conditional mean of $y_i$ for the $x_{1,i}=0$ subpopulation (men).
+
+- the slope $\beta_1$ is equal to the difference in the conditional means between $x_{1,i}=1$ (women) and $x_{1,i}=0$ (men).
+
+
+We considered a study of bone mineral density (in g/cm$^2$) for rats given isoflavone and for rats in a control group. We want to test if isoflavone have an effect on bone mineral density.
+
+
+```{r paged.print=TRUE}
+# load dataset
+bonedensity <- read_csv("https://raw.githubusercontent.com/my1396/course_dataset/refs/heads/main/bonedensity.csv")
+bonedensity
+```
+
+
+
+We formulate as the following equation:
+$$
+y = \beta_0 + \beta_1x_1 + \varepsilon ,
+$$
+where $x_1$ is a dummy variable indicating control/treatment groups.
+$$
+x_1 = \begin{cases}
+1 & \text{ if group=2 (treatment)} \\
+0 & \text{ if group=1 (control/reference)}
+\end{cases} .
+$$
+Let $\mu_1$ be the expected outcome in the reference group and $\mu_2$ be the expected outcome in the treatment group. That is
+$$
+E(y|x_1) = \begin{cases}
+\mu_0 & \text{ if group=1} \\
+\mu_1 & \text{ if group=2} \\
+\end{cases} .
+$$
+This indicates 
+$$
+\begin{aligned}
+\beta_0 &= \mu_0\, , \\
+\beta_1 &= \mu_1-\mu_0 \,.
+\end{aligned}
+$$
+
+Run the regression.
+```{r }
+# define group to be a categorical covariate (facotr)
+bonedensity <- bonedensity %>% mutate(group = factor(group))
+bonedensity
+```
+
+```{r}
+lm.density <- lm(density~group,data=bonedensity)
+summary(lm.density)
+```
+
+
+```{r, echo=FALSE, results='asis'}
+stargazer(lm.density, type="html", title="Regression Results for bone density", notes="<span>&#42;&#42;&#42;</span>: p<0.01; <span>&#42;&#42;</span>: <strong>p<0.05</strong>; <span>&#42;</span>: p<0.1", notes.append=F)
+```
+
+&nbsp;
+
+- The intercept (0.219) is the mean in group 1 (the reference group).
+- The slope estimate for group2 (0.016) is the difference between the means in the two groups.
+    - The $t$-value (2.844) and p-value (0.00823) equals the $t$-test. Given that the p-value is smaller than 5%, we conclude that the treatment of isoflavone has significant effect on the bone density of rats.
+    
+
+Visualize the distribution of the two groups -- **Box plots**.
+
+Box plot statistics:
+
+- extreme of the lower whisker: minimum 
+- the lower hinge: first quartile or 25th percentile
+- the median
+- the upper hinge: third quartile or 75th percentile, and 
+- the extreme of the upper whisker: maximum 
+
+```{r}
+boxplot(density~group, data=bonedensity)
+```
+
+
+___
+
+# $t$-test for equal sample means
+
+We would like to determine a confidence interval for the treatment effect and test if the difference is statistically significant -- <span style='color:#008B45FF'>$t$-test for equal sample means</span>.
+
+```{r}
+t.test(density~group, data=bonedensity, var.equal=T)
+```
+
+
+Suppose that the data for the two independent groups are random samples from $N(\mu_1, \sigma^2)$ and $N(\mu_1, \sigma^2)$, respectively. Here we assume equal variance.
+
+The observations are denotes:
+
+- group 1: $x_{11}, x_{12}, \ldots, x_{1,n_1}$
+- group 2: $x_{21}, x_{22}, \ldots, x_{1,2_1}$
+
+We have all together $n=n_1+n_2$ observations.
+
+
+$$
+\begin{aligned}
+&\text{H}_0: \mu_1 = \mu_2 \\
+&\text{H}_1: \mu_1 \ne \mu_2
+\end{aligned}
+$$
+Test statistic:
+$$
+t = \frac{\overline{x_2}-\overline{x_1}}{se(\overline{x_2}-\overline{x_1})} \sim t(n_1+n_2-2) ,
+$$
+where
+$$
+se(\overline{x_2}-\overline{x_1}) = s_p\sqrt{\left(\frac{1}{n_1}+\frac{1}{n_2}\right)}
+$$
+with
+$$
+s_p = \sqrt{\frac{n_1-1}{n_1+n_2-2}s_1^2 + \frac{n_2-1}{n_1+n_2-2}s_2^2}.
+$$
+We reject $\text{H}_0$ if $|t|>c_{\alpha/2}$.
+
+
+___
+
+# Interactions
+
+Now suppose we have two dummy variables $x_1$ and $x_2$.
+
+$$
+\begin{aligned}
+x_{1} &= \begin{cases}
+1 & \text{ if sex=woman} \\
+0 & \text{ otherwise}
+\end{cases} \\
+x_2 &= \begin{cases}
+1 & \text{ if the person is married} \\
+0 & \text{ otherwise}
+\end{cases}
+\end{aligned}
+$$
+
+
+___
+
+
+# Two-way Anova test
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -172,7 +172,7 @@ summary(capm_ml)
 
 
 ```{r, results='asis'}
-stargazer(capm_ml, type="html", title="Regression Results for AAPL")
+stargazer(capm_ml, type="html", title="Regression Results for AAPL", notes="<span>&#42;&#42;&#42;</span>: p<0.01; <span>&#42;&#42;</span>: <strong>p<0.05</strong>; <span>&#42;</span>: p<0.1", notes.append=F)
 ```
 
 
@@ -249,7 +249,7 @@ summary(FF_ml)
 ```{r, results='asis'}
 stargazer(capm_ml, FF_ml, type="html", 
           title="Regression Results for AAPL", 
-          align = TRUE)
+          align = TRUE, notes="<span>&#42;&#42;&#42;</span>: p<0.01; <span>&#42;&#42;</span>: <strong>p<0.05</strong>; <span>&#42;</span>: p<0.1", notes.append=F)
 ```
 
 

@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Menghan Yuan" />
+
+
+<title>Linear Regression Model – Lecture</title>
+
+<script src="site_libs/header-attrs-2.24/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Course Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Linear Regression Model – Lecture</h1>
+<h4 class="author">Menghan Yuan</h4>
+<h4 class="date">Oct 2, 2024</h4>
+
+</div>
+
+
+<SCRIPT language="JavaScript" SRC="my_jxscript.js"></SCRIPT>
+<p><a class="top-link" href="#top" id="js-top">↑</a></p>
+<div id="one-way-anova-test" class="section level1">
+<h1>One-way Anova test</h1>
+<div id="variance-decomposition" class="section level2">
+<h2>Variance decomposition</h2>
+<ul>
+<li><p>Total Sum of Squares (TSS) <span class="math display">\[
+\text{TSS} = \sum_{i=1}^n (y_i-\overline{y})^2,
+\]</span> where <span class="math inline">\(\overline{y}=\frac{1}{n}
+\sum_{i=1}^n y_i\)</span></p></li>
+<li><p>Explained/Model Sum of Squares (ESS or MSS) <span
+class="math display">\[
+\text{ESS} = \sum_{i=1}^n (\hat{y}_i-\overline{y})^2
+\]</span></p></li>
+<li><p>Residual sum of squares <span class="math display">\[
+\text{RSS} = \sum_{i=1}^n (y_i-\hat{y}_i)^2
+\]</span></p></li>
+<li><p><span class="math inline">\(TSS = ESS + RSS\)</span>, that is
+<span class="math display">\[
+\sum_{i=1}^n (y_i-\overline{y})^2 = \sum_{i=1}^n
+(\hat{y}_i-\overline{y})^2 + \sum_{i=1}^n (y_i-\hat{y}_i)^2 .
+\]</span> Dividing both sides by <span
+class="math inline">\(\sum_{i=1}^n (y_i-\overline{y})^2\)</span> gives
+<span class="math display">\[
+  1 = \frac{\sum_{i=1}^n (\hat{y}_i-\overline{y})^2}{\sum_{i=1}^n
+(y_i-\overline{y})^2} - \frac{\sum_{i=1}^n
+(y_i-\hat{y}_i)^2}{\sum_{i=1}^n (y_i-\overline{y})^2} .
+  \]</span> Define <span style="color:#008B45FF"><span
+class="math inline">\(R^2=\frac{\sum_{i=1}^n
+(\hat{y}_i-\overline{y})^2}{\sum_{i=1}^n (y_i-\overline{y})^2}\)</span>,
+which is the ratio of <span class="math inline">\(ESS\)</span> to <span
+class="math inline">\(TSS\)</span></span>. Rearranging the equation, we
+have <span class="math display">\[
+  \begin{aligned}
+  R^2 &amp;= 1-\frac{\sum_{i=1}^n (y_i-\hat{y}_i)^2}{\sum_{i=1}^n
+(y_i-\overline{y})^2} \\
+  &amp;= 1-\frac{RSS}{TSS} \\
+  &amp;= \frac{ESS}{TSS}.
+  \end{aligned}
+  \]</span> Note that</p>
+<ul>
+<li><span class="math inline">\(0\le R^2\le 1\)</span>, is a measure of
+goodness of fit.
+<ul>
+<li><span class="math inline">\(R^2=1\)</span> (perfit fit) occurs when
+<span class="math inline">\(y=\hat{y}\)</span>.</li>
+<li><span class="math inline">\(R^2=0\)</span> occurs when there is only
+one intercept in the model, i.e., <span
+class="math inline">\(y_i=\beta_1+\varepsilon\)</span>. The predicted
+value will be the sample average. <span
+class="math inline">\(\hat{y}_i=\overline{y}\)</span> for <span
+class="math inline">\(i=1,2,\ldots,n,\)</span> so that <span
+class="math inline">\(\sum_{i=1}^n
+(\hat{y}_i-\overline{y})^2.\)</span></li>
+</ul></li>
+<li><span class="math inline">\(R^2\)</span> is the square of the sample
+correlation coefficient between <span class="math inline">\(y_i\)</span>
+and <span class="math inline">\(\hat{y}_i\)</span>.</li>
+<li><span class="math inline">\(R^2\)</span> measures the proportion of
+the total variation in the dependent variable that is “accounted for” or
+“explained” by the model.</li>
+</ul></li>
+<li><p>Note that in a sample of size <span
+class="math inline">\(n\)</span>, we could always obtain a perfect fit
+(<span class="math inline">\(R^2 = 1\)</span>) simply by regressing
+<span class="math inline">\(y_i\)</span> on a set of <span
+class="math inline">\(n\)</span> linearly independent explanatory
+variables.</p>
+<p>More generally, increasing the number of explanatory variables cannot
+reduce the fit as measured by <span
+class="math inline">\(R^2\)</span>.</p>
+<p>Adding an explanatory variable that is irrelevant in the sample (s.t.
+the estimated coe¢cient on this variable is zero) leaves the fit
+unchanged.</p>
+<p>While adding a variable that is not irrelevant in the sample (s.t.
+the estimated coefficient is not zero) improves the fit.</p>
+<p>Some researchers prefer to report an “<span
+style="color:#008B45FF">adjusted <span
+class="math inline">\(R^2\)</span></span>” or “<span
+style="color:#008B45FF">R-bar-squared</span>”, defined by <span
+class="math display">\[
+  \overline{R}^2 = 1- \frac{n-1}{n-K}(1-R^2) ,
+  \]</span> which impose a penalty as <span
+class="math inline">\(K\)</span> increases in a given sample size <span
+class="math inline">\(n\)</span>.</p></li>
+<li><p>F-test for that all <span class="math inline">\(K-1\)</span> of
+the slope coefficients in a linear model are equal to zero, i.e., to
+test the exclusion of all explanatory variables except the intercept,
+<span class="math inline">\(\beta_1\)</span>. Formally speaking. <span
+class="math display">\[
+\begin{aligned}
+&amp;\text{H}_0: \beta_2=\beta_3=\cdots=\beta_K=0 \\
+&amp;\text{H}_1: \text{At least one of the } \beta_2, \beta_3,\ldots,
+\beta_K,\text{is not zero.}
+\end{aligned}
+\]</span> This is sometimes referred to as the <span
+style="color:#008B45FF">F-test</span> of <span
+style="color:#008B45FF">one-way Anova</span>.</p>
+<p>The test statistic is given by: <span class="math display">\[
+  F = \left(\frac{n-K}{K-1}\right) \left(\frac{R^2}{1-R^2}\right) \sim
+F(K-1, n-K) .
+  \]</span></p></li>
+</ul>
+<hr />
+</div>
+</div>
+<div id="t-test" class="section level1">
+<h1>T-test</h1>
+<p>Quite often it is not very interesting to test the null hypothesis
+that none of the covariates have an effect. <span
+style="color:#008B45FF">T-test</span> is used to test for if one
+specific covariate, <span class="math inline">\(\beta_j\)</span> has an
+effect. <span class="math display">\[
+\begin{aligned}
+&amp;\text{H}_0: \beta_j=0 , \\
+&amp;\text{H}_1: \beta_j\ne0 .
+\end{aligned}
+\]</span></p>
+<p>We use the following statistic <span class="math display">\[
+t = \frac{\hat{\beta}_j-\beta_j}{se_{\hat{\beta}_j}}  \sim t(n-K) .
+\]</span> We reject <span class="math inline">\(\text{H}_0\)</span> if
+<span class="math inline">\(|t|&gt;c_{\alpha/2}\)</span>, where <span
+class="math inline">\(c_{\alpha/2}\)</span> is the <span
+class="math inline">\(\left(1-\frac{\alpha}{2}\right)\)</span> quantile
+of the <span class="math inline">\(t\)</span>-distribution with <span
+class="math inline">\(n-K\)</span> degrees of freedom.</p>
+<p>The <span class="math inline">\((1-\alpha)\)</span> confidence
+interval for <span class="math inline">\(\beta_j\)</span>: <span
+class="math display">\[
+[\hat{\beta}_j-c_{\alpha/2} \cdot se_{\hat{\beta}_j},
+\hat{\beta}_j+c_{\alpha/2} \cdot se_{\hat{\beta}_j}] .
+\]</span></p>
+<hr />
+</div>
+<div id="dummy-variables" class="section level1">
+<h1>Dummy variables</h1>
+<p>Dummy variables are useful to represent categorical predictors. For
+example, we usually set the variable <em>woman</em> as a dummy variable
+that only takes the values <span class="math inline">\(\{0,1\}\)</span>.
+<span class="math display">\[
+x_{1} = \begin{cases}
+1 &amp; \text{ if sex=woman} \\
+0 &amp; \text{ otherwise}
+\end{cases} .
+\]</span></p>
+<ul>
+<li>We call the level where <span class="math inline">\(x_1=0\)</span>
+as the <span style="color:#337ab7">reference level</span>.</li>
+</ul>
+<p>Given this notation we can formulate the regression model that
+involves a single dummy variable <span
+class="math inline">\(x_1\)</span>: <span class="math display">\[
+y_i = \beta_0 + \beta_1 x_{1,i}  + \varepsilon_i .
+\]</span> In this example,</p>
+<ul>
+<li><p>the intercept <span class="math inline">\(\beta_0\)</span> is
+equal to the conditional mean of <span
+class="math inline">\(y_i\)</span> for the <span
+class="math inline">\(x_{1,i}=0\)</span> subpopulation (men).</p></li>
+<li><p>the slope <span class="math inline">\(\beta_1\)</span> is equal
+to the difference in the conditional means between <span
+class="math inline">\(x_{1,i}=1\)</span> (women) and <span
+class="math inline">\(x_{1,i}=0\)</span> (men).</p></li>
+</ul>
+<p>We considered a study of bone mineral density (in g/cm<span
+class="math inline">\(^2\)</span>) for rats given isoflavone and for
+rats in a control group. We want to test if isoflavone have an effect on
+bone mineral density.</p>
+<pre class="r"><code># load dataset
+bonedensity &lt;- read_csv(&quot;https://raw.githubusercontent.com/my1396/course_dataset/refs/heads/main/bonedensity.csv&quot;)
+bonedensity</code></pre>
+<pre><code>## # A tibble: 30 × 2
+##    density group
+##      &lt;dbl&gt; &lt;dbl&gt;
+##  1   0.228     1
+##  2   0.207     1
+##  3   0.234     1
+##  4   0.22      1
+##  5   0.217     1
+##  6   0.228     1
+##  7   0.209     1
+##  8   0.221     1
+##  9   0.204     1
+## 10   0.22      1
+## # ℹ 20 more rows</code></pre>
+<p>We formulate as the following equation: <span class="math display">\[
+y = \beta_0 + \beta_1x_1 + \varepsilon ,
+\]</span> where <span class="math inline">\(x_1\)</span> is a dummy
+variable indicating control/treatment groups. <span
+class="math display">\[
+x_1 = \begin{cases}
+1 &amp; \text{ if group=2 (treatment)} \\
+0 &amp; \text{ if group=1 (control/reference)}
+\end{cases} .
+\]</span> Let <span class="math inline">\(\mu_1\)</span> be the expected
+outcome in the reference group and <span
+class="math inline">\(\mu_2\)</span> be the expected outcome in the
+treatment group. That is <span class="math display">\[
+E(y|x_1) = \begin{cases}
+\mu_0 &amp; \text{ if group=1} \\
+\mu_1 &amp; \text{ if group=2} \\
+\end{cases} .
+\]</span> This indicates <span class="math display">\[
+\begin{aligned}
+\beta_0 &amp;= \mu_0\, , \\
+\beta_1 &amp;= \mu_1-\mu_0 \,.
+\end{aligned}
+\]</span></p>
+<p>Run the regression.</p>
+<pre class="r"><code># define group to be a categorical covariate (facotr)
+bonedensity &lt;- bonedensity %&gt;% mutate(group = factor(group))
+bonedensity</code></pre>
+<pre><code>## # A tibble: 30 × 2
+##    density group
+##      &lt;dbl&gt; &lt;fct&gt;
+##  1   0.228 1    
+##  2   0.207 1    
+##  3   0.234 1    
+##  4   0.22  1    
+##  5   0.217 1    
+##  6   0.228 1    
+##  7   0.209 1    
+##  8   0.221 1    
+##  9   0.204 1    
+## 10   0.22  1    
+## # ℹ 20 more rows</code></pre>
+<pre class="r"><code>lm.density &lt;- lm(density~group,data=bonedensity)
+summary(lm.density)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = density ~ group, data = bonedensity)
+## 
+## Residuals:
+##       Min        1Q    Median        3Q       Max 
+## -0.029067 -0.011367 -0.000367  0.009733  0.031933 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 0.218867   0.004027  54.343  &lt; 2e-16 ***
+## group2      0.016200   0.005696   2.844  0.00823 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.0156 on 28 degrees of freedom
+## Multiple R-squared:  0.2242, Adjusted R-squared:  0.1964 
+## F-statistic:  8.09 on 1 and 28 DF,  p-value: 0.008227</code></pre>
+<table style="text-align:center">
+<caption>
+<strong>Regression Results for bone density</strong>
+</caption>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="1" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+density
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+group2
+</td>
+<td>
+0.016<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.006)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+0.219<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.004)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+30
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.224
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.196
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error
+</td>
+<td>
+0.016 (df = 28)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+8.090<sup>***</sup> (df = 1; 28)
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td style="text-align:right">
+<span>***</span>: p&lt;0.01; <span>**</span>:
+<strong>p&lt;0.05</strong>; <span>*</span>: p&lt;0.1
+</td>
+</tr>
+</table>
+<p> </p>
+<ul>
+<li>The intercept is the mean in group 1 (the reference group).</li>
+<li>The estimate for group2 is the difference between the means in the
+two groups.
+<ul>
+<li>The t-value (2.844) and p-value (0.0082) equals the t-test. Given
+that the p-value is smaller than 5%, we conclude that the treatment of
+isoflavone has significant effect on the bone density of rats.</li>
+</ul></li>
+</ul>
+<p>Box plots of the two groups. Box plot statistics:</p>
+<ul>
+<li>extreme of the lower whisker: minimum</li>
+<li>the lower hinge: first quartile or 25th percentile</li>
+<li>the median</li>
+<li>the upper hinge: third quartile or 75th percentile, and</li>
+<li>the extreme of the upper whisker: maximum</li>
+</ul>
+<pre class="r"><code>boxplot(density~group, data=bonedensity)</code></pre>
+<p><img src="08_Oct_02_lecture_files/figure-html/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+<hr />
+</div>
+<div id="t-test-for-equal-sample-means" class="section level1">
+<h1><span class="math inline">\(t\)</span>-test for equal sample
+means</h1>
+<p>We would like to determine a confidence interval for the treatment
+effect and test if the difference is statistically significant – <span
+style="color:#008B45FF"><span class="math inline">\(t\)</span>-test for
+equal sample means</span>.</p>
+<pre class="r"><code>t.test(density~group, data=bonedensity, var.equal=T)</code></pre>
+<pre><code>## 
+##  Two Sample t-test
+## 
+## data:  density by group
+## t = -2.8442, df = 28, p-value = 0.008227
+## alternative hypothesis: true difference in means between group 1 and group 2 is not equal to 0
+## 95 percent confidence interval:
+##  -0.027867161 -0.004532839
+## sample estimates:
+## mean in group 1 mean in group 2 
+##       0.2188667       0.2350667</code></pre>
+<p>Suppose that the data for the two groups are random samples from
+<span class="math inline">\(N(\mu_1, \sigma^2)\)</span> and <span
+class="math inline">\(N(\mu_1, \sigma^2)\)</span>, respectively. Here we
+assume equal variance.</p>
+<p>The observations are denotes:</p>
+<ul>
+<li>group 1: <span class="math inline">\(x_{11}, x_{12}, \ldots,
+x_{1,n_1}\)</span></li>
+<li>group 2: <span class="math inline">\(x_{21}, x_{22}, \ldots,
+x_{1,2_1}\)</span></li>
+</ul>
+<p>We have all together <span class="math inline">\(n=n_1+n_2\)</span>
+observations.</p>
+<p><span class="math display">\[
+\begin{aligned}
+&amp;\text{H}_0: \mu_1 = \mu_2 \\
+&amp;\text{H}_1: \mu_1 \ne \mu_2
+\end{aligned}
+\]</span> Test statistic: <span class="math display">\[
+t =
+\frac{\overline{x_2}-\overline{x_1}}{se(\overline{x_2}-\overline{x_1})}
+\sim t(n_1+n_2-2) ,
+\]</span> where <span class="math display">\[
+se(\overline{x_2}-\overline{x_1}) =
+s_p\sqrt{\left(\frac{1}{n_1}+\frac{1}{n_2}\right)}
+\]</span> with <span class="math display">\[
+s_p = \sqrt{\frac{n_1-1}{n_1+n_2-2}s_1^2 +
+\frac{n_2-1}{n_1+n_2-2}s_2^2}.
+\]</span> We reject <span class="math inline">\(\text{H}_0\)</span> if
+<span class="math inline">\(|t|&gt;c_{\alpha/2}\)</span>.</p>
+<hr />
+</div>
+<div id="interactions" class="section level1">
+<h1>Interactions</h1>
+<p>Now suppose we have two dummy variables <span
+class="math inline">\(x_1\)</span> and <span
+class="math inline">\(x_2\)</span>.</p>
+<p><span class="math display">\[
+\begin{aligned}
+x_{1} &amp;= \begin{cases}
+1 &amp; \text{ if sex=woman} \\
+0 &amp; \text{ otherwise}
+\end{cases} \\
+x_2 &amp;= \begin{cases}
+1 &amp; \text{ if the person is married} \\
+0 &amp; \text{ otherwise}
+\end{cases}
+\end{aligned}
+\]</span></p>
+<hr />
+</div>
+<div id="two-way-anova-test" class="section level1">
+<h1>Two-way Anova test</h1>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

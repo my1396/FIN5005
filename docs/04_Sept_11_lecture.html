@@ -505,7 +505,7 @@ P\left(-c_{\alpha/2} &lt; \frac{\widehat{\theta}-\theta}{\Sigma} &lt; c_{\alpha/
 \end{equation}
 \]</span>
 This requires <span class="math inline">\(\Phi(c_{\alpha/2}) = 1-\frac{\alpha}{2}\)</span>.</p>
-<p>Hence, <span class="math inline">\(c_{\alpha/2}=\Phi^{-1}(1-\frac{\alpha}{2})\)</span>, which is the <span class="math inline">\(1-\frac{\alpha}{2}\)</span> quantile of the standard normal distribution.</p>
+<p>Hence, <span class="math inline">\(c_{\alpha/2}=\Phi^{-1}(1-\frac{\alpha}{2})\)</span>, which is the <span class="math inline">\(\left(1-\frac{\alpha}{2}\right)\)</span> quantile of the standard normal distribution.</p>
 <p>Re-arranging <a href="#eq:CI">(1)</a>, we have
 <span class="math display">\[
 P\left(\widehat{\theta}-c_{\alpha/2}\cdot \Sigma, \; \widehat{\theta}+c_{\alpha/2}\cdot \Sigma\right) = 1-\alpha
@@ -594,20 +594,19 @@ Otherwise, we fail to reject <span class="math inline">\(H_0.\)</span></p></li>
 </ul></li>
 <li>For two-sided tests,
 <ul>
-<li>1% level of significance : <span class="math inline">\(c_\alpha = 2.58\)</span>,</li>
-</ul>
-<pre class="r"><code>qnorm(p=.995)</code></pre>
-<pre><code>## [1] 2.575829</code></pre>
-<ul>
-<li>5% level of significance : <span class="math inline">\(\color{#337ab7}{c_\alpha = 1.96}\)</span>,</li>
-</ul>
-<pre class="r"><code>    qnorm(p=.975)</code></pre>
-<pre><code>## [1] 1.959964</code></pre>
-<ul>
-<li>10% level of significance : <span class="math inline">\(c_\alpha= 1.64\)</span>.</li>
-</ul>
-<pre class="r"><code>    qnorm(p=.95)</code></pre>
+<li><p>1% level of significance : <span class="math inline">\(c_{\alpha/2} = 2.58\)</span>,</p>
+<pre class="r"><code>alpha &lt;- .01
+qnorm(p=1-alpha/2)</code></pre>
+<pre><code>## [1] 2.575829</code></pre></li>
+<li><p>5% level of significance : <span class="math inline">\(\color{#337ab7}{c_{\alpha/2} = 1.96}\)</span>,</p>
+<pre class="r"><code>alpha &lt;- .05
+qnorm(p=1-alpha/2)</code></pre>
+<pre><code>## [1] 1.959964</code></pre></li>
+<li><p>10% level of significance : <span class="math inline">\(c_{\alpha/2}= 1.64\)</span>.</p>
+<pre class="r"><code>alpha &lt;- .1
+qnorm(p=1-alpha/2)</code></pre>
 <pre><code>## [1] 1.644854</code></pre></li>
+</ul></li>
 </ul>
 <hr />
 </div>

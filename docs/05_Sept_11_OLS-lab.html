@@ -14,9 +14,10 @@
 
 <title>Linear Model – Lab</title>
 
+<script src="site_libs/header-attrs-2.24/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -29,11 +30,8 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
-<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
-<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 <script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
@@ -225,69 +223,6 @@ $(document).ready(function () {
 
 
 
-<style type="text/css">
-
-#TOC {
-  margin: 25px 0px 20px 0px;
-}
-@media (max-width: 768px) {
-#TOC {
-  position: relative;
-  width: 100%;
-}
-}
-
-@media print {
-.toc-content {
-  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
-  float: right;
-}
-}
-
-.toc-content {
-  padding-left: 30px;
-  padding-right: 40px;
-}
-
-div.main-container {
-  max-width: 1200px;
-}
-
-div.tocify {
-  width: 20%;
-  max-width: 260px;
-  max-height: 85%;
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-  div.tocify {
-    width: 25%;
-  }
-}
-
-@media (max-width: 767px) {
-  div.tocify {
-    width: 100%;
-    max-width: none;
-  }
-}
-
-.tocify ul, .tocify li {
-  line-height: 20px;
-}
-
-.tocify-subheader .tocify-item {
-  font-size: 0.90em;
-}
-
-.tocify .list-group-item {
-  border-radius: 0px;
-}
-
-
-</style>
-
-
 
 </head>
 
@@ -295,16 +230,6 @@ div.tocify {
 
 
 <div class="container-fluid main-container">
-
-
-<!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row">
-<div class="col-xs-12 col-sm-4 col-md-3">
-<div id="TOC" class="tocify">
-</div>
-</div>
-
-<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -347,11 +272,14 @@ div.tocify {
 <p><a class="top-link" href="#top" id="js-top">↑</a></p>
 <div id="regression-dataset-preparation" class="section level1">
 <h1>Regression Dataset Preparation</h1>
-<p>Using <code>AAPL</code> as an example to demonstrate linear regression.</p>
+<p>Using <code>AAPL</code> as an example to demonstrate linear
+regression.</p>
 <p>We use monthly data from 2014-12 to 2023-12.</p>
 <ul>
-<li>Equity data can be downloaded using <code>quantmod::getSymbols</code>.</li>
-<li>Fama-French factors can be downloaded from Ken French’s <a href="http://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html">website</a>.</li>
+<li>Equity data can be downloaded using
+<code>quantmod::getSymbols</code>.</li>
+<li>Fama-French factors can be downloaded from Ken French’s <a
+href="http://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html">website</a>.</li>
 </ul>
 <pre class="r"><code>price_data &lt;- getSymbols(&quot;AAPL&quot;, 
            src = &#39;yahoo&#39;, 
@@ -363,24 +291,24 @@ price_data</code></pre>
 <pre><code>##            AAPL.Open AAPL.High AAPL.Low AAPL.Close AAPL.Volume AAPL.Adjusted
 ## 2014-12-01   29.7025   29.8125  27.8175    28.7675   335256000      25.65363
 ## 2014-12-02   28.3750   28.9375  28.1875    28.6575   237395600      25.55553
-## 2014-12-03   28.9375   29.0875  28.7775    28.9825   172253600      25.84535
+## 2014-12-03   28.9375   29.0875  28.7775    28.9825   172253600      25.84537
 ## 2014-12-04   28.9425   29.3000  28.8225    28.8725   168178000      25.74726
 ## 2014-12-05   28.9975   29.0200  28.6600    28.7500   153275600      25.63803
 ## 2014-12-08   28.5250   28.6625  27.9050    28.1000   230659600      25.05838
 ## 2014-12-09   27.5475   28.5750  27.3375    28.5300   240832000      25.44184
-## 2014-12-10   28.6025   28.7125  27.8850    27.9875   178261200      24.95806
+## 2014-12-10   28.6025   28.7125  27.8850    27.9875   178261200      24.95807
 ## 2014-12-11   28.0650   28.4500  27.8350    27.9050   165606800      24.88449
 ## 2014-12-12   27.6150   27.9675  27.3950    27.4325   224112400      24.46313
 ##        ...                                                                  
-## 2023-12-15  197.5300  198.4000 197.0000   197.5700   128256700     196.82314
-## 2023-12-18  196.0900  196.6300 194.3900   195.8900    55751900     195.14949
+## 2023-12-15  197.5300  198.4000 197.0000   197.5700   128256700     196.82312
+## 2023-12-18  196.0900  196.6300 194.3900   195.8900    55751900     195.14948
 ## 2023-12-19  196.1600  196.9500 195.8900   196.9400    40714100     196.19551
 ## 2023-12-20  196.9000  197.6800 194.8300   194.8300    52242800     194.09349
 ## 2023-12-21  196.1000  197.0800 193.5000   194.6800    46482500     193.94403
-## 2023-12-22  195.1800  195.4100 192.9700   193.6000    37122800     192.86815
-## 2023-12-26  193.6100  193.8900 192.8300   193.0500    28919300     192.32021
+## 2023-12-22  195.1800  195.4100 192.9700   193.6000    37122800     192.86813
+## 2023-12-26  193.6100  193.8900 192.8300   193.0500    28919300     192.32022
 ## 2023-12-27  192.4900  193.5000 191.0900   193.1500    48087700     192.41983
-## 2023-12-28  194.1400  194.6600 193.1700   193.5800    34049900     192.84821
+## 2023-12-28  194.1400  194.6600 193.1700   193.5800    34049900     192.84822
 ## 2023-12-29  193.9000  194.4000 191.7300   192.5300    42628800     191.80217</code></pre>
 <p>Convert to monthly and calculate returns.</p>
 <pre class="r"><code>price_data &lt;- price_data %&gt;% 
@@ -389,48 +317,48 @@ price_data$return &lt;- monthlyReturn(price_data$AAPL.Adjusted, type=&#39;arithm
 price_data</code></pre>
 <pre><code>##            AAPL.Open AAPL.High AAPL.Low AAPL.Close AAPL.Volume AAPL.Adjusted
 ## 2014-12-31   28.2050   28.2825  27.5525    27.5950   165613600      24.60805
-## 2015-01-30   29.6000   30.0000  29.2125    29.2900   334982000      26.11958
-## 2015-02-27   32.5000   32.6425  32.0600    32.1150   248059200      28.75181
+## 2015-01-30   29.6000   30.0000  29.2125    29.2900   334982000      26.11957
+## 2015-02-27   32.5000   32.6425  32.0600    32.1150   248059200      28.75182
 ## 2015-03-31   31.5225   31.6225  31.0900    31.1075   168362400      27.84983
-## 2015-04-30   32.1600   32.1600  31.1450    31.2875   332781600      28.01097
-## 2015-05-29   32.8075   32.8625  32.4750    32.5700   203538000      29.28097
-## 2015-06-30   31.3925   31.5300  31.2150    31.3575   177482800      28.19091
-## 2015-07-31   30.6500   30.6600  30.2275    30.3250   171540000      27.26267
-## 2015-08-31   28.0075   28.6325  28.0000    28.1900   224917200      25.45798
-## 2015-09-30   27.5425   27.8850  27.1825    27.5750   265892000      24.90260
+## 2015-04-30   32.1600   32.1600  31.1450    31.2875   332781600      28.01098
+## 2015-05-29   32.8075   32.8625  32.4750    32.5700   203538000      29.28096
+## 2015-06-30   31.3925   31.5300  31.2150    31.3575   177482800      28.19090
+## 2015-07-31   30.6500   30.6600  30.2275    30.3250   171540000      27.26268
+## 2015-08-31   28.0075   28.6325  28.0000    28.1900   224917200      25.45799
+## 2015-09-30   27.5425   27.8850  27.1825    27.5750   265892000      24.90259
 ##        ...                                                                  
-## 2023-03-31  162.4400  165.0000 161.9100   164.9000    68749800     163.61293
+## 2023-03-31  162.4400  165.0000 161.9100   164.9000    68749800     163.61295
 ## 2023-04-28  168.4900  169.8500 167.8800   169.6800    55209200     168.35562
-## 2023-05-31  177.3300  179.3500 176.7600   177.2500    99625300     176.10982
+## 2023-05-31  177.3300  179.3500 176.7600   177.2500    99625300     176.10980
 ## 2023-06-30  191.6300  194.4800 191.2600   193.9700    85069600     192.72223
 ## 2023-07-31  196.0600  196.4900 195.2600   196.4500    38824100     195.18628
-## 2023-08-31  187.8400  189.1200 187.4800   187.8700    60794500     186.91354
-## 2023-09-29  172.0200  173.0700 170.3400   171.2100    51814200     170.33838
+## 2023-08-31  187.8400  189.1200 187.4800   187.8700    60794500     186.91353
+## 2023-09-29  172.0200  173.0700 170.3400   171.2100    51814200     170.33835
 ## 2023-10-31  169.3500  170.9000 167.9000   170.7700    44846000     169.90060
-## 2023-11-30  189.8400  190.3200 188.1900   189.9500    48794400     189.23192
+## 2023-11-30  189.8400  190.3200 188.1900   189.9500    48794400     189.23193
 ## 2023-12-29  193.9000  194.4000 191.7300   192.5300    42628800     191.80217
 ##                  return
 ## 2014-12-31  0.000000000
-## 2015-01-30  0.061424052
-## 2015-02-27  0.100776461
-## 2015-03-31 -0.031371484
-## 2015-04-30  0.005786254
-## 2015-05-29  0.045339119
-## 2015-06-30 -0.037227312
-## 2015-07-31 -0.032926915
-## 2015-08-31 -0.066196345
-## 2015-09-30 -0.021815922
+## 2015-01-30  0.061423975
+## 2015-02-27  0.100776615
+## 2015-03-31 -0.031371416
+## 2015-04-30  0.005786253
+## 2015-05-29  0.045338908
+## 2015-06-30 -0.037227770
+## 2015-07-31 -0.032926256
+## 2015-08-31 -0.066196196
+## 2015-09-30 -0.021816589
 ##        ...             
-## 2023-03-31  0.118648646
-## 2023-04-28  0.028987263
-## 2023-05-31  0.046058433
-## 2023-06-30  0.094329843
+## 2023-03-31  0.118648750
+## 2023-04-28  0.028987167
+## 2023-05-31  0.046058343
+## 2023-06-30  0.094329938
 ## 2023-07-31  0.012785501
-## 2023-08-31 -0.042383797
-## 2023-09-29 -0.088678244
-## 2023-10-31 -0.002570029
-## 2023-11-30  0.113780137
-## 2023-12-29  0.013582547</code></pre>
+## 2023-08-31 -0.042383875
+## 2023-09-29 -0.088678333
+## 2023-10-31 -0.002569851
+## 2023-11-30  0.113780227
+## 2023-12-29  0.013582465</code></pre>
 <p>Load Fama-French factors.</p>
 <pre class="r"><code>FF_factor &lt;- read_csv(&quot;data/FF_3Factors_US_monthly.csv&quot;)
 FF_factor &lt;- FF_factor %&gt;% mutate_at(vars(-Date), ~./100)
@@ -453,7 +381,8 @@ FF_factor</code></pre>
 ##  9 2000-09-01  -0.0545 -0.0182  0.0717 0.0051  2000     9
 ## 10 2000-10-01  -0.0276 -0.0388  0.0571 0.0056  2000    10
 ## # ℹ 284 more rows</code></pre>
-<p>Merge price data with FF-factor data to prepare the regression dataset.</p>
+<p>Merge price data with FF-factor data to prepare the regression
+dataset.</p>
 <pre class="r"><code>reg_data &lt;- price_data %&gt;% 
     as_tibble() %&gt;% 
     add_column(Date=index(price_data), .before = 1)
@@ -472,7 +401,8 @@ reg_data %&gt;%
     knitr::kable(floating.environment=&quot;sidewaystable&quot;, digits = 5, escape=F) %&gt;%
     kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;), full_width = F, latex_options=&quot;scale_down&quot;) %&gt;% 
     scroll_box(width = &quot;100%&quot;, height = &quot;500px&quot;)</code></pre>
-<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; overflow-x: scroll; width:100%; ">
+<div
+style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; overflow-x: scroll; width:100%; ">
 <table class="table table-striped table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -579,7 +509,7 @@ eRi
 334982000
 </td>
 <td style="text-align:right;">
-26.11958
+26.11957
 </td>
 <td style="text-align:right;">
 0.06142
@@ -620,7 +550,7 @@ eRi
 248059200
 </td>
 <td style="text-align:right;">
-28.75181
+28.75182
 </td>
 <td style="text-align:right;">
 0.10078
@@ -702,7 +632,7 @@ eRi
 332781600
 </td>
 <td style="text-align:right;">
-28.01097
+28.01098
 </td>
 <td style="text-align:right;">
 0.00579
@@ -743,7 +673,7 @@ eRi
 203538000
 </td>
 <td style="text-align:right;">
-29.28097
+29.28096
 </td>
 <td style="text-align:right;">
 0.04534
@@ -784,7 +714,7 @@ eRi
 177482800
 </td>
 <td style="text-align:right;">
-28.19091
+28.19090
 </td>
 <td style="text-align:right;">
 -0.03723
@@ -825,7 +755,7 @@ eRi
 171540000
 </td>
 <td style="text-align:right;">
-27.26267
+27.26268
 </td>
 <td style="text-align:right;">
 -0.03293
@@ -866,7 +796,7 @@ eRi
 224917200
 </td>
 <td style="text-align:right;">
-25.45798
+25.45799
 </td>
 <td style="text-align:right;">
 -0.06620
@@ -907,7 +837,7 @@ eRi
 265892000
 </td>
 <td style="text-align:right;">
-24.90260
+24.90259
 </td>
 <td style="text-align:right;">
 -0.02182
@@ -948,7 +878,7 @@ eRi
 197461200
 </td>
 <td style="text-align:right;">
-26.97968
+26.97969
 </td>
 <td style="text-align:right;">
 0.08341
@@ -1112,7 +1042,7 @@ eRi
 140865200
 </td>
 <td style="text-align:right;">
-22.04224
+22.04225
 </td>
 <td style="text-align:right;">
 -0.00129
@@ -1153,7 +1083,7 @@ eRi
 103553600
 </td>
 <td style="text-align:right;">
-24.84625
+24.84626
 </td>
 <td style="text-align:right;">
 0.12721
@@ -1194,7 +1124,7 @@ eRi
 274126000
 </td>
 <td style="text-align:right;">
-21.36975
+21.36974
 </td>
 <td style="text-align:right;">
 -0.13992
@@ -1317,7 +1247,7 @@ eRi
 110934800
 </td>
 <td style="text-align:right;">
-23.90121
+23.90120
 </td>
 <td style="text-align:right;">
 0.09006
@@ -1399,7 +1329,7 @@ eRi
 145516400
 </td>
 <td style="text-align:right;">
-26.06918
+26.06917
 </td>
 <td style="text-align:right;">
 0.06550
@@ -1563,7 +1493,7 @@ eRi
 196804000
 </td>
 <td style="text-align:right;">
-28.12681
+28.12682
 </td>
 <td style="text-align:right;">
 0.04775
@@ -1604,7 +1534,7 @@ eRi
 93931600
 </td>
 <td style="text-align:right;">
-31.88957
+31.88956
 </td>
 <td style="text-align:right;">
 0.13378
@@ -1686,7 +1616,7 @@ eRi
 83441600
 </td>
 <td style="text-align:right;">
-33.43992
+33.43993
 </td>
 <td style="text-align:right;">
 -0.00007
@@ -1727,7 +1657,7 @@ eRi
 97804800
 </td>
 <td style="text-align:right;">
-35.70739
+35.70741
 </td>
 <td style="text-align:right;">
 0.06781
@@ -1809,7 +1739,7 @@ eRi
 79383600
 </td>
 <td style="text-align:right;">
-34.76540
+34.76539
 </td>
 <td style="text-align:right;">
 0.03270
@@ -1850,7 +1780,7 @@ eRi
 107140400
 </td>
 <td style="text-align:right;">
-38.48526
+38.48527
 </td>
 <td style="text-align:right;">
 0.10700
@@ -2014,7 +1944,7 @@ eRi
 103999600
 </td>
 <td style="text-align:right;">
-39.85532
+39.85534
 </td>
 <td style="text-align:right;">
 -0.01525
@@ -2137,7 +2067,7 @@ eRi
 153594000
 </td>
 <td style="text-align:right;">
-39.67493
+39.67494
 </td>
 <td style="text-align:right;">
 -0.05805
@@ -2219,7 +2149,7 @@ eRi
 109931200
 </td>
 <td style="text-align:right;">
-44.35956
+44.35955
 </td>
 <td style="text-align:right;">
 0.13512
@@ -2465,7 +2395,7 @@ eRi
 158126000
 </td>
 <td style="text-align:right;">
-42.68877
+42.68876
 </td>
 <td style="text-align:right;">
 -0.18120
@@ -2506,7 +2436,7 @@ eRi
 140014000
 </td>
 <td style="text-align:right;">
-37.70705
+37.70706
 </td>
 <td style="text-align:right;">
 -0.11670
@@ -2547,7 +2477,7 @@ eRi
 162958400
 </td>
 <td style="text-align:right;">
-39.78675
+39.78676
 </td>
 <td style="text-align:right;">
 0.05515
@@ -2834,7 +2764,7 @@ eRi
 84573600
 </td>
 <td style="text-align:right;">
-50.49651
+50.49650
 </td>
 <td style="text-align:right;">
 -0.01646
@@ -2957,7 +2887,7 @@ eRi
 46617600
 </td>
 <td style="text-align:right;">
-64.84481
+64.84482
 </td>
 <td style="text-align:right;">
 0.07755
@@ -3039,7 +2969,7 @@ eRi
 199588400
 </td>
 <td style="text-align:right;">
-75.09866
+75.09868
 </td>
 <td style="text-align:right;">
 0.05401
@@ -3080,7 +3010,7 @@ eRi
 426510000
 </td>
 <td style="text-align:right;">
-66.48474
+66.48473
 </td>
 <td style="text-align:right;">
 -0.11470
@@ -3203,7 +3133,7 @@ eRi
 153532400
 </td>
 <td style="text-align:right;">
-77.53648
+77.53651
 </td>
 <td style="text-align:right;">
 0.08509
@@ -3244,7 +3174,7 @@ eRi
 140223200
 </td>
 <td style="text-align:right;">
-88.96433
+88.96432
 </td>
 <td style="text-align:right;">
 0.14739
@@ -3285,7 +3215,7 @@ eRi
 374336800
 </td>
 <td style="text-align:right;">
-103.65515
+103.65514
 </td>
 <td style="text-align:right;">
 0.16513
@@ -3326,7 +3256,7 @@ eRi
 225702700
 </td>
 <td style="text-align:right;">
-126.10366
+126.10368
 </td>
 <td style="text-align:right;">
 0.21657
@@ -3408,7 +3338,7 @@ eRi
 190272600
 </td>
 <td style="text-align:right;">
-106.38289
+106.38288
 </td>
 <td style="text-align:right;">
 -0.06001
@@ -3490,7 +3420,7 @@ eRi
 99116600
 </td>
 <td style="text-align:right;">
-129.89435
+129.89432
 </td>
 <td style="text-align:right;">
 0.11457
@@ -3572,7 +3502,7 @@ eRi
 164560400
 </td>
 <td style="text-align:right;">
-118.88254
+118.88253
 </td>
 <td style="text-align:right;">
 -0.07971
@@ -3613,7 +3543,7 @@ eRi
 118323800
 </td>
 <td style="text-align:right;">
-119.75508
+119.75510
 </td>
 <td style="text-align:right;">
 0.00734
@@ -3654,7 +3584,7 @@ eRi
 109839500
 </td>
 <td style="text-align:right;">
-128.88258
+128.88255
 </td>
 <td style="text-align:right;">
 0.07622
@@ -3695,7 +3625,7 @@ eRi
 71311100
 </td>
 <td style="text-align:right;">
-122.37435
+122.37436
 </td>
 <td style="text-align:right;">
 -0.05050
@@ -3736,7 +3666,7 @@ eRi
 63261400
 </td>
 <td style="text-align:right;">
-134.50279
+134.50278
 </td>
 <td style="text-align:right;">
 0.09911
@@ -3818,7 +3748,7 @@ eRi
 86453100
 </td>
 <td style="text-align:right;">
-149.32944
+149.32939
 </td>
 <td style="text-align:right;">
 0.04249
@@ -3900,7 +3830,7 @@ eRi
 124953200
 </td>
 <td style="text-align:right;">
-147.33281
+147.33287
 </td>
 <td style="text-align:right;">
 0.05866
@@ -3941,7 +3871,7 @@ eRi
 174048100
 </td>
 <td style="text-align:right;">
-162.81482
+162.81485
 </td>
 <td style="text-align:right;">
 0.10508
@@ -3982,7 +3912,7 @@ eRi
 64062300
 </td>
 <td style="text-align:right;">
-174.90038
+174.90039
 </td>
 <td style="text-align:right;">
 0.07423
@@ -4064,7 +3994,7 @@ eRi
 95056600
 </td>
 <td style="text-align:right;">
-162.84477
+162.84476
 </td>
 <td style="text-align:right;">
 -0.05407
@@ -4146,7 +4076,7 @@ eRi
 131747600
 </td>
 <td style="text-align:right;">
-155.47766
+155.47768
 </td>
 <td style="text-align:right;">
 -0.09713
@@ -4228,7 +4158,7 @@ eRi
 98964500
 </td>
 <td style="text-align:right;">
-135.03421
+135.03419
 </td>
 <td style="text-align:right;">
 -0.08143
@@ -4269,7 +4199,7 @@ eRi
 101786900
 </td>
 <td style="text-align:right;">
-160.50620
+160.50618
 </td>
 <td style="text-align:right;">
 0.18863
@@ -4474,7 +4404,7 @@ eRi
 77034200
 </td>
 <td style="text-align:right;">
-128.71936
+128.71935
 </td>
 <td style="text-align:right;">
 -0.12227
@@ -4597,7 +4527,7 @@ eRi
 68749800
 </td>
 <td style="text-align:right;">
-163.61293
+163.61295
 </td>
 <td style="text-align:right;">
 0.11865
@@ -4679,7 +4609,7 @@ eRi
 99625300
 </td>
 <td style="text-align:right;">
-176.10982
+176.10980
 </td>
 <td style="text-align:right;">
 0.04606
@@ -4802,7 +4732,7 @@ eRi
 60794500
 </td>
 <td style="text-align:right;">
-186.91354
+186.91353
 </td>
 <td style="text-align:right;">
 -0.04238
@@ -4843,7 +4773,7 @@ eRi
 51814200
 </td>
 <td style="text-align:right;">
-170.33838
+170.33835
 </td>
 <td style="text-align:right;">
 -0.08868
@@ -4925,7 +4855,7 @@ eRi
 48794400
 </td>
 <td style="text-align:right;">
-189.23192
+189.23193
 </td>
 <td style="text-align:right;">
 0.11378
@@ -4990,35 +4920,38 @@ eRi
 </tbody>
 </table>
 </div>
-<p>Visualize excess returns of Apple and equity risk premium <span class="math inline">\((R_m-R_f)\)</span>.</p>
+<p>Visualize excess returns of Apple and equity risk premium <span
+class="math inline">\((R_m-R_f)\)</span>.</p>
 <ul>
 <li>Give you a nice overview of the data.</li>
-<li>Spot any irregular patterns and do due diligence to ensure data quality. For instance, to check whether you got the unit right, missing values treatment.</li>
+<li>Spot any irregular patterns and do due diligence to ensure data
+quality. For instance, to check whether you got the unit right, missing
+values treatment.</li>
 </ul>
 <pre class="r"><code>plot_data &lt;- xts(reg_data[,c(&quot;eRi&quot;,&quot;rmrf&quot;)], order.by = reg_data$Date)
 plot_data</code></pre>
 <pre><code>##                     eRi    rmrf
 ## 2014-12-31  0.000000000 -0.0006
-## 2015-01-30  0.061424052 -0.0311
-## 2015-02-27  0.100776461  0.0613
-## 2015-03-31 -0.031371484 -0.0112
-## 2015-04-30  0.005786254  0.0059
-## 2015-05-29  0.045339119  0.0136
-## 2015-06-30 -0.037227312 -0.0153
-## 2015-07-31 -0.032926915  0.0154
-## 2015-08-31 -0.066196345 -0.0604
-## 2015-09-30 -0.021815922 -0.0307
+## 2015-01-30  0.061423975 -0.0311
+## 2015-02-27  0.100776615  0.0613
+## 2015-03-31 -0.031371416 -0.0112
+## 2015-04-30  0.005786253  0.0059
+## 2015-05-29  0.045338908  0.0136
+## 2015-06-30 -0.037227770 -0.0153
+## 2015-07-31 -0.032926256  0.0154
+## 2015-08-31 -0.066196196 -0.0604
+## 2015-09-30 -0.021816589 -0.0307
 ##        ...                     
-## 2023-03-31  0.115048646  0.0251
-## 2023-04-28  0.025487263  0.0061
-## 2023-05-31  0.042458433  0.0035
-## 2023-06-30  0.090329843  0.0646
+## 2023-03-31  0.115048750  0.0251
+## 2023-04-28  0.025487167  0.0061
+## 2023-05-31  0.042458343  0.0035
+## 2023-06-30  0.090329938  0.0646
 ## 2023-07-31  0.008285501  0.0321
-## 2023-08-31 -0.046883797 -0.0239
-## 2023-09-29 -0.092978244 -0.0524
-## 2023-10-31 -0.007270029 -0.0318
-## 2023-11-30  0.109380137  0.0884
-## 2023-12-29  0.009282547  0.0487</code></pre>
+## 2023-08-31 -0.046883875 -0.0239
+## 2023-09-29 -0.092978333 -0.0524
+## 2023-10-31 -0.007269851 -0.0318
+## 2023-11-30  0.109380227  0.0884
+## 2023-12-29  0.009282465  0.0487</code></pre>
 <pre class="r"><code>col_vec &lt;- c(&quot;black&quot;, &quot;red&quot;)
 plot.xts(plot_data, col = col_vec, main = &quot;Excess Returns on Asset and Market&quot;)
 addLegend(&quot;topright&quot;, 
@@ -5036,14 +4969,20 @@ addLegend(&quot;topright&quot;,
 <p>Simple linear regression using CAPM use an example.</p>
 <p>CAPM as a regression can be expressed as</p>
 <p><span class="math display">\[
-r_{i,\color{red}{t}} - r_{f,\color{red}{t}} = \alpha_i + \beta_i (r_{m,\color{red}{t}}-r_{f,\color{red}{t}}) + \varepsilon_{i,\color{red}{t}}
-\]</span>
-where <span class="math inline">\(\alpha_i\)</span> (intercept) and <span class="math inline">\(\beta_i\)</span> (slope) are the parameters to estimate.</p>
+r_{i,\color{red}{t}} - r_{f,\color{red}{t}} = \alpha_i + \beta_i
+(r_{m,\color{red}{t}}-r_{f,\color{red}{t}}) +
+\varepsilon_{i,\color{red}{t}}
+\]</span> where <span class="math inline">\(\alpha_i\)</span>
+(intercept) and <span class="math inline">\(\beta_i\)</span> (slope) are
+the parameters to estimate.</p>
 <p>We use the following data to estimate the parameters.</p>
 <ul>
-<li><span class="math inline">\(r_i\)</span> is the return of asset <span class="math inline">\(i\)</span>;</li>
-<li><span class="math inline">\(r_f\)</span> is the risk free rate of interest;</li>
-<li><span class="math inline">\(r_m\)</span> is the return of the market portfolio.</li>
+<li><span class="math inline">\(r_i\)</span> is the return of asset
+<span class="math inline">\(i\)</span>;</li>
+<li><span class="math inline">\(r_f\)</span> is the risk free rate of
+interest;</li>
+<li><span class="math inline">\(r_m\)</span> is the return of the market
+portfolio.</li>
 </ul>
 <pre class="r"><code>capm_ml &lt;- lm(eRi~rmrf, data=reg_data)
 summary(capm_ml)</code></pre>
@@ -5066,7 +5005,7 @@ summary(capm_ml)</code></pre>
 ## Multiple R-squared:  0.4811, Adjusted R-squared:  0.4763 
 ## F-statistic: 99.22 on 1 and 107 DF,  p-value: &lt; 2.2e-16</code></pre>
 <p><code>stargazer</code> tabulates regression results neatly.</p>
-<pre class="r"><code>stargazer(capm_ml, type=&quot;html&quot;, title=&quot;Regression Results for AAPL&quot;)</code></pre>
+<pre class="r"><code>stargazer(capm_ml, type=&quot;html&quot;, title=&quot;Regression Results for AAPL&quot;, notes=&quot;&lt;span&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/span&gt;: p&lt;0.01; &lt;span&gt;&amp;#42;&amp;#42;&lt;/span&gt;: &lt;strong&gt;p&lt;0.05&lt;/strong&gt;; &lt;span&gt;&amp;#42;&lt;/span&gt;: p&lt;0.1&quot;, notes.append=F)</code></pre>
 <table style="text-align:center">
 <caption>
 <strong>Regression Results for AAPL</strong>
@@ -5194,53 +5133,96 @@ F Statistic
 <em>Note:</em>
 </td>
 <td style="text-align:right">
-<sup><em></sup>p&lt;0.1; <sup><strong></sup>p&lt;0.05; <sup></strong></em></sup>p&lt;0.01
+<span>***</span>: p&lt;0.01; <span>**</span>:
+<strong>p&lt;0.05</strong>; <span>*</span>: p&lt;0.1
 </td>
 </tr>
 </table>
-<p>Note that is is common practice to put standard error in the parentheses below the coefficient estimates.</p>
+<p>Note that is is common practice to put standard error in the
+parentheses below the coefficient estimates.</p>
 <ul>
-<li>Sometimes, <span class="math inline">\(t\)</span>-statistics are reported in parentheses.</li>
-<li>To avoid any misunderstanding, it is recommended to specify in the table footnote what is enclosed in parentheses.</li>
+<li>Sometimes, <span class="math inline">\(t\)</span>-statistics are
+reported in parentheses.</li>
+<li>To avoid any misunderstanding, it is recommended to specify in the
+table footnote what is enclosed in parentheses.</li>
 </ul>
 <p>Several things worth looking at:</p>
 <ul>
-<li><p>Explanatory power: the <span class="math inline">\(R^2\)</span> (<span class="math inline">\(0.48\)</span>) tells us that variation in the excess returns of the market index explains about <span class="math inline">\(48\%\)</span> of the variation in Apple’s returns. The adjusted <span class="math inline">\(R^2\)</span> (which is slightly smaller) imposes a penalty for extra number of predictors.</p></li>
-<li><p>The intercept (<span class="math inline">\(0.01\)</span>) is the estimate of Apple’s alpha. The number in parentheses is the standard error (SE). <em>T</em>-statistic is about <span class="math inline">\(1.8\)</span>, lower than the conventional cutoff of 1.96 for statistical significance is a probability of less than <span class="math inline">\(5\%\)</span>.</p>
+<li><p>Explanatory power: the <span class="math inline">\(R^2\)</span>
+(<span class="math inline">\(0.48\)</span>) tells us that variation in
+the excess returns of the market index explains about <span
+class="math inline">\(48\%\)</span> of the variation in Apple’s returns.
+The adjusted <span class="math inline">\(R^2\)</span> (which is slightly
+smaller) imposes a penalty for extra number of predictors.</p></li>
+<li><p>The intercept (<span class="math inline">\(0.01\)</span>) is the
+estimate of Apple’s alpha. The number in parentheses is the standard
+error (SE). <em>T</em>-statistic is about <span
+class="math inline">\(1.8\)</span>, lower than the conventional cutoff
+of 1.96 for statistical significance is a probability of less than <span
+class="math inline">\(5\%\)</span>.</p>
 <ul>
-<li>We fail to reject <span class="math inline">\(H_0: \alpha=0\)</span>.</li>
+<li>We fail to reject <span class="math inline">\(H_0:
+\alpha=0\)</span>.</li>
 </ul></li>
-<li><p>The slope (<span class="math inline">\(1.2\)</span>) is the estimate of beta, meaning that its share price tended to move 1.2% for every 1% move in the market index.</p>
+<li><p>The slope (<span class="math inline">\(1.2\)</span>) is the
+estimate of beta, meaning that its share price tended to move 1.2% for
+every 1% move in the market index.</p>
 <ul>
-<li><p><span class="math inline">\(\beta&gt;1\)</span> means above-average sensitivity to economy, high exposure to the state of macroeconomy, high-risk equities.</p></li>
-<li><p>The SE is <span class="math inline">\(0.12\)</span>. P-value in the table provides the significance level for <span class="math inline">\(H_0: \beta=0\)</span>. The p-value is basically zero, therefore, we reject <span class="math inline">\(H_0\)</span> in favor of <span class="math inline">\(H_1\)</span>.</p></li>
-<li><p>An alternative t-test would be <span class="math inline">\(H_0: \beta=1\)</span>.</p>
+<li><p><span class="math inline">\(\beta&gt;1\)</span> means
+above-average sensitivity to economy, high exposure to the state of
+macroeconomy, high-risk equities.</p></li>
+<li><p>The SE is <span class="math inline">\(0.12\)</span>. P-value in
+the table provides the significance level for <span
+class="math inline">\(H_0: \beta=0\)</span>. The p-value is basically
+zero, therefore, we reject <span class="math inline">\(H_0\)</span> in
+favor of <span class="math inline">\(H_1\)</span>.</p></li>
+<li><p>An alternative t-test would be <span class="math inline">\(H_0:
+\beta=1\)</span>.</p>
 <p><span class="math display">\[
-t = \frac{\hat{\beta}-\beta}{se_{\hat{\beta}}} = \frac{1.2-1}{0.12} = 1.67
+t = \frac{\hat{\beta}-\beta}{se_{\hat{\beta}}} = \frac{1.2-1}{0.12} =
+1.67
 \]</span></p>
-<p>The p-value (<span class="math inline">\(9.5\%\)</span>) can be obtained by</p>
+<p>The p-value (<span class="math inline">\(9.5\%\)</span>) can be
+obtained by</p>
 <pre class="r"><code>pnorm(q = -1.67) * 2</code></pre>
 <pre><code>## [1] 0.09491936</code></pre>
-<p>Therefore, we fail to reject <span class="math inline">\(H_0: \hat{\beta}=1\)</span> at 5% significance level.</p></li>
-<li><p>Sometimes we are interested in the <span class="math inline">\(95\%\)</span> <em>Confidence Interval</em> (CI) that includes the true but unobserved value of beta with 95% probability.</p>
-<p>We would take the estimated value as the center of the interval, and then add and subtract about two standard errors.</p>
-<p>More precisely, the <span class="math inline">\(95\%\)</span> CI is given as <span class="math inline">\([\hat{\beta}-1.96 \cdot se_{\hat{\beta}}, \hat{\beta}+1.96 \cdot se_{\hat{\beta}}]\)</span>.</p>
+<p>Therefore, we fail to reject <span class="math inline">\(H_0:
+\hat{\beta}=1\)</span> at 5% significance level.</p></li>
+<li><p>Sometimes we are interested in the <span
+class="math inline">\(95\%\)</span> <em>Confidence Interval</em> (CI)
+that includes the true but unobserved value of beta with 95%
+probability.</p>
+<p>We would take the estimated value as the center of the interval, and
+then add and subtract about two standard errors.</p>
+<p>More precisely, the <span class="math inline">\(95\%\)</span> CI is
+given as <span class="math inline">\([\hat{\beta}-1.96 \cdot
+se_{\hat{\beta}}, \hat{\beta}+1.96 \cdot se_{\hat{\beta}}]\)</span>.</p>
 <pre class="r"><code>qnorm(p = 0.025) # critical value of 1.96</code></pre>
 <pre><code>## [1] -1.959964</code></pre>
 <pre class="r"><code>c(&quot;lower bound&quot;=1.2-1.96*0.12, &quot;upper bound&quot;=1.2+1.96*0.12) # 95% CI</code></pre>
 <pre><code>## lower bound upper bound 
 ##      0.9648      1.4352</code></pre>
-<p>Note that <span class="math inline">\(0\)</span> is not included in the 95% CI, yet <span class="math inline">\(1\)</span> is included.</p></li>
-<li><p>The standard deviation of the residual is <span class="math inline">\(6\%\)</span> per month, or <span class="math inline">\(6\% \times \sqrt{12}=20.78\%\)</span>. This stands for firm-specific risk.</p></li>
+<p>Note that <span class="math inline">\(0\)</span> is not included in
+the 95% CI, yet <span class="math inline">\(1\)</span> is
+included.</p></li>
+<li><p>The standard deviation of the residual is <span
+class="math inline">\(6\%\)</span> per month, or <span
+class="math inline">\(6\% \times \sqrt{12}=20.78\%\)</span>. This stands
+for firm-specific risk.</p></li>
 </ul></li>
 </ul>
 <hr />
 </div>
-<div id="multivariate-linear-regression-fama-french" class="section level1">
+<div id="multivariate-linear-regression-fama-french"
+class="section level1">
 <h1>Multivariate linear regression – Fama-French</h1>
-<p>The Fama-French three-factor model as a regression can be expressed as</p>
+<p>The Fama-French three-factor model as a regression can be expressed
+as</p>
 <p><span class="math display">\[
-r_{i,\color{red}{t}} - r_{f,\color{red}{t}} = \alpha_i + \beta_i^{RMRF} (r_{m,\color{red}{t}}-r_{f,\color{red}{t}}) + \beta_i^{SMB}SMB_\color{red}{t} + \beta_i^{HML}HML_\color{red}{t} + \varepsilon_{i,\color{red}{t}}
+r_{i,\color{red}{t}} - r_{f,\color{red}{t}} = \alpha_i + \beta_i^{RMRF}
+(r_{m,\color{red}{t}}-r_{f,\color{red}{t}}) +
+\beta_i^{SMB}SMB_\color{red}{t} + \beta_i^{HML}HML_\color{red}{t} +
+\varepsilon_{i,\color{red}{t}}
 \]</span></p>
 <pre class="r"><code>FF_ml &lt;- lm(eRi~rmrf+SMB+HML, data=reg_data)
 summary(FF_ml)</code></pre>
@@ -5250,13 +5232,13 @@ summary(FF_ml)</code></pre>
 ## 
 ## Residuals:
 ##       Min        1Q    Median        3Q       Max 
-## -0.213812 -0.027582 -0.004805  0.030710  0.127464 
+## -0.213812 -0.027582 -0.004805  0.030711  0.127463 
 ## 
 ## Coefficients:
 ##              Estimate Std. Error t value Pr(&gt;|t|)    
 ## (Intercept)  0.008978   0.005377   1.670 0.097924 .  
-## rmrf         1.268104   0.117656  10.778  &lt; 2e-16 ***
-## SMB         -0.286619   0.202872  -1.413 0.160670    
+## rmrf         1.268105   0.117656  10.778  &lt; 2e-16 ***
+## SMB         -0.286620   0.202872  -1.413 0.160667    
 ## HML         -0.551340   0.137259  -4.017 0.000111 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
@@ -5266,7 +5248,7 @@ summary(FF_ml)</code></pre>
 ## F-statistic: 44.69 on 3 and 105 DF,  p-value: &lt; 2.2e-16</code></pre>
 <pre class="r"><code>stargazer(capm_ml, FF_ml, type=&quot;html&quot;, 
           title=&quot;Regression Results for AAPL&quot;, 
-          align = TRUE)</code></pre>
+          align = TRUE, notes=&quot;&lt;span&gt;&amp;#42;&amp;#42;&amp;#42;&lt;/span&gt;: p&lt;0.01; &lt;span&gt;&amp;#42;&amp;#42;&lt;/span&gt;: &lt;strong&gt;p&lt;0.05&lt;/strong&gt;; &lt;span&gt;&amp;#42;&lt;/span&gt;: p&lt;0.1&quot;, notes.append=F)</code></pre>
 <table style="text-align:center">
 <caption>
 <strong>Regression Results for AAPL</strong>
@@ -5489,16 +5471,20 @@ F Statistic
 <em>Note:</em>
 </td>
 <td colspan="2" style="text-align:right">
-<sup><em></sup>p&lt;0.1; <sup><strong></sup>p&lt;0.05; <sup></strong></em></sup>p&lt;0.01
+<span>***</span>: p&lt;0.01; <span>**</span>:
+<strong>p&lt;0.05</strong>; <span>*</span>: p&lt;0.1
 </td>
 </tr>
 </table>
 <p> </p>
 <ul>
-<li>Under the FF 3-factor model, equity risk premium is still a significant factor with a slightly larger value (1.269 vs 1.204).</li>
+<li>Under the FF 3-factor model, equity risk premium is still a
+significant factor with a slightly larger value (1.269 vs 1.204).</li>
 <li>SMB size factor is not significant.</li>
-<li>HML value factor is significantly negative, indicating Apple is a growth company with low HML.</li>
-<li>Larger explanatory power implied by Adjusted <span class="math inline">\(R^2\)</span> (54.8% vs 47.6%).</li>
+<li>HML value factor is significantly negative, indicating Apple is a
+growth company with low HML.</li>
+<li>Larger explanatory power implied by Adjusted <span
+class="math inline">\(R^2\)</span> (54.8% vs 47.6%).</li>
 </ul>
 <pre class="r"><code>library(broom)
 coef &lt;- tidy(FF_ml, conf.int = TRUE)
@@ -5516,8 +5502,6 @@ coef %&gt;%
 
 
 
-</div>
-</div>
 
 </div>
 
@@ -5550,42 +5534,13 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
-<script>
-$(document).ready(function ()  {
-
-    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
-    $('.unlisted.unnumbered').addClass('toc-ignore')
-
-    // move toc-ignore selectors from section div to header
-    $('div.section.toc-ignore')
-        .removeClass('toc-ignore')
-        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
-
-    // establish options
-    var options = {
-      selectors: "h1,h2,h3,h4",
-      theme: "bootstrap3",
-      context: '.toc-content',
-      hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
-      },
-      ignoreSelector: ".toc-ignore",
-      scrollTo: 0
-    };
-    options.showAndHide = true;
-    options.smoothScroll = true;
-
-    // tocify
-    var toc = $("#TOC").tocify(options).data("toc-tocify");
-});
-</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML.js";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

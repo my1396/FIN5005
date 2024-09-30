@@ -259,7 +259,7 @@ P\left(-c_{\alpha/2} < \frac{\widehat{\theta}-\theta}{\Sigma} < c_{\alpha/2}  \r
 $$
 This requires $\Phi(c_{\alpha/2}) = 1-\frac{\alpha}{2}$. 
 
-Hence, $c_{\alpha/2}=\Phi^{-1}(1-\frac{\alpha}{2})$, which is the $1-\frac{\alpha}{2}$ quantile of the standard normal distribution.  
+Hence, $c_{\alpha/2}=\Phi^{-1}(1-\frac{\alpha}{2})$, which is the $\left(1-\frac{\alpha}{2}\right)$ quantile of the standard normal distribution.  
 
 Re-arranging \@ref(eq:CI), we have 
 $$
@@ -361,20 +361,23 @@ The critical values for typical levels of significance are:
     - 10\% level of significance : $c_\alpha= 1.28$.
 
 - For two-sided tests,
-    - 1\% level of significance : $c_\alpha = 2.58$,
-    ```{r}
-    qnorm(p=.995)
-    ```
+    - 1\% level of significance : $c_{\alpha/2} = 2.58$,
+        ```{r}
+        alpha <- .01
+        qnorm(p=1-alpha/2)
+        ```
     
-    - 5\% level of significance : $\color{#337ab7}{c_\alpha = 1.96}$, 
-    ```{r}
-        qnorm(p=.975)
-    ```
+    - 5\% level of significance : $\color{#337ab7}{c_{\alpha/2} = 1.96}$, 
+        ```{r}
+        alpha <- .05
+        qnorm(p=1-alpha/2)
+        ```
     
-    - 10\% level of significance : $c_\alpha= 1.64$.
-    ```{r}
-        qnorm(p=.95)
-    ```
+    - 10\% level of significance : $c_{\alpha/2}= 1.64$.
+        ```{r}
+        alpha <- .1
+        qnorm(p=1-alpha/2)
+        ```
 
 
 

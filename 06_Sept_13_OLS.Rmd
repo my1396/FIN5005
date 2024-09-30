@@ -66,8 +66,10 @@ $$
 where 
 
 - $y_i$ is the <span style='color:#337ab7'>dependent</span>, <span style='color:#337ab7'>response</span>, or <span style='color:#337ab7'>explained</span> variable for observation $i$;
-- $x_{1i}, x_{2i}, \ldots, x_{Ki}$ are the <span style='color:#337ab7'>independent</span> or <span style='color:#337ab7'>explanatory variables</span>, also called the <span style='color:#337ab7'>regressors</span>, <span style='color:#337ab7'>predictors</span>, or <span style='color:#337ab7'>covariates</span>.
-- $\beta_1, \beta_2, \ldots, \beta_K$ are the unknown parameters that we want to estimate.
+
+- $x_{1i}, x_{2i}, \ldots, x_{Ki}$ are the <span style='color:#337ab7'>independent</span> or <span style='color:#337ab7'>explanatory variables</span>, also called the <span style='color:#337ab7'>regressors</span>, <span style='color:#337ab7'>predictors</span>, or <span style='color:#337ab7'>covariates</span>;
+
+- $\beta_1, \beta_2, \ldots, \beta_K$ are the unknown parameters that we want to estimate;
 
 and a sample of $n$ observations indexed $i = 1, 2, \ldots, n.$
 
