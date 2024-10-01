@@ -459,7 +459,10 @@ t = \frac{\hat{\beta}_j-\beta_j}{se_{\hat{\beta}_j}}  \sim t(n-K) .
 We reject <span class="math inline">\(\text{H}_0\)</span> if <span class="math inline">\(|t|&gt;c_{\alpha/2}\)</span>, where <span class="math inline">\(c_{\alpha/2}\)</span> is the <span class="math inline">\(\left(1-\frac{\alpha}{2}\right)\)</span> quantile of the <span class="math inline">\(t\)</span>-distribution with <span class="math inline">\(n-K\)</span> degrees of freedom.</p>
 <p>The two-sided <span class="math inline">\(p\)</span>-value is found by:
 <span class="math display">\[
-p\text{-value} = 2\,\mathbb{P}(T&gt;|t|) ,
+\begin{aligned}
+p\text{-value} &amp;= 2\,\mathbb{P}(T&gt;|t|) \\
+&amp;= 2\left(1-\mathbb{P}(T\le|t|)\right) ,
+\end{aligned}
 \]</span>
 where <span class="math inline">\(T\)</span> is <span class="math inline">\(t\)</span>-distribution with <span class="math inline">\(n-K\)</span> degrees of freedom.</p>
 <p>The <span class="math inline">\((1-\alpha)\)</span> confidence interval for <span class="math inline">\(\beta_j\)</span>:

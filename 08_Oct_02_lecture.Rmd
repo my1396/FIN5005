@@ -184,7 +184,10 @@ We reject $\text{H}_0$ if $|t|>c_{\alpha/2}$, where $c_{\alpha/2}$ is the $\left
 
 The two-sided $p$-value is found by:
 $$
-p\text{-value} = 2\,\mathbb{P}(T>|t|) ,
+\begin{aligned}
+p\text{-value} &= 2\,\mathbb{P}(T>|t|) \\
+&= 2\left(1-\mathbb{P}(T\le|t|)\right) ,
+\end{aligned} 
 $$
 where $T$ is $t$-distribution with $n-K$ degrees of freedom.
 
