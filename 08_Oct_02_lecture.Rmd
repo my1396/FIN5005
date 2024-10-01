@@ -222,6 +222,52 @@ In this example,
 - the slope $\beta_1$ is equal to the difference in the conditional means between $x_{1,i}=1$ (women) and $x_{1,i}=0$ (men).
 
 
+**More than two categories**
+
+When there are several categories, a set of binary variables is necessary. For instance, a quarter variable can take four categories.
+
+$$
+\text{quarter} = 
+\begin{cases}
+\text{1st quarter} \\
+\text{2nd quarter} \\
+\text{3rd quarter} \\
+\text{4th quarter}
+\end{cases}
+$$
+Let's write a consumption function for quarterly data as
+$$
+y_t = \beta_1 + \beta_2 x_t + \delta_1 D_{t1} + \delta_{t2} D_{t2} + \delta_3 D_{t3} + \varepsilon_t ,
+$$
+where $x_t$ is disposable income, and 
+
+
+\begin{aligned}
+D_{t1} &= \begin{cases}
+1 & t \text{ is in the 1st quarter} \\
+0 & \text{otherwise} \\
+\end{cases} \\
+
+D_{t2} &= \begin{cases}
+1 & t \text{ is in the 2nd quarter} \\
+0 & \text{otherwise} \\
+\end{cases} \; . \\
+
+D_{t3} &= \begin{cases}
+1 & t \text{ is in the 3rd quarter} \\
+0 & \text{otherwise} \\
+\end{cases}
+\end{aligned} 
+
+
+Here we used 4th quarter as the base period. Any of the four quarters can be used as the base period.
+
+Note that only three of the four quarterly dummy variables are included in the model. If the fourth were included, then the four dummy variables would sum to one at every observation, which would reproduce the constant term—a case of perfect multicollinearity. 
+
+___
+
+## Bone density example
+ 
 We considered a study of bone mineral density (in g/cm$^2$) for rats given isoflavone and for rats in a control group. We want to test if isoflavone have an effect on bone mineral density.
 
 

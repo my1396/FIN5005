@@ -492,6 +492,43 @@ In this example,</p>
 <li><p>the intercept <span class="math inline">\(\beta_0\)</span> is equal to the conditional mean of <span class="math inline">\(y_i\)</span> for the <span class="math inline">\(x_{1,i}=0\)</span> subpopulation (men).</p></li>
 <li><p>the slope <span class="math inline">\(\beta_1\)</span> is equal to the difference in the conditional means between <span class="math inline">\(x_{1,i}=1\)</span> (women) and <span class="math inline">\(x_{1,i}=0\)</span> (men).</p></li>
 </ul>
+<p><strong>More than two categories</strong></p>
+<p>When there are several categories, a set of binary variables is necessary. For instance, a quarter variable can take four categories.</p>
+<p><span class="math display">\[
+\text{quarter} =
+\begin{cases}
+\text{1st quarter} \\
+\text{2nd quarter} \\
+\text{3rd quarter} \\
+\text{4th quarter}
+\end{cases}
+\]</span>
+Let’s write a consumption function for quarterly data as
+<span class="math display">\[
+y_t = \beta_1 + \beta_2 x_t + \delta_1 D_{t1} + \delta_{t2} D_{t2} + \delta_3 D_{t3} + \varepsilon_t ,
+\]</span>
+where <span class="math inline">\(x_t\)</span> is disposable income, and</p>
+<span class="math display">\[\begin{aligned}
+D_{t1} &amp;= \begin{cases}
+1 &amp; t \text{ is in the 1st quarter} \\
+0 &amp; \text{otherwise} \\
+\end{cases} \\
+
+D_{t2} &amp;= \begin{cases}
+1 &amp; t \text{ is in the 2nd quarter} \\
+0 &amp; \text{otherwise} \\
+\end{cases} \; . \\
+
+D_{t3} &amp;= \begin{cases}
+1 &amp; t \text{ is in the 3rd quarter} \\
+0 &amp; \text{otherwise} \\
+\end{cases}
+\end{aligned}\]</span>
+<p>Here we used 4th quarter as the base period. Any of the four quarters can be used as the base period.</p>
+<p>Note that only three of the four quarterly dummy variables are included in the model. If the fourth were included, then the four dummy variables would sum to one at every observation, which would reproduce the constant term—a case of perfect multicollinearity.</p>
+<hr />
+<div id="bone-density-example" class="section level2">
+<h2>Bone density example</h2>
 <p>We considered a study of bone mineral density (in g/cm<span class="math inline">\(^2\)</span>) for rats given isoflavone and for rats in a control group. We want to test if isoflavone have an effect on bone mineral density.</p>
 <pre class="r"><code># load dataset
 bonedensity &lt;- read_csv(&quot;https://raw.githubusercontent.com/my1396/course_dataset/refs/heads/main/bonedensity.csv&quot;)
@@ -716,6 +753,7 @@ F Statistic
 <pre class="r"><code>boxplot(density~group, data=bonedensity)</code></pre>
 <p><img src="08_Oct_02_lecture_files/figure-html/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
 <hr />
+</div>
 </div>
 <div id="t-test-for-equal-sample-means" class="section level1">
 <h1><span class="math inline">\(T\)</span>-test for equal sample means</h1>
