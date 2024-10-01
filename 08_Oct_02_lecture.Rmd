@@ -65,7 +65,7 @@ Consider the following model setting:
 $$
 y_i = x_{1i} \beta_1 + x_{2i} \beta_2 + \cdots + x_{Ki} \beta_K + \varepsilon_i\, ,
 $$
-where $\varepsilon_i \overset{iid}{\sim} N(0, \sigma^2)$.
+where $\varepsilon_i \overset{iid}{\sim} N(0, \sigma^2)$ and $x_{1i}=1$ for $i=1,\ldots,n$.
 
 - Total Sum of Squares (TSS)
 $$
