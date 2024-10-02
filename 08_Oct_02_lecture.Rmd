@@ -27,7 +27,7 @@ library(stargazer)
 library(bookdown)
 
 # don't show code unless we explicitly set echo = TRUE
-opts_chunk$set(echo = TRUE, message=FALSE, fig.align="center", fig.pos = "H", paged.print=FALSE)
+opts_chunk$set(echo = TRUE, message=FALSE, warning = FALSE, fig.align="center", fig.pos = "H", paged.print=FALSE)
 opts <- options(knitr.kable.NA = "")
 
 ## control long outputs by using eg `max.lines = 10`
@@ -106,7 +106,7 @@ $$
     - $R^2$ is called “<span style='color:#008B45FF'>the coefficient of determination</span>”.
     - $0\le R^2\le 1$, is a measure of goodness of fit. 
         - $R^2=1$ (perfit fit) occurs when $y=\hat{y}$.
-        - <span style='color:#337ab7'>$R^2=0$ occurs when there is only one intercept in the model</span>, i.e., $y_i=\beta_1+\varepsilon$. The predicted value will be the sample average. $\hat{y}_i=\overline{y}$ for $i=1,2,\ldots,n,$ so that $\sum_{i=1}^n (\hat{y}_i-\overline{y})^2=0.$
+        - <span style='color:#337ab7'>$R^2=0$ occurs when there is only one intercept in the model</span>, i.e., $y_i=\beta_1+\varepsilon$. The predicted value will be the sample average. $\hat{y}_i=\overline{y}$ for $i=1,2,\ldots,n,$ so that $ESS = \sum_{i=1}^n (\hat{y}_i-\overline{y})^2=0.$
     - $R^2$ is the square of the sample correlation coefficient between $y_i$ and $\hat{y}_i$.
     - $R^2$ measures the proportion of the total variation in the dependent variable
     that is “accounted for” or “explained” by the model.
@@ -168,7 +168,7 @@ ___
 # T-test for the effect of a single predictor
 
 Quite often it is not very interesting to test the null hypothesis that none of the covariates have an effect. 
-<span style='color:#008B45FF'>T-test</span> is used to test for if one specific covariate, $\beta_j$ has an effect.
+<span style='color:#008B45FF'>T-test</span> is used to test for if one specific covariate, $\beta_j, j=1,\ldots,K,$ has an effect.
 $$
 \begin{aligned}
 &\text{H}_0: \beta_j=0 , \\
@@ -227,7 +227,7 @@ In this example,
 When there are several categories, a set of binary variables is necessary. For instance, a quarter variable can take four categories.
 
 $$
-\text{quarter} = 
+quarter = 
 \begin{cases}
 \text{1st quarter} \\
 \text{2nd quarter} \\
@@ -346,7 +346,7 @@ boxplot(density~group, data=bonedensity)
 
 ___
 
-# $T$-test for equal sample means
+# T-test for equal sample means
 
 We would like to determine a confidence interval for the treatment effect and test if the difference is statistically significant -- <span style='color:#008B45FF'>$t$-test for equal sample means</span>.
 
@@ -356,12 +356,12 @@ t.test(density~group, data=bonedensity, var.equal=T)
 
 **Mathematical formulations**
 
-Suppose that the data for the two independent groups are random samples from $N(\mu_1, \sigma^2)$ and $N(\mu_1, \sigma^2)$, respectively. Here we assume equal variance.
+Suppose that the data for the two independent groups are random samples from $N(\mu_1, \sigma^2)$ and $N(\mu_2, \sigma^2)$, respectively. Here we assume equal variance.
 
 The observations are denotes:
 
 - group 1: $x_{11}, x_{12}, \ldots, x_{1,n_1}$
-- group 2: $x_{21}, x_{22}, \ldots, x_{1,n_2}$
+- group 2: $x_{21}, x_{22}, \ldots, x_{2,n_2}$
 
 We have all together $n=n_1+n_2$ observations.
 
@@ -445,19 +445,60 @@ $$
 Solving the system of equations gives us
 $$
 \begin{cases}
-\beta_0 &= \mu_{00} \\
-\beta_1 &= \mu_{10} - \mu_{00} \\
-\beta_2 &= \mu_{01} - \mu_{00} \\
-\beta_3 &= \mu_{11} - \mu_{10} - \mu_{01} + \mu_{00} \\
+\color{#008B45FF}{\beta_0} &= \mu_{00} \\
+\color{red}{\beta_1} &= \mu_{10} - \mu_{00} \\
+\color{#1F77B4FF}{\beta_2} &= \mu_{01} - \mu_{00} \\
+\color{#9467BDFF}{\beta_3} &= \mu_{11} - \mu_{10} - \mu_{01} + \mu_{00} \\
 \end{cases} .
 $$
 
+These relationships can be summarized in the following table.
+
+<div class="text-center" style="width:100%">
+<table style="border-collapse: collapse; margin-left: auto; margin-right: auto;"><tbody>
+  <tr>
+    <td style="width: 50px;"></td>
+    <td style="width: 150px;"></td>
+    <td colspan="2" style="text-align:center; border-bottom:1pt solid #D3D3D3; background-color: rgba(239, 239, 66, 0.5);" >$x_2$</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td style="width: 250px; text-align:center; border:1pt solid #D3D3D3; font-weight: bold; background-color: rgba(239, 239, 66, 0.2);">Unmarried ($x_2=0$)</td>
+    <td style="width: 250px; text-align:center; border:1pt solid #D3D3D3; font-weight: bold; background-color: rgba(239, 239, 66, 0.8);">Married ($x_2=1$)</td>
+    <td style="width: 200px; text-align:center; font-weight: bold;">Difference</td>
+  </tr>
+  <tr>
+    <td rowspan="2" style="border-right:1pt solid #D3D3D3; background-color: rgba(150, 212, 212, 0.6);">$x_1$</td>
+    <td style="border:1pt solid #D3D3D3; font-weight: bold; background-color: rgba(150, 212, 212, 0.2);">Male ($x_1=0$)</td>
+    <td style="text-align:center; border:1pt solid #D3D3D3;">$\mu_{00}=\color{#008B45FF}{\beta_0}$</td>
+    <td style="text-align:center; border:1pt solid #D3D3D3;">$\mu_{01}$</td>
+    <td>$\mu_{01}-\mu_{00} = \color{#1F77B4FF}{\beta_2}$</td>
+  </tr>
+  <tr>
+    <td style="border:1pt solid #D3D3D3; font-weight: bold; background-color: rgba(150, 212, 212, 0.8);">Female ($x_1=1$)</td>
+    <td style="text-align:center; border:1pt solid #D3D3D3;">$\mu_{10}$</td>
+    <td style="text-align:center; border:1pt solid #D3D3D3;">$\mu_{11}$</td>
+    <td>$\mu_{11}-\mu_{10}=\color{#1F77B4FF}{\beta_2}+\color{#9467BDFF}{\beta_3}$</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td style="font-weight: bold;">Difference</td>
+    <td style="text-align:center;">$\mu_{10}-\mu_{00} = \color{red}{\beta_1}$</td>
+    <td style="text-align:center;">$\mu_{11}-\mu_{01} = \color{red}{\beta_1} + \color{#9467BDFF}{\beta_3}$</td>
+    <td></td>
+  </tr>
+</tbody>
+</table>
+</div>
+
 We can view 
 
-- the regression intercept $\beta_0$ as the expected earnings for unmarried men;
-- the coefficient $\beta_1$ as the effect of sex on expected earnings for unmarried wage earners;
-- the coefficient $\beta_2$ as the effect of marriage on expected earnings for men wage earners;
-- the coefficient $\beta_3$ has two equivalent interpretations:
+- the regression intercept $\color{#008B45FF}{\beta_0}$ as the expected earnings for unmarried men;
+- the coefficient $\color{red}{\beta_1}$ as the effect of sex on expected earnings for unmarried wage earners;
+- the coefficient $\color{#1F77B4FF}{\beta_2}$ as the effect of marriage on expected earnings for men wage earners;
+- the coefficient $\color{#9467BDFF}{\beta_3}$ has two equivalent interpretations:
     - $(\mu_{11} - \mu_{10}) - (\mu_{01} - \mu_{00})$ stands for difference between the effects of marriage on expected earnings among women and men, or rearranging the terms,
     - $(\mu_{11} - \mu_{01}) - (\mu_{10} - \mu_{00})$ stands for difference between the effects of sex on expected earnings among married and non-married wage earners.
 
@@ -491,24 +532,66 @@ stargazer(dummy_lm, type="html",
 ```
 
 
-We write the regression model as
+Plugging in the estimates, we write the regression model as
 
 $$
 \log (wage) = 2.79 - 0.06\, Female + 0.35\, Married - 0.22\, Female \times Married + e
 $$
 Note that we have the log transformation for the wage variable. This changes the interpretation of the coefficients. The coefficient can be interpreted as a one-unit change in the independent variable is associated with a 100 times the coefficient percent change in the dependent variable.
 
+
+
+
 The regression results show that 
 
-- the coefficient $\beta_1$ ($-0.06$) indicates that the effects of sex on expected earnings for unmarried wage earners is 6% lower. 
+- the intercept $\color{#008B45FF}{\beta_0}$ ($2.79$) indicates that the expected log(earnings) for unmarried men is $2.79$;
+
+- the coefficient $\color{red}{\beta_1}$ ($-0.06$) indicates that the effects of sex on expected earnings for unmarried wage earners is 6% lower. 
     - That is, unmarried female earn 6% less than unmarried male.
 
-- the coefficient $\beta_2$ ($0.35$) indicates that the effects of marriage on expected earnings for males is 35%. 
+- the coefficient $\color{#1F77B4FF}{\beta_2}$ ($0.35$) indicates that the effects of marriage on expected earnings for males is 35%. 
     - That is married male earns 35% more than unmarried male.
 
-- the coefficient $\beta_3$ ($-0.22$) indicates that 
-    - the effects of marriage on female is $11\%=(35-22)\%$, or equivalently
-    - the effects for sex on married is $-28\%=(-6-22)\%$.
+- the coefficient $\color{#9467BDFF}{\beta_3}$ ($-0.22$) indicates that 
+    - $\beta_3=(\mu_{11} - \mu_{10}) - (\mu_{01} - \mu_{00})$: difference between the effects of marriage on expected earnings among women and men.
+        - effects of marriage for women is $-22\%$ less than men;
+        - the effects of marriage on expected earnings for females is $11\%=(35-22)\%$;
+        - married females earns $11\%$ more than unmarried females.
+    
+    - $\beta_3=(\mu_{11} - \mu_{01}) - (\mu_{10} - \mu_{00})$: difference between the effects of sex on expected earnings among married and non-married wage earners.
+        - effects of sex for married is $22\%$ less than unmarried.
+        - the effects for sex on expected earnings for married is $-28\%=(-6-22)\%$;
+        - married females earn $28\%$ less than married males.
+
+
+Visualization of $\color{red}{\beta_1}$, the effects of sex on expected earnings for unmarried wage earners.
+
+```{r}
+library(ggridges)
+ggplot(cps_data %>% filter(married==0), aes(x = lwage, y = female, group = female)) +
+    geom_density_ridges(jittered_points = TRUE,
+                        position = position_points_jitter(height = 0),
+                        quantile_lines=TRUE,
+                        quantile_fun = function(x,...) median(x),
+                        point_size = 1.5,
+                        point_shape = 1,
+                        alpha = 0.3) 
+```
+
+
+
+Visualization of $\color{#1F77B4FF}{\beta_2}$, the effect of marriage on expected earnings for male wage earners.
+
+```{r}
+ggplot(cps_data %>% filter(female==0), aes(x = lwage, y = married, group = married)) +
+    geom_density_ridges(jittered_points = TRUE,
+                        position = position_points_jitter(height = 0),
+                        quantile_lines=TRUE,
+                        quantile_fun = function(x,...) median(x),
+                        point_size = 1.5,
+                        point_shape = 1,
+                        alpha = 0.3) 
+```
 
 
 ___
@@ -572,8 +655,8 @@ To fix ideas, we call Model 1 as the “restricted model”, and Model 2 the “
 
 Denote 
 
-- the $R^2$ obtained from the unrestricted model by $R_U^2$, and 
-- the $R^2$ obtained from the restricted model by $R_R^2$.
+- the $R^2$ obtained from the restricted model by $R_R^2$, and 
+- the $R^2$ obtained from the unrestricted model by $R_U^2\, .$
 - Noting that $R_U^2 > R_R^2$.
 
 

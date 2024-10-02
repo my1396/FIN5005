@@ -395,7 +395,7 @@ Rearranging the equation, we have
 <li><span class="math inline">\(0\le R^2\le 1\)</span>, is a measure of goodness of fit.
 <ul>
 <li><span class="math inline">\(R^2=1\)</span> (perfit fit) occurs when <span class="math inline">\(y=\hat{y}\)</span>.</li>
-<li><span style="color:#337ab7"><span class="math inline">\(R^2=0\)</span> occurs when there is only one intercept in the model</span>, i.e., <span class="math inline">\(y_i=\beta_1+\varepsilon\)</span>. The predicted value will be the sample average. <span class="math inline">\(\hat{y}_i=\overline{y}\)</span> for <span class="math inline">\(i=1,2,\ldots,n,\)</span> so that <span class="math inline">\(\sum_{i=1}^n (\hat{y}_i-\overline{y})^2=0.\)</span></li>
+<li><span style="color:#337ab7"><span class="math inline">\(R^2=0\)</span> occurs when there is only one intercept in the model</span>, i.e., <span class="math inline">\(y_i=\beta_1+\varepsilon\)</span>. The predicted value will be the sample average. <span class="math inline">\(\hat{y}_i=\overline{y}\)</span> for <span class="math inline">\(i=1,2,\ldots,n,\)</span> so that <span class="math inline">\(ESS = \sum_{i=1}^n (\hat{y}_i-\overline{y})^2=0.\)</span></li>
 </ul></li>
 <li><span class="math inline">\(R^2\)</span> is the square of the sample correlation coefficient between <span class="math inline">\(y_i\)</span> and <span class="math inline">\(\hat{y}_i\)</span>.</li>
 <li><span class="math inline">\(R^2\)</span> measures the proportion of the total variation in the dependent variable
@@ -445,7 +445,7 @@ where <span class="math inline">\(F_{\text{obs}}\)</span> is your calcualted/obs
 <div id="t-test-for-the-effect-of-a-single-predictor" class="section level1">
 <h1>T-test for the effect of a single predictor</h1>
 <p>Quite often it is not very interesting to test the null hypothesis that none of the covariates have an effect.
-<span style="color:#008B45FF">T-test</span> is used to test for if one specific covariate, <span class="math inline">\(\beta_j\)</span> has an effect.
+<span style="color:#008B45FF">T-test</span> is used to test for if one specific covariate, <span class="math inline">\(\beta_j, j=1,\ldots,K,\)</span> has an effect.
 <span class="math display">\[
 \begin{aligned}
 &amp;\text{H}_0: \beta_j=0 , \\
@@ -495,7 +495,7 @@ In this example,</p>
 <p><strong>More than two categories</strong></p>
 <p>When there are several categories, a set of binary variables is necessary. For instance, a quarter variable can take four categories.</p>
 <p><span class="math display">\[
-\text{quarter} =
+quarter =
 \begin{cases}
 \text{1st quarter} \\
 \text{2nd quarter} \\
@@ -756,7 +756,7 @@ F Statistic
 </div>
 </div>
 <div id="t-test-for-equal-sample-means" class="section level1">
-<h1><span class="math inline">\(T\)</span>-test for equal sample means</h1>
+<h1>T-test for equal sample means</h1>
 <p>We would like to determine a confidence interval for the treatment effect and test if the difference is statistically significant – <span style="color:#008B45FF"><span class="math inline">\(t\)</span>-test for equal sample means</span>.</p>
 <pre class="r"><code>t.test(density~group, data=bonedensity, var.equal=T)</code></pre>
 <pre><code>## 
@@ -771,11 +771,11 @@ F Statistic
 ## mean in group 1 mean in group 2 
 ##       0.2188667       0.2350667</code></pre>
 <p><strong>Mathematical formulations</strong></p>
-<p>Suppose that the data for the two independent groups are random samples from <span class="math inline">\(N(\mu_1, \sigma^2)\)</span> and <span class="math inline">\(N(\mu_1, \sigma^2)\)</span>, respectively. Here we assume equal variance.</p>
+<p>Suppose that the data for the two independent groups are random samples from <span class="math inline">\(N(\mu_1, \sigma^2)\)</span> and <span class="math inline">\(N(\mu_2, \sigma^2)\)</span>, respectively. Here we assume equal variance.</p>
 <p>The observations are denotes:</p>
 <ul>
 <li>group 1: <span class="math inline">\(x_{11}, x_{12}, \ldots, x_{1,n_1}\)</span></li>
-<li>group 2: <span class="math inline">\(x_{21}, x_{22}, \ldots, x_{1,n_2}\)</span></li>
+<li>group 2: <span class="math inline">\(x_{21}, x_{22}, \ldots, x_{2,n_2}\)</span></li>
 </ul>
 <p>We have all together <span class="math inline">\(n=n_1+n_2\)</span> observations.</p>
 <p><span class="math display">\[
@@ -913,18 +913,97 @@ Scenario
 <p>Solving the system of equations gives us
 <span class="math display">\[
 \begin{cases}
-\beta_0 &amp;= \mu_{00} \\
-\beta_1 &amp;= \mu_{10} - \mu_{00} \\
-\beta_2 &amp;= \mu_{01} - \mu_{00} \\
-\beta_3 &amp;= \mu_{11} - \mu_{10} - \mu_{01} + \mu_{00} \\
+\color{#008B45FF}{\beta_0} &amp;= \mu_{00} \\
+\color{red}{\beta_1} &amp;= \mu_{10} - \mu_{00} \\
+\color{#1F77B4FF}{\beta_2} &amp;= \mu_{01} - \mu_{00} \\
+\color{#9467BDFF}{\beta_3} &amp;= \mu_{11} - \mu_{10} - \mu_{01} + \mu_{00} \\
 \end{cases} .
 \]</span></p>
+<p>These relationships can be summarized in the following table.</p>
+<div class="text-center" style="width:100%">
+<table style="border-collapse: collapse; margin-left: auto; margin-right: auto;">
+<tbody>
+<tr>
+<td style="width: 50px;">
+</td>
+<td style="width: 150px;">
+</td>
+<td colspan="2" style="text-align:center; border-bottom:1pt solid #D3D3D3; background-color: rgba(239, 239, 66, 0.5);">
+<span class="math inline">\(x_2\)</span>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td>
+</td>
+<td style="width: 250px; text-align:center; border:1pt solid #D3D3D3; font-weight: bold; background-color: rgba(239, 239, 66, 0.2);">
+Unmarried (<span class="math inline">\(x_2=0\)</span>)
+</td>
+<td style="width: 250px; text-align:center; border:1pt solid #D3D3D3; font-weight: bold; background-color: rgba(239, 239, 66, 0.8);">
+Married (<span class="math inline">\(x_2=1\)</span>)
+</td>
+<td style="width: 200px; text-align:center; font-weight: bold;">
+Difference
+</td>
+</tr>
+<tr>
+<td rowspan="2" style="border-right:1pt solid #D3D3D3; background-color: rgba(150, 212, 212, 0.6);">
+<span class="math inline">\(x_1\)</span>
+</td>
+<td style="border:1pt solid #D3D3D3; font-weight: bold; background-color: rgba(150, 212, 212, 0.2);">
+Male (<span class="math inline">\(x_1=0\)</span>)
+</td>
+<td style="text-align:center; border:1pt solid #D3D3D3;">
+<span class="math inline">\(\mu_{00}=\color{#008B45FF}{\beta_0}\)</span>
+</td>
+<td style="text-align:center; border:1pt solid #D3D3D3;">
+<span class="math inline">\(\mu_{01}\)</span>
+</td>
+<td>
+<span class="math inline">\(\mu_{01}-\mu_{00} = \color{#1F77B4FF}{\beta_2}\)</span>
+</td>
+</tr>
+<tr>
+<td style="border:1pt solid #D3D3D3; font-weight: bold; background-color: rgba(150, 212, 212, 0.8);">
+Female (<span class="math inline">\(x_1=1\)</span>)
+</td>
+<td style="text-align:center; border:1pt solid #D3D3D3;">
+<span class="math inline">\(\mu_{10}\)</span>
+</td>
+<td style="text-align:center; border:1pt solid #D3D3D3;">
+<span class="math inline">\(\mu_{11}\)</span>
+</td>
+<td>
+<span class="math inline">\(\mu_{11}-\mu_{10}=\color{#1F77B4FF}{\beta_2}+\color{#9467BDFF}{\beta_3}\)</span>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td style="font-weight: bold;">
+Difference
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(\mu_{10}-\mu_{00} = \color{red}{\beta_1}\)</span>
+</td>
+<td style="text-align:center;">
+<span class="math inline">\(\mu_{11}-\mu_{01} = \color{red}{\beta_1} + \color{#9467BDFF}{\beta_3}\)</span>
+</td>
+<td>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 <p>We can view</p>
 <ul>
-<li>the regression intercept <span class="math inline">\(\beta_0\)</span> as the expected earnings for unmarried men;</li>
-<li>the coefficient <span class="math inline">\(\beta_1\)</span> as the effect of sex on expected earnings for unmarried wage earners;</li>
-<li>the coefficient <span class="math inline">\(\beta_2\)</span> as the effect of marriage on expected earnings for men wage earners;</li>
-<li>the coefficient <span class="math inline">\(\beta_3\)</span> has two equivalent interpretations:
+<li>the regression intercept <span class="math inline">\(\color{#008B45FF}{\beta_0}\)</span> as the expected earnings for unmarried men;</li>
+<li>the coefficient <span class="math inline">\(\color{red}{\beta_1}\)</span> as the effect of sex on expected earnings for unmarried wage earners;</li>
+<li>the coefficient <span class="math inline">\(\color{#1F77B4FF}{\beta_2}\)</span> as the effect of marriage on expected earnings for men wage earners;</li>
+<li>the coefficient <span class="math inline">\(\color{#9467BDFF}{\beta_3}\)</span> has two equivalent interpretations:
 <ul>
 <li><span class="math inline">\((\mu_{11} - \mu_{10}) - (\mu_{01} - \mu_{00})\)</span> stands for difference between the effects of marriage on expected earnings among women and men, or rearranging the terms,</li>
 <li><span class="math inline">\((\mu_{11} - \mu_{01}) - (\mu_{10} - \mu_{00})\)</span> stands for difference between the effects of sex on expected earnings among married and non-married wage earners.</li>
@@ -1150,27 +1229,59 @@ F Statistic
 </td>
 </tr>
 </table>
-<p>We write the regression model as</p>
+<p>Plugging in the estimates, we write the regression model as</p>
 <p><span class="math display">\[
 \log (wage) = 2.79 - 0.06\, Female + 0.35\, Married - 0.22\, Female \times Married + e
 \]</span>
 Note that we have the log transformation for the wage variable. This changes the interpretation of the coefficients. The coefficient can be interpreted as a one-unit change in the independent variable is associated with a 100 times the coefficient percent change in the dependent variable.</p>
 <p>The regression results show that</p>
 <ul>
-<li>the coefficient <span class="math inline">\(\beta_1\)</span> (<span class="math inline">\(-0.06\)</span>) indicates that the effects of sex on expected earnings for unmarried wage earners is 6% lower.
+<li><p>the intercept <span class="math inline">\(\color{#008B45FF}{\beta_0}\)</span> (<span class="math inline">\(2.79\)</span>) indicates that the expected log(earnings) for unmarried men is <span class="math inline">\(2.79\)</span>;</p></li>
+<li><p>the coefficient <span class="math inline">\(\color{red}{\beta_1}\)</span> (<span class="math inline">\(-0.06\)</span>) indicates that the effects of sex on expected earnings for unmarried wage earners is 6% lower.</p>
 <ul>
 <li>That is, unmarried female earn 6% less than unmarried male.</li>
 </ul></li>
-<li>the coefficient <span class="math inline">\(\beta_2\)</span> (<span class="math inline">\(0.35\)</span>) indicates that the effects of marriage on expected earnings for males is 35%.
+<li><p>the coefficient <span class="math inline">\(\color{#1F77B4FF}{\beta_2}\)</span> (<span class="math inline">\(0.35\)</span>) indicates that the effects of marriage on expected earnings for males is 35%.</p>
 <ul>
 <li>That is married male earns 35% more than unmarried male.</li>
 </ul></li>
-<li>the coefficient <span class="math inline">\(\beta_3\)</span> (<span class="math inline">\(-0.22\)</span>) indicates that
+<li><p>the coefficient <span class="math inline">\(\color{#9467BDFF}{\beta_3}\)</span> (<span class="math inline">\(-0.22\)</span>) indicates that</p>
 <ul>
-<li>the effects of marriage on female is <span class="math inline">\(11\%=(35-22)\%\)</span>, or equivalently</li>
-<li>the effects for sex on married is <span class="math inline">\(-28\%=(-6-22)\%\)</span>.</li>
+<li><span class="math inline">\(\beta_3=(\mu_{11} - \mu_{10}) - (\mu_{01} - \mu_{00})\)</span>: difference between the effects of marriage on expected earnings among women and men.
+<ul>
+<li>effects of marriage for women is <span class="math inline">\(-22\%\)</span> less than men;</li>
+<li>the effects of marriage on expected earnings for females is <span class="math inline">\(11\%=(35-22)\%\)</span>;</li>
+<li>married females earns <span class="math inline">\(11\%\)</span> more than unmarried females.</li>
+</ul></li>
+<li><span class="math inline">\(\beta_3=(\mu_{11} - \mu_{01}) - (\mu_{10} - \mu_{00})\)</span>: difference between the effects of sex on expected earnings among married and non-married wage earners.
+<ul>
+<li>effects of sex for married is <span class="math inline">\(22\%\)</span> less than unmarried.</li>
+<li>the effects for sex on expected earnings for married is <span class="math inline">\(-28\%=(-6-22)\%\)</span>;</li>
+<li>married females earn <span class="math inline">\(28\%\)</span> less than married males.</li>
+</ul></li>
 </ul></li>
 </ul>
+<p>Visualization of <span class="math inline">\(\color{red}{\beta_1}\)</span>, the effects of sex on expected earnings for unmarried wage earners.</p>
+<pre class="r"><code>library(ggridges)
+ggplot(cps_data %&gt;% filter(married==0), aes(x = lwage, y = female, group = female)) +
+    geom_density_ridges(jittered_points = TRUE,
+                        position = position_points_jitter(height = 0),
+                        quantile_lines=TRUE,
+                        quantile_fun = function(x,...) median(x),
+                        point_size = 1.5,
+                        point_shape = 1,
+                        alpha = 0.3) </code></pre>
+<p><img src="08_Oct_02_lecture_files/figure-html/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Visualization of <span class="math inline">\(\color{#1F77B4FF}{\beta_2}\)</span>, the effect of marriage on expected earnings for male wage earners.</p>
+<pre class="r"><code>ggplot(cps_data %&gt;% filter(female==0), aes(x = lwage, y = married, group = married)) +
+    geom_density_ridges(jittered_points = TRUE,
+                        position = position_points_jitter(height = 0),
+                        quantile_lines=TRUE,
+                        quantile_fun = function(x,...) median(x),
+                        point_size = 1.5,
+                        point_shape = 1,
+                        alpha = 0.3) </code></pre>
+<p><img src="08_Oct_02_lecture_files/figure-html/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
 <hr />
 </div>
 <div id="two-way-anova-test" class="section level1">
@@ -1217,8 +1328,8 @@ which imposes two exclusion restrictions.</p>
 <p>To fix ideas, we call Model 1 as the “restricted model”, and Model 2 the “unrestricted model” or the “full model”.</p>
 <p>Denote</p>
 <ul>
-<li>the <span class="math inline">\(R^2\)</span> obtained from the unrestricted model by <span class="math inline">\(R_U^2\)</span>, and</li>
-<li>the <span class="math inline">\(R^2\)</span> obtained from the restricted model by <span class="math inline">\(R_R^2\)</span>.</li>
+<li>the <span class="math inline">\(R^2\)</span> obtained from the restricted model by <span class="math inline">\(R_R^2\)</span>, and</li>
+<li>the <span class="math inline">\(R^2\)</span> obtained from the unrestricted model by <span class="math inline">\(R_U^2\, .\)</span></li>
 <li>Noting that <span class="math inline">\(R_U^2 &gt; R_R^2\)</span>.</li>
 </ul>
 <p>The test statistic is given by</p>
