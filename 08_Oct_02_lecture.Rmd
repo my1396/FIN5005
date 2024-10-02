@@ -106,7 +106,7 @@ $$
     - $R^2$ is called “<span style='color:#008B45FF'>the coefficient of determination</span>”.
     - $0\le R^2\le 1$, is a measure of goodness of fit. 
         - $R^2=1$ (perfit fit) occurs when $y=\hat{y}$.
-        - <span style='color:#337ab7'>$R^2=0$ occurs when there is only one intercept in the model</span>, i.e., $y_i=\beta_1+\varepsilon$. The predicted value will be the sample average. $\hat{y}_i=\overline{y}$ for $i=1,2,\ldots,n,$ so that $\sum_{i=1}^n (\hat{y}_i-\overline{y})^2.$
+        - <span style='color:#337ab7'>$R^2=0$ occurs when there is only one intercept in the model</span>, i.e., $y_i=\beta_1+\varepsilon$. The predicted value will be the sample average. $\hat{y}_i=\overline{y}$ for $i=1,2,\ldots,n,$ so that $\sum_{i=1}^n (\hat{y}_i-\overline{y})^2=0.$
     - $R^2$ is the square of the sample correlation coefficient between $y_i$ and $\hat{y}_i$.
     - $R^2$ measures the proportion of the total variation in the dependent variable
     that is “accounted for” or “explained” by the model.
