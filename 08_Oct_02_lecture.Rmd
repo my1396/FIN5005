@@ -237,7 +237,7 @@ quarter =
 $$
 Let's write a consumption function for quarterly data as
 $$
-y_t = \beta_1 + \beta_2 x_t + \delta_1 D_{t1} + \delta_{t2} D_{t2} + \delta_3 D_{t3} + \varepsilon_t ,
+y_t = \beta_1 + \beta_2 x_t + \delta_1 D_{t1} + \delta_{2} D_{t2} + \delta_3 D_{t3} + \varepsilon_t ,
 $$
 where $x_t$ is disposable income, and 
 
