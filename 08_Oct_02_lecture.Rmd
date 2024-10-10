@@ -196,6 +196,9 @@ $$
 [\hat{\beta}_j-c_{\alpha/2} \cdot se_{\hat{\beta}_j}, \hat{\beta}_j+c_{\alpha/2} \cdot se_{\hat{\beta}_j}] .
 $$ 
 
+**Note that** the t-distribution approximates to a standard normal distribution when the degrees of freedom are high. 
+In practice, people often use the critical values of the standard normal distribution for simplification. 
+
 ___
 
 # Dummy variables
