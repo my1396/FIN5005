@@ -404,10 +404,22 @@ ___
 
 # Quantiles
 
-The quantile function is given by
+The quantile function of random variable $X$ is given by
 $$
-q_{\tau} = F^{-1}(\tau).
+q_{\tau} = F^{-1}_X(\tau) ,
 $$
+where $\tau$ is a given probability, and $0\le \tau \le 1$. 
+
+- $q_{\tau}$ is a threshold value so that the probability of $X$ being less or equal than $q_{\tau}$ is $\tau$.
+- $q_{\tau}$ can be calculated using the inverse of the CDF.
+
+
+In other words,
+$$
+F_X(q_{\tau}) = \mathbb{P}(X\le q_{\tau}) = \tau
+$$
+
+
 
 - Example: Let $Z\sim N(0,1)$. Then we have
 $$
@@ -426,7 +438,7 @@ $$
 <!------------------------------------------------------------------------>
 ___
 
-# **Transformations**
+# Transformations
 
 Q: If $X \sim N (0, 1)$ then what is the distribution of the new random variable $Y=X^2$?
 
@@ -830,7 +842,7 @@ include_graphics("images/Skewness.png")
 The kurtosis for any normal distribution is three. For this reason, we subtract three from $\mu_4$ to get the "excess kurtosis".
 
 - $\mu_4-3>0$ indicate a heavy-tailed distribution with higher chances of outliers.
-    - Note that we cannot infer from kurtosis the shape of the peak. $\mu_4-3>0$ can associate with either a falttened (e.g., $t$-distribution, see Fig. \@ref(fig:fig-t)) or a pointy peak (Laplace distribution, see Fig. \@ref(fig:fig-Laplace)).
+    - Note that we cannot infer from kurtosis the shape of the peak. $\mu_4-3>0$ can associate with either a flattened (e.g., $t$-distribution, see Fig. \@ref(fig:fig-t)) or a pointy peak (Laplace distribution, see Fig. \@ref(fig:fig-Laplace)).
 - $\mu_4-3<0$ indicate a light-tailed distribution with lower chances of outliers.
 
 
@@ -838,7 +850,7 @@ The kurtosis for any normal distribution is three. For this reason, we subtract 
 include_graphics("images/t distribution.png")
 ```
 
-$t$-distribution has *higher* kurtosis than normal distributions. 
+<span style='color:#32CD32'>$t$-distribution</span> has *higher* kurtosis than normal distributions. 
 
 - Meaning that $t$-distribution has a higher probability of obtaining values that are far from the mean than a normal distribution.
 - It is less peaked in the center and higher in the tails than normal distribution.

@@ -676,9 +676,18 @@ Fig. 1: The <span class="math inline">\(\Phi\)</span> and <span class="math inli
 </div>
 <div id="quantiles" class="section level1">
 <h1>Quantiles</h1>
-<p>The quantile function is given by
+<p>The quantile function of random variable <span class="math inline">\(X\)</span> is given by
 <span class="math display">\[
-q_{\tau} = F^{-1}(\tau).
+q_{\tau} = F^{-1}_X(\tau) ,
+\]</span>
+where <span class="math inline">\(\tau\)</span> is a given probability, and <span class="math inline">\(0\le \tau \le 1\)</span>.</p>
+<ul>
+<li><span class="math inline">\(q_{\tau}\)</span> is a threshold value so that the probability of <span class="math inline">\(X\)</span> being less or equal than <span class="math inline">\(q_{\tau}\)</span> is <span class="math inline">\(\tau\)</span>.</li>
+<li><span class="math inline">\(q_{\tau}\)</span> can be calculated using the inverse of the CDF.</li>
+</ul>
+<p>In other words,
+<span class="math display">\[
+F_X(q_{\tau}) = \mathbb{P}(X\le q_{\tau}) = \tau
 \]</span></p>
 <ul>
 <li>Example: Let <span class="math inline">\(Z\sim N(0,1)\)</span>. Then we have
@@ -700,7 +709,7 @@ q_{0.995} &amp;= 2.576. \\
 <hr />
 </div>
 <div id="transformations" class="section level1">
-<h1><strong>Transformations</strong></h1>
+<h1>Transformations</h1>
 <p>Q: If <span class="math inline">\(X \sim N (0, 1)\)</span> then what is the distribution of the new random variable <span class="math inline">\(Y=X^2\)</span>?</p>
 <p>A: We use transformation – change of variable formula, to represent the distribution function of <span class="math inline">\(Y\)</span> using distribution function of <span class="math inline">\(X\)</span>.</p>
 <div class="boxed">
@@ -1060,7 +1069,7 @@ Fig. 2: Diagram of Skewness.
 <ul>
 <li><span class="math inline">\(\mu_4-3&gt;0\)</span> indicate a heavy-tailed distribution with higher chances of outliers.
 <ul>
-<li>Note that we cannot infer from kurtosis the shape of the peak. <span class="math inline">\(\mu_4-3&gt;0\)</span> can associate with either a falttened (e.g., <span class="math inline">\(t\)</span>-distribution, see Fig. <a href="#fig:fig-t">3</a>) or a pointy peak (Laplace distribution, see Fig. <a href="#fig:fig-Laplace">4</a>).</li>
+<li>Note that we cannot infer from kurtosis the shape of the peak. <span class="math inline">\(\mu_4-3&gt;0\)</span> can associate with either a flattened (e.g., <span class="math inline">\(t\)</span>-distribution, see Fig. <a href="#fig:fig-t">3</a>) or a pointy peak (Laplace distribution, see Fig. <a href="#fig:fig-Laplace">4</a>).</li>
 </ul></li>
 <li><span class="math inline">\(\mu_4-3&lt;0\)</span> indicate a light-tailed distribution with lower chances of outliers.</li>
 </ul>
@@ -1070,7 +1079,7 @@ Fig. 2: Diagram of Skewness.
 Fig. 3: Examples of heavy-tailed distributions.
 </p>
 </div>
-<p><span class="math inline">\(t\)</span>-distribution has <em>higher</em> kurtosis than normal distributions.</p>
+<p><span style="color:#32CD32"><span class="math inline">\(t\)</span>-distribution</span> has <em>higher</em> kurtosis than normal distributions.</p>
 <ul>
 <li>Meaning that <span class="math inline">\(t\)</span>-distribution has a higher probability of obtaining values that are far from the mean than a normal distribution.</li>
 <li>It is less peaked in the center and higher in the tails than normal distribution.</li>

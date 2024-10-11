@@ -50,6 +50,8 @@ knitr::knit_hooks$set(output = function(x, options) {
    x <- truncate_to_lines(x, max.lines)
    hook_output_default(x, options)
 })
+## evaluate in the current global environment
+# rmarkdown::render("/Users/menghan/Library/CloudStorage/OneDrive-Norduniversitet/FIN5005 2024Fall/CoreMetrics/05_Sept_11_OLS-lab.Rmd", envir=.GlobalEnv)
 ```
 
 
@@ -172,7 +174,10 @@ summary(capm_ml)
 
 
 ```{r, echo=FALSE, results='asis'}
-stargazer(capm_ml, type="html", title="Regression Results for AAPL", notes="<span>&#42;&#42;&#42;</span>: p<0.01; <span>&#42;&#42;</span>: <strong>p<0.05</strong>; <span>&#42;</span>: p<0.1", notes.append=F)
+stargazer(capm_ml, digits=4, type="html", 
+          title="Regression Results for AAPL", 
+          notes="<span>&#42;&#42;&#42;</span>: p<0.01; <span>&#42;&#42;</span>: <strong>p<0.05</strong>; <span>&#42;</span>: p<0.1 <br> Standard errors in the parentheses.", 
+          notes.append=F)
 ```
 
 
@@ -186,9 +191,73 @@ Several things worth looking at:
 
 -   Explanatory power: the $R^2$ ($0.48$) tells us that variation in the excess returns of the market index explains about $48\%$ of the variation in Apple's returns. The adjusted $R^2$ (which is slightly smaller) imposes a penalty for extra number of predictors.
 
--   The intercept ($0.01$) is the estimate of Apple's alpha. The number in parentheses is the standard error (SE). *T*-statistic is about $1.8$, lower than the conventional cutoff of 1.96 for statistical significance is a probability of less than $5\%$.
+-   The intercept ($0.0103$) represents the estimate of Apple's alpha, with the numbers in parentheses ($0.0058$) being the standard error (SE).
 
-    -   We fail to reject $H_0: \alpha=0$.
+    - We test $H_0: \alpha=0$, against $H_1: \alpha \ne 0$. We consider a two-sided t-test at the $5\%$ significance level.
+    
+    - <span style='color:#337ab7'>Test statistics</span>: $t = \frac{0.0103}{0.0058} = 1.78 \sim t_{107}$, following a Student's *t*-distribution with $107$ degrees of freedom ($df$). We use the subsript to denote the $df$. 
+    
+    - <span style='color:#337ab7'>The critical value</span> is the $(1-\frac{\tau}{2})$ quantile of the *t*-distribution, where $\tau=5\%$ is the significance level. It can be calculated as the following.
+        
+        ```{r}
+        tau <- 0.05 # significance level 
+        qt(p=1-tau/2, df=107)
+        ```
+        
+        Equivalently, by symmetry of the *t*-distribution, $t_{1-\tau/2, 107}=-t_{\tau/2, 107}$, we have
+            
+        ```{r}
+        -qt(p=tau/2, df=107)
+        ```
+    
+        Notation clarification: $t$ refers to both the name of the distribution and the statistic. Have to determine by the context. Sometimes, you see two subscripts, $t_{\alpha, v}$, where the first subscript ($\alpha$) denotes the significance level, and the second subscript ($v$) denotes the $df$.
+    
+    - <span style='color:#337ab7'>Rejection rule</span>. Our *t*-statistic is less then the critical value ($1.78<1.98$), therefore we fail to reject $H_0: \alpha=0$.
+    
+    - Alternatively, we may check the *p*-value. If the *p*-value is smaller than the significance level, we reject $H_0$. \
+    The *p*-value is the probability of observing a test-statistic value at least as "extreme" as $t$ if null hypothesis $H_{0}$ were true. Formally speaking,
+    $$
+    \begin{aligned}
+    p\text{-value} &= 2\,\mathbb{P}(T>|t|)   &\quad& (\text{by definition, the probability of the two tails})   \\
+    &= 2\left(1-\mathbb{P}(T\le|t|)\right)   & & (2 \text{ times the probability of the upper tail})  \\
+    &= 2\mathbb{P}(T\le -|t|)  & & (2 \text{ times the probability of the lower tail}) .
+    \end{aligned} 
+    $$
+    which can be calculated as:  
+    
+        ```{r}
+        # using upper tail
+        2*(1-pt(q=1.78, df=107))
+        # this is same as using lower tail
+        2*pt(q=-1.78, df=107)
+        ```
+    
+        We see that the *p*-value is $7.79\%$, which is larger than the $5\%$ significance level. We reject the $H_0$.
+    
+    - Note that the *t*-distribution approximates to the shape of a standard normal distribution when the degrees of freedom are high. In our case, we have $df=107$, which is sufficiently high. We could use the critical value of the standard normal distribution for convenience. 
+    
+    - Let's check now what the critical value would be if we use the normal distirbution:
+        ```{r}
+        qnorm(p=1-tau/2)
+        ```
+        Equivalently,
+        ```{r}
+        -qnorm(p=tau/2)
+        ```
+        which is close to the critical value under the *t*-distribution.
+        
+        What the $p$-value would be if we use the normal distribution
+        ```{r}
+        2*pnorm(q=-1.78)
+        ```
+        which is $7.51\%$, fairly close to the $p$-value under the *t*-distribution.
+        
+    
+    -  A common rule of thumb is that for $df > 30$, one can use the normal distribution in place of a *t*-distribution unless you are interested in the extreme tails. Since $df=n-K$, where $n$ is the sample size and $K$ is the number of covariates. We could say that with a large sample size $n$, the difference between the normal and the $t$-distribution is not pronounced.
+    
+    - The power of *t*-distribution is that it adjusts for smaller sample sizes by having a more conservative estimate of probability density (fatter tails). This can be shown by the larger critical value under *t*-distribution (1.98) compared to the normal distribution (1.96).
+    
+    - In short, the use of the exact t-distributions, in place of normal approximations, is not as crucial as you might be led to believe from a reading a some text books. The big differences between the exact t-distribution and the normal approximation arise only for quite small sample sizes.
 
 -   The slope ($1.2$) is the estimate of beta, meaning that its share price tended to move 1.2% for every 1% move in the market index.
 
@@ -196,26 +265,32 @@ Several things worth looking at:
 
     -   The SE is $0.12$. P-value in the table provides the significance level for $H_0: \beta=0$. The p-value is basically zero, therefore, we reject $H_0$ in favor of $H_1$.
 
-    -   An alternative t-test would be $H_0: \beta=1$.
+    -   An alternative t-test would be $H_0: \beta=1$. 
+        - Test statistics can be calculated as: 
+            $$
+            t = \frac{\hat{\beta}-\beta}{se_{\hat{\beta}}} = \frac{1.2-1}{0.12} = 1.67,
+            $$
+            which is smaller than the critical value of $1.98$. Therefore we fail to reject $H_0$. $\beta$ is not significantly different from one.
+        - Alternatively, we can obtain the same result using the p-value can be obtained by
 
-        $$
-        t = \frac{\hat{\beta}-\beta}{se_{\hat{\beta}}} = \frac{1.2-1}{0.12} = 1.67
-        $$
-
-        The p-value ($9.5\%$) can be obtained by
-
-        ```{r}
-        pnorm(q = -1.67) * 2
-        ```
-
-        Therefore, we fail to reject $H_0: \hat{\beta}=1$ at 5% significance level.
+            ```{r}
+            pt(q = -1.67, df=107) * 2
+            ```
+            which is larger than the significant level. Therefore, we fail to reject $H_0: \hat{\beta}=1$ at 5% significance level.
 
     -   Sometimes we are interested in the $95\%$ *Confidence Interval* (CI) that includes the true but unobserved value of beta with 95% probability.
 
         We would take the estimated value as the center of the interval, and then add and subtract about two standard errors.
 
-        More precisely, the $95\%$ CI is given as $[\hat{\beta}-1.96 \cdot se_{\hat{\beta}}, \hat{\beta}+1.96 \cdot se_{\hat{\beta}}]$.
-
+        More precisely, the $95\%$ CI is given as $[\hat{\beta}-t_{1-\tau/2, v} \cdot se_{\hat{\beta}}, \hat{\beta}+t_{1-\tau/2, v} \cdot se_{\hat{\beta}}]$.
+        
+        Plug in $t_{1-\tau/2, v}=1.98$, we have 
+        ```{r}
+        c("lower bound"=1.2-1.98*0.12, "upper bound"=1.2+1.98*0.12) # 95% CI
+        ```
+        
+        Alternatively, if using the normal distribution approximation, the $95\%$ CI is given as $[\hat{\beta}-1.96 \cdot se_{\hat{\beta}}, \hat{\beta}+1.96 \cdot se_{\hat{\beta}}]$.
+        
         ```{r}
         qnorm(p = 0.025) # critical value of 1.96
         c("lower bound"=1.2-1.96*0.12, "upper bound"=1.2+1.96*0.12) # 95% CI
