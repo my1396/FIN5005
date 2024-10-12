@@ -404,11 +404,11 @@ ___
 
 # Quantiles
 
-The quantile function of random variable $X$ is given by
+The quantile function of random variable $X$, $q_{\tau}$, is given by
 $$
 q_{\tau} = F^{-1}_X(\tau) ,
 $$
-where $\tau$ is a given probability, and $0\le \tau \le 1$. 
+where $\tau$ is a given probability, and $0\le \tau \le 1$. $F_X^{-1}(\tau)$ denotes the inverse of the cumulative distribution function (CDF) \(F_X(x)\), evaluated at \(\tau\). 
 
 - $q_{\tau}$ is a threshold value so that the probability of $X$ being less or equal than $q_{\tau}$ is $\tau$.
 - $q_{\tau}$ can be calculated using the inverse of the CDF.
@@ -416,8 +416,9 @@ where $\tau$ is a given probability, and $0\le \tau \le 1$.
 
 In other words,
 $$
-F_X(q_{\tau}) = \mathbb{P}(X\le q_{\tau}) = \tau
+F_X(q_{\tau}) = \mathbb{P}(X\le q_{\tau}) = \tau ,
 $$
+indicating that the probability of $X$ reaches $q_{\tau}$ is $\tau$.
 
 
 
@@ -425,14 +426,15 @@ $$
 $$
 \begin{aligned}
 q_{0.5} &= 0, \\
-q_{0.95} &= 1.645, \\
-q_{0.975} &= 1.960, \\
-q_{0.995} &= 2.576. \\
+q_{0.95} &= 1.645 & \quad & (\text{crit val at the 10% significance level}), \\
+q_{0.975} &= 1.960 & & (\text{crit val at the 5% significance level}), \\
+q_{0.995} &= 2.576 & & (\text{crit val at the 1% significance level}). \\
 \end{aligned}
 $$
 - Some quantiles have special names:
     - $q_{0.5}$ is the median, or $50^{th}$ percentile.
-    - $q_{0.1}$ is the first decile, $q_{0.25}$ is the first quartile.
+    - $q_{0.1}$ is the first decile, or $10^{th}$ percentile.
+    - $q_{0.25}$ is the first quartile, $25^{th}$ percentile.
 
 
 <!------------------------------------------------------------------------>
@@ -866,10 +868,18 @@ rt(n=1000, df=30) %>% moments::kurtosis()
 ```
 
 
+How different is the *t*-distribution from the normal?
+
+```{r t-dist-change-df, fig.cap="The comparison between the *t*-distribution and the normal distribution at degrees of freedom ranging from 1 to 50. Figure source: from [T.J. Kyner](https://tjkyner.medium.com/the-normal-distribution-vs-students-t-distribution-322aa12ffd15).", out.width = "80%", echo=F}
+knitr::include_graphics("images/t-dist change df.gif") 
+```
+
+
+- A common rule of thumb is that for $df > 30$, one can pretty safely use the normal distribution in place of a *t*-distribution unless you are interested in the extreme tails. 
+
 ```{r fig-Laplace, fig.cap="**Laplace distribution**. The dotted green curve shows a normal distribution. The blue curve shows a Laplace distribution with kurtosis of 6.54. On the far left and right sides of the distribution—the tails—the space below the Laplace distribution curve (blue) is slightly thicker than the space below the normal distribution curve (green). This is an example of a heavy-tailed distribution yet with a *sharper* peak.", out.width="70%", echo=FALSE}
 include_graphics("images/Laplace distribution.webp")
 ```
-
 
 
 **Distinguish kurtosis from standard deviation/variance.**

@@ -676,33 +676,35 @@ Fig. 1: The <span class="math inline">\(\Phi\)</span> and <span class="math inli
 </div>
 <div id="quantiles" class="section level1">
 <h1>Quantiles</h1>
-<p>The quantile function of random variable <span class="math inline">\(X\)</span> is given by
+<p>The quantile function of random variable <span class="math inline">\(X\)</span>, <span class="math inline">\(q_{\tau}\)</span>, is given by
 <span class="math display">\[
 q_{\tau} = F^{-1}_X(\tau) ,
 \]</span>
-where <span class="math inline">\(\tau\)</span> is a given probability, and <span class="math inline">\(0\le \tau \le 1\)</span>.</p>
+where <span class="math inline">\(\tau\)</span> is a given probability, and <span class="math inline">\(0\le \tau \le 1\)</span>. <span class="math inline">\(F_X^{-1}(\tau)\)</span> denotes the inverse of the cumulative distribution function (CDF) <span class="math inline">\(F_X(x)\)</span>, evaluated at <span class="math inline">\(\tau\)</span>.</p>
 <ul>
 <li><span class="math inline">\(q_{\tau}\)</span> is a threshold value so that the probability of <span class="math inline">\(X\)</span> being less or equal than <span class="math inline">\(q_{\tau}\)</span> is <span class="math inline">\(\tau\)</span>.</li>
 <li><span class="math inline">\(q_{\tau}\)</span> can be calculated using the inverse of the CDF.</li>
 </ul>
 <p>In other words,
 <span class="math display">\[
-F_X(q_{\tau}) = \mathbb{P}(X\le q_{\tau}) = \tau
-\]</span></p>
+F_X(q_{\tau}) = \mathbb{P}(X\le q_{\tau}) = \tau ,
+\]</span>
+indicating that the probability of <span class="math inline">\(X\)</span> reaches <span class="math inline">\(q_{\tau}\)</span> is <span class="math inline">\(\tau\)</span>.</p>
 <ul>
 <li>Example: Let <span class="math inline">\(Z\sim N(0,1)\)</span>. Then we have
 <span class="math display">\[
 \begin{aligned}
 q_{0.5} &amp;= 0, \\
-q_{0.95} &amp;= 1.645, \\
-q_{0.975} &amp;= 1.960, \\
-q_{0.995} &amp;= 2.576. \\
+q_{0.95} &amp;= 1.645 &amp; \quad &amp; (\text{crit val at the 10% significance level}), \\
+q_{0.975} &amp;= 1.960 &amp; &amp; (\text{crit val at the 5% significance level}), \\
+q_{0.995} &amp;= 2.576 &amp; &amp; (\text{crit val at the 1% significance level}). \\
 \end{aligned}
 \]</span></li>
 <li>Some quantiles have special names:
 <ul>
 <li><span class="math inline">\(q_{0.5}\)</span> is the median, or <span class="math inline">\(50^{th}\)</span> percentile.</li>
-<li><span class="math inline">\(q_{0.1}\)</span> is the first decile, <span class="math inline">\(q_{0.25}\)</span> is the first quartile.</li>
+<li><span class="math inline">\(q_{0.1}\)</span> is the first decile, or <span class="math inline">\(10^{th}\)</span> percentile.</li>
+<li><span class="math inline">\(q_{0.25}\)</span> is the first quartile, <span class="math inline">\(25^{th}\)</span> percentile.</li>
 </ul></li>
 </ul>
 <!------------------------------------------------------------------------>
@@ -1069,7 +1071,7 @@ Fig. 2: Diagram of Skewness.
 <ul>
 <li><span class="math inline">\(\mu_4-3&gt;0\)</span> indicate a heavy-tailed distribution with higher chances of outliers.
 <ul>
-<li>Note that we cannot infer from kurtosis the shape of the peak. <span class="math inline">\(\mu_4-3&gt;0\)</span> can associate with either a flattened (e.g., <span class="math inline">\(t\)</span>-distribution, see Fig. <a href="#fig:fig-t">3</a>) or a pointy peak (Laplace distribution, see Fig. <a href="#fig:fig-Laplace">4</a>).</li>
+<li>Note that we cannot infer from kurtosis the shape of the peak. <span class="math inline">\(\mu_4-3&gt;0\)</span> can associate with either a flattened (e.g., <span class="math inline">\(t\)</span>-distribution, see Fig. <a href="#fig:fig-t">3</a>) or a pointy peak (Laplace distribution, see Fig. <a href="#fig:fig-Laplace">5</a>).</li>
 </ul></li>
 <li><span class="math inline">\(\mu_4-3&lt;0\)</span> indicate a light-tailed distribution with lower chances of outliers.</li>
 </ul>
@@ -1096,10 +1098,20 @@ rnorm(1000) %&gt;% moments::kurtosis()</code></pre>
 <pre><code>## [1] 4.303517</code></pre>
 <pre class="r"><code>rt(n=1000, df=30) %&gt;% moments::kurtosis()</code></pre>
 <pre><code>## [1] 3.646411</code></pre>
+<p>How different is the <em>t</em>-distribution from the normal?</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:t-dist-change-df"></span>
+<img src="images/t-dist%20change%20df.gif" alt="The comparison between the *t*-distribution and the normal distribution at degrees of freedom ranging from 1 to 50. Figure source: from [T.J. Kyner](https://tjkyner.medium.com/the-normal-distribution-vs-students-t-distribution-322aa12ffd15)." width="80%" />
+<p class="caption">
+Fig. 4: The comparison between the <em>t</em>-distribution and the normal distribution at degrees of freedom ranging from 1 to 50. Figure source: from <a href="https://tjkyner.medium.com/the-normal-distribution-vs-students-t-distribution-322aa12ffd15">T.J. Kyner</a>.
+</p>
+</div>
+<ul>
+<li>A common rule of thumb is that for <span class="math inline">\(df &gt; 30\)</span>, one can pretty safely use the normal distribution in place of a <em>t</em>-distribution unless you are interested in the extreme tails.</li>
+</ul>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig-Laplace"></span>
 <img src="images/Laplace%20distribution.webp" alt="**Laplace distribution**. The dotted green curve shows a normal distribution. The blue curve shows a Laplace distribution with kurtosis of 6.54. On the far left and right sides of the distribution—the tails—the space below the Laplace distribution curve (blue) is slightly thicker than the space below the normal distribution curve (green). This is an example of a heavy-tailed distribution yet with a *sharper* peak." width="70%" />
 <p class="caption">
-Fig. 4: <strong>Laplace distribution</strong>. The dotted green curve shows a normal distribution. The blue curve shows a Laplace distribution with kurtosis of 6.54. On the far left and right sides of the distribution—the tails—the space below the Laplace distribution curve (blue) is slightly thicker than the space below the normal distribution curve (green). This is an example of a heavy-tailed distribution yet with a <em>sharper</em> peak.
+Fig. 5: <strong>Laplace distribution</strong>. The dotted green curve shows a normal distribution. The blue curve shows a Laplace distribution with kurtosis of 6.54. On the far left and right sides of the distribution—the tails—the space below the Laplace distribution curve (blue) is slightly thicker than the space below the normal distribution curve (green). This is an example of a heavy-tailed distribution yet with a <em>sharper</em> peak.
 </p>
 </div>
 <p><strong>Distinguish kurtosis from standard deviation/variance.</strong></p>
