@@ -166,7 +166,7 @@ $$
 $\boldsymbol{y}$ and $\boldsymbol{\varepsilon}$ are $n\times 1$ column vectors and $X$ is an $n\times K$ matrix.
 
 
-Linear models often have an intercept term. We may have $x_{1i}=1,$ for all $i=1,\ldots, n,$, in which case the parameter $\beta_1$ correspond to the intercept.
+Linear models often have an intercept term. We may have $x_{1i}=1,$ for all $i=1,\ldots, n$, in which case the parameter $\beta_1$ correspond to the intercept.
 
 ___
 
