@@ -439,7 +439,7 @@ x_{1n} &amp; x_{2n} &amp; \cdots &amp; x_{Kn}
 \end{pmatrix}_{n\times 1}.
 \]</span>
 <span class="math inline">\(\boldsymbol{y}\)</span> and <span class="math inline">\(\boldsymbol{\varepsilon}\)</span> are <span class="math inline">\(n\times 1\)</span> column vectors and <span class="math inline">\(X\)</span> is an <span class="math inline">\(n\times K\)</span> matrix.</p>
-<p>Linear models often have an intercept term. We may have <span class="math inline">\(x_{1i}=1,\)</span> for all <span class="math inline">\(i=1,\ldots, n,\)</span>, in which case the parameter <span class="math inline">\(\beta_1\)</span> correspond to the intercept.</p>
+<p>Linear models often have an intercept term. We may have <span class="math inline">\(x_{1i}=1,\)</span> for all <span class="math inline">\(i=1,\ldots, n\)</span>, in which case the parameter <span class="math inline">\(\beta_1\)</span> correspond to the intercept.</p>
 <hr />
 <p><strong>A notational convention</strong></p>
 <p>We use lower-case <span class="math inline">\(\boldsymbol{x}\)</span> to denote either a column or a row of <span class="math inline">\(\boldsymbol{X}\)</span>, you should tell which it refers to from the context.</p>
@@ -510,10 +510,12 @@ and the second-order conditions
 \frac{\partial^2\phi(\beta)}{\partial\beta\partial\beta&#39;} = 2X&#39;X &gt;0,
 \]</span>
 confirming that we obtain a unique minimum if <span class="math inline">\((X&#39;X)^{-1}\)</span> exists.</p>
-<p><a href="#eq:normal-eqn">(2)</a> is referred to as the “normal equations.”</p>
+<p>Eq <a href="#eq:normal-eqn">(2)</a> is referred to as the “normal equations.”</p>
 <p>The OLS estimator of <span class="math inline">\(\beta\)</span> is given by:
-<span class="math display">\[
+<span class="math display" id="eq:OLS-estimator">\[
+\begin{equation} \tag{3}
 \color{#EE0000FF}{\hat{\beta}_{\text{OLS}} = (X&#39;X)^{-1}X&#39;y} .
+\end{equation}
 \]</span>
 Note that</p>
 <ul>
@@ -538,6 +540,7 @@ This assumption is known as the <span style="color:#337ab7">identification condi
 <li>One is that <span class="math inline">\(n &lt; K,\)</span> i.e., we have more independent variables than observations. This is unlikely to be a problem for us in practice.</li>
 <li>The other is that one or more of the independent variables are a linear combination of the other variables i.e. <em>perfect</em> multicollinearity.</li>
 </ul>
+<div class="boxed">
 <div class="example">
 <p><span id="exm:unnamed-chunk-1" class="example"><strong>Example 1  (Short Rank) </strong></span>Suppose we have the following linear model:
 <span class="math display">\[
@@ -561,6 +564,37 @@ meaning there is an exact linear dependency in the model.</p>
 <p>Then we find that <span class="math inline">\(\boldsymbol{x}&#39;\boldsymbol{\beta} = \boldsymbol{x}&#39;\boldsymbol{\tilde{\beta}}\)</span>.</p>
 <p>In other words, there is no way to estimate the parameters of this model.</p>
 </div>
+</div>
+<p>The OLS estimator <span class="math inline">\(\hat{\beta}_{\text{OLS}} = (X&#39;X)^{-1}X&#39;y\)</span> can be written as:</p>
+<p><span class="math display" id="eq:simple-lm">\[
+\begin{equation} \tag{4}
+\hat{\beta}_{\text{OLS}} = \left(\sum_{i=1}^n x_i x_i&#39; \right)^{-1} \left(\sum_{i=1}^n x_i y_i \right) .
+\end{equation}
+\]</span>
+In the <span style="color:#337ab7"><strong>simple linear regression</strong></span> case of an intercept and a single explanatory variable, i.e., <span class="math inline">\(y_i=\beta_1+\beta_2x_{2i}+\varepsilon_i ,\)</span> expanding eq <a href="#eq:simple-lm">(4)</a> gives that</p>
+<p><span class="math display">\[
+\begin{aligned}
+\hat{\beta}_1 &amp;= \overline{y} - \hat{\beta}_2 \overline{x}_2 \\
+\hat{\beta}_2 &amp;=
+\frac{\left(\frac{1}{n}\sum_{i=1}^n x_{i2}y_i \right) - \left(\frac{1}{n}\sum_{i=1}^nx_{i2}\right) \left(\frac{1}{n}\sum_{i=1}^ny_{i}\right)}{\left(\frac{1}{n}\sum_{i=1}^n x_{i2}^2 \right) - \left(\frac{1}{n}\sum_{i=1}^n x_{i2}\right)^2} \\
+&amp;= \frac{\frac{1}{n}\sum_{i=1}^n (x_{2i}-\overline{x}_2)(y_i-\overline{y})}{\frac{1}{n}\sum_{i=1}^n (x_{2i}-\overline{x}_2)^2} \\
+&amp;= \frac{\text{Cov}(x_{2i}, y_i)}{\text{Var}(x_{2i})}
+\end{aligned}
+\]</span></p>
+<p>That is, the estimated slope parameter, <span class="math inline">\(\hat{\beta}_2\)</span> is the ratio of the sample covaraicne between <span class="math inline">\(x_{2i}\)</span> and <span class="math inline">\(y_i\)</span> and the sample variance of <span class="math inline">\(x_{2i}\)</span>.</p>
+<ul>
+<li><p>Note that this result does <span style="color:#EE0000FF"><strong>NOT</strong></span> generalize to models with more than one explanatory variable. ❌</p></li>
+<li><p>If you have more than one predictor variable, e.g., assume we have the following model
+<span class="math display">\[
+y_i=\beta_1+\beta_2x_{2i}+\beta_3x_{3i}+\varepsilon_i ,
+\]</span>
+where we have two explanatory variables <span class="math inline">\(x_{2i}\)</span> and <span class="math inline">\(x_{3i}\)</span>.<br />
+Since there might be correlation between <span class="math inline">\(x_{2i}\)</span> and <span class="math inline">\(x_{3i} ,\)</span> we <strong>cannot</strong> simply set <span class="math inline">\(\displaystyle \hat{\beta}_2 = \frac{\text{Cov}(x_{2i}y_i)}{\text{Var}(x_{2i})}\)</span> or <span class="math inline">\(\displaystyle \hat{\beta}_3 = \frac{\text{Cov}(x_{3i}y_i)}{\text{Var}(x_{3i})}\)</span>. ❌</p>
+<ul>
+<li>What one would like to do is to remove the linear influence of <span class="math inline">\(x_2\)</span> on <span class="math inline">\(x_1\)</span> and the other way around.</li>
+<li>Refer to the <span style="color:#008B45FF">Frisch-Waugh-Lovell (FWL) theorem</span> for more details if interested. We will not cover the theorem in our current course.</li>
+</ul></li>
+</ul>
 <hr />
 </div>
 <div id="properties-of-ols-estimators" class="section level1">
@@ -757,8 +791,8 @@ Uncorrelatedness across observations is labeled as <span style="color:#008B45FF"
 Taking the expectation with respect to <span class="math inline">\(\hat{\beta}-\beta\)</span>.
 <span class="math display">\[
 \begin{aligned}
-E[\hat{\beta}-\beta \vert X] &amp;= E[ (X&#39;X)^{-1}(X&#39;\varepsilon) \vert X] \\
-&amp;= (X&#39;X)^{-1}X&#39;E[\varepsilon \vert X] \\
+E[\hat{\beta}-\beta \vert X] &amp;= E[ (X&#39;X)^{-1}(X&#39;\boldsymbol{\varepsilon}) \vert X] \\
+&amp;= (X&#39;X)^{-1}X&#39;E[\boldsymbol{\varepsilon} \vert X] \\
 &amp;= \boldsymbol{0}.
 \end{aligned}
 \]</span></p>
@@ -766,7 +800,7 @@ E[\hat{\beta}-\beta \vert X] &amp;= E[ (X&#39;X)^{-1}(X&#39;\varepsilon) \vert X
 <p><span class="math display">\[
 \begin{aligned}
 \text{Var}(\boldsymbol{\hat{\beta}} \vert \boldsymbol{X}) &amp;= E\left[(\hat{\boldsymbol{\beta}}-\boldsymbol{\beta})(\hat{\boldsymbol{\beta}}-\boldsymbol{\beta})^T \vert \boldsymbol{X} \right] \\
-&amp;= E\left[(X&#39;X)^{-1}X&#39;\varepsilon\varepsilon&#39;X(X&#39;X)^{-1} \vert \boldsymbol{X}\right] \\
+&amp;= E\left[(X&#39;X)^{-1}X&#39;\boldsymbol{\varepsilon}\boldsymbol{\varepsilon}&#39;X(X&#39;X)^{-1} \vert \boldsymbol{X}\right] \\
 &amp;= (X&#39;X)^{-1}X&#39;\, E\left[\boldsymbol{\varepsilon\varepsilon}&#39;\vert \boldsymbol{X}\right] \, X(X&#39;X)^{-1} \\
 &amp;= (X&#39;X)^{-1}X&#39;\, \Omega \, X(X&#39;X)^{-1}
 \end{aligned}

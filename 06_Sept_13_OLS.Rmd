@@ -253,11 +253,13 @@ $$
 $$
 confirming that we obtain a unique minimum if $(X'X)^{-1}$ exists.
 
-\@ref(eq:normal-eqn) is referred to as the "normal equations."
+Eq \@ref(eq:normal-eqn) is referred to as the "normal equations."
 
 The OLS estimator of $\beta$ is given by:
 $$
+\begin{equation} (\#eq:OLS-estimator)
 \color{#EE0000FF}{\hat{\beta}_{\text{OLS}} = (X'X)^{-1}X'y} .
+\end{equation}
 $$
 Note that
 
@@ -289,6 +291,8 @@ There are two possible reasons why this matrix might be non-invertible.
 - The other is that one or more of the independent variables are a linear combination of the other variables i.e. *perfect* multicollinearity.
 
 
+<div class = "boxed">
+
 ```{example, name="Short Rank"}
 Suppose we have the following linear model:
     $$
@@ -318,9 +322,42 @@ Then we find that $\boldsymbol{x}'\boldsymbol{\beta} = \boldsymbol{x}'\boldsymbo
 In other words, there is no way to estimate the parameters of this model.
 ```
 
+</div>
 
 
+The OLS estimator $\hat{\beta}_{\text{OLS}} = (X'X)^{-1}X'y$ can be written as:
 
+$$
+\begin{equation} (\#eq:simple-lm)
+\hat{\beta}_{\text{OLS}} = \left(\sum_{i=1}^n x_i x_i' \right)^{-1} \left(\sum_{i=1}^n x_i y_i \right) .
+\end{equation}
+$$
+In the <span style='color:#337ab7'>**simple linear regression**</span> case of an intercept and a single explanatory variable, i.e., $y_i=\beta_1+\beta_2x_{2i}+\varepsilon_i ,$ expanding eq \@ref(eq:simple-lm) gives that 
+
+
+$$
+\begin{aligned}
+\hat{\beta}_1 &= \overline{y} - \hat{\beta}_2 \overline{x}_2 \\
+\hat{\beta}_2 &= 
+\frac{\left(\frac{1}{n}\sum_{i=1}^n x_{i2}y_i \right) - \left(\frac{1}{n}\sum_{i=1}^nx_{i2}\right) \left(\frac{1}{n}\sum_{i=1}^ny_{i}\right)}{\left(\frac{1}{n}\sum_{i=1}^n x_{i2}^2 \right) - \left(\frac{1}{n}\sum_{i=1}^n x_{i2}\right)^2} \\
+&= \frac{\frac{1}{n}\sum_{i=1}^n (x_{2i}-\overline{x}_2)(y_i-\overline{y})}{\frac{1}{n}\sum_{i=1}^n (x_{2i}-\overline{x}_2)^2} \\
+&= \frac{\text{Cov}(x_{2i}, y_i)}{\text{Var}(x_{2i})}
+\end{aligned}
+$$
+
+That is, the estimated slope parameter, $\hat{\beta}_2$ is the ratio of the sample covaraicne between $x_{2i}$ and $y_i$ and the sample variance of $x_{2i}$.
+
+- Note that this result does <span style='color:#EE0000FF'>**NOT**</span> generalize to models with more than one explanatory variable. ❌
+
+- If you have more than one predictor variable, e.g., assume we have the following model
+$$
+y_i=\beta_1+\beta_2x_{2i}+\beta_3x_{3i}+\varepsilon_i ,
+$$ 
+where we have two explanatory variables $x_{2i}$ and $x_{3i}$. \
+Since there might be correlation between $x_{2i}$ and $x_{3i} ,$ we **cannot** simply set $\displaystyle \hat{\beta}_2 = \frac{\text{Cov}(x_{2i}y_i)}{\text{Var}(x_{2i})}$ or $\displaystyle \hat{\beta}_3 = \frac{\text{Cov}(x_{3i}y_i)}{\text{Var}(x_{3i})}$. ❌
+    - What one would like to do is to remove the linear influence of $x_2$ on $x_1$ and the other way around.
+    - Refer to the <span style='color:#008B45FF'>Frisch-Waugh-Lovell (FWL) theorem</span> for more details if interested. We will not cover the theorem in our current course.
+ 
 ___
 
 # Properties of OLS Estimators
@@ -555,8 +592,8 @@ $$
 Taking the expectation with respect to $\hat{\beta}-\beta$.
 $$
 \begin{aligned}
-E[\hat{\beta}-\beta \vert X] &= E[ (X'X)^{-1}(X'\varepsilon) \vert X] \\
-&= (X'X)^{-1}X'E[\varepsilon \vert X] \\
+E[\hat{\beta}-\beta \vert X] &= E[ (X'X)^{-1}(X'\boldsymbol{\varepsilon}) \vert X] \\
+&= (X'X)^{-1}X'E[\boldsymbol{\varepsilon} \vert X] \\
 &= \boldsymbol{0}.
 \end{aligned}
 $$
@@ -567,7 +604,7 @@ Variance of least-squares estimator:
 $$
 \begin{aligned}
 \text{Var}(\boldsymbol{\hat{\beta}} \vert \boldsymbol{X}) &= E\left[(\hat{\boldsymbol{\beta}}-\boldsymbol{\beta})(\hat{\boldsymbol{\beta}}-\boldsymbol{\beta})^T \vert \boldsymbol{X} \right] \\
-&= E\left[(X'X)^{-1}X'\varepsilon\varepsilon'X(X'X)^{-1} \vert \boldsymbol{X}\right] \\
+&= E\left[(X'X)^{-1}X'\boldsymbol{\varepsilon}\boldsymbol{\varepsilon}'X(X'X)^{-1} \vert \boldsymbol{X}\right] \\
 &= (X'X)^{-1}X'\, E\left[\boldsymbol{\varepsilon\varepsilon}'\vert \boldsymbol{X}\right] \, X(X'X)^{-1} \\
 &= (X'X)^{-1}X'\, \Omega \, X(X'X)^{-1}
 \end{aligned}
