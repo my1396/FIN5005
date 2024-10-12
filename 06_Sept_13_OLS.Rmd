@@ -285,7 +285,7 @@ $$
 
 There are two possible reasons why this matrix might be non-invertible. 
 
-- One is that $n < k,$ i.e., we have more independent variables than observations. This is unlikely to be a problem for us in practice. 
+- One is that $n < K,$ i.e., we have more independent variables than observations. This is unlikely to be a problem for us in practice. 
 - The other is that one or more of the independent variables are a linear combination of the other variables i.e. *perfect* multicollinearity.
 
 
