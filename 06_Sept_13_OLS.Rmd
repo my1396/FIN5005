@@ -589,7 +589,7 @@ $$
 &= \boldsymbol{\beta} + (X'X)^{-1}X'\boldsymbol{\varepsilon}
 \end{aligned}
 $$
-Taking the expectation with respect to $\hat{\beta}-\beta$.
+Taking the expectation with respect to $\boldsymbol{\hat{\beta}}-\boldsymbol{\beta}$.
 $$
 \begin{aligned}
 E[\hat{\beta}-\beta \vert X] &= E[ (X'X)^{-1}(X'\boldsymbol{\varepsilon}) \vert X] \\
