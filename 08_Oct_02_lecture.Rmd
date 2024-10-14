@@ -695,7 +695,7 @@ anova(dummy_lm_restricted, dummy_lm)
 ```
 
 
-- The result shows a Df of 1 (indicating that the unrestricted model has one additional parameter, i.e., $p=1$), and a very small $p$-value ($< .001$). 
+- The result shows a $df$ of 1 (indicating that the unrestricted model has one additional parameter, i.e., $p=1$), and a very small $p$-value ($< .001$). 
 - This means that adding the interaction to the model did lead to a significantly improved fit over the model 1.
 
 

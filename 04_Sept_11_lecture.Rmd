@@ -233,16 +233,17 @@ Our goal is to obtain an interval which takes the form $[\widehat{L}, \widehat{U
 
 - $\widehat{L}$ is referred to as the lower bound, and $\widehat{U}$ as the upper bound.
 
--  $\mathbb{P}(\widehat{L}\le \theta \le \widehat{U})$ is often mis-interpreted as treating $\theta$ as random and $[\widehat{L}, \widehat{U}]$ as fixed. \
+-  $\mathbb{P}(\widehat{L}\le \theta \le \widehat{U})$ is often mis-interpreted as treating $\theta$ (true unknown population parameter) as random and $[\widehat{L}, \widehat{U}]$ as fixed. \
 It is inappropriate to interpret $\mathbb{P}(\widehat{L}\le \theta \le \widehat{U})$ as the probability that $\theta$ lies within $[\widehat{L}, \widehat{U}]$.
 
-- Instead, the correct interpretation is that the probability $\mathbb{P}(\widehat{L}\le \theta \le \widehat{U})$ treats the point $\theta$ as fixed and the interval $[\widehat{L}, \widehat{U}]$ as random. \
-It is the probability that <span style='color:#337ab7'>the random interval covers the fixed true coefficient $\theta.$</span>
+- Instead, the correct interpretation is that the probability $\mathbb{P}(\widehat{L}\le \theta \le \widehat{U})$ treats the point $\theta$ as fixed and the interval $[\widehat{L}, \widehat{U}]$ as random. 
 
-$[\widehat{L}, \widehat{U}]$ is called the $1-\alpha$ confidence interval when $\mathbb{P}(\widehat{L}\le \theta \le \widehat{U})=1-\alpha.$
 
-- $\alpha$ is often known as the significance level. Common significance levels include $1\%$ and $5\%$.
-- $1-\alpha$ is often known as the confidence level or the convergence probability. Common confidence levels are $99\%$ and $95\%$.
+$[\widehat{L}, \widehat{U}]$ is called the $(1-\alpha)$ confidence interval when $\mathbb{P}(\widehat{L}\le \theta \le \widehat{U})=1-\alpha.$
+
+- $\alpha$ is often known as the <span style='color:#008B45FF'>significance level</span>. Common significance levels include $1\%$ and $5\%$.
+- $(1-\alpha)$ is often known as the <span style='color:#008B45FF'>confidence level</span> or the convergence probability. Common confidence levels are $99\%$ and $95\%$.
+    - $(1-\alpha)$ is the probability that <span style='color:#337ab7'>the random interval covers the fixed true coefficient $\theta.$</span>
 
 
 A good choice for a confidence interval is obtained by adding and subtracting from the estimator $\widehat{\theta}$ a fixed multiple of its standard error:
@@ -254,31 +255,31 @@ where $c>0$ is a pre-specified constant, often called the <span style='color:#00
 Given $\frac{\widehat{\theta}-\theta}{\Sigma} \sim N(0,1)$, we have
 $$
 \begin{equation} (\#eq:CI)
-P\left(-c_{\alpha/2} < \frac{\widehat{\theta}-\theta}{\Sigma} < c_{\alpha/2}  \right) = 1-\alpha .
+P\left(-c_{1-\alpha/2} < \frac{\widehat{\theta}-\theta}{\Sigma} < c_{1-\alpha/2}  \right) = 1-\alpha .
 \end{equation}
 $$
-This requires $\Phi(c_{\alpha/2}) = 1-\frac{\alpha}{2}$. 
+This requires $\Phi(c_{1-\alpha/2}) = 1-\frac{\alpha}{2}$. 
 
-Hence, $c_{\alpha/2}=\Phi^{-1}(1-\frac{\alpha}{2})$, which is the $\left(1-\frac{\alpha}{2}\right)$ quantile of the standard normal distribution.  
+Hence, $c_{1-\alpha/2}=\Phi^{-1}(1-\frac{\alpha}{2})$, which is the $\left(1-\frac{\alpha}{2}\right)$ quantile of the standard normal distribution (inverse of cdf of standard normal).  
 
 Re-arranging \@ref(eq:CI), we have 
 $$
-P\left(\widehat{\theta}-c_{\alpha/2}\cdot \Sigma, \; \widehat{\theta}+c_{\alpha/2}\cdot \Sigma\right) = 1-\alpha
+P\left(\widehat{\theta}-c_{1-\alpha/2}\cdot \Sigma, \; \widehat{\theta}+c_{1+\alpha/2}\cdot \Sigma\right) = 1-\alpha
 $$
 This says the random interval, 
 $$
-(\widehat{\theta}-c_{\alpha/2}\cdot \Sigma, \; \widehat{\theta}+c_{\alpha/2}\cdot \Sigma),
+(\widehat{\theta}-c_{1-\alpha/2}\cdot \Sigma, \; \widehat{\theta}+c_{1-\alpha/2}\cdot \Sigma),
 $$
 contains $\theta$ with probability $1-\alpha.$
 
 
 One can also generate one-sided intervals:
 $$
-P\left(\widehat{\theta}-c_{\alpha}\cdot \Sigma < \theta \right) = 1-\alpha ,
+P\left(\widehat{\theta}-c_{1-\alpha}\cdot \Sigma < \theta \right) = 1-\alpha ,
 $$
 or
 $$
-P\left(\theta < \widehat{\theta}+c_{\alpha}\cdot \Sigma \right) = 1-\alpha ,
+P\left(\theta < \widehat{\theta}+c_{1-\alpha}\cdot \Sigma \right) = 1-\alpha ,
 $$
 but a two-sided interval is more common.
 
@@ -316,17 +317,28 @@ $$
 $$
 is much greater than zero.
 
-Formally, our test statistic is
+Formally, our <span style='color:#337ab7'>**test statistic**</span> is
 $$
-\frac{\widehat{\theta}-r}{\Sigma} \sim N(0,1).
-$$
-
-we reject $H_0: \theta=r$ in favor of $H_1$ at $\alpha$ level of significance if 
-$$
-\left\vert \frac{\widehat{\theta}-r}{\Sigma} \right\vert > c_{\alpha/2}.
+Z = \frac{\widehat{\theta}-r}{\Sigma} \sim N(0,1).
 $$
 
-Otherwise, we fail to reject $H_0$ (we never say ACCEPT $H_0$). 
+<span style='color:#337ab7'>**Rejection rule**</span:
+
+- we reject $H_0: \theta=r$ in favor of $H_1$ at $\alpha$ level of significance if 
+    $$
+    |Z| = \left\vert \frac{\widehat{\theta}-r}{\Sigma} \right\vert > c_{1-\alpha/2},
+    $$
+    where the corresponding cut-off value $c_{\alpha/2}$ is called the <span style='color:#008B45FF'>critical value</span>. $c_{1-\alpha/2}$ is defined as 
+    $$
+    \begin{aligned}
+    & P(Z>c_{1-\alpha/2}) = \alpha/2 , \\
+    \Rightarrow \, & P(Z\le c_{1-\alpha/2}) = 1-\alpha/2.
+    \end{aligned}
+    $$
+    That is, $c_{1-\alpha/2}$ is the $1-\alpha/2$ quantile (inverse cdf) of the distribution of $Z$.
+
+
+- Otherwise, we **fail to reject** $H_0$ (we never say ACCEPT $H_0$). 
 
 We just say that we don't have enough evidence to reject $H_0$. This is equivalent to saying we don't have enough evidence to support the alternative hypothesis.
 
@@ -342,13 +354,13 @@ Similarly, for one-sided hypothesis testing, we have
 
 - Case 1: $H_0: \theta\ge r \quad \text{vs} \quad H_1: \theta<r$. We reject $H_0$ in favor of $H_1$ if 
 $$
-\frac{\widehat{\theta}-r}{\Sigma} < -c_{\alpha}.
+\frac{\widehat{\theta}-r}{\Sigma} < -c_{1-\alpha}.
 $$
 Otherwise, we fail to reject $H_0.$
 
 - Case 2: $H_0: \theta\le r \quad \text{vs} \quad H_1: \theta>r$. We reject $H_0$ in favor of $H_1$ if 
 $$
-\frac{\widehat{\theta}-r}{\Sigma} > c_{\alpha}.
+\frac{\widehat{\theta}-r}{\Sigma} > c_{1-\alpha}.
 $$
 Otherwise, we fail to reject $H_0.$
 
@@ -356,24 +368,24 @@ Otherwise, we fail to reject $H_0.$
 The critical values for typical levels of significance are:
 
 - For one-sided tests,
-    - 1\% level of significance : $c_\alpha = 2.33$,
-    - 5\% level of significance : $c_\alpha = 1.64$, 
-    - 10\% level of significance : $c_\alpha= 1.28$.
+    - 1\% level of significance : $c_{1-\alpha} = 2.33$,
+    - 5\% level of significance : $c_{1-\alpha} = 1.64$, 
+    - 10\% level of significance : $c_{1-\alpha}= 1.28$.
 
 - For two-sided tests,
-    - 1\% level of significance : $c_{\alpha/2} = 2.58$,
+    - 1\% level of significance : $c_{1-\alpha/2} = 2.58$,
         ```{r}
         alpha <- .01
         qnorm(p=1-alpha/2)
         ```
     
-    - 5\% level of significance : $\color{#337ab7}{c_{\alpha/2} = 1.96}$, 
+    - 5\% level of significance : $\color{#337ab7}{c_{1-\alpha/2} = 1.96}$, 
         ```{r}
         alpha <- .05
         qnorm(p=1-alpha/2)
         ```
     
-    - 10\% level of significance : $c_{\alpha/2}= 1.64$.
+    - 10\% level of significance : $c_{1-\alpha/2}= 1.64$.
         ```{r}
         alpha <- .1
         qnorm(p=1-alpha/2)
