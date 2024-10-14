@@ -322,7 +322,7 @@ $$
 Z = \frac{\widehat{\theta}-r}{\Sigma} \sim N(0,1).
 $$
 
-<span style='color:#337ab7'>**Rejection rule**</span:
+<span style='color:#337ab7'>**Rejection rule**</span>:
 
 - we reject $H_0: \theta=r$ in favor of $H_1$ at $\alpha$ level of significance if 
     $$
@@ -340,28 +340,30 @@ $$
 
 - Otherwise, we **fail to reject** $H_0$ (we never say ACCEPT $H_0$). 
 
-We just say that we don't have enough evidence to reject $H_0$. This is equivalent to saying we don't have enough evidence to support the alternative hypothesis.
-
-> The null hypothesis specifically means that no effect of some variable is found in the data. This is not the same thing as saying that “there is no effect.”
->
-> A numeric example: If I have two ordinary 6-sided dice, the null hypothesis is that the dice are fair.
->
-> - If I throw the dice once, and get two 2's, the null hypothesis has not been disproved, so I fail to reject it.  
-> - If I throw the dice 6 times in a row and get two 2's each time, it doesn't look fair to me. I reject the null hypothesis because there is only a (1/36)^6 chance of that happening if the dice are fair.
+    We just say that we don't have enough evidence to reject $H_0$. This is equivalent to saying we don't have enough evidence to support the alternative hypothesis.
+    
+    > The null hypothesis specifically means that no effect of some variable is found in the data. This is not the same thing as saying that “there is no effect.”
+    >
+    > A numeric example: If I have two ordinary 6-sided dice, the null hypothesis is that the dice are fair.
+    >
+    > - If I throw the dice once, and get two 2's, the null hypothesis has not been disproved, so I fail to reject it.  
+    > - If I throw the dice 6 times in a row and get two 2's each time, it doesn't look fair to me. I reject the null hypothesis because there is only a (1/36)^6 chance of that happening if the dice are fair.
 
 
 Similarly, for one-sided hypothesis testing, we have
 
-- Case 1: $H_0: \theta\ge r \quad \text{vs} \quad H_1: \theta<r$. We reject $H_0$ in favor of $H_1$ if 
+- Case 1: $H_0: \theta\ge r \quad \text{vs} \quad H_1: \theta<r$ (left-tailed test). We reject $H_0$ in favor of $H_1$ if 
 $$
-\frac{\widehat{\theta}-r}{\Sigma} < -c_{1-\alpha}.
+\frac{\widehat{\theta}-r}{\Sigma} < -c_{1-\alpha} \; ,
 $$
+that is, the critical region is in the extreme left region (tail).
 Otherwise, we fail to reject $H_0.$
 
-- Case 2: $H_0: \theta\le r \quad \text{vs} \quad H_1: \theta>r$. We reject $H_0$ in favor of $H_1$ if 
+- Case 2: $H_0: \theta\le r \quad \text{vs} \quad H_1: \theta>r$ (right-tailed test). We reject $H_0$ in favor of $H_1$ if 
 $$
-\frac{\widehat{\theta}-r}{\Sigma} > c_{1-\alpha}.
+\frac{\widehat{\theta}-r}{\Sigma} > c_{1-\alpha} \; ,
 $$
+that is, the critical region is in the extreme right region (tail).
 Otherwise, we fail to reject $H_0.$
 
 

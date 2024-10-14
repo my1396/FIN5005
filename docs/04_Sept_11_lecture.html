@@ -558,7 +558,7 @@ is much greater than zero.</p>
 <span class="math display">\[
 Z = \frac{\widehat{\theta}-r}{\Sigma} \sim N(0,1).
 \]</span></p>
-<p><span style='color:#337ab7'><strong>Rejection rule</strong>&lt;/span:</p>
+<p><span style="color:#337ab7"><strong>Rejection rule</strong></span>:</p>
 <ul>
 <li><p>we reject <span class="math inline">\(H_0: \theta=r\)</span> in favor of <span class="math inline">\(H_1\)</span> at <span class="math inline">\(\alpha\)</span> level of significance if
 <span class="math display">\[
@@ -572,8 +572,7 @@ where the corresponding cut-off value <span class="math inline">\(c_{\alpha/2}\)
   \end{aligned}
   \]</span>
 That is, <span class="math inline">\(c_{1-\alpha/2}\)</span> is the <span class="math inline">\(1-\alpha/2\)</span> quantile (inverse cdf) of the distribution of <span class="math inline">\(Z\)</span>.</p></li>
-<li><p>Otherwise, we <strong>fail to reject</strong> <span class="math inline">\(H_0\)</span> (we never say ACCEPT <span class="math inline">\(H_0\)</span>).</p></li>
-</ul>
+<li><p>Otherwise, we <strong>fail to reject</strong> <span class="math inline">\(H_0\)</span> (we never say ACCEPT <span class="math inline">\(H_0\)</span>).</p>
 <p>We just say that we don’t have enough evidence to reject <span class="math inline">\(H_0\)</span>. This is equivalent to saying we don’t have enough evidence to support the alternative hypothesis.</p>
 <blockquote>
 <p>The null hypothesis specifically means that no effect of some variable is found in the data. This is not the same thing as saying that “there is no effect.”</p>
@@ -583,18 +582,21 @@ That is, <span class="math inline">\(c_{1-\alpha/2}\)</span> is the <span class=
 </li>
 <li>If I throw the dice 6 times in a row and get two 2’s each time, it doesn’t look fair to me. I reject the null hypothesis because there is only a (1/36)^6 chance of that happening if the dice are fair.</li>
 </ul>
-</blockquote>
+</blockquote></li>
+</ul>
 <p>Similarly, for one-sided hypothesis testing, we have</p>
 <ul>
-<li><p>Case 1: <span class="math inline">\(H_0: \theta\ge r \quad \text{vs} \quad H_1: \theta&lt;r\)</span>. We reject <span class="math inline">\(H_0\)</span> in favor of <span class="math inline">\(H_1\)</span> if
+<li><p>Case 1: <span class="math inline">\(H_0: \theta\ge r \quad \text{vs} \quad H_1: \theta&lt;r\)</span> (left-tailed test). We reject <span class="math inline">\(H_0\)</span> in favor of <span class="math inline">\(H_1\)</span> if
 <span class="math display">\[
-\frac{\widehat{\theta}-r}{\Sigma} &lt; -c_{1-\alpha}.
+\frac{\widehat{\theta}-r}{\Sigma} &lt; -c_{1-\alpha} \; ,
 \]</span>
+that is, the critical region is in the extreme left region (tail).
 Otherwise, we fail to reject <span class="math inline">\(H_0.\)</span></p></li>
-<li><p>Case 2: <span class="math inline">\(H_0: \theta\le r \quad \text{vs} \quad H_1: \theta&gt;r\)</span>. We reject <span class="math inline">\(H_0\)</span> in favor of <span class="math inline">\(H_1\)</span> if
+<li><p>Case 2: <span class="math inline">\(H_0: \theta\le r \quad \text{vs} \quad H_1: \theta&gt;r\)</span> (right-tailed test). We reject <span class="math inline">\(H_0\)</span> in favor of <span class="math inline">\(H_1\)</span> if
 <span class="math display">\[
-\frac{\widehat{\theta}-r}{\Sigma} &gt; c_{1-\alpha}.
+\frac{\widehat{\theta}-r}{\Sigma} &gt; c_{1-\alpha} \; ,
 \]</span>
+that is, the critical region is in the extreme right region (tail).
 Otherwise, we fail to reject <span class="math inline">\(H_0.\)</span></p></li>
 </ul>
 <p>The critical values for typical levels of significance are:</p>
