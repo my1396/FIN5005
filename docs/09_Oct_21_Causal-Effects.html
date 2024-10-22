@@ -348,7 +348,8 @@ div.tocify {
 <div id="introduction-case" class="section level2">
 <h2>Introduction Case</h2>
 <p>The Heart and Estrogen/Progestin Study (HERS) is a clinical trial of hormone therapy for prevention of recurrent heart attacks and death among post-menopausal women with existing coronary heart disease.</p>
-<p>In this exercise we will study how different variables may influence the glucose level in the blood for the non-diabetic women in the cohort, in particular we are interested to see if exercise may help to reduce the glucose level</p>
+<p>In this exercise we will study how different variables may influence the glucose level in the blood for the non-diabetic women in the cohort, in particular we are interested to see if exercise may help to reduce the glucose level.</p>
+<p>To answer this question definitively would require a randomized clinical trial, a difficult and expensive undertaking. As a result, research questions like this are often initially looked at using observational data. But this is complicated by the fact that people who exercise differ in many ways from those who do not, and some of the other differences might explain any unadjusted association between exercise and glucose level.</p>
 <pre class="r"><code># load data
 hers &lt;- read.table(&quot;https://raw.githubusercontent.com/my1396/course_dataset/refs/heads/main/hers.txt&quot;,
                    sep=&quot;\t&quot;, header=T, na.strings=&quot;.&quot;)
@@ -364,6 +365,12 @@ hers.no &lt;- hers[hers$diabetes==0, ]</code></pre>
 <div id="descriptive-analysis" class="section level3">
 <h3>Descriptive Analysis</h3>
 <p>We will start out by investigating how the glucose levels are for women who exercise at least three times a week (coded as exercise=1) and women who exercise less than three times a week (coded as exercise=0).</p>
+<p><span class="math display">\[
+\text{exercise} = \begin{cases}
+1 &amp; \text{exercise three times or more} \\
+0 &amp; \text{otherwise}.
+\end{cases}
+\]</span></p>
 <p>Make a summary and boxplot of the glucose levels according to the level of exercise:</p>
 <pre class="r"><code>summary(hers.no$glucose[hers.no$exercise==0])</code></pre>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
@@ -407,8 +414,17 @@ summary(fit.simple)</code></pre>
 ## Residual standard error: 9.715 on 2030 degrees of freedom
 ## Multiple R-squared:  0.007318,   Adjusted R-squared:  0.006829 
 ## F-statistic: 14.97 on 1 and 2030 DF,  p-value: 0.000113</code></pre>
-<p>The women who exercise at least three times a week and the women who exercise less than three times a week may differ in many ways. For example they may be younger and have a lower BMI (body mass index). We will therefore perform a multiple linear regression analysis where we adjust for these to variables.</p>
-<p>Perform a simple linear regression with glucose level as outcome and exercise, age, and BMI as predictors:</p>
+<p>The coefficient estimate for <code>exercise</code> shows that average baseline glucose levels were about 1.7 mg/dL lower among women who exercised at least three times a week than among women who exercised less. This difference is statistically significant (<span class="math inline">\(t=-3:87\)</span>; <span class="math inline">\(P &lt; 1\%\)</span>).</p>
+<p><strong>Why the simple regression might be problematic?</strong></p>
+<p>The women who exercise at least three times a week and the women who exercise less than three times a week may differ in many ways.
+For example they may be younger and have a lower BMI (body mass index).
+This implies that the lower average glucose we observe among women who exercise could be due at least in part to differences in these other predictors.
+In other words, <code>age</code> and <code>BMI</code> can be potential confounders that confound the effect of exercise on glucose levels.</p>
+<p><strong>What is a fix for the confounding effect?</strong></p>
+<p>Intuitively, under these conditions, it is important that our estimate of the difference in average glucose levels associated with exercise be “adjusted” for the effects of these potential confounders of the unadjusted association.</p>
+<p>Technically, adjustment using a <em>multipredictor</em> regression model provides an estimate of the causal effect of exercise on average glucose levels, by <em>holding the other variables constant</em>.</p>
+<p>We will therefore perform a multiple linear regression analysis where we adjust for <code>age</code> and <code>BMI</code>. These two variable are commonly referred to as “control variables” or “conditional variables”.</p>
+<p>Perform a multivariate regression with glucose level as outcome and exercise, age, and BMI as predictors:</p>
 <table style="text-align:center">
 <caption>
 <strong>Regression results for the effect of exercises on the glucose level.</strong>
@@ -635,11 +651,34 @@ F Statistic
 </td>
 </tr>
 </table>
-<hr />
+<p>We see that in the multiple regression where we control for age and BMI</p>
+<ul>
+<li><p>Exercise remains a statistically significant predictor of glucose levels after adjustment for age and BMI.</p></li>
+<li><p>Average glucose is estimated to be only about 0.9 mg/dL lower among women who exercise, holding the other three factors constant.</p></li>
+<li><p>Average levels also increase by about 0.5 mg/dL per unit increase in BMI, and by 0.06 mg/dL for each additional year of age.</p></li>
+</ul>
+<p>In summary, the simple linear regression estimates the difference in mean glucose levels between two subgroups (<code>exercise</code> being 1 or 0). But this comparison ignores other ways in which those subgroups may differ. In other words, the analysis does not take account of confounding of the association we see.</p>
+<p>In contrast, the adjusted coefficient for exercise in the multivariate regression takes account of the fact that women who exercise also have lower BMI and are slightly younger, all factors which are associated with differences in glucose levels.</p>
+<p>Confounders often explain some of the association of a predictor of interest with the outcome, so that the <strong>adjusted effect</strong>, which may have a causal interpretation, is often <span style="color:#337ab7">weaker</span> than the <strong>unadjusted effect</strong>.</p>
+<p>However, this is not always true. There are a range of Confounding Patterns.
+Here we will see two patterns in what follows.
+___</p>
 </div>
 </div>
-<div id="pattern-1" class="section level2">
-<h2>Pattern 1</h2>
+<div id="counfounding-pattern-1" class="section level2">
+<h2>Counfounding Pattern 1</h2>
+<p>To fix ideas, we</p>
+<ul>
+<li>Let <span class="math inline">\(D\)</span> be a treatment indicator that takes values 0 (control group) or 1 (treatment group).</li>
+<li>Define <span class="math inline">\(X\)</span> be a potential confounder.</li>
+<li>Define <span class="math inline">\(y\)</span> be the outcome variable.</li>
+</ul>
+<p>At one extreme, the effect of a factor of interest may be completely confounded by a second variable.</p>
+<p>In plain language,</p>
+<ul>
+<li><span class="math inline">\(D\)</span> and <span class="math inline">\(y\)</span> are strongly associated in unadjusted analysis,</li>
+<li>after adjusted for <span class="math inline">\(X\)</span>, the variation in <span class="math inline">\(y\)</span> can be entirely explained by <span class="math inline">\(X\)</span>. That is, there is no association between <span class="math inline">\(y\)</span> and <span class="math inline">\(D\)</span> after adjustment for <span class="math inline">\(X\)</span>.</li>
+</ul>
 <p><span class="math display">\[
 D \overset{?}{\rightarrow} X \rightarrow Y
 \]</span>
@@ -932,8 +971,13 @@ F Statistic
 </table>
 <hr />
 </div>
-<div id="pattern-2" class="section level2">
-<h2>Pattern 2</h2>
+<div id="counfounding-pattern-2" class="section level2">
+<h2>Counfounding Pattern 2</h2>
+<p>At the other extreme, we may find little or no association in unadjusted analysis, because it is <em>masked or negatively confounded by another predictor</em>.</p>
+<ul>
+<li>In the unadjusted analysis, there seems to be no association between <span class="math inline">\(y\)</span> and <span class="math inline">\(D\)</span>.</li>
+<li>But when adjusted for <span class="math inline">\(X\)</span>, there are significant differences for the groups defined by <span class="math inline">\(D\)</span>.</li>
+</ul>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:confound-negative-DAG"></span>
 <img src="images/DAG_negative_confounding.png" alt="Directional Acyclic Graph (DAG): Negative confounding." width="30%" />
 <p class="caption">
@@ -1184,6 +1228,23 @@ F Statistic
 </td>
 </tr>
 </table>
+<p>In summary, the association between <span class="math inline">\(D\)</span> and <span class="math inline">\(y\)</span> is unmasked by adjustment for <span class="math inline">\(X\)</span>. Negative confounding can occur under the following circumstances:</p>
+<ul>
+<li>The predictors are inversely correlated, but have regression coefficients with the same sign.</li>
+<li>The two predictors are positively correlated, but have regression coefficients with the opposite sign.</li>
+</ul>
+<p>The example shown in Fig. <a href="#fig:confound-negative-sim">3</a> is of the second kind.</p>
+<p><strong>Confounding Is Difficult to Rule Out</strong></p>
+<p>The problem of confounding can be more resistant to multipredictor regression modeling than the example might suggest. We assumed in that example that the model included all confounders of the effect of exercises on glucose levels.
+Nonetheless, for the multipredictor linear model to control confounding successfully and estimate causal effects without bias, all potential confounders must have been:</p>
+<ul>
+<li>Recognized and assessed by design in the study</li>
+<li>Measured without error</li>
+<li>Accurately represented in the structural model</li>
+</ul>
+<p>Logically, of course, it is not possible to show that all confounders have been measured, and in some cases it may be clear that they have not. Furthermore, the hypothetical causal framework may be uncertain, especially in the early stages of an investigating a research question.</p>
+<p>Also, measurement error in predictors is common; this may arise in some cases because the study has only measured proxies for the causal variables which actually confound a predictor of interest.</p>
+<p>Finally, DGP in the structural model cannot be taken for granted.</p>
 </div>
 
 
