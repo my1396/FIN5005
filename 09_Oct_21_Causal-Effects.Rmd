@@ -61,15 +61,17 @@ plot_png <- function(p, f_name, width, height, ppi=300){
 
 
 
+## Introduction Case
 
 The Heart and Estrogen/Progestin Study (HERS) is a clinical trial of hormone therapy for prevention of recurrent heart attacks and death among post-menopausal women with existing coronary heart disease. 
 
 In this exercise we will study how different variables may influence the glucose level in the blood for the non-diabetic women in the cohort, in particular we are interested to see if exercise may help to reduce the glucose level 
 
-```{r}
+```{r paged.print=TRUE}
 # load data
 hers <- read.table("https://raw.githubusercontent.com/my1396/course_dataset/refs/heads/main/hers.txt",
                    sep="\t", header=T, na.strings=".")
+hers %>% head(20)
 ```
 
 Women with diabetes are excluded because the research question is whether exercise might help to prevent progression to diabetes among women at risk, and because the causal determinants of glucose may be different in that group.
@@ -79,6 +81,7 @@ Women with diabetes are excluded because the research question is whether exerci
 hers.no <- hers[hers$diabetes==0, ]
 ```
 
+### Descriptive Analysis
 
 We will start out by investigating how the glucose levels are for women who exercise at least three times a week (coded as exercise=1) and women who exercise less than three times a week (coded as exercise=0).
 
