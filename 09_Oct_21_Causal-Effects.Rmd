@@ -1,0 +1,300 @@
+---
+title: "Causal Effects"
+author: "Menghan Yuan"
+date: "Oct 23, 2024"
+output: 
+    bookdown::html_document2:
+        mathjax: "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML.js"
+        self_contained: false
+        toc: true
+        toc_float: true
+        toc_depth: 4
+        number_sections: false
+        df_print: paged
+        css: "style.css"
+editor_options: 
+  chunk_output_type: console
+---
+
+<SCRIPT language="JavaScript" SRC="my_jxscript.js"></SCRIPT>
+
+<a class="top-link" href="#top" id="js-top">↑</a>
+
+```{r setup, include=F, echo=F}
+library(knitr) # load packages
+library(kableExtra)
+library(tidyverse)
+library(latex2exp)
+library(stargazer)
+library(bookdown)
+library(cowplot)
+
+# don't show code unless we explicitly set echo = TRUE
+opts_chunk$set(echo = TRUE, message=FALSE, warning = FALSE, fig.align="center", fig.pos = "H", paged.print=FALSE)
+opts <- options(knitr.kable.NA = "")
+
+## control long outputs by using eg `max.lines = 10`
+hook_output_default <- knitr::knit_hooks$get('output')
+truncate_to_lines <- function(x, n) {
+   if (!is.null(n)) {
+      x = unlist(stringr::str_split(x, '\n'))
+      if (length(x) > n) {
+         # truncate the output
+         x = c(head(x, n), '...\n')
+      }
+      x = paste(x, collapse = '\n') # paste first n lines together
+   }
+   x
+}
+knitr::knit_hooks$set(output = function(x, options) {
+   max.lines <- options$max.lines
+   x <- truncate_to_lines(x, max.lines)
+   hook_output_default(x, options)
+})
+plot_png <- function(p, f_name, width, height, ppi=300){
+    # a plot wrapper
+    png(f_name, width=width*ppi, height=height*ppi, res=ppi)
+    print (p)
+    dev.off()
+}
+```
+
+
+
+
+The Heart and Estrogen/Progestin Study (HERS) is a clinical trial of hormone therapy for prevention of recurrent heart attacks and death among post-menopausal women with existing coronary heart disease. 
+
+In this exercise we will study how different variables may influence the glucose level in the blood for the non-diabetic women in the cohort, in particular we are interested to see if exercise may help to reduce the glucose level 
+
+```{r}
+# load data
+hers <- read.table("https://raw.githubusercontent.com/my1396/course_dataset/refs/heads/main/hers.txt",
+                   sep="\t", header=T, na.strings=".")
+```
+
+Women with diabetes are excluded because the research question is whether exercise might help to prevent progression to diabetes among women at risk, and because the causal determinants of glucose may be different in that group.
+
+```{r}
+# create a subset of interest
+hers.no <- hers[hers$diabetes==0, ]
+```
+
+
+We will start out by investigating how the glucose levels are for women who exercise at least three times a week (coded as exercise=1) and women who exercise less than three times a week (coded as exercise=0).
+
+Make a summary and boxplot of the glucose levels according to the level of exercise:
+
+```{r}
+summary(hers.no$glucose[hers.no$exercise==0])
+summary(hers.no$glucose[hers.no$exercise==1])
+boxplot(hers.no$glucose~hers.no$exercise)
+```
+
+
+Test if there is a difference in glucose level and make a confidence interval:
+```{r}
+t.test(glucose~exercise, var.equal=T, data=hers.no)
+```
+
+Perform a simple linear regression with glucose level as outcome and exercise as predictor:
+```{r}
+fit.simple <- lm(glucose~exercise,data=hers.no)
+summary(fit.simple)
+```
+
+The women who exercise at least three times a week and the women who exercise less than three times a week may differ in many ways. For example they may be younger and have a lower BMI (body mass index). We will therefore perform a multiple linear regression analysis where we adjust for these to variables.
+
+Perform a simple linear regression with glucose level as outcome and exercise, age, and BMI as predictors:
+```{r echo=FALSE, results='asis'}
+fit.multi <- lm(glucose~exercise+age+BMI,data=hers.no)
+stargazer(fit.simple, fit.multi, type="html",
+          title="Regression results for the effect of exercises on the glucose level.",
+          notes="<span>&#42;&#42;&#42;</span>: p<0.01; <span>&#42;&#42;</span>: <strong>p<0.05</strong>; <span>&#42;</span>: p<0.1",
+          notes.append=F)
+```
+
+
+___
+
+
+## Pattern 1
+
+$$
+D \overset{?}{\rightarrow} X \rightarrow Y
+$$
+We simulate data based on the following DGP.
+
+$$
+y = \beta_0 + \beta_1 x + \varepsilon.
+$$
+where $\beta_0=0.2$ and $\beta_1=1$.
+
+Data set up.
+```{r}
+D <- rep(c(0, 1), each = 4)
+X <- seq(from=1, by=1, length=length(D))
+beta0 <- 0.2
+beta1 <- 1
+epsilon <- rnorm(n=length(D), sd=0.01)
+y <- beta0 + beta1*X + epsilon
+data <- tibble("D"=factor(D), X, y)
+data
+```
+
+
+```{r echo=FALSE, include=FALSE}
+mytheme <- theme(axis.title = element_text(size=rel(1.2)),
+          axis.text = element_text(size=rel(1.2)),
+          panel.grid = element_blank()
+          )
+p1 <- ggplot(data=data, aes(x=D,y=y)) +
+    geom_point(fill="#797D7F", color="#797D7F", shape=19, size=3) +
+    geom_text(aes(label=D), hjust=-0.6, vjust=0.4, size=6) +
+    scale_y_continuous(limits=c(0,10)) +
+    labs(title="y ~ D, D is treatment") +
+    mytheme
+    
+p2 <- ggplot(data=data, aes(x=X,y=y)) +
+    geom_point(fill="#797D7F", color="#797D7F", shape=19, size=3) +
+    geom_line(aes(linetype = D)) +
+    geom_text(aes(label=D), hjust=-0.6, vjust=0.4, size=6) +
+    scale_y_continuous(limits=c(0,10)) +
+    scale_linetype_manual(values = c("0"="twodash", "1"="dotted"),
+                          labels = c("0"="D=0", "1"="D=1")) +
+    labs(title="y ~ X, X is control variable") +
+    mytheme +
+    theme(legend.position = c(0.2,0.9), 
+          legend.direction = "horizontal",
+          legend.title = element_blank(),
+          legend.text = element_text(size=rel(1.2)),
+          legend.margin = margin(t=0, b=0, r=2, unit="mm") ,
+          legend.box.background = element_rect(colour = "black", size=1)
+          )
+
+p <- plot_grid(p1, p2, align="vh", nrow=1)
+f_name <- "images/confounding_suspicious_simulation.png"
+plot_png(p, f_name, 10.9, 4)
+```
+
+
+```{r confound-suspicious, fig.cap="Suspicious correlation due to confounding.", out.width = "100%", echo=FALSE}
+include_graphics(f_name)
+```
+
+Run the following three regressions.
+```{r}
+confound1_unadjusted <- lm(y~D, data=data)
+confound1_adjusted1 <- lm(y~D+X, data=data)
+confound1_adjusted2 <- lm(y~X, data=data)
+```
+
+
+```{r echo=FALSE, results='asis'}
+stargazer(confound1_unadjusted, confound1_adjusted1, confound1_adjusted2, 
+          type="html", 
+          title="Regression Results for Simulated Confounding — Suspicious Correlation", 
+          column.labels = c("Unadjusted", "Conditional on $X$", "True model"),
+          notes="<span>&#42;&#42;&#42;</span>: p<0.01; <span>&#42;&#42;</span>: <strong>p<0.05</strong>; <span>&#42;</span>: p<0.1", notes.append=F)
+```
+
+
+___
+
+## Pattern 2
+
+```{r confound-negative-DAG, fig.cap="Directional Acyclic Graph (DAG): Negative confounding.", out.width = "30%", echo=FALSE}
+include_graphics("images/DAG_negative_confounding.png")
+```
+
+
+We simulate data based on the following DGP.
+
+$$
+y = \beta_0 + \beta_1 x + \beta_2 D + \varepsilon ,
+$$
+where $\beta_0=0.2$, $\beta_1=1$ and $\beta_2=-4$.
+
+
+Data set up.
+```{r}
+D <- rep(c(0, 1), each = 4)
+X <- seq(from=1, by=1, length=length(D))
+beta0 <- 0.2
+beta1 <- 1
+beta2 <- -4
+epsilon <- rnorm(n=length(D), sd=0.01)
+y <- beta0 + beta1*X + beta2*D + epsilon
+data <- tibble("D"=factor(D), X, y)
+data
+```
+
+
+
+```{r echo=FALSE, include=FALSE}
+p1 <- ggplot(data=data, aes(x=D,y=y)) +
+    geom_point(fill="#797D7F", color="#797D7F", shape=19, size=3) +
+    geom_text(aes(label=D), hjust=-0.6, vjust=0.4, size=6) +
+    scale_y_continuous(limits=c(0,6)) +
+    labs(title="y ~ D, D is treatment") +
+    mytheme
+    
+p2 <- ggplot(data=data, aes(x=X,y=y)) +
+    geom_point(fill="#797D7F", color="#797D7F", shape=19, size=3) +
+    geom_line(aes(linetype = D)) +
+    geom_text(aes(label=D), hjust=-0.6, vjust=0.4, size=6) +
+    scale_y_continuous(limits=c(0,6)) +
+    scale_linetype_manual(values = c("0"="twodash", "1"="dotted"),
+                          labels = c("0"="D=0", "1"="D=1")) +
+    labs(title="y ~ X, X is control variable") +
+    mytheme +
+    theme(legend.position = c(0.2,0.9), 
+          legend.direction = "horizontal",
+          legend.title = element_blank(),
+          legend.text = element_text(size=rel(1.2)),
+          legend.margin = margin(t=0, b=0, r=2, unit="mm") ,
+          legend.box.background = element_rect(colour = "black", size=1)
+          )
+
+p <- plot_grid(p1, p2, align="vh", nrow=1)
+f_name <- "images/confounding_negative_simulation.png"
+plot_png(p, f_name, 10.9, 4)
+```
+
+
+
+```{r confound-negative-sim, fig.cap="Negative confounding.", out.width = "100%", echo=FALSE}
+include_graphics(f_name)
+```
+
+
+Run the following two regressions.
+```{r}
+confound2_unadjusted <- lm(y~D, data=data)
+confound2_adjusted <- lm(y~D+X, data=data)
+```
+
+
+```{r echo=FALSE, results='asis'}
+stargazer(confound2_unadjusted, confound2_adjusted,
+          type="html", 
+          title="Regression Results for Simulated Negative Confounding", 
+          column.labels = c("Unadjusted", "Conditional on $X$"),
+          notes="<span>&#42;&#42;&#42;</span>: p<0.01; <span>&#42;&#42;</span>: <strong>p<0.05</strong>; <span>&#42;</span>: p<0.1", notes.append=F)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

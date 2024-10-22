@@ -1,0 +1,1254 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Menghan Yuan" />
+
+
+<title>Causal Effects</title>
+
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Course Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Causal Effects</h1>
+<h4 class="author">Menghan Yuan</h4>
+<h4 class="date">Oct 23, 2024</h4>
+
+</div>
+
+
+<SCRIPT language="JavaScript" SRC="my_jxscript.js"></SCRIPT>
+<p><a class="top-link" href="#top" id="js-top">↑</a></p>
+<p>The Heart and Estrogen/Progestin Study (HERS) is a clinical trial of hormone therapy for prevention of recurrent heart attacks and death among post-menopausal women with existing coronary heart disease.</p>
+<p>In this exercise we will study how different variables may influence the glucose level in the blood for the non-diabetic women in the cohort, in particular we are interested to see if exercise may help to reduce the glucose level</p>
+<pre class="r"><code># load data
+hers &lt;- read.table(&quot;https://raw.githubusercontent.com/my1396/course_dataset/refs/heads/main/hers.txt&quot;,
+                   sep=&quot;\t&quot;, header=T, na.strings=&quot;.&quot;)</code></pre>
+<p>Women with diabetes are excluded because the research question is whether exercise might help to prevent progression to diabetes among women at risk, and because the causal determinants of glucose may be different in that group.</p>
+<pre class="r"><code># create a subset of interest
+hers.no &lt;- hers[hers$diabetes==0, ]</code></pre>
+<p>We will start out by investigating how the glucose levels are for women who exercise at least three times a week (coded as exercise=1) and women who exercise less than three times a week (coded as exercise=0).</p>
+<p>Make a summary and boxplot of the glucose levels according to the level of exercise:</p>
+<pre class="r"><code>summary(hers.no$glucose[hers.no$exercise==0])</code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##   67.00   90.00   96.00   97.36  103.00  125.00</code></pre>
+<pre class="r"><code>summary(hers.no$glucose[hers.no$exercise==1])</code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##   47.00   89.00   95.00   95.67  101.00  125.00</code></pre>
+<pre class="r"><code>boxplot(hers.no$glucose~hers.no$exercise)</code></pre>
+<p><img src="09_Oct_21_Causal-Effects_files/figure-html/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Test if there is a difference in glucose level and make a confidence interval:</p>
+<pre class="r"><code>t.test(glucose~exercise, var.equal=T, data=hers.no)</code></pre>
+<pre><code>## 
+##  Two Sample t-test
+## 
+## data:  glucose by exercise
+## t = 3.8685, df = 2030, p-value = 0.000113
+## alternative hypothesis: true difference in means between group 0 and group 1 is not equal to 0
+## 95 percent confidence interval:
+##  0.8346242 2.5509539
+## sample estimates:
+## mean in group 0 mean in group 1 
+##        97.36104        95.66825</code></pre>
+<p>Perform a simple linear regression with glucose level as outcome and exercise as predictor:</p>
+<pre class="r"><code>fit.simple &lt;- lm(glucose~exercise,data=hers.no)
+summary(fit.simple)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = glucose ~ exercise, data = hers.no)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -48.668  -6.668  -0.668   5.639  29.332 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  97.3610     0.2815 345.848  &lt; 2e-16 ***
+## exercise     -1.6928     0.4376  -3.868 0.000113 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 9.715 on 2030 degrees of freedom
+## Multiple R-squared:  0.007318,   Adjusted R-squared:  0.006829 
+## F-statistic: 14.97 on 1 and 2030 DF,  p-value: 0.000113</code></pre>
+<p>The women who exercise at least three times a week and the women who exercise less than three times a week may differ in many ways. For example they may be younger and have a lower BMI (body mass index). We will therefore perform a multiple linear regression analysis where we adjust for these to variables.</p>
+<p>Perform a simple linear regression with glucose level as outcome and exercise, age, and BMI as predictors:</p>
+<table style="text-align:center">
+<caption>
+<strong>Regression results for the effect of exercises on the glucose level.</strong>
+</caption>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+glucose
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1)
+</td>
+<td>
+(2)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+exercise
+</td>
+<td>
+-1.693<sup>***</sup>
+</td>
+<td>
+-0.905<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.438)
+</td>
+<td>
+(0.430)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+age
+</td>
+<td>
+</td>
+<td>
+0.057<sup>*</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(0.031)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+BMI
+</td>
+<td>
+</td>
+<td>
+0.485<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(0.042)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+97.361<sup>***</sup>
+</td>
+<td>
+79.854<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.282)
+</td>
+<td>
+(2.563)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+2,032
+</td>
+<td>
+2,030
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.007
+</td>
+<td>
+0.070
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.007
+</td>
+<td>
+0.068
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error
+</td>
+<td>
+9.715 (df = 2030)
+</td>
+<td>
+9.413 (df = 2026)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+14.965<sup>***</sup> (df = 1; 2030)
+</td>
+<td>
+50.570<sup>***</sup> (df = 3; 2026)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td colspan="2" style="text-align:right">
+<span>***</span>: p&lt;0.01; <span>**</span>: <strong>p&lt;0.05</strong>; <span>*</span>: p&lt;0.1
+</td>
+</tr>
+</table>
+<hr />
+<div id="pattern-1" class="section level2">
+<h2>Pattern 1</h2>
+<p><span class="math display">\[
+D \overset{?}{\rightarrow} X \rightarrow Y
+\]</span>
+We simulate data based on the following DGP.</p>
+<p><span class="math display">\[
+y = \beta_0 + \beta_1 x + \varepsilon.
+\]</span>
+where <span class="math inline">\(\beta_0=0.2\)</span> and <span class="math inline">\(\beta_1=1\)</span>.</p>
+<p>Data set up.</p>
+<pre class="r"><code>D &lt;- rep(c(0, 1), each = 4)
+X &lt;- seq(from=1, by=1, length=length(D))
+beta0 &lt;- 0.2
+beta1 &lt;- 1
+epsilon &lt;- rnorm(n=length(D), sd=0.01)
+y &lt;- beta0 + beta1*X + epsilon
+data &lt;- tibble(&quot;D&quot;=factor(D), X, y)
+data</code></pre>
+<pre><code>## # A tibble: 8 × 3
+##   D         X     y
+##   &lt;fct&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 0         1  1.20
+## 2 0         2  2.22
+## 3 0         3  3.20
+## 4 0         4  4.20
+## 5 1         5  5.20
+## 6 1         6  6.20
+## 7 1         7  7.21
+## 8 1         8  8.19</code></pre>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:confound-suspicious"></span>
+<img src="images/confounding_suspicious_simulation.png" alt="Suspicious correlation due to confounding." width="100%" />
+<p class="caption">
+Fig. 1: Suspicious correlation due to confounding.
+</p>
+</div>
+<p>Run the following three regressions.</p>
+<pre class="r"><code>confound1_unadjusted &lt;- lm(y~D, data=data)
+confound1_adjusted1 &lt;- lm(y~D+X, data=data)
+confound1_adjusted2 &lt;- lm(y~X, data=data)</code></pre>
+<table style="text-align:center">
+<caption>
+<strong>Regression Results for Simulated Confounding — Suspicious Correlation</strong>
+</caption>
+<tr>
+<td colspan="4" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="3">
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="3">
+y
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+Unadjusted
+</td>
+<td>
+Conditional on X
+</td>
+<td>
+True model
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1)
+</td>
+<td>
+(2)
+</td>
+<td>
+(3)
+</td>
+</tr>
+<tr>
+<td colspan="4" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+D1
+</td>
+<td>
+3.995<sup>***</sup>
+</td>
+<td>
+-0.003
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.912)
+</td>
+<td>
+(0.012)
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+X
+</td>
+<td>
+</td>
+<td>
+1.000<sup>***</sup>
+</td>
+<td>
+0.999<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(0.003)
+</td>
+<td>
+(0.001)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+2.704<sup>***</sup>
+</td>
+<td>
+0.206<sup>***</sup>
+</td>
+<td>
+0.207<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.645)
+</td>
+<td>
+(0.008)
+</td>
+<td>
+(0.006)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="4" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+8
+</td>
+<td>
+8
+</td>
+<td>
+8
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.762
+</td>
+<td>
+1.000
+</td>
+<td>
+1.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.722
+</td>
+<td>
+1.000
+</td>
+<td>
+1.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error
+</td>
+<td>
+1.290 (df = 6)
+</td>
+<td>
+0.008 (df = 5)
+</td>
+<td>
+0.007 (df = 6)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+19.169<sup>***</sup> (df = 1; 6)
+</td>
+<td>
+325,352.300<sup>***</sup> (df = 2; 5)
+</td>
+<td>
+769,487.000<sup>***</sup> (df = 1; 6)
+</td>
+</tr>
+<tr>
+<td colspan="4" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td colspan="3" style="text-align:right">
+<span>***</span>: p&lt;0.01; <span>**</span>: <strong>p&lt;0.05</strong>; <span>*</span>: p&lt;0.1
+</td>
+</tr>
+</table>
+<hr />
+</div>
+<div id="pattern-2" class="section level2">
+<h2>Pattern 2</h2>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:confound-negative-DAG"></span>
+<img src="images/DAG_negative_confounding.png" alt="Directional Acyclic Graph (DAG): Negative confounding." width="30%" />
+<p class="caption">
+Fig. 2: Directional Acyclic Graph (DAG): Negative confounding.
+</p>
+</div>
+<p>We simulate data based on the following DGP.</p>
+<p><span class="math display">\[
+y = \beta_0 + \beta_1 x + \beta_2 D + \varepsilon ,
+\]</span>
+where <span class="math inline">\(\beta_0=0.2\)</span>, <span class="math inline">\(\beta_1=1\)</span> and <span class="math inline">\(\beta_2=-4\)</span>.</p>
+<p>Data set up.</p>
+<pre class="r"><code>D &lt;- rep(c(0, 1), each = 4)
+X &lt;- seq(from=1, by=1, length=length(D))
+beta0 &lt;- 0.2
+beta1 &lt;- 1
+beta2 &lt;- -4
+epsilon &lt;- rnorm(n=length(D), sd=0.01)
+y &lt;- beta0 + beta1*X + beta2*D + epsilon
+data &lt;- tibble(&quot;D&quot;=factor(D), X, y)
+data</code></pre>
+<pre><code>## # A tibble: 8 × 3
+##   D         X     y
+##   &lt;fct&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 0         1  1.19
+## 2 0         2  2.19
+## 3 0         3  3.21
+## 4 0         4  4.20
+## 5 1         5  1.19
+## 6 1         6  2.20
+## 7 1         7  3.20
+## 8 1         8  4.20</code></pre>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:confound-negative-sim"></span>
+<img src="images/confounding_negative_simulation.png" alt="Negative confounding." width="100%" />
+<p class="caption">
+Fig. 3: Negative confounding.
+</p>
+</div>
+<p>Run the following two regressions.</p>
+<pre class="r"><code>confound2_unadjusted &lt;- lm(y~D, data=data)
+confound2_adjusted &lt;- lm(y~D+X, data=data)</code></pre>
+<table style="text-align:center">
+<caption>
+<strong>Regression Results for Simulated Negative Confounding</strong>
+</caption>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+y
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+Unadjusted
+</td>
+<td>
+Conditional on X
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1)
+</td>
+<td>
+(2)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+D1
+</td>
+<td>
+0.00004
+</td>
+<td>
+-4.012<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.916)
+</td>
+<td>
+(0.009)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+X
+</td>
+<td>
+</td>
+<td>
+1.003<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(0.002)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+2.698<sup>***</sup>
+</td>
+<td>
+0.191<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.647)
+</td>
+<td>
+(0.006)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+8
+</td>
+<td>
+8
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.000
+</td>
+<td>
+1.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+-0.167
+</td>
+<td>
+1.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error
+</td>
+<td>
+1.295 (df = 6)
+</td>
+<td>
+0.007 (df = 5)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+0.000 (df = 1; 6)
+</td>
+<td>
+117,054.500<sup>***</sup> (df = 2; 5)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td colspan="2" style="text-align:right">
+<span>***</span>: p&lt;0.01; <span>**</span>: <strong>p&lt;0.05</strong>; <span>*</span>: p&lt;0.1
+</td>
+</tr>
+</table>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML.js";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

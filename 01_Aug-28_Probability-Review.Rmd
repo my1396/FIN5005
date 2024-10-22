@@ -956,7 +956,7 @@ $$
 
 # Reading
 
-J. Evans (2021), *Business analytics: methods, models, and decisions*, chaps 2-6.
+Evans J. (2021), *Business analytics: methods, models, and decisions*, chaps 2-6.
 
 
 

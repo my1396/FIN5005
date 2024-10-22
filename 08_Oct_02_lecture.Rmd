@@ -538,22 +538,20 @@ stargazer(dummy_lm, type="html",
 Plugging in the estimates, we write the regression model as
 
 $$
-\log (wage) = 2.79 - 0.06\, Female + 0.35\, Married - 0.22\, Female \times Married + e
+\widehat{\log (wage)} = 2.79 - 0.06\, Female + 0.35\, Married - 0.22\, Female \times Married
 $$
-Note that we have the log transformation for the wage variable. This changes the interpretation of the coefficients. The coefficient can be interpreted as a one-unit change in the independent variable is associated with a 100 times the coefficient percent change in the dependent variable.
-
-
+Note that we have the **log transformation** for the wage variable. This changes the interpretation of the coefficients. The coefficient can be interpreted as a one-unit change in the independent variable is associated with a 100 times the coefficient percent change in the (original) dependent variable.
 
 
 The regression results show that 
 
-- the intercept $\color{#008B45FF}{\beta_0}$ ($2.79$) indicates that the expected log(earnings) for unmarried men is $2.79$;
+- the intercept $\color{#008B45FF}{\beta_0}$ ($2.79$) indicates that the expected log(wage) for unmarried men is $2.79$;
 
-- the coefficient $\color{red}{\beta_1}$ ($-0.06$) indicates that the effects of sex on expected earnings for unmarried wage earners is 6% lower. 
-    - That is, unmarried female earn 6% less than unmarried male.
+- the coefficient $\color{red}{\beta_1}$ ($-0.06$) indicates that the effects of sex on expected earnings for unmarried wage earners is $6\%$ lower. 
+    - That is, unmarried female earn $6\%$ less than unmarried male.
 
-- the coefficient $\color{#1F77B4FF}{\beta_2}$ ($0.35$) indicates that the effects of marriage on expected earnings for males is 35%. 
-    - That is married male earns 35% more than unmarried male.
+- the coefficient $\color{#1F77B4FF}{\beta_2}$ ($0.35$) indicates that the effects of marriage on expected earnings for males is $35\%$. 
+    - That is married male earns $35\%$ more than unmarried male.
 
 - the coefficient $\color{#9467BDFF}{\beta_3}$ ($-0.22$) indicates that 
     - $\beta_3=(\mu_{11} - \mu_{10}) - (\mu_{01} - \mu_{00})$: difference between the effects of marriage on expected earnings among women and men.
@@ -687,7 +685,7 @@ stargazer(dummy_lm_restricted, dummy_lm, type="html", title="Regression Results 
 &nbsp;
 
 
-**Two-way Anova test.**
+**Two-way Anova test**
 
 ```{r}
 # Compare the restricted with the full model
