@@ -159,6 +159,8 @@ Confounders often explain some of the association of a predictor of interest wit
 
 However, this is not always true. There are a range of Confounding Patterns.
 Here we will see two patterns in what follows. 
+
+
 ___
 
 
