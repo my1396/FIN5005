@@ -360,8 +360,23 @@ hers %&gt;% head(20)</code></pre>
   </script>
 </div>
 <p>Women with diabetes are excluded because the research question is whether exercise might help to prevent progression to diabetes among women at risk, and because the causal determinants of glucose may be different in that group.</p>
-<pre class="r"><code># create a subset of interest
-hers.no &lt;- hers[hers$diabetes==0, ]</code></pre>
+<pre class="r"><code># create a sample of interest
+hers.no &lt;- hers[hers$diabetes==0, ]
+hers.no %&gt;% select(glucose, exercise, age, BMI) %&gt;% str()</code></pre>
+<pre><code>## &#39;data.frame&#39;:    2032 obs. of  4 variables:
+##  $ glucose : int  84 111 94 101 116 95 105 98 111 95 ...
+##  $ exercise: int  0 0 0 0 0 1 1 0 0 0 ...
+##  $ age     : int  70 62 64 65 68 69 61 62 72 73 ...
+##  $ BMI     : num  23.7 28.6 24.4 21.9 29 ...</code></pre>
+<pre class="r"><code>hers.no %&gt;% select(glucose, exercise, age, BMI) %&gt;% summary()</code></pre>
+<pre><code>##     glucose          exercise           age             BMI       
+##  Min.   : 47.00   Min.   :0.0000   Min.   :44.00   Min.   :15.21  
+##  1st Qu.: 90.00   1st Qu.:0.0000   1st Qu.:62.00   1st Qu.:24.20  
+##  Median : 96.00   Median :0.0000   Median :67.00   Median :26.89  
+##  Mean   : 96.66   Mean   :0.4139   Mean   :66.89   Mean   :27.67  
+##  3rd Qu.:102.00   3rd Qu.:1.0000   3rd Qu.:72.00   3rd Qu.:30.27  
+##  Max.   :125.00   Max.   :1.0000   Max.   :79.00   Max.   :54.13  
+##                                                    NA&#39;s   :2</code></pre>
 <div id="descriptive-analysis" class="section level3">
 <h3>Descriptive Analysis</h3>
 <p>We will start out by investigating how the glucose levels are for women who exercise at least three times a week (coded as exercise=1) and women who exercise less than three times a week (coded as exercise=0).</p>
@@ -378,9 +393,9 @@ hers.no &lt;- hers[hers$diabetes==0, ]</code></pre>
 <pre class="r"><code>summary(hers.no$glucose[hers.no$exercise==1])</code></pre>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##   47.00   89.00   95.00   95.67  101.00  125.00</code></pre>
-<pre class="r"><code>boxplot(hers.no$glucose~hers.no$exercise)</code></pre>
+<pre class="r"><code>boxplot(hers.no$glucose~hers.no$exercise, xlab=&quot;Exercise&quot;, ylab=&quot;Glucose (mg/dL)&quot;)</code></pre>
 <p><img src="09_Oct_21_Causal-Effects_files/figure-html/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>Test if there is a difference in glucose level and make a confidence interval:</p>
+<p>Test if there is a statistically significant difference in glucose levels using <em>t</em>-test for equal sample means.</p>
 <pre class="r"><code>t.test(glucose~exercise, var.equal=T, data=hers.no)</code></pre>
 <pre><code>## 
 ##  Two Sample t-test
@@ -414,12 +429,12 @@ summary(fit.simple)</code></pre>
 ## Residual standard error: 9.715 on 2030 degrees of freedom
 ## Multiple R-squared:  0.007318,   Adjusted R-squared:  0.006829 
 ## F-statistic: 14.97 on 1 and 2030 DF,  p-value: 0.000113</code></pre>
-<p>The coefficient estimate for <code>exercise</code> shows that average baseline glucose levels were about 1.7 mg/dL lower among women who exercised at least three times a week than among women who exercised less. This difference is statistically significant (<span class="math inline">\(t=-3:87\)</span>; <span class="math inline">\(P &lt; 1\%\)</span>).</p>
+<p>The coefficient estimate for <code>exercise</code> shows that average baseline glucose levels were about 1.7 mg/dL lower among women who exercised at least three times a week than among women who exercised less. This difference is statistically significant (<span class="math inline">\(t=-3.87\)</span>; <span class="math inline">\(P &lt; 1\%\)</span>).</p>
 <p><strong>Why the simple regression might be problematic?</strong></p>
-<p>The women who exercise at least three times a week and the women who exercise less than three times a week may differ in many ways.
-For example they may be younger and have a lower BMI (body mass index).
-This implies that the lower average glucose we observe among women who exercise could be due at least in part to differences in these other predictors.
-In other words, <code>age</code> and <code>BMI</code> can be potential confounders that confound the effect of exercise on glucose levels.</p>
+<p>The women who exercise at least three times a week and the women who exercise less than three times a week may differ in many ways.</p>
+<p>For example they may be younger and have a lower BMI (body mass index).
+This implies that the lower average glucose we observe among women who exercise could be due at least in part to differences in these other predictors.</p>
+<p>In other words, <code>age</code> and <code>BMI</code> can be <span style="color:#337ab7">potential confounders</span> that confound the effect of exercise on glucose levels.</p>
 <p><strong>What is a fix for the confounding effect?</strong></p>
 <p>Intuitively, under these conditions, it is important that our estimate of the difference in average glucose levels associated with exercise be “adjusted” for the effects of these potential confounders of the unadjusted association.</p>
 <p>Technically, adjustment using a <em>multipredictor</em> regression model provides an estimate of the causal effect of exercise on average glucose levels, by <em>holding the other variables constant</em>.</p>
@@ -686,7 +701,7 @@ We simulate data based on the following DGP.</p>
 <p><span class="math display">\[
 y = \beta_0 + \beta_1 x + \varepsilon.
 \]</span>
-where <span class="math inline">\(\beta_0=0.2\)</span> and <span class="math inline">\(\beta_1=1\)</span>.</p>
+where <span class="math inline">\(\beta_0=0.2\)</span>, <span class="math inline">\(\beta_1=1\)</span> and <span class="math inline">\(\varepsilon \overset{\text{i.i.d}}{\sim} N(0, \sigma_\varepsilon^2)\)</span>, where we set <span class="math inline">\(\sigma_\varepsilon=0.01\)</span>.</p>
 <p>Data set up.</p>
 <pre class="r"><code>D &lt;- rep(c(0, 1), each = 4)
 X &lt;- seq(from=1, by=1, length=length(D))
@@ -988,7 +1003,7 @@ Fig. 2: Directional Acyclic Graph (DAG): Negative confounding.
 <p><span class="math display">\[
 y = \beta_0 + \beta_1 x + \beta_2 D + \varepsilon ,
 \]</span>
-where <span class="math inline">\(\beta_0=0.2\)</span>, <span class="math inline">\(\beta_1=1\)</span> and <span class="math inline">\(\beta_2=-4\)</span>.</p>
+where <span class="math inline">\(\beta_0=0.2\)</span>, <span class="math inline">\(\beta_1=1\)</span>, <span class="math inline">\(\beta_2=-4\)</span> and <span class="math inline">\(\varepsilon \overset{\text{i.i.d}}{\sim} N(0, \sigma_\varepsilon^2)\)</span>, where we set <span class="math inline">\(\sigma_\varepsilon=0.01\)</span>..</p>
 <p>Data set up.</p>
 <pre class="r"><code>D &lt;- rep(c(0, 1), each = 4)
 X &lt;- seq(from=1, by=1, length=length(D))
@@ -1234,6 +1249,7 @@ F Statistic
 <li>The two predictors are positively correlated, but have regression coefficients with the opposite sign.</li>
 </ul>
 <p>The example shown in Fig. <a href="#fig:confound-negative-sim">3</a> is of the second kind.</p>
+<hr />
 <p><strong>Confounding Is Difficult to Rule Out</strong></p>
 <p>The problem of confounding can be more resistant to multivariate regression modeling than the example might suggest. We assumed in that example that the model included all confounders of the effect of exercises on glucose levels.
 Nonetheless, for the multivariate linear model to control confounding successfully and estimate causal effects without bias, all potential confounders must have been:</p>
@@ -1246,6 +1262,7 @@ Nonetheless, for the multivariate linear model to control confounding successful
 <p>Also, measurement error in predictors is common; this may arise in some cases because the study has only measured proxies for the causal variables which actually confound a predictor of interest.</p>
 <p>In practice, <strong>many confounders can be unobservable</strong>. A classical question in labor economics is whether college education increases earnings. We have unobserved background factors, such as genetic, family environment, and mental ability. These factors are unobservable but play a significant role in influencing wage levels.</p>
 <p>Finally, DGP in the structural model cannot be taken for granted.</p>
+<hr />
 <p><strong>Mathematical formulation when we have unobserved confounders</strong></p>
 <p>We can write a full model for the response variable <span class="math inline">\(y\)</span> as
 <span class="math display">\[

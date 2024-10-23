@@ -79,8 +79,10 @@ hers %>% head(20)
 Women with diabetes are excluded because the research question is whether exercise might help to prevent progression to diabetes among women at risk, and because the causal determinants of glucose may be different in that group.
 
 ```{r}
-# create a subset of interest
+# create a sample of interest
 hers.no <- hers[hers$diabetes==0, ]
+hers.no %>% select(glucose, exercise, age, BMI) %>% str()
+hers.no %>% select(glucose, exercise, age, BMI) %>% summary()
 ```
 
 ### Descriptive Analysis
@@ -99,11 +101,11 @@ Make a summary and boxplot of the glucose levels according to the level of exerc
 ```{r}
 summary(hers.no$glucose[hers.no$exercise==0])
 summary(hers.no$glucose[hers.no$exercise==1])
-boxplot(hers.no$glucose~hers.no$exercise)
+boxplot(hers.no$glucose~hers.no$exercise, xlab="Exercise", ylab="Glucose (mg/dL)")
 ```
 
 
-Test if there is a difference in glucose level and make a confidence interval:
+Test if there is a statistically significant difference in glucose levels using *t*-test for equal sample means.
 ```{r}
 t.test(glucose~exercise, var.equal=T, data=hers.no)
 ```
@@ -115,21 +117,22 @@ summary(fit.simple)
 ```
 
 
-The coefficient estimate for `exercise` shows that average baseline glucose levels were about 1.7 mg/dL lower among women who exercised at least three times a week than among women who exercised less. This difference is statistically significant ($t=-3:87$; $P < 1\%$).
+The coefficient estimate for `exercise` shows that average baseline glucose levels were about 1.7 mg/dL lower among women who exercised at least three times a week than among women who exercised less. This difference is statistically significant ($t=-3.87$; $P < 1\%$).
 
 **Why the simple regression might be problematic?**
 
 The women who exercise at least three times a week and the women who exercise less than three times a week may differ in many ways. 
+
 For example they may be younger and have a lower BMI (body mass index). 
 This implies that the lower average glucose we observe among women who exercise could be due at least in part to differences in these other predictors. 
-In other words, `age` and `BMI` can be potential confounders that confound the effect of exercise on glucose levels. 
+
+In other words, `age` and `BMI` can be <span style='color:#337ab7'>potential confounders</span> that confound the effect of exercise on glucose levels. 
 
 **What is a fix for the confounding effect?**
 
 Intuitively, under these conditions, it is important that our estimate of the difference in average glucose levels associated with exercise be “adjusted” for the effects of these potential confounders of the unadjusted association. 
 
 Technically, adjustment using a *multipredictor* regression model provides an estimate of the causal effect of exercise on average glucose levels, by *holding the other variables constant*. 
-
 
 We will therefore perform a multiple linear regression analysis where we adjust for `age` and `BMI`. These two variable are commonly referred to as “control variables” or “conditional variables”.
 
@@ -188,7 +191,7 @@ We simulate data based on the following DGP.
 $$
 y = \beta_0 + \beta_1 x + \varepsilon.
 $$
-where $\beta_0=0.2$ and $\beta_1=1$.
+where $\beta_0=0.2$, $\beta_1=1$ and $\varepsilon \overset{\text{i.i.d}}{\sim} N(0, \sigma_\varepsilon^2)$, where we set $\sigma_\varepsilon=0.01$.
 
 Data set up.
 ```{r}
@@ -278,7 +281,7 @@ We simulate data based on the following DGP.
 $$
 y = \beta_0 + \beta_1 x + \beta_2 D + \varepsilon ,
 $$
-where $\beta_0=0.2$, $\beta_1=1$ and $\beta_2=-4$.
+where $\beta_0=0.2$, $\beta_1=1$, $\beta_2=-4$ and $\varepsilon \overset{\text{i.i.d}}{\sim} N(0, \sigma_\varepsilon^2)$, where we set $\sigma_\varepsilon=0.01$..
 
 
 Data set up.
@@ -356,6 +359,9 @@ In summary, the association between $D$ and $y$ is unmasked by adjustment for $X
 The example shown in Fig. \@ref(fig:confound-negative-sim) is of the second kind.
 
 
+___
+
+
 **Confounding Is Difficult to Rule Out**
 
 The problem of confounding can be more resistant to multivariate regression modeling than the example might suggest. We assumed in that example that the model included all confounders of the effect of exercises on glucose levels. 
@@ -373,6 +379,7 @@ In practice, **many confounders can be unobservable**.  A classical question in 
 
 Finally, DGP in the structural model cannot be taken for granted.
 
+___
 
 **Mathematical formulation when we have unobserved confounders**
 
