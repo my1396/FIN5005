@@ -138,7 +138,7 @@ Perform a multivariate regression with glucose level as outcome and exercise, ag
 fit.multi <- lm(glucose~exercise+age+BMI,data=hers.no)
 stargazer(fit.simple, fit.multi, type="html",
           title="Regression results for the effect of exercises on the glucose level.",
-          notes="<span>&#42;&#42;&#42;</span>: p<0.01; <span>&#42;&#42;</span>: <strong>p<0.05</strong>; <span>&#42;</span>: p<0.1",
+          notes="<span>&#42;&#42;&#42;</span>: p<0.01; <span>&#42;&#42;</span>: <strong>p<0.05</strong>; <span>&#42;</span>: p<0.1 <br> Standard errors in the parentheses.",
           notes.append=F)
 ```
 
@@ -255,7 +255,7 @@ stargazer(confound1_unadjusted, confound1_adjusted1, confound1_adjusted2,
           type="html", 
           title="Regression Results for Simulated Confounding — Suspicious Correlation", 
           column.labels = c("Unadjusted", "Conditional on $X$", "True model"),
-          notes="<span>&#42;&#42;&#42;</span>: p<0.01; <span>&#42;&#42;</span>: <strong>p<0.05</strong>; <span>&#42;</span>: p<0.1", notes.append=F)
+          notes="<span>&#42;&#42;&#42;</span>: p<0.01; <span>&#42;&#42;</span>: <strong>p<0.05</strong>; <span>&#42;</span>: p<0.1 <br> Standard errors in the parentheses.", notes.append=F)
 ```
 
 
@@ -345,7 +345,7 @@ stargazer(confound2_unadjusted, confound2_adjusted,
           type="html", 
           title="Regression Results for Simulated Negative Confounding", 
           column.labels = c("Unadjusted", "Conditional on $X$"),
-          notes="<span>&#42;&#42;&#42;</span>: p<0.01; <span>&#42;&#42;</span>: <strong>p<0.05</strong>; <span>&#42;</span>: p<0.1", notes.append=F)
+          notes="<span>&#42;&#42;&#42;</span>: p<0.01; <span>&#42;&#42;</span>: <strong>p<0.05</strong>; <span>&#42;</span>: p<0.1 <br> Standard errors in the parentheses.", notes.append=F)
 ```
 
 In summary, the association between $D$ and $y$ is unmasked by adjustment for $X$. Negative confounding can occur under the following circumstances:
@@ -393,7 +393,7 @@ $$
 In practice, it is rarely possible that we observe both outcomes when $x_1=1$ (given treatment) and when $x_1=0$ (non-treatment). We only observe the realized value either $h(1, \boldsymbol{x}_2, \boldsymbol{u})$ or $h(0, \boldsymbol{x}_2, \boldsymbol{u})$.
 
 <div class = "boxed">
-<p style="text-align:center; font-weight:bold;">Conditional Independence Assumption (CIA)</p>
+<p style="font-weight:bold;">Conditional Independence Assumption (CIA)</p>
 
 If conditional on $\boldsymbol{x}_2$, the random variables $x_1$ and $\boldsymbol{u}$ are statistically independent, then the regression coefficient of $x_1$ equals the average causal effect for $x_1$ on $y$ conditional on $\boldsymbol{x}_2$.
 </div>
