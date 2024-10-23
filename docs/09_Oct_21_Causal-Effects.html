@@ -661,7 +661,7 @@ F Statistic
 <p>In contrast, the adjusted coefficient for exercise in the multivariate regression takes account of the fact that women who exercise also have lower BMI and are slightly younger, all factors which are associated with differences in glucose levels.</p>
 <p>Confounders often explain some of the association of a predictor of interest with the outcome, so that the <strong>adjusted effect</strong>, which may have a causal interpretation, is often <span style="color:#337ab7">weaker</span> than the <strong>unadjusted effect</strong>.</p>
 <p>However, this is not always true. There are a range of Confounding Patterns.
-Here we will see two patterns in what follows.</p>
+Here we will show two patterns using simulated data in what follows.</p>
 <hr />
 </div>
 </div>
@@ -1235,8 +1235,8 @@ F Statistic
 </ul>
 <p>The example shown in Fig. <a href="#fig:confound-negative-sim">3</a> is of the second kind.</p>
 <p><strong>Confounding Is Difficult to Rule Out</strong></p>
-<p>The problem of confounding can be more resistant to multipredictor regression modeling than the example might suggest. We assumed in that example that the model included all confounders of the effect of exercises on glucose levels.
-Nonetheless, for the multipredictor linear model to control confounding successfully and estimate causal effects without bias, all potential confounders must have been:</p>
+<p>The problem of confounding can be more resistant to multivariate regression modeling than the example might suggest. We assumed in that example that the model included all confounders of the effect of exercises on glucose levels.
+Nonetheless, for the multivariate linear model to control confounding successfully and estimate causal effects without bias, all potential confounders must have been:</p>
 <ul>
 <li>Recognized and assessed by design in the study</li>
 <li>Measured without error</li>
@@ -1244,7 +1244,27 @@ Nonetheless, for the multipredictor linear model to control confounding successf
 </ul>
 <p>Logically, of course, it is not possible to show that all confounders have been measured, and in some cases it may be clear that they have not. Furthermore, the hypothetical causal framework may be uncertain, especially in the early stages of an investigating a research question.</p>
 <p>Also, measurement error in predictors is common; this may arise in some cases because the study has only measured proxies for the causal variables which actually confound a predictor of interest.</p>
+<p>In practice, <strong>many confounders can be unobservable</strong>. A classical question in labor economics is whether college education increases earnings. We have unobserved background factors, such as genetic, family environment, and mental ability. These factors are unobservable but play a significant role in influencing wage levels.</p>
 <p>Finally, DGP in the structural model cannot be taken for granted.</p>
+<p><strong>Mathematical formulation when we have unobserved confounders</strong></p>
+<p>We can write a full model for the response variable <span class="math inline">\(y\)</span> as
+<span class="math display">\[
+y=h(x_1, \boldsymbol{x}_2, \boldsymbol{u})
+\]</span>
+where <span class="math inline">\(x_1\)</span> and <span class="math inline">\(\boldsymbol{x}_2\)</span> are the observed variables, <span class="math inline">\(\boldsymbol{u}\)</span> is an unobserved factor, and <span class="math inline">\(h\)</span> is a functional relationship.</p>
+<p>We define the causal effect of <span class="math inline">\(x_1\)</span> (the variable of primary interest) within this model as the change in <span class="math inline">\(y\)</span> due to a change in <span class="math inline">\(x_1\)</span> holding the other variables <span class="math inline">\(\boldsymbol{x}_2\)</span> and <span class="math inline">\(\boldsymbol{u}\)</span> constant.</p>
+<p><span class="math inline">\(x_1\)</span> is often binary and takes values either <span class="math inline">\(0\)</span> or <span class="math inline">\(1\)</span>. In this case, the causal effect of <span class="math inline">\(x_1\)</span> and <span class="math inline">\(y\)</span> is given by</p>
+<p><span class="math display">\[
+C(x_1, \boldsymbol{x}_2, \boldsymbol{u}) = h(1, \boldsymbol{x}_2, \boldsymbol{u}) - h(0, \boldsymbol{x}_2, \boldsymbol{u}) .
+\]</span></p>
+<p>In practice, it is rarely possible that we observe both outcomes when <span class="math inline">\(x_1=1\)</span> (given treatment) and when <span class="math inline">\(x_1=0\)</span> (non-treatment). We only observe the realized value either <span class="math inline">\(h(1, \boldsymbol{x}_2, \boldsymbol{u})\)</span> or <span class="math inline">\(h(0, \boldsymbol{x}_2, \boldsymbol{u})\)</span>.</p>
+<div class="boxed">
+<p style="text-align:center; font-weight:bold;">
+Conditional Independence Assumption (CIA)
+</p>
+<p>If conditional on <span class="math inline">\(\boldsymbol{x}_2\)</span>, the random variables <span class="math inline">\(x_1\)</span> and <span class="math inline">\(\boldsymbol{u}\)</span> are statistically independent, then the regression coefficient of <span class="math inline">\(x_1\)</span> equals the average causal effect for <span class="math inline">\(x_1\)</span> on <span class="math inline">\(y\)</span> conditional on <span class="math inline">\(\boldsymbol{x}_2\)</span>.</p>
+</div>
+<p>In plain language, it says that whenever the unobservable is independent of the treatment variable (after conditioning on appropriate regressors) the regression derivative equals the average causal effect.</p>
 </div>
 
 
