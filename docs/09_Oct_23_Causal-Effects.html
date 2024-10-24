@@ -345,8 +345,8 @@ div.tocify {
 
 <SCRIPT language="JavaScript" SRC="my_jxscript.js"></SCRIPT>
 <p><a class="top-link" href="#top" id="js-top">↑</a></p>
-<div id="introduction-case" class="section level2">
-<h2>Introduction Case</h2>
+<div id="introductory-example" class="section level1">
+<h1>Introductory Example</h1>
 <p>The Heart and Estrogen/Progestin Study (HERS) is a clinical trial of hormone therapy for prevention of recurrent heart attacks and death among post-menopausal women with existing coronary heart disease.</p>
 <p>In this exercise we will study how different variables may influence the glucose level in the blood for the non-diabetic women in the cohort, in particular we are interested to see if exercise may help to reduce the glucose level.</p>
 <p>To answer this question definitively would require a randomized clinical trial, a difficult and expensive undertaking. As a result, research questions like this are often initially looked at using observational data. But this is complicated by the fact that people who exercise differ in many ways from those who do not, and some of the other differences might explain any unadjusted association between exercise and glucose level.</p>
@@ -377,8 +377,8 @@ hers.no %&gt;% select(glucose, exercise, age, BMI) %&gt;% str()</code></pre>
 ##  3rd Qu.:102.00   3rd Qu.:1.0000   3rd Qu.:72.00   3rd Qu.:30.27  
 ##  Max.   :125.00   Max.   :1.0000   Max.   :79.00   Max.   :54.13  
 ##                                                    NA&#39;s   :2</code></pre>
-<div id="descriptive-analysis" class="section level3">
-<h3>Descriptive Analysis</h3>
+<div id="descriptive-analysis" class="section level2">
+<h2>Descriptive Analysis</h2>
 <p>We will start out by investigating how the glucose levels are for women who exercise at least three times a week (coded as exercise=1) and women who exercise less than three times a week (coded as exercise=0).</p>
 <p><span class="math display">\[
 \text{exercise} = \begin{cases}
@@ -394,7 +394,7 @@ hers.no %&gt;% select(glucose, exercise, age, BMI) %&gt;% str()</code></pre>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##   47.00   89.00   95.00   95.67  101.00  125.00</code></pre>
 <pre class="r"><code>boxplot(hers.no$glucose~hers.no$exercise, xlab=&quot;Exercise&quot;, ylab=&quot;Glucose (mg/dL)&quot;)</code></pre>
-<p><img src="09_Oct_21_Causal-Effects_files/figure-html/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="09_Oct_23_Causal-Effects_files/figure-html/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Test if there is a statistically significant difference in glucose levels using <em>t</em>-test for equal sample means.</p>
 <pre class="r"><code>t.test(glucose~exercise, var.equal=T, data=hers.no)</code></pre>
 <pre><code>## 
@@ -666,7 +666,7 @@ F Statistic
 </td>
 </tr>
 </table>
-<p>We see that in the multiple regression where we control for age and BMI</p>
+<p>We see that in the multiple regression where we control for age and BMI:</p>
 <ul>
 <li><p>Exercise remains a statistically significant predictor of glucose levels after adjustment for age and BMI.</p></li>
 <li><p>Average glucose is estimated to be only about 0.9 mg/dL lower among women who exercise, holding the other three factors constant.</p></li>
@@ -680,8 +680,8 @@ Here we will show two patterns using simulated data in what follows.</p>
 <hr />
 </div>
 </div>
-<div id="counfounding-pattern-1" class="section level2">
-<h2>Counfounding Pattern 1</h2>
+<div id="counfounding-pattern-1" class="section level1">
+<h1>Counfounding Pattern 1</h1>
 <p>To fix ideas, we</p>
 <ul>
 <li>Let <span class="math inline">\(D\)</span> be a treatment indicator that takes values 0 (control group) or 1 (treatment group).</li>
@@ -692,7 +692,7 @@ Here we will show two patterns using simulated data in what follows.</p>
 <p>In plain language,</p>
 <ul>
 <li><span class="math inline">\(D\)</span> and <span class="math inline">\(y\)</span> are strongly associated in unadjusted analysis,</li>
-<li>after adjusted for <span class="math inline">\(X\)</span>, the variation in <span class="math inline">\(y\)</span> can be entirely explained by <span class="math inline">\(X\)</span>. That is, there is no association between <span class="math inline">\(y\)</span> and <span class="math inline">\(D\)</span> after adjustment for <span class="math inline">\(X\)</span>.</li>
+<li>After adjusted for <span class="math inline">\(X\)</span>, the variation in <span class="math inline">\(y\)</span> can be entirely explained by <span class="math inline">\(X\)</span>. That is, there is no association between <span class="math inline">\(y\)</span> and <span class="math inline">\(D\)</span> after adjustment for <span class="math inline">\(X\)</span>.</li>
 </ul>
 <p><span class="math display">\[
 D \overset{?}{\rightarrow} X \rightarrow Y
@@ -986,8 +986,8 @@ F Statistic
 </table>
 <hr />
 </div>
-<div id="counfounding-pattern-2" class="section level2">
-<h2>Counfounding Pattern 2</h2>
+<div id="counfounding-pattern-2" class="section level1">
+<h1>Counfounding Pattern 2</h1>
 <p>At the other extreme, we may find little or no association in unadjusted analysis, because it is <em>masked or negatively confounded by another predictor</em>.</p>
 <ul>
 <li>In the unadjusted analysis, there seems to be no association between <span class="math inline">\(y\)</span> and <span class="math inline">\(D\)</span>.</li>
@@ -1279,9 +1279,9 @@ C(x_1, \boldsymbol{x}_2, \boldsymbol{u}) = h(1, \boldsymbol{x}_2, \boldsymbol{u}
 <p style="font-weight:bold;">
 Conditional Independence Assumption (CIA)
 </p>
-<p>If conditional on <span class="math inline">\(\boldsymbol{x}_2\)</span>, the random variables <span class="math inline">\(x_1\)</span> and <span class="math inline">\(\boldsymbol{u}\)</span> are statistically independent, then the regression coefficient of <span class="math inline">\(x_1\)</span> equals the average causal effect for <span class="math inline">\(x_1\)</span> on <span class="math inline">\(y\)</span> conditional on <span class="math inline">\(\boldsymbol{x}_2\)</span>.</p>
+<p>If <span style="color:#337ab7">conditional on <span class="math inline">\(\boldsymbol{x}_2\)</span></span>, the random variables <span class="math inline">\(x_1\)</span> and <span class="math inline">\(\boldsymbol{u}\)</span> are statistically independent, then the regression coefficient of <span class="math inline">\(x_1\)</span> equals the average causal effect for <span class="math inline">\(x_1\)</span> on <span class="math inline">\(y\)</span> conditional on <span class="math inline">\(\boldsymbol{x}_2\)</span>.</p>
 </div>
-<p>In plain language, it says that whenever the unobservable is independent of the treatment variable (after conditioning on appropriate regressors) the regression derivative equals the average causal effect.</p>
+<p>In plain language, it says that whenever the unobservable is independent of the treatment variable, <span style="color:#337ab7">after conditioning on appropriate regressors</span>, the regression derivative equals the average causal effect.</p>
 </div>
 
 

@@ -20,8 +20,9 @@ title: "Course website for FIN 5005"
 
 [Oct 2, 2024, Linear Regression -- Lecture](08_Oct_02_lecture.html)
 
-[Oct 23, 2024, Causal Effects, Confounding -- Lecture](09_Oct_21_Causal-Effects.html)
+[Oct 23, 2024, Causal Effects, Confounding -- Lecture](09_Oct_23_Causal-Effects.html)
 
+[Oct 25, 2024, Binary Choice Model -- Lecture](10_Oct_25_LDV.html)
 
 This webpage is based on materials from Bent Nielsen’s Lecture Notes for Core Econometrics. 
 

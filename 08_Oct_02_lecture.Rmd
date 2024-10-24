@@ -432,7 +432,7 @@ math_df <- data.frame(scenario=c(1,2,3,4),
 colnames(math_df) <- c("Scenario", "$x_1$", "$x_2$", "$E[y|x_1,x_2]$")
 math_df %>% 
     knitr::kable(floating.environment="sidewaystable", escape=F) %>%
-    kable_styling(bootstrap_options = c("striped", "hover"), full_width = F, latex_options="scale_down") 
+    kable_styling(bootstrap_options = c("striped", "hover"), full_width = F) 
 ```
 
 We want to build a relationship between the four $\beta$'s and the four $\mu$'s. Plugging in the four scenarios, we have the following system of equations:

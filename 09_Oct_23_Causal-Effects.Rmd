@@ -61,7 +61,7 @@ plot_png <- function(p, f_name, width, height, ppi=300){
 
 
 
-## Introduction Case
+# Introductory Example
 
 The Heart and Estrogen/Progestin Study (HERS) is a clinical trial of hormone therapy for prevention of recurrent heart attacks and death among post-menopausal women with existing coronary heart disease. 
 
@@ -85,7 +85,7 @@ hers.no %>% select(glucose, exercise, age, BMI) %>% str()
 hers.no %>% select(glucose, exercise, age, BMI) %>% summary()
 ```
 
-### Descriptive Analysis
+## Descriptive Analysis
 
 We will start out by investigating how the glucose levels are for women who exercise at least three times a week (coded as exercise=1) and women who exercise less than three times a week (coded as exercise=0).
 
@@ -145,7 +145,7 @@ stargazer(fit.simple, fit.multi, type="html",
           notes.append=F)
 ```
 
-We see that in the multiple regression where we control for age and BMI
+We see that in the multiple regression where we control for age and BMI:
 
 - Exercise remains a statistically significant predictor of glucose levels after adjustment for age and BMI.
 
@@ -167,7 +167,7 @@ Here we will show two patterns using simulated data in what follows.
 ___
 
 
-## Counfounding Pattern 1
+# Counfounding Pattern 1
 
 To fix ideas, we 
 
@@ -181,7 +181,7 @@ At one extreme, the effect of a factor of interest may be completely confounded 
 In plain language,
 
 - $D$ and $y$ are strongly associated in unadjusted analysis,
-- after adjusted for $X$, the variation in $y$ can be entirely explained by $X$. That is, there is no association between $y$ and $D$ after adjustment for $X$.
+- After adjusted for $X$, the variation in $y$ can be entirely explained by $X$. That is, there is no association between $y$ and $D$ after adjustment for $X$.
 
 $$
 D \overset{?}{\rightarrow} X \rightarrow Y
@@ -264,7 +264,7 @@ stargazer(confound1_unadjusted, confound1_adjusted1, confound1_adjusted2,
 
 ___
 
-## Counfounding Pattern 2
+# Counfounding Pattern 2
 
 At the other extreme, we may find little or no association in unadjusted analysis, because it is *masked or negatively confounded by another predictor*.
 
@@ -402,11 +402,11 @@ In practice, it is rarely possible that we observe both outcomes when $x_1=1$ (g
 <div class = "boxed">
 <p style="font-weight:bold;">Conditional Independence Assumption (CIA)</p>
 
-If conditional on $\boldsymbol{x}_2$, the random variables $x_1$ and $\boldsymbol{u}$ are statistically independent, then the regression coefficient of $x_1$ equals the average causal effect for $x_1$ on $y$ conditional on $\boldsymbol{x}_2$.
+If <span style='color:#337ab7'>conditional on $\boldsymbol{x}_2$</span>, the random variables $x_1$ and $\boldsymbol{u}$ are statistically independent, then the regression coefficient of $x_1$ equals the average causal effect for $x_1$ on $y$ conditional on $\boldsymbol{x}_2$.
 </div>
 
 
-In plain language, it says that whenever the unobservable is independent of the treatment variable (after conditioning on appropriate regressors) the regression derivative equals the average causal effect. 
+In plain language, it says that whenever the unobservable is independent of the treatment variable, <span style='color:#337ab7'>after conditioning on appropriate regressors</span>, the regression derivative equals the average causal effect. 
 
 
 
