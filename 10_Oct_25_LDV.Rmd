@@ -319,6 +319,7 @@ Odds ratios with confidence intervals
 expcoef(wcgs.mult)
 ```
 
+___
 
 # Logistic Regression Model Representation
 
@@ -403,6 +404,9 @@ $$
 Thus the logistic regression model is linear in the log-odds. See the regression table of CHD on age.
 
 
+___
+
+
 ## Estimation by Maximum Likelihood
 
 If we condition on the $x_i$'s, the distribution of $y_i$ given $x_i$ is $\text{Bernoulli}\,(p(x))$, where $p(x)=F(x'\beta)$.
@@ -423,7 +427,7 @@ $$
 \log L(\beta) = \sum_{i=1}^n \log f\,(y_i | x_i )
 $$
 
-$\hat{\beta}_{ML}$ maximizes $\log L(\beta) $.
+$\hat{\beta}_{ML}$ maximizes $\log L(\beta)$.
 
 
 

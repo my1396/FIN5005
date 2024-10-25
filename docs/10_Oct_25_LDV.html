@@ -1011,6 +1011,7 @@ Akaike Inf. Crit.
 ## sbp         1.019481e+00 1.011340e+00 1.027688e+00
 ## bmi         1.059117e+00 1.005797e+00 1.115264e+00
 ## smoke       1.886037e+00 1.432925e+00 2.482429e+00</code></pre>
+<hr />
 </div>
 </div>
 <div id="logistic-regression-model-representation" class="section level1">
@@ -1076,6 +1077,7 @@ In particular, <span class="math inline">\(e^{\beta_1}\)</span> is the odds rati
 \log \left[\frac{p(x)}{1-p(x)} \right] = x&#39;\beta \,.
 \]</span>
 Thus the logistic regression model is linear in the log-odds. See the regression table of CHD on age.</p>
+<hr />
 <div id="estimation-by-maximum-likelihood" class="section level2">
 <h2>Estimation by Maximum Likelihood</h2>
 <p>If we condition on the <span class="math inline">\(x_i\)</span>’s, the distribution of <span class="math inline">\(y_i\)</span> given <span class="math inline">\(x_i\)</span> is <span class="math inline">\(\text{Bernoulli}\,(p(x))\)</span>, where <span class="math inline">\(p(x)=F(x&#39;\beta)\)</span>.</p>
@@ -1090,7 +1092,7 @@ F(x&#39;\beta) &amp; \text{if $y_i=1$} \\
 <p><span class="math display">\[
 \log L(\beta) = \sum_{i=1}^n \log f\,(y_i | x_i )
 \]</span></p>
-<p><span class="math inline">\(\hat{\beta}_{ML}\)</span> maximizes $L() $.</p>
+<p><span class="math inline">\(\hat{\beta}_{ML}\)</span> maximizes <span class="math inline">\(\log L(\beta)\)</span>.</p>
 </div>
 </div>
 
