@@ -400,10 +400,11 @@ contingency_table</code></pre>
 <li>We see that there are 1502 smokers and that 159 of these developed CHD.</li>
 <li>Of the 1652 non-smokers, 98 developed CHD.</li>
 </ul>
-<p>The mosaic plot represents each combination of the variables as a rectangle, and the size of the rectangle is proportional to the number of individuals in that combination.</p>
-<pre class="r"><code>mosaicplot(contingency_table, xlab=&quot;Smoke&quot;, ylab=&quot;CHD&quot;)</code></pre>
+<p>The <span style="color:#337ab7">mosaic plot</span> represents each combination of the variables as a rectangle, and the size of the rectangle is proportional to the number of individuals in that combination.</p>
+<pre class="r"><code>mosaicplot(contingency_table %&gt;% t(), xlab=&quot;Smoke&quot;, ylab=&quot;CHD&quot;, main=&quot;Contingency table visualization: Smoke X CHD&quot;)</code></pre>
 <p><img src="10_Oct_25_LDV_files/figure-html/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>We can show the proportions based on rows (smokers vs. non-smokers).</p>
+<p>We could see a larger proportion of people that developed CHD for smokers compared to non-smokers.</p>
+<p>We can show the proportions based on rows (developed vs. non-developed) .</p>
 <pre class="r"><code>contingency_table %&gt;% 
     prop.table(margin=1)</code></pre>
 <pre><code>##                smoke
@@ -414,45 +415,63 @@ contingency_table</code></pre>
 <li>For people who developed CHD, <span class="math inline">\(61.9\%\)</span> smoke.</li>
 <li>For people who did not develop CHD, <span class="math inline">\(46.4\%\)</span> smoke.</li>
 </ul>
-<p>We can show the proportions based on columns (developed vs. non-developed).</p>
-<pre class="r"><code>contingency_table %&gt;% 
-    prop.table(margin=2) %&gt;% 
-    knitr::kable(digits = 4) %&gt;%
-    kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;), full_width = F, latex_options=&quot;scale_down&quot;) </code></pre>
+<p>We can show the proportions based on columns (smokers vs. non-smokers) in Table <a href="#tab:risk-table">1</a>.</p>
+<pre class="r"><code>risk_table &lt;- contingency_table %&gt;% 
+            prop.table(margin=2) %&gt;% 
+            as.data.frame.matrix() </code></pre>
 <table class="table table-striped table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:risk-table">Table 1: </span>Risk of developing CHD for non-smokers and smokers.
+</caption>
 <thead>
 <tr>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="2">
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Smoke
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:center;">
+</th>
 <th style="text-align:left;">
 </th>
-<th style="text-align:right;">
+<th style="text-align:center;">
 non-smoker
 </th>
-<th style="text-align:right;">
+<th style="text-align:center;">
 smoker
 </th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:left;">
+<td style="text-align:center;font-weight: bold;">
+CHD
+</td>
+<td style="text-align:left;font-weight: bold;">
 non-developed
 </td>
-<td style="text-align:right;">
-0.9407
+<td style="text-align:center;">
+94.07%
 </td>
-<td style="text-align:right;">
-0.8941
+<td style="text-align:center;">
+89.41%
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
+<td style="text-align:center;font-weight: bold;">
+</td>
+<td style="text-align:left;font-weight: bold;">
 developed
 </td>
-<td style="text-align:right;">
-0.0593
+<td style="text-align:center;">
+5.93%
 </td>
-<td style="text-align:right;">
-0.1059
+<td style="text-align:center;">
+10.59%
 </td>
 </tr>
 </tbody>
@@ -477,13 +496,6 @@ developed
   10.6\%-5.9\%=4.7\%
   \]</span></p>
 <p>Can be verified as:</p>
-<pre class="r"><code>risk_table &lt;- contingency_table %&gt;% 
-    prop.table(margin=2) %&gt;% 
-    as.data.frame.matrix() 
-risk_table</code></pre>
-<pre><code>##               non-smoker    smoker
-## non-developed 0.94067797 0.8941411
-## developed     0.05932203 0.1058589</code></pre>
 <pre class="r"><code>p1 &lt;- risk_table[2,2]
 p0 &lt;- risk_table[2,1]
 p1-p0</code></pre>
@@ -542,7 +554,7 @@ OR</code></pre>
 <pre class="r"><code>fit.smoke &lt;- glm(chd69~smoke, data=wcgs, family=binomial)</code></pre>
 <table style="text-align:center">
 <caption>
-<strong>Logistic regression of CHD on smoke.</strong>
+<strong><span id="tab:fit-smoke"><span id="tab:fit-smoke">Table 2: </span></span>Logistic regression of CHD on smoke.</strong>
 </caption>
 <tr>
 <td colspan="2" style="border-bottom: 1px solid black">
@@ -655,7 +667,7 @@ Akaike Inf. Crit.
 </td>
 </tr>
 </table>
-<p>In logistic regression, if we take the exponential of the coefficient, it is the odds ratio corresponding to one unit’s increase in the value of the covariate, holding other variables constant.</p>
+<p>In logistic regression, if we <span style="color:#337ab7">take the exponential of the coefficient</span>, it is the <span style="color:#337ab7">odds ratio corresponding to one unit’s increase in the value of the covariate</span>, holding other variables constant.</p>
 <p>In this case, the odds ratio for CHD for a smoker compared to a non-smoker can be obtained by</p>
 <p><span class="math display">\[
 e^{0.63} = 1.88\, ,
@@ -666,7 +678,7 @@ We then use logistic regression to study the effect of age for the risk of devel
 <pre class="r"><code>fit.age &lt;-  glm(chd69~age, data=wcgs, family=binomial)</code></pre>
 <table style="text-align:center">
 <caption>
-<strong>Logistic regression of CHD on age.</strong>
+<strong><span id="tab:fit-age"><span id="tab:fit-age">Table 3: </span></span>Logistic regression of CHD on age.</strong>
 </caption>
 <tr>
 <td colspan="2" style="border-bottom: 1px solid black">
@@ -793,10 +805,41 @@ Akaike Inf. Crit.
     upper=expcoef*exp(1.96*regtab[,2]) 
     cbind(expcoef,lower,upper)
 } 
-expcoef(fit.age)</code></pre>
-<pre><code>##                 expcoef        lower       upper
-## (Intercept) 0.002633304 0.0008972465 0.007728412
-## age         1.077261913 1.0536601655 1.101392334</code></pre>
+expcoef(fit.age)[-1,,drop=FALSE] %&gt;% 
+    knitr::kable(digits = 2, escape=T)</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+expcoef
+</th>
+<th style="text-align:right;">
+lower
+</th>
+<th style="text-align:right;">
+upper
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+age
+</td>
+<td style="text-align:right;">
+1.08
+</td>
+<td style="text-align:right;">
+1.05
+</td>
+<td style="text-align:right;">
+1.1
+</td>
+</tr>
+</tbody>
+</table>
 <hr />
 </div>
 <div id="logistic-regression-with-several-predictors" class="section level2">
@@ -805,7 +848,7 @@ expcoef(fit.age)</code></pre>
 <pre class="r"><code>wcgs.mult &lt;- glm(chd69~age+chol+sbp+bmi+smoke, data=wcgs, family=binomial, subset=(chol&lt;600))</code></pre>
 <table style="text-align:center">
 <caption>
-<strong>Logistic regression of CHD on multiple covariates.</strong>
+<strong><span id="tab:fit-mult"><span id="tab:fit-mult">Table 4: </span></span>Logistic regression of CHD on multiple covariates.</strong>
 </caption>
 <tr>
 <td colspan="2" style="border-bottom: 1px solid black">
@@ -1003,14 +1046,13 @@ Akaike Inf. Crit.
 </tr>
 </table>
 <p>Odds ratios with confidence intervals</p>
-<pre class="r"><code>expcoef(wcgs.mult)</code></pre>
-<pre><code>##                  expcoef        lower        upper
-## (Intercept) 4.502019e-06 6.630562e-07 3.056781e-05
-## age         1.066570e+00 1.041966e+00 1.091754e+00
-## chol        1.010799e+00 1.007798e+00 1.013810e+00
-## sbp         1.019481e+00 1.011340e+00 1.027688e+00
-## bmi         1.059117e+00 1.005797e+00 1.115264e+00
-## smoke       1.886037e+00 1.432925e+00 2.482429e+00</code></pre>
+<pre class="r"><code>expcoef(wcgs.mult)[-1,]</code></pre>
+<pre><code>##        expcoef    lower    upper
+## age   1.066570 1.041966 1.091754
+## chol  1.010799 1.007798 1.013810
+## sbp   1.019481 1.011340 1.027688
+## bmi   1.059117 1.005797 1.115264
+## smoke 1.886037 1.432925 2.482429</code></pre>
 <hr />
 </div>
 </div>
@@ -1069,14 +1111,14 @@ Fig. 1: Logistic regression cdf
 <p>We use an example of a single predictor to demonstrate the interpretation of <span class="math inline">\(\beta\)</span>.</p>
 <p>If we consider two observations with covariate values <span class="math inline">\(x\)</span> and <span class="math inline">\(x+\Delta x\)</span>, respectively, their odds ratio becomes
 <span class="math display">\[
-\frac{p(x+\Delta x)/[1-p(x+\Delta x)]}{p(x)/[1-p(x)} = \frac{\exp{\left(\beta_0 + \beta_1 (x+\Delta x)\right)}}{\exp{\left(\beta_0 + \beta_1 x\right)}} = \exp{(\beta_1\Delta)} \,.
+\frac{p(x+\Delta x)/[1-p(x+\Delta x)]}{p(x)/[1-p(x)} = \frac{\exp{\left(\beta_0 + \beta_1 (x+\Delta x)\right)}}{\exp{\left(\beta_0 + \beta_1 x\right)}} = \exp{(\beta_1\Delta x)} \,.
 \]</span>
 In particular, <span class="math inline">\(e^{\beta_1}\)</span> is the odds ratio corresponding to one unit’s increase in the value of the covariate.</p>
 <p>By Eq. <a href="#eq:logit-odds">(3)</a>, the logistic regression model may also be given as:</p>
 <p><span class="math display">\[
 \log \left[\frac{p(x)}{1-p(x)} \right] = x&#39;\beta \,.
 \]</span>
-Thus the logistic regression model is linear in the log-odds. See the regression table of CHD on age.</p>
+Thus the logistic regression model is linear in the log-odds. See Table <a href="#tab:fit-age">3</a>.</p>
 <hr />
 <div id="estimation-by-maximum-likelihood" class="section level2">
 <h2>Estimation by Maximum Likelihood</h2>

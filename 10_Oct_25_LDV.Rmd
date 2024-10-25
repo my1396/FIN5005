@@ -28,6 +28,7 @@ library(latex2exp)
 library(stargazer)
 library(bookdown)
 library(cowplot)
+library(scales)
 
 # don't show code unless we explicitly set echo = TRUE
 opts_chunk$set(echo = TRUE, message=FALSE, warning = FALSE, fig.align="center", fig.pos = "H", paged.print=FALSE)
@@ -119,13 +120,17 @@ contingency_table %>% addmargins()
 - Of the 1652 non-smokers, 98 developed CHD.
 
 
-The mosaic plot represents each combination of the variables as a rectangle, and the size of the rectangle is proportional to the number of individuals in that combination.
+The <span style='color:#337ab7'>mosaic plot</span> represents each combination of the variables as a rectangle, and the size of the rectangle is proportional to the number of individuals in that combination.
 
 ```{r}
-mosaicplot(contingency_table, xlab="Smoke", ylab="CHD")
+mosaicplot(contingency_table %>% t(), 
+           xlab="Smoke", ylab="CHD", 
+           main="Contingency table visualization: Smoke X CHD")
 ```
 
-We can show the proportions based on rows (smokers vs. non-smokers).
+We could see a larger proportion of people that developed CHD for smokers compared to non-smokers.
+
+We can show the proportions based on rows (developed vs. non-developed) .
 ```{r}
 contingency_table %>% 
     prop.table(margin=1)
@@ -135,13 +140,26 @@ contingency_table %>%
 - For people who did not develop CHD, $46.4\%$ smoke.
 
 
-We can show the proportions based on columns (developed vs. non-developed).
+We can show the proportions based on columns (smokers vs. non-smokers) in Table \@ref(tab:risk-table).
+
 ```{r}
-contingency_table %>% 
-    prop.table(margin=2) %>% 
-    knitr::kable(digits = 4) %>%
-    kable_styling(bootstrap_options = c("striped", "hover"), full_width = F, latex_options="scale_down") 
+risk_table <- contingency_table %>% 
+            prop.table(margin=2) %>% 
+            as.data.frame.matrix() 
 ```
+
+
+```{r risk-table, echo=FALSE}
+risk_table %>% 
+    as_tibble(rownames = " ") %>% 
+    add_column("  " = c("CHD", NA), .before=1) %>% 
+    mutate_at(vars(-1:-2), percent, accuracy=0.01) %>% 
+    kable(align = "clcc", caption="Risk of developing CHD for non-smokers and smokers.") %>% 
+    kable_styling(bootstrap_options = c("striped", "hover"), full_width = F) %>% 
+    add_header_above(c(" "=2, "Smoke"=2)) %>% 
+    column_spec(1:2, bold = TRUE) 
+```
+
 
 - For non-smokers, $5.9\%$ developed CHD.
 - For smokers, $10.6\%$ developed CHD.
@@ -163,10 +181,6 @@ ___
         
         Can be verified as:
         ```{r}
-        risk_table <- contingency_table %>% 
-            prop.table(margin=2) %>% 
-            as.data.frame.matrix() 
-        risk_table
         p1 <- risk_table[2,2]
         p0 <- risk_table[2,1]
         p1-p0
@@ -243,14 +257,22 @@ fit.smoke <- glm(chd69~smoke, data=wcgs, family=binomial)
 ```
 
 
-```{r echo=FALSE, results='asis'}
+```{r fit-smoke, echo=FALSE, results='asis', fig.cap="Logistic regression of CHD on smoke."}
+tit <- knitr::opts_current$get("fig.cap")
+tit_html <- paste0('<span id="tab:',
+                   knitr::opts_current$get("label"),
+                   '">(#tab:',
+                   knitr::opts_current$get("label"),
+                   ')</span>',
+                   tit)
 stargazer(fit.smoke, type="html",
-          title="Logistic regression of CHD on smoke.",
+          label = paste0("tab:", knitr::opts_current$get("label")),
+          title = ifelse(knitr::is_latex_output(), tit, tit_html),
           notes="<span>&#42;</span>: p<0.1; <span>&#42;&#42;</span>: <strong>p<0.05</strong>; <span>&#42;&#42;&#42;</span>: p<0.01 <br> Standard errors in the parentheses.",
           notes.append=F )
 ```
 
-In logistic regression, if we take the exponential of the coefficient, it is the odds ratio corresponding to one unit's increase in the value of the covariate, holding other variables constant.
+In logistic regression, if we <span style='color:#337ab7'>take the exponential of the coefficient</span>, it is the <span style='color:#337ab7'>odds ratio corresponding to one unit's increase in the value of the covariate</span>, holding other variables constant.
 
 In this case, the odds ratio for CHD for a smoker compared to a non-smoker can be obtained by
 
@@ -268,13 +290,26 @@ fit.age <-  glm(chd69~age, data=wcgs, family=binomial)
 ```
 
 
-```{r echo=FALSE, results='asis'}
-stargazer(fit.age, type="html",
-          title="Logistic regression of CHD on age.",
-          notes="<span>&#42;</span>: p<0.1; <span>&#42;&#42;</span>: <strong>p<0.05</strong>; <span>&#42;&#42;&#42;</span>: p<0.01 <br> Standard errors in the parentheses.",
-          notes.append=F,
-          label = "tab:fit-age")
+```{r fit-age, echo=FALSE, results='asis', fig.cap="Logistic regression of CHD on age."}
+# Use title caption from fig.cap
+tit <- knitr::opts_current$get("fig.cap")
+# Adding caption for html output
+tit_html <- paste0('<span id="tab:',
+                   knitr::opts_current$get("label"),
+                   '">(#tab:',
+                   knitr::opts_current$get("label"),
+                   ')</span>',
+                   tit)
+stargazer::stargazer(fit.age,
+          label = paste0("tab:", knitr::opts_current$get("label")),
+          title = ifelse(knitr::is_latex_output(), tit, tit_html),
+          type = ifelse(knitr::is_latex_output(),"latex","html"),
+          notes = "<span>&#42;</span>: p<0.1; <span>&#42;&#42;</span>: <strong>p<0.05</strong>; <span>&#42;&#42;&#42;</span>: p<0.01 <br> Standard errors in the parentheses.",
+          notes.append = F,
+          header = F
+          )
 ```
+
 
 &nbsp;
 
@@ -291,7 +326,8 @@ expcoef <- function(glmobj){
     upper=expcoef*exp(1.96*regtab[,2]) 
     cbind(expcoef,lower,upper)
 } 
-expcoef(fit.age)
+expcoef(fit.age)[-1,,drop=FALSE] %>% 
+    knitr::kable(digits = 2, escape=T)
 ```
 
 
@@ -306,9 +342,17 @@ wcgs.mult <- glm(chd69~age+chol+sbp+bmi+smoke, data=wcgs, family=binomial, subse
 ```
 
 
-```{r echo=FALSE, results='asis'}
+```{r fit-mult, echo=FALSE, results='asis', fig.cap="Logistic regression of CHD on multiple covariates."}
+tit <- knitr::opts_current$get("fig.cap")
+tit_html <- paste0('<span id="tab:',
+                   knitr::opts_current$get("label"),
+                   '">(#tab:',
+                   knitr::opts_current$get("label"),
+                   ')</span>',
+                   tit)
 stargazer(wcgs.mult, type="html",
-          title="Logistic regression of CHD on multiple covariates.",
+          label = paste0("tab:", knitr::opts_current$get("label")),
+          title = ifelse(knitr::is_latex_output(), tit, tit_html),
           notes="<span>&#42;</span>: p<0.1; <span>&#42;&#42;</span>: <strong>p<0.05</strong>; <span>&#42;&#42;&#42;</span>: p<0.01 <br> Standard errors in the parentheses.",
           notes.append=F )
 ```
@@ -316,7 +360,7 @@ stargazer(wcgs.mult, type="html",
 Odds ratios with confidence intervals
 
 ```{r}
-expcoef(wcgs.mult)
+expcoef(wcgs.mult)[-1,]
 ```
 
 ___
@@ -392,7 +436,7 @@ We use an example of a single predictor to demonstrate the interpretation of $\b
 
 If we consider two observations with covariate values $x$ and $x+\Delta x$, respectively, their odds ratio becomes
 $$
-\frac{p(x+\Delta x)/[1-p(x+\Delta x)]}{p(x)/[1-p(x)} = \frac{\exp{\left(\beta_0 + \beta_1 (x+\Delta x)\right)}}{\exp{\left(\beta_0 + \beta_1 x\right)}} = \exp{(\beta_1\Delta)} \,.
+\frac{p(x+\Delta x)/[1-p(x+\Delta x)]}{p(x)/[1-p(x)} = \frac{\exp{\left(\beta_0 + \beta_1 (x+\Delta x)\right)}}{\exp{\left(\beta_0 + \beta_1 x\right)}} = \exp{(\beta_1\Delta x)} \,.
 $$
 In particular, $e^{\beta_1}$ is the odds ratio corresponding to one unit's increase in the value of the covariate.
 
@@ -401,7 +445,7 @@ By Eq. \@ref(eq:logit-odds), the logistic regression model may also be given as:
 $$
 \log \left[\frac{p(x)}{1-p(x)} \right] = x'\beta \,.
 $$
-Thus the logistic regression model is linear in the log-odds. See the regression table of CHD on age.
+Thus the logistic regression model is linear in the log-odds. See Table \@ref(tab:fit-age).
 
 
 ___
