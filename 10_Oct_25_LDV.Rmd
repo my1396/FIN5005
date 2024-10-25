@@ -372,7 +372,7 @@ p(x) &= \frac{1}{1+e^{-u}} \notag \\
 \end{align}
 $$
 
-Eq. \@ref(eq:logit-model) gives a “S-shaped” relationship between $p(x)$ and $x$ and ensures that $p(x)$ stays between 0 and 1. See Fig. \@ref(fig:logit-regression).
+Eq. \@ref(eq:logit-model) gives a “S-shaped” relationship between $p(x)$ and $x$ and ensures that $p(x)$ stays between 0 and 1. See Fig.&nbsp;\@ref(fig:logit-regression).
 
 
 ```{r logit-regression, echo=FALSE, fig.cap="Logistic regression cdf", out.width = "80%"}
