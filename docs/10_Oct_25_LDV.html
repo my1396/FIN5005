@@ -663,6 +663,7 @@ e^{0.63} = 1.88\, ,
 which is exactly the same number as we calculated using the contingency table.</p>
 <p>We now consider a numerical predictor, <code>age</code>.
 We then use logistic regression to study the effect of age for the risk of developing CHD:</p>
+<pre class="r"><code>fit.age &lt;-  glm(chd69~age, data=wcgs, family=binomial)</code></pre>
 <table style="text-align:center">
 <caption>
 <strong>Logistic regression of CHD on age.</strong>
@@ -778,7 +779,11 @@ Akaike Inf. Crit.
 </td>
 </tr>
 </table>
-<p>The odds ratio for one year increase in age is <span class="math inline">\(e^{0.0744} = 1.077\)</span> while the odds ratio for a ten-year increase is <span class="math inline">\(e^{0.0744\times 10} = 2.10\)</span></p>
+<p> </p>
+<ul>
+<li>The odds ratio for one year increase in age is <span class="math inline">\(e^{0.0744} = 1.077\, ,\)</span></li>
+<li>The odds ratio for a ten-year increase is <span class="math inline">\(e^{0.0744\times 10} = 2.10\, .\)</span></li>
+</ul>
 <p>Can be verified using the following codes.</p>
 <pre class="r"><code>expcoef &lt;- function(glmobj){
     # computing odds ratio with 95% confidence limits
@@ -792,10 +797,12 @@ expcoef(fit.age)</code></pre>
 <pre><code>##                 expcoef        lower       upper
 ## (Intercept) 0.002633304 0.0008972465 0.007728412
 ## age         1.077261913 1.0536601655 1.101392334</code></pre>
+<hr />
 </div>
 <div id="logistic-regression-with-several-predictors" class="section level2">
 <h2>Logistic Regression with Several Predictors</h2>
-<p>Consider the WCGS study with CHD as outcome and age, cholesterol (mg/dL), systolic blood pressure (mmHg), body mass index (kg/m2), and smoking (yes, no) as predictors.</p>
+<p>Consider the WCGS study with CHD as outcome and age, cholesterol (mg/dL), systolic blood pressure (mmHg), body mass index (kg/m2), and smoking (0/1) as predictors.</p>
+<pre class="r"><code>wcgs.mult &lt;- glm(chd69~age+chol+sbp+bmi+smoke, data=wcgs, family=binomial, subset=(chol&lt;600))</code></pre>
 <table style="text-align:center">
 <caption>
 <strong>Logistic regression of CHD on multiple covariates.</strong>
@@ -1004,6 +1011,86 @@ Akaike Inf. Crit.
 ## sbp         1.019481e+00 1.011340e+00 1.027688e+00
 ## bmi         1.059117e+00 1.005797e+00 1.115264e+00
 ## smoke       1.886037e+00 1.432925e+00 2.482429e+00</code></pre>
+</div>
+</div>
+<div id="logistic-regression-model-representation" class="section level1">
+<h1>Logistic Regression Model Representation</h1>
+<p>We have <span class="math inline">\(n\)</span> observations <span class="math inline">\((x_1, y_1), (x_2, y_2), \ldots, (x_n, y_n)\)</span>.</p>
+<p>Here <span class="math inline">\(y_i\)</span> is a binary outcome variable for observation <span class="math inline">\(i\)</span> and takes values 0 or 1, and <span class="math inline">\(x_i\)</span> is a predictor.</p>
+<p>We want to model the probability of <span class="math inline">\(y_i=1\)</span>:</p>
+<p><span class="math display" id="eq:linear-probability-model">\[
+\begin{equation} \tag{1}
+P\,(y_i=1 | x_i) = x_i&#39;\beta .
+\end{equation}
+\]</span>
+Note that <span class="math inline">\(\mathbb{E}(y_i\vert x_i) = P\,(y_i=1 | x_i)\)</span>. We call Eq. <a href="#eq:linear-probability-model">(1)</a> as the <span style="color:#008B45FF">Linear Probability Model</span>.</p>
+<p>Proof:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\mathbb{E}(y_i|x_i)  
+&amp;= \sum_{y_i\in \mathcal Y} y_i\, P\,(y=y_i|x_i) \\
+&amp;= 1 \times P\,(y_i=1|x_i) + 0 \times P\,(y_i=0|x_i) \\
+&amp;= P\,(y_i=1|x_i)
+\end{aligned}
+\]</span>
+where <span class="math inline">\(\mathcal Y = \{0, 1\}\)</span> is the sample space of <span class="math inline">\(y_i\)</span>.</p>
+<p>We can estimate <span class="math inline">\(\beta\)</span> in <a href="#eq:linear-probability-model">(1)</a> by OLS.</p>
+<p>Issues: Will have <span class="math inline">\(x&#39;\beta\)</span> outside of <span class="math inline">\([0,1]\)</span> for some values of <span class="math inline">\(x\)</span>.</p>
+<p>Alternative approach: let <span class="math inline">\(F(·)\)</span> be a known cdf and specify</p>
+<p><span class="math display">\[
+P\,(y_i=1|x_i) = F(x_i&#39;\beta) \,.
+\]</span></p>
+<ul>
+<li>When <span class="math inline">\(\displaystyle F(u)= \frac{1}{1+e^{-u}}\)</span> (the logistic cdf), where <span class="math inline">\(u=x&#39;\beta\)</span>, this is called the <span style="color:#008B45FF">logit model</span>.</li>
+<li>When <span class="math inline">\(\displaystyle F(u)= \Phi(u)\)</span> (the standard normal cdf), this is called the <span style="color:#008B45FF">probit model</span>.</li>
+</ul>
+<p>Plug in <span class="math inline">\(u=x&#39;\beta\)</span> and the logistic cdf, we can express the logistic model as:</p>
+<p><span class="math display" id="eq:logit-model">\[
+\begin{align}
+p(x) &amp;= \frac{1}{1+e^{-u}} \notag \\
+&amp;= \frac{1}{1+e^{-x&#39;\beta}} \notag \\
+&amp;= \frac{e^{x&#39;\beta}}{1+e^{x&#39;\beta}}  \tag{2} \\
+\end{align}
+\]</span></p>
+<p>Eq. <a href="#eq:logit-model">(2)</a> gives a “S-shaped” relationship between <span class="math inline">\(p(x)\)</span> and <span class="math inline">\(x\)</span> and ensures that <span class="math inline">\(p(x)\)</span> stays between 0 and 1. See Fig. <a href="#fig:logit-regression">1</a>.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:logit-regression"></span>
+<img src="images/logistic_regression.png" alt="Logistic regression cdf" width="80%" />
+<p class="caption">
+Fig. 1: Logistic regression cdf
+</p>
+</div>
+<p>Eq. <a href="#eq:logit-model">(2)</a> can be written as:</p>
+<p><span class="math display" id="eq:logit-odds">\[
+\begin{equation} \tag{3}
+\frac{p(x)}{1-p(x)} = \exp{(x&#39;\beta)}
+\end{equation}
+\]</span></p>
+<p>We use an example of a single predictor to demonstrate the interpretation of <span class="math inline">\(\beta\)</span>.</p>
+<p>If we consider two observations with covariate values <span class="math inline">\(x\)</span> and <span class="math inline">\(x+\Delta x\)</span>, respectively, their odds ratio becomes
+<span class="math display">\[
+\frac{p(x+\Delta x)/[1-p(x+\Delta x)]}{p(x)/[1-p(x)} = \frac{\exp{\left(\beta_0 + \beta_1 (x+\Delta x)\right)}}{\exp{\left(\beta_0 + \beta_1 x\right)}} = \exp{(\beta_1\Delta)} \,.
+\]</span>
+In particular, <span class="math inline">\(e^{\beta_1}\)</span> is the odds ratio corresponding to one unit’s increase in the value of the covariate.</p>
+<p>By Eq. <a href="#eq:logit-odds">(3)</a>, the logistic regression model may also be given as:</p>
+<p><span class="math display">\[
+\log \left[\frac{p(x)}{1-p(x)} \right] = x&#39;\beta \,.
+\]</span>
+Thus the logistic regression model is linear in the log-odds. See the regression table of CHD on age.</p>
+<div id="estimation-by-maximum-likelihood" class="section level2">
+<h2>Estimation by Maximum Likelihood</h2>
+<p>If we condition on the <span class="math inline">\(x_i\)</span>’s, the distribution of <span class="math inline">\(y_i\)</span> given <span class="math inline">\(x_i\)</span> is <span class="math inline">\(\text{Bernoulli}\,(p(x))\)</span>, where <span class="math inline">\(p(x)=F(x&#39;\beta)\)</span>.</p>
+<p>Conditional density is</p>
+<p><span class="math display">\[
+f\,(y_i | x_i ) = \begin{cases}
+F(x&#39;\beta) &amp; \text{if $y_i=1$} \\
+1- F(x&#39;\beta) &amp; \text{if $y_i=0$} \\
+\end{cases}
+\]</span></p>
+<p>This gives the log likelihood</p>
+<p><span class="math display">\[
+\log L(\beta) = \sum_{i=1}^n \log f\,(y_i | x_i )
+\]</span></p>
+<p><span class="math inline">\(\hat{\beta}_{ML}\)</span> maximizes $L() $.</p>
 </div>
 </div>
 

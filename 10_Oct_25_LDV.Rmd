@@ -263,15 +263,23 @@ which is exactly the same number as we calculated using the contingency table.
 We now consider a numerical predictor, `age`.
 We then use logistic regression to study the effect of age for the risk of developing CHD:
 
-```{r echo=FALSE, results='asis'}
+```{r}
 fit.age <-  glm(chd69~age, data=wcgs, family=binomial)
+```
+
+
+```{r echo=FALSE, results='asis'}
 stargazer(fit.age, type="html",
           title="Logistic regression of CHD on age.",
           notes="<span>&#42;</span>: p<0.1; <span>&#42;&#42;</span>: <strong>p<0.05</strong>; <span>&#42;&#42;&#42;</span>: p<0.01 <br> Standard errors in the parentheses.",
-          notes.append=F )
+          notes.append=F,
+          label = "tab:fit-age")
 ```
 
-The odds ratio for one year increase in age is $e^{0.0744} = 1.077$ while the odds ratio for a ten-year increase is $e^{0.0744\times 10} = 2.10$
+&nbsp;
+
+- The odds ratio for one year increase in age is $e^{0.0744} = 1.077\, ,$
+- The odds ratio for a ten-year increase is $e^{0.0744\times 10} = 2.10\, .$
 
 Can be verified using the following codes.
 ```{r}
@@ -287,12 +295,18 @@ expcoef(fit.age)
 ```
 
 
+___
+
 ## Logistic Regression with Several Predictors
 
-Consider the WCGS study with CHD as outcome and age, cholesterol (mg/dL), systolic blood pressure (mmHg), body mass index (kg/m2), and smoking (yes, no) as predictors.
+Consider the WCGS study with CHD as outcome and age, cholesterol (mg/dL), systolic blood pressure (mmHg), body mass index (kg/m2), and smoking (0/1) as predictors.
+
+```{r}
+wcgs.mult <- glm(chd69~age+chol+sbp+bmi+smoke, data=wcgs, family=binomial, subset=(chol<600))
+```
+
 
 ```{r echo=FALSE, results='asis'}
-wcgs.mult <- glm(chd69~age+chol+sbp+bmi+smoke, data=wcgs, family=binomial, subset=(chol<600))
 stargazer(wcgs.mult, type="html",
           title="Logistic regression of CHD on multiple covariates.",
           notes="<span>&#42;</span>: p<0.1; <span>&#42;&#42;</span>: <strong>p<0.05</strong>; <span>&#42;&#42;&#42;</span>: p<0.01 <br> Standard errors in the parentheses.",
@@ -305,6 +319,111 @@ Odds ratios with confidence intervals
 expcoef(wcgs.mult)
 ```
 
+
+# Logistic Regression Model Representation
+
+We have $n$ observations $(x_1, y_1), (x_2, y_2), \ldots, (x_n, y_n)$.
+
+Here $y_i$ is a binary outcome variable for observation $i$ and takes values 0 or 1, and $x_i$ is a predictor.
+
+We want to model the probability of $y_i=1$:
+
+$$
+\begin{equation} (\#eq:linear-probability-model)
+P\,(y_i=1 | x_i) = x_i'\beta .
+\end{equation}
+$$
+Note that $\mathbb{E}(y_i\vert x_i) = P\,(y_i=1 | x_i)$. We call Eq. \@ref(eq:linear-probability-model) as the <span style='color:#008B45FF'>Linear Probability Model</span>.
+
+Proof:
+
+$$
+\begin{aligned}
+\mathbb{E}(y_i|x_i)  
+&= \sum_{y_i\in \mathcal Y} y_i\, P\,(y=y_i|x_i) \\
+&= 1 \times P\,(y_i=1|x_i) + 0 \times P\,(y_i=0|x_i) \\
+&= P\,(y_i=1|x_i)
+\end{aligned}
+$$
+where $\mathcal Y = \{0, 1\}$ is the sample space of $y_i$.
+
+We can estimate $\beta$ in \@ref(eq:linear-probability-model) by OLS.
+
+Issues: Will have $x'\beta$ outside of $[0,1]$ for some values of $x$. 
+
+Alternative approach: let $F(·)$ be a known cdf and specify
+
+$$
+P\,(y_i=1|x_i) = F(x_i'\beta) \,.
+$$
+
+- When $\displaystyle F(u)= \frac{1}{1+e^{-u}}$ (the logistic cdf), where $u=x'\beta$, this is called the <span style='color:#008B45FF'>logit model</span>.
+- When $\displaystyle F(u)= \Phi(u)$ (the standard normal cdf), this is called the <span style='color:#008B45FF'>probit model</span>.
+
+
+Plug in $u=x'\beta$ and the logistic cdf, we can express the logistic model as:
+
+$$
+\begin{align}
+p(x) &= \frac{1}{1+e^{-u}} \notag \\
+&= \frac{1}{1+e^{-x'\beta}} \notag \\
+&= \frac{e^{x'\beta}}{1+e^{x'\beta}}  (\#eq:logit-model) \\
+\end{align}
+$$
+
+Eq. \@ref(eq:logit-model) gives a “S-shaped” relationship between $p(x)$ and $x$ and ensures that $p(x)$ stays between 0 and 1. See Fig. \@ref(fig:logit-regression).
+
+
+```{r logit-regression, echo=FALSE, fig.cap="Logistic regression cdf", out.width = "80%"}
+knitr::include_graphics("images/logistic_regression.png") 
+```
+
+
+Eq. \@ref(eq:logit-model) can be written as:
+
+$$
+\begin{equation} (\#eq:logit-odds)
+\frac{p(x)}{1-p(x)} = \exp{(x'\beta)}
+\end{equation}
+$$
+
+We use an example of a single predictor to demonstrate the interpretation of $\beta$. 
+
+If we consider two observations with covariate values $x$ and $x+\Delta x$, respectively, their odds ratio becomes
+$$
+\frac{p(x+\Delta x)/[1-p(x+\Delta x)]}{p(x)/[1-p(x)} = \frac{\exp{\left(\beta_0 + \beta_1 (x+\Delta x)\right)}}{\exp{\left(\beta_0 + \beta_1 x\right)}} = \exp{(\beta_1\Delta)} \,.
+$$
+In particular, $e^{\beta_1}$ is the odds ratio corresponding to one unit's increase in the value of the covariate.
+
+By Eq. \@ref(eq:logit-odds), the logistic regression model may also be given as:
+
+$$
+\log \left[\frac{p(x)}{1-p(x)} \right] = x'\beta \,.
+$$
+Thus the logistic regression model is linear in the log-odds. See the regression table of CHD on age.
+
+
+## Estimation by Maximum Likelihood
+
+If we condition on the $x_i$'s, the distribution of $y_i$ given $x_i$ is $\text{Bernoulli}\,(p(x))$, where $p(x)=F(x'\beta)$.
+
+Conditional density is
+
+$$
+f\,(y_i | x_i ) = \begin{cases}
+F(x'\beta) & \text{if $y_i=1$} \\
+1- F(x'\beta) & \text{if $y_i=0$} \\
+\end{cases}
+$$
+
+
+This gives the log likelihood
+
+$$
+\log L(\beta) = \sum_{i=1}^n \log f\,(y_i | x_i )
+$$
+
+$\hat{\beta}_{ML}$ maximizes $\log L(\beta) $.
 
 
 
