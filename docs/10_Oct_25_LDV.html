@@ -401,7 +401,9 @@ contingency_table</code></pre>
 <li>Of the 1652 non-smokers, 98 developed CHD.</li>
 </ul>
 <p>The <span style="color:#337ab7">mosaic plot</span> represents each combination of the variables as a rectangle, and the size of the rectangle is proportional to the number of individuals in that combination.</p>
-<pre class="r"><code>mosaicplot(contingency_table %&gt;% t(), xlab=&quot;Smoke&quot;, ylab=&quot;CHD&quot;, main=&quot;Contingency table visualization: Smoke X CHD&quot;)</code></pre>
+<pre class="r"><code>mosaicplot(contingency_table %&gt;% t(), 
+           xlab=&quot;Smoke&quot;, ylab=&quot;CHD&quot;, 
+           main=&quot;Contingency table visualization: Smoke X CHD&quot;)</code></pre>
 <p><img src="10_Oct_25_LDV_files/figure-html/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>We could see a larger proportion of people that developed CHD for smokers compared to non-smokers.</p>
 <p>We can show the proportions based on rows (developed vs. non-developed) .</p>
@@ -804,10 +806,11 @@ Akaike Inf. Crit.
     lower=expcoef*exp(-1.96*regtab[,2]) 
     upper=expcoef*exp(1.96*regtab[,2]) 
     cbind(expcoef,lower,upper)
-} 
-expcoef(fit.age)[-1,,drop=FALSE] %&gt;% 
-    knitr::kable(digits = 2, escape=T)</code></pre>
-<table>
+} </code></pre>
+<pre class="r"><code>expcoef(fit.age)[-1,,drop=FALSE] %&gt;% 
+    kable(digits = 2, escape=T) %&gt;% 
+    kable_styling(full_width = FALSE)</code></pre>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
 <th style="text-align:left;">
@@ -1045,14 +1048,98 @@ Akaike Inf. Crit.
 </td>
 </tr>
 </table>
-<p>Odds ratios with confidence intervals</p>
-<pre class="r"><code>expcoef(wcgs.mult)[-1,]</code></pre>
-<pre><code>##        expcoef    lower    upper
-## age   1.066570 1.041966 1.091754
-## chol  1.010799 1.007798 1.013810
-## sbp   1.019481 1.011340 1.027688
-## bmi   1.059117 1.005797 1.115264
-## smoke 1.886037 1.432925 2.482429</code></pre>
+<pre class="r"><code>expcoef(wcgs.mult)[-1,] %&gt;% 
+    kable(digits = 2, escape=T) %&gt;% 
+    kable_styling(full_width = FALSE)</code></pre>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+expcoef
+</th>
+<th style="text-align:right;">
+lower
+</th>
+<th style="text-align:right;">
+upper
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+age
+</td>
+<td style="text-align:right;">
+1.07
+</td>
+<td style="text-align:right;">
+1.04
+</td>
+<td style="text-align:right;">
+1.09
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+chol
+</td>
+<td style="text-align:right;">
+1.01
+</td>
+<td style="text-align:right;">
+1.01
+</td>
+<td style="text-align:right;">
+1.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sbp
+</td>
+<td style="text-align:right;">
+1.02
+</td>
+<td style="text-align:right;">
+1.01
+</td>
+<td style="text-align:right;">
+1.03
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+bmi
+</td>
+<td style="text-align:right;">
+1.06
+</td>
+<td style="text-align:right;">
+1.01
+</td>
+<td style="text-align:right;">
+1.12
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+smoke
+</td>
+<td style="text-align:right;">
+1.89
+</td>
+<td style="text-align:right;">
+1.43
+</td>
+<td style="text-align:right;">
+2.48
+</td>
+</tr>
+</tbody>
+</table>
 <hr />
 </div>
 </div>
@@ -1125,14 +1212,22 @@ Thus the logistic regression model is linear in the log-odds. See Table <a href=
 <p>If we condition on the <span class="math inline">\(x_i\)</span>’s, the distribution of <span class="math inline">\(y_i\)</span> given <span class="math inline">\(x_i\)</span> is <span class="math inline">\(\text{Bernoulli}\,(p(x))\)</span>, where <span class="math inline">\(p(x)=F(x&#39;\beta)\)</span>.</p>
 <p>Conditional density is</p>
 <p><span class="math display">\[
-f\,(y_i | x_i ) = \begin{cases}
+\begin{aligned}
+f\,(y_i | x_i ) &amp;= \begin{cases}
 F(x&#39;\beta) &amp; \text{if $y_i=1$} \\
 1- F(x&#39;\beta) &amp; \text{if $y_i=0$} \\
-\end{cases}
+\end{cases} \\
+&amp;= F(x&#39;\beta)^{y_i} \left[1- F(x&#39;\beta)\right]^{1-y_i} \,.
+\end{aligned}
 \]</span></p>
 <p>This gives the log likelihood</p>
 <p><span class="math display">\[
-\log L(\beta) = \sum_{i=1}^n \log f\,(y_i | x_i )
+\begin{align*}
+\log L(\beta) &amp;= \sum_{i=1}^n \log f\,(y_i | x_i ) \\
+&amp;= \sum_{i=1}^n \log \left\{F(x&#39;\beta)^{y_i} \left[1- F(x&#39;\beta)\right]^{1-y_i} \right\} \\
+&amp;= \sum_{i=1}^n \left\{y_i \log F(x&#39;\beta) + {1-y_i} \log \left[1- F(x&#39;\beta)\right] \right\} \\
+&amp;= \sum_{y_i=1} \log  F(x&#39;\beta) + \sum_{y_i=0} \log \left[1- F(x&#39;\beta)\right] \,.
+\end{align*}
 \]</span></p>
 <p><span class="math inline">\(\hat{\beta}_{ML}\)</span> maximizes <span class="math inline">\(\log L(\beta)\)</span>.</p>
 </div>

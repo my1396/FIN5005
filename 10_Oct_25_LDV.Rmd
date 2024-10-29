@@ -326,8 +326,12 @@ expcoef <- function(glmobj){
     upper=expcoef*exp(1.96*regtab[,2]) 
     cbind(expcoef,lower,upper)
 } 
+```
+
+```{r caption = "Exponentail of the coefficient and 95% CI."}
 expcoef(fit.age)[-1,,drop=FALSE] %>% 
-    knitr::kable(digits = 2, escape=T)
+    kable(digits = 2, escape=T) %>% 
+    kable_styling(full_width = FALSE)
 ```
 
 
@@ -357,10 +361,12 @@ stargazer(wcgs.mult, type="html",
           notes.append=F )
 ```
 
-Odds ratios with confidence intervals
 
-```{r}
-expcoef(wcgs.mult)[-1,]
+
+```{r caption="Odds ratios with confidence intervals."}
+expcoef(wcgs.mult)[-1,] %>% 
+    kable(digits = 2, escape=T) %>% 
+    kable_styling(full_width = FALSE)
 ```
 
 ___
@@ -458,17 +464,25 @@ If we condition on the $x_i$'s, the distribution of $y_i$ given $x_i$ is $\text{
 Conditional density is
 
 $$
-f\,(y_i | x_i ) = \begin{cases}
+\begin{aligned}
+f\,(y_i | x_i ) &= \begin{cases}
 F(x'\beta) & \text{if $y_i=1$} \\
 1- F(x'\beta) & \text{if $y_i=0$} \\
-\end{cases}
+\end{cases} \\
+&= F(x'\beta)^{y_i} \left[1- F(x'\beta)\right]^{1-y_i} \,.
+\end{aligned}
 $$
 
 
 This gives the log likelihood
 
 $$
-\log L(\beta) = \sum_{i=1}^n \log f\,(y_i | x_i )
+\begin{align*}
+\log L(\beta) &= \sum_{i=1}^n \log f\,(y_i | x_i ) \\
+&= \sum_{i=1}^n \log \left\{F(x'\beta)^{y_i} \left[1- F(x'\beta)\right]^{1-y_i} \right\} \\
+&= \sum_{i=1}^n \left\{y_i \log F(x'\beta) + {1-y_i} \log \left[1- F(x'\beta)\right] \right\} \\
+&= \sum_{y_i=1} \log  F(x'\beta) + \sum_{y_i=0} \log \left[1- F(x'\beta)\right] \,.
+\end{align*}
 $$
 
 $\hat{\beta}_{ML}$ maximizes $\log L(\beta)$.
