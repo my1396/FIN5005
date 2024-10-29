@@ -612,7 +612,7 @@ The empirical distribution function is
 <h1>Density functions</h1>
 <p><span style="color:#008B45FF">Probability Density functions (PDF)</span> are derived from CDF.</p>
 <ul>
-<li>PDFs for <span style="color:#008B45FF">discrete random variables</span> (RV) are often referred to as probability mass functions
+<li>PDFs for <span style="color:#337ab7">discrete random variables</span> (RV) are often referred to as <span style="color:#008B45FF">probability mass functions (PMFs)</span>.
 <span class="math display">\[
 f(x) = P(X=x).
 \]</span>
@@ -627,28 +627,33 @@ f(0) = f(1) = \frac{1}{2}.
 F(x) = P(X\le x) = \sum_{a\le x} f(a)
 \]</span>
 where the sum is taken over all values of <span class="math inline">\(a\le x\)</span>.</p></li>
-<li><p><span style="color:#008B45FF">Bernoulli distribution</span>. If <span class="math inline">\(X\sim \text{Bernoulli}(p),\)</span> where <span class="math inline">\(p=0.5\)</span>. This corresponds to the fair coin toss with a probability of 0.5 having a head.</p></li>
-<li><p>Its PDF can be written as
+<li><p><span style="color:#008B45FF">Bernoulli distribution</span>. If <span class="math inline">\(X\sim \text{Bernoulli}\,(p),\)</span> where <span class="math inline">\(p=0.5\)</span>. This corresponds to the fair coin toss with a probability of 0.5 having a head.</p>
+<p>Its PMF can be written as</p>
+<p><span class="math display">\[
+  f(x) = p^x(1-p)^{1-x} \quad \text{where } x\in\{0,1\}.
+  \]</span></p>
+<p>That is</p>
+<p><span class="math display">\[
+  f(x) = \begin{cases}
+  p &amp; \text{if } x=1 \\
+  1-p &amp; \text{if } x=0
+  \end{cases}.
+  \]</span></p>
+<p><span class="math inline">\(p\)</span> is called the parameter of the Bernoulli distribution.</p>
+<p>To include the parameter in the notation, one writes <span class="math inline">\(f(x;p)\)</span> instead of <span class="math inline">\(f(x)\)</span>.</p></li>
+<li><p><span style="color:#008B45FF">Binomial distribution</span>, <span class="math inline">\(Y\sim B(n, p)\)</span>, is the distribution of the sum of <span class="math inline">\(n\)</span> <em>independent</em> Bernoulli trials, <span class="math inline">\(\text{Bernoulli}\,(p)\)</span>, each with the same probability <span class="math inline">\(p\)</span>.
 <span class="math display">\[
-f(x) = p^x(1-p)^{1-x} \quad \text{where } x\in\{0,1\}.
-\]</span>
-That is
-<span class="math display">\[
-f(x) = \begin{cases}
-p &amp; \text{if } x=1 \\
-1-p &amp; \text{if } x=0
-\end{cases}.
-\]</span>
-<span class="math inline">\(p\)</span> is called the parameter of the Bernoulli distribution.<br />
-To include the parameter in the notation, one writes <span class="math inline">\(f(x;p)\)</span> instead of <span class="math inline">\(f(x)\)</span>.</p></li>
+  Y=\sum_i^n X_i
+  \]</span>
+where <span class="math inline">\(X_i\overset{\text{iid}}{\sim} \text{Bernoulli}\,(p)\)</span>. <code>iid</code> stands for <em>independent and identically distributed</em>.</p></li>
 </ul></li>
-<li>For <span style="color:#008B45FF">continuous RV</span>, <span class="math inline">\(f(x)\)</span> can be obtained by differentiating <span class="math inline">\(F(x)\)</span> w.r.t <span class="math inline">\(x\)</span>,
+<li>For <span style="color:#337ab7">continuous RV</span>, <span class="math inline">\(f(x)\)</span> can be obtained by differentiating <span class="math inline">\(F(x)\)</span> w.r.t <span class="math inline">\(x\)</span>,
 <span class="math display">\[
-f(x) = \frac{dF(x)}{dx}.
+f(x) = \frac{\mathrm dF(x)}{\mathrm dx}.
 \]</span>
 Conversely, CDF can be obtained by integrating the PDF,
 <span class="math display">\[
-F(x) = P(X\le x) = \int_{-\infty}^{x} f(a) da
+F(x) = P(X\le x) = \int_{-\infty}^{x} f(a)\, \mathrm da
 \]</span>
 <ul>
 <li><p>Example: <span style="color:#008B45FF">Standard Normal Distribution</span>. If <span class="math inline">\(Z\sim N(0,1)\)</span>, then its PDF is given by
@@ -657,7 +662,7 @@ F(x) = P(X\le x) = \int_{-\infty}^{x} f(a) da
 \]</span>
 Its CDF is:
 <span class="math display">\[
-\Phi(z) = P(Z\le z) =\int_{-\infty}^z \phi(a)da.
+\Phi(z) = P(Z\le z) =\int_{-\infty}^z \phi(a)\,\mathrm da.
 \]</span></p></li>
 <li><p>Tail probabilities of the standard normal distribution play an important role in hypothesis testing, and in formulating confidence intervals for parameters of interest.</p></li>
 <li><p>For example, we have <span class="math display">\[\Phi(−1.96) = P(Z ≤ −1.96) = 0.025.\]</span> By symmetry, <span class="math display">\[\Phi(1.96) = P(Z ≤ 1.96) = 0.975.\]</span> Consequently, the probability that any draw from the standard normal distribution will be between <span class="math inline">\(\pm 1.96\)</span> is <span class="math inline">\(95\%\)</span>.</p></li>

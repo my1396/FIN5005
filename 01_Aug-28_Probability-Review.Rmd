@@ -340,7 +340,7 @@ ___
 
 <span style='color:#008B45FF'>Probability Density functions (PDF)</span> are derived from CDF.
 
-- PDFs for <span style='color:#008B45FF'>discrete random variables</span> (RV) are often referred to as probability mass functions
+- PDFs for <span style='color:#337ab7'>discrete random variables</span> (RV) are often referred to as <span style='color:#008B45FF'>probability mass functions (PMFs)</span>. 
 $$
 f(x) = P(X=x).
 $$
@@ -355,28 +355,40 @@ F(x) = P(X\le x) = \sum_{a\le x} f(a)
 $$
 where the sum is taken over all values of $a\le x$. 
 
-    - <span style='color:#008B45FF'>Bernoulli distribution</span>. If $X\sim \text{Bernoulli}(p),$ where $p=0.5$. This corresponds to the fair coin toss with a probability of 0.5 having a head.
-    - Its PDF can be written as
-$$
-f(x) = p^x(1-p)^{1-x} \quad \text{where } x\in\{0,1\}.
-$$
-That is 
-$$
-f(x) = \begin{cases}
-p & \text{if } x=1 \\
-1-p & \text{if } x=0 
-\end{cases}.
-$$
-$p$ is called the parameter of the Bernoulli distribution. \
-To include the parameter in the notation, one writes $f(x;p)$ instead of $f(x)$.
+    - <span style='color:#008B45FF'>Bernoulli distribution</span>. If $X\sim \text{Bernoulli}\,(p),$ where $p=0.5$. This corresponds to the fair coin toss with a probability of 0.5 having a head.
+    
+        Its PMF can be written as
+        
+        $$
+        f(x) = p^x(1-p)^{1-x} \quad \text{where } x\in\{0,1\}.
+        $$
+        
+        That is 
+        
+        $$
+        f(x) = \begin{cases}
+        p & \text{if } x=1 \\
+        1-p & \text{if } x=0 
+        \end{cases}.
+        $$
+        
+        $p$ is called the parameter of the Bernoulli distribution. 
+        
+        To include the parameter in the notation, one writes $f(x;p)$ instead of $f(x)$.
+            
+    - <span style='color:#008B45FF'>Binomial distribution</span>, $Y\sim B(n, p)$, is the distribution of the sum of $n$ *independent* Bernoulli trials, $\text{Bernoulli}\,(p)$, each with the same probability $p$.
+        $$
+        Y=\sum_i^n X_i
+        $$
+        where $X_i\overset{\text{iid}}{\sim} \text{Bernoulli}\,(p)$. `iid` stands for *independent and identically distributed*.
 
-- For <span style='color:#008B45FF'>continuous RV</span>, $f(x)$ can be obtained by differentiating $F(x)$ w.r.t $x$,
+- For <span style='color:#337ab7'>continuous RV</span>, $f(x)$ can be obtained by differentiating $F(x)$ w.r.t $x$,
 $$
-f(x) = \frac{dF(x)}{dx}.
+f(x) = \frac{\mathrm dF(x)}{\mathrm dx}.
 $$
 Conversely, CDF can be obtained by integrating the PDF,
 $$
-F(x) = P(X\le x) = \int_{-\infty}^{x} f(a) da
+F(x) = P(X\le x) = \int_{-\infty}^{x} f(a)\, \mathrm da
 $$
     - Example: <span style='color:#008B45FF'>Standard Normal Distribution</span>. If $Z\sim N(0,1)$, then its PDF is given by
 $$
@@ -384,7 +396,7 @@ $$
 $$
 Its CDF is:
 $$
-\Phi(z) = P(Z\le z) =\int_{-\infty}^z \phi(a)da.
+\Phi(z) = P(Z\le z) =\int_{-\infty}^z \phi(a)\,\mathrm da.
 $$
 
     - Tail probabilities of the standard normal distribution play an important role in hypothesis testing, and in formulating confidence intervals for parameters of interest.
