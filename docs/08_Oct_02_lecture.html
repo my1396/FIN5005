@@ -757,9 +757,9 @@ F Statistic
 <hr />
 </div>
 </div>
-<div id="t-test-for-equal-sample-means" class="section level1">
-<h1>T-test for equal sample means</h1>
-<p>We would like to determine a confidence interval for the treatment effect and test if the difference is statistically significant – <span style="color:#008B45FF"><span class="math inline">\(t\)</span>-test for equal sample means</span>.</p>
+<div id="t-test-for-equal-population-means" class="section level1">
+<h1>T-test for equal population means</h1>
+<p>We would like to determine a confidence interval for the treatment effect and test if the difference is statistically significant – <span style="color:#008B45FF"><span class="math inline">\(t\)</span>-test for equal population means</span>.</p>
 <pre class="r"><code>t.test(density~group, data=bonedensity, var.equal=T)</code></pre>
 <pre><code>## 
 ##  Two Sample t-test
@@ -773,7 +773,21 @@ F Statistic
 ## mean in group 1 mean in group 2 
 ##       0.2188667       0.2350667</code></pre>
 <p><strong>Mathematical formulations</strong></p>
-<p>Suppose that the data for the two independent groups are random samples from <span class="math inline">\(N(\mu_1, \sigma^2)\)</span> and <span class="math inline">\(N(\mu_2, \sigma^2)\)</span>, respectively. Here we assume equal variance.</p>
+<p>The two-sample <em>t</em>-test is used to test for the difference in two population means, <span class="math inline">\(\mu_1-\mu_2\)</span>.</p>
+<p>Suppose we wish to compare the means of two distinct populations. Figure <a href="#fig:t-test-diagram">1</a> illustrates the conceptual framework of our investigation in this and the next section. Each population has a mean (<span class="math inline">\(\mu\)</span>) and a standard deviation (<span class="math inline">\(\sigma\)</span>).</p>
+<p>We draw a random sample from Population 1 and label the sample statistics it yields with the subscript 1. Particularly, we have sample mean <span class="math inline">\((\overline{x}_1)\)</span> and sample standard deviation <span class="math inline">\((s_1)\)</span>.</p>
+<p>We draw a sample from Population 2 and label its sample statistics with the subscript 2. Particularly, we have sample mean <span class="math inline">\((\overline{x}_1)\)</span> and sample standard deviation <span class="math inline">\((s_1)\)</span>.</p>
+<p>Our goal is to use the information in the samples to estimate the difference in the means of the two populations, <span class="math inline">\(\mu_1-\mu_2\)</span>, and to make statistically valid inferences about it.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:t-test-diagram"></span>
+<img src="images/equal%20sample%20mean.jpg" alt="T-test of Two Population Means" width="40%" />
+<p class="caption">
+Fig. 1: T-test of Two Population Means
+</p>
+</div>
+<hr />
+<div id="equal-population-variances" class="section level2">
+<h2>Equal Population Variances</h2>
+<p>Suppose that the data for the two independent groups are random samples from <span class="math inline">\(N(\mu_1, \sigma_1^2)\)</span> and <span class="math inline">\(N(\mu_2, \sigma_2^2)\)</span>, respectively. Here we assume <strong>equal population variances</strong>, <span class="math inline">\(\sigma_1^2=\sigma_2^2\)</span>.</p>
 <p>The observations are denotes:</p>
 <ul>
 <li>group 1: <span class="math inline">\(x_{11}, x_{12}, \ldots, x_{1,n_1}\)</span></li>
@@ -781,25 +795,103 @@ F Statistic
 </ul>
 <p>We have all together <span class="math inline">\(n=n_1+n_2\)</span> observations.</p>
 <p><span class="math display">\[
+\text{H}_0: \mu_1 - \mu_2 =0  \quad \text{(or equivalently } H_0:  \mu_1 = \mu_2)
+\]</span>
+Against any of the alternative hypotheses:</p>
+<p><span class="math display">\[
 \begin{aligned}
-&amp;\text{H}_0: \mu_1 = \mu_2 \\
-&amp;\text{H}_1: \mu_1 \ne \mu_2
+&amp; \text{Two-tailed: } &amp;&amp; \text{H}_1: \mu_1 - \mu_2 \ne 0, \\
+&amp; \text{Left-tailed: } &amp;&amp; \text{H}_1: \mu_1 - \mu_2&lt;0, \; \text{or }\; \\
+&amp; \text{Right-tailed: } &amp;&amp; \text{H}_1: \mu_1 - \mu_2&gt;0\, .
 \end{aligned}
-\]</span>
-Test statistic:
+\]</span></p>
+<p>Test statistic:
 <span class="math display">\[
-t = \frac{\overline{x_2}-\overline{x_1}}{se(\overline{x_2}-\overline{x_1})} \sim t(n_1+n_2-2) ,
+t = \frac{\overline{x_1}-\overline{x_2}}{se(\overline{x_1}-\overline{x_2})} \sim t(n_1+n_2-2) ,
 \]</span>
-where
+which follows a <em>t</em>-distribution with <span class="math inline">\((n_1+n_2-2)\)</span> degrees of freedom, where
 <span class="math display">\[
-se(\overline{x_2}-\overline{x_1}) = s_p\sqrt{\left(\frac{1}{n_1}+\frac{1}{n_2}\right)}
+se(\overline{x_1}-\overline{x_2}) = s_p\sqrt{\left(\frac{1}{n_1}+\frac{1}{n_2}\right)}
 \]</span>
 with
 <span class="math display">\[
-s_p = \sqrt{\frac{n_1-1}{n_1+n_2-2}s_1^2 + \frac{n_2-1}{n_1+n_2-2}s_2^2}.
+s_p = \sqrt{\frac{n_1-1}{n_1+n_2-2}\cdot s_1^2 + \frac{n_2-1}{n_1+n_2-2}\cdot s_2^2}.
 \]</span>
-We reject <span class="math inline">\(\text{H}_0\)</span> if <span class="math inline">\(|t|&gt;c_{\alpha/2}\)</span>.</p>
+where <span class="math inline">\(s_p^2\)</span> is called the <em>pooled sample variance</em>. It is a weighted average of the two sample variances <span class="math inline">\(s_1^2\)</span> and <span class="math inline">\(s_2^2\)</span>.</p>
+<p><span class="math display">\[
+\begin{aligned}
+s_1^2 &amp;= \frac{\sum_{i=1}^{n_1}(x_i-\overline{x}_1)^2}{n_1-1} \\
+s_2^2 &amp;= \frac{\sum_{i=1}^{n_2}(x_i-\overline{x}_1)^2}{n_2-1} \\
+\end{aligned}
+\]</span>
+where <span class="math inline">\(\overline{x}_1\)</span> and <span class="math inline">\(\overline{x}_2\)</span> are the sample means.</p>
+<p>The following are rejection regions corresponding to various alternative hypotheses.</p>
+<table style="border-collapse: collapse; margin-left: auto; margin-right: auto; text-align: center">
+<thead>
+<tr style="border-bottom: 1pt solid #D3D3D3;">
+<th style="width: 250px; ">
+Alternative Hypothesis
+</th>
+<th style="width: 250px; ">
+Rejection Region
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<span class="math inline">\(\text{H}_1: \mu_1 - \mu_2 \ne 0\)</span>
+</td>
+<td>
+<span class="math inline">\(\vert t\vert &gt; t_{\alpha/2,\, v}\)</span>
+</td>
+</tr>
+<tr>
+<td>
+<span class="math inline">\(\text{H}_1: \mu_1 - \mu_2&lt;0\)</span>
+</td>
+<td>
+<span class="math inline">\(t&lt;-t_{ \alpha,\, v}\)</span>
+</td>
+</tr>
+<tr>
+<td>
+<span class="math inline">\(\text{H}_1: \mu_1 - \mu_2&gt; 0\)</span>
+</td>
+<td>
+<span class="math inline">\(t &gt; t_{\alpha,\, v}\)</span>
+</td>
+</tr>
+</tbody>
+</table>
+<p>where <span class="math inline">\(v=n_1+n_2-2\)</span> is the degrees of freedom.</p>
+<p>The <em>t-</em>test under equal population variances is also known as the “pooled two-sample <em>t</em>-test”.</p>
+<p>The <span class="math inline">\((1-\alpha)\)</span> (two-sided) confidence interval is given by:</p>
+<p><span class="math display">\[
+(\overline{x_1}-\overline{x_2})\pm t_{\alpha/2, v} \cdot se(\overline{x_1}-\overline{x_2}) \,.
+\]</span></p>
 <hr />
+</div>
+<div id="when-population-variances-are-not-equal" class="section level2">
+<h2>When Population Variances Are Not Equal</h2>
+<p>Let’s assume we have two <em>independent</em> samples from two normal distributions with <strong>unequal variances</strong>, <span class="math inline">\(\sigma_1^2\ne\sigma_2^2\)</span>.</p>
+<p>Then we have the following test statistic:</p>
+<p><span class="math display">\[
+t = \frac{\overline{x_1}-\overline{x_2}}{se(\overline{x_1}-\overline{x_2})} \sim t(r) ,
+\]</span>
+which follows a <em>t</em>-distribution with the adjusted degrees of freedom <span class="math inline">\(r\)</span>, where
+<span class="math display">\[
+se(\overline{x_1}-\overline{x_2}) = \sqrt{\frac{s_1^2}{n_1}+\frac{s_2^2}{n_2}} \, ,
+\]</span>
+and
+<span class="math display">\[
+r=\frac{\left(\frac{s_1^2}{n_1}+\frac{s_2^2}{n_2}\right)^2}{\frac{(s_1^2/n_1)^2}{n_1-1} + \frac{(s_2^2/n_2)^2}{n_2-1}}
+\]</span>
+If <span class="math inline">\(r\)</span> does not equal an integer, as it usually does not, then we take the integer portion of <span class="math inline">\(r\)</span>. That is, we use <span class="math inline">\(\lfloor r \rfloor\)</span> if necessary.</p>
+<p>The <em>t-</em>test under unequal population variances is also known as the “Welch’s <em>t</em>-test”.</p>
+<p>Note that when <em>each sample size is large</em>, for instance, <span class="math inline">\(n_1\geq 30\)</span> and <span class="math inline">\(n_2\geq 30\)</span>, the test statistic approximate the <em>standard normal distribution</em>. Then we could use the critical value under standard normal, <span class="math inline">\(z_{\alpha/2}\)</span>.</p>
+<hr />
+</div>
 </div>
 <div id="interactions" class="section level1">
 <h1>Interactions</h1>

@@ -349,9 +349,9 @@ boxplot(density~group, data=bonedensity)
 
 ___
 
-# T-test for equal sample means
+# T-test for equal population means
 
-We would like to determine a confidence interval for the treatment effect and test if the difference is statistically significant -- <span style='color:#008B45FF'>$t$-test for equal sample means</span>.
+We would like to determine a confidence interval for the treatment effect and test if the difference is statistically significant -- <span style='color:#008B45FF'>$t$-test for equal population means</span>.
 
 ```{r}
 t.test(density~group, data=bonedensity, var.equal=T)
@@ -359,7 +359,25 @@ t.test(density~group, data=bonedensity, var.equal=T)
 
 **Mathematical formulations**
 
-Suppose that the data for the two independent groups are random samples from $N(\mu_1, \sigma^2)$ and $N(\mu_2, \sigma^2)$, respectively. Here we assume equal variance.
+The two-sample *t*-test is used to test for the difference in two population means, $\mu_1-\mu_2$. 
+
+Suppose we wish to compare the means of two distinct populations. Figure \@ref(fig:t-test-diagram) illustrates the conceptual framework of our investigation in this and the next section. Each population has a mean ($\mu$) and a standard deviation ($\sigma$). 
+
+We draw a random sample from Population  1  and label the sample statistics it yields with the subscript 1. Particularly, we have sample mean $(\overline{x}_1)$ and sample standard deviation $(s_1)$.
+
+We draw a sample from Population 2  and label its sample statistics with the subscript 2. Particularly, we have sample mean $(\overline{x}_1)$ and sample standard deviation $(s_1)$.
+
+Our goal is to use the information in the samples to estimate the difference  in the means of the two populations, $\mu_1-\mu_2$, and to make statistically valid inferences about it.
+
+```{r t-test-diagram, echo=FALSE, fig.cap="T-test of Two Population Means", out.width = "40%"}
+knitr::include_graphics("images/equal sample mean.jpg") 
+```
+
+___
+
+## Equal Population Variances
+
+Suppose that the data for the two independent groups are random samples from $N(\mu_1, \sigma_1^2)$ and $N(\mu_2, \sigma_2^2)$, respectively. Here we assume **equal population variances**, $\sigma_1^2=\sigma_2^2$.
 
 The observations are denotes:
 
@@ -370,24 +388,98 @@ We have all together $n=n_1+n_2$ observations.
 
 
 $$
+\text{H}_0: \mu_1 - \mu_2 =0  \quad \text{(or equivalently } H_0:  \mu_1 = \mu_2)
+$$
+Against any of the alternative hypotheses:
+
+$$
 \begin{aligned}
-&\text{H}_0: \mu_1 = \mu_2 \\
-&\text{H}_1: \mu_1 \ne \mu_2
+& \text{Two-tailed: } && \text{H}_1: \mu_1 - \mu_2 \ne 0, \\
+& \text{Left-tailed: } && \text{H}_1: \mu_1 - \mu_2<0, \; \text{or }\; \\
+& \text{Right-tailed: } && \text{H}_1: \mu_1 - \mu_2>0\, .
 \end{aligned}
 $$
+
 Test statistic:
 $$
-t = \frac{\overline{x_2}-\overline{x_1}}{se(\overline{x_2}-\overline{x_1})} \sim t(n_1+n_2-2) ,
+t = \frac{\overline{x_1}-\overline{x_2}}{se(\overline{x_1}-\overline{x_2})} \sim t(n_1+n_2-2) ,
 $$
-where
+which follows a *t*-distribution with $(n_1+n_2-2)$ degrees of freedom, where
 $$
-se(\overline{x_2}-\overline{x_1}) = s_p\sqrt{\left(\frac{1}{n_1}+\frac{1}{n_2}\right)}
+se(\overline{x_1}-\overline{x_2}) = s_p\sqrt{\left(\frac{1}{n_1}+\frac{1}{n_2}\right)}
 $$
 with
 $$
-s_p = \sqrt{\frac{n_1-1}{n_1+n_2-2}s_1^2 + \frac{n_2-1}{n_1+n_2-2}s_2^2}.
+s_p = \sqrt{\frac{n_1-1}{n_1+n_2-2}\cdot s_1^2 + \frac{n_2-1}{n_1+n_2-2}\cdot s_2^2} \,.
 $$
-We reject $\text{H}_0$ if $|t|>c_{\alpha/2}$.
+where $s_p^2$ is called the *pooled sample variance*. It is a weighted average of the two sample variances $s_1^2$  and  $s_2^2$.
+
+$$
+\begin{aligned}
+s_1^2 &= \frac{\sum_{i=1}^{n_1}(x_i-\overline{x}_1)^2}{n_1-1} \\
+s_2^2 &= \frac{\sum_{i=1}^{n_2}(x_i-\overline{x}_1)^2}{n_2-1} \\
+\end{aligned}
+$$
+where $\overline{x}_1$ and $\overline{x}_2$ are the sample means.
+
+
+The following are rejection regions corresponding to various alternative hypotheses.
+
+<table style="border-collapse: collapse; margin-left: auto; margin-right: auto; text-align: center"><thead>
+  <tr style="border-bottom: 1pt solid #D3D3D3;">
+    <th style='width: 250px; '>Alternative Hypothesis</th>
+    <th style='width: 250px; '>Rejection Region</th>
+  </tr></thead>
+<tbody>
+  <tr>
+    <td>$\text{H}_1: \mu_1 - \mu_2 \ne 0$</td>
+    <td>$\vert t\vert > t_{\alpha/2,\, v}$</td>
+  </tr>
+  <tr>
+    <td>$\text{H}_1: \mu_1 - \mu_2<0$</td>
+    <td>$t<-t_{ \alpha,\, v}$</td>
+  </tr>
+  <tr>
+    <td>$\text{H}_1: \mu_1 - \mu_2> 0$</td>
+    <td>$t > t_{\alpha,\, v}$</td>
+  </tr>
+</tbody>
+</table>
+
+where $v=n_1+n_2-2$ is the degrees of freedom.
+
+The *t-*test under equal population variances is also known as the “pooled two-sample *t*-test”.
+
+The $(1-\alpha)$ (two-sided) confidence interval is given by:
+
+$$
+(\overline{x_1}-\overline{x_2})\pm t_{\alpha/2, v} \cdot se(\overline{x_1}-\overline{x_2}) \,.
+$$
+
+___
+
+## When Population Variances Are Not Equal
+
+Let's assume we have two *independent* samples from two normal distributions with **unequal variances**, $\sigma_1^2\ne\sigma_2^2$.
+
+Then we have the following test statistic:
+
+$$
+t = \frac{\overline{x_1}-\overline{x_2}}{se(\overline{x_1}-\overline{x_2})} \sim t(r) ,
+$$
+which follows a *t*-distribution with the adjusted degrees of freedom $r$, where
+$$
+se(\overline{x_1}-\overline{x_2}) = \sqrt{\frac{s_1^2}{n_1}+\frac{s_2^2}{n_2}} \, ,
+$$
+and 
+$$
+r=\frac{\left(\frac{s_1^2}{n_1}+\frac{s_2^2}{n_2}\right)^2}{\frac{(s_1^2/n_1)^2}{n_1-1} + \frac{(s_2^2/n_2)^2}{n_2-1}}
+$$
+If $r$ does not equal an integer, as it usually does not, then we take the integer portion of $r$. That is, we use $\lfloor r \rfloor$ if necessary.
+
+The *t-*test under unequal population variances is also known as the “Welch's *t*-test”.
+
+Note that when *each sample size is large*, for instance, $n_1\geq 30$ and $n_2\geq 30$, the test statistic approximate the *standard normal distribution*. Then we could use the critical value under standard normal, $z_{\alpha/2}$.
 
 
 ___

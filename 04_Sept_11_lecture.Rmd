@@ -255,37 +255,40 @@ where $c>0$ is a pre-specified constant, often called the <span style='color:#00
 Given $\frac{\widehat{\theta}-\theta}{\Sigma} \sim N(0,1)$, we have
 $$
 \begin{equation} (\#eq:CI)
-P\left(-c_{1-\alpha/2} < \frac{\widehat{\theta}-\theta}{\Sigma} < c_{1-\alpha/2}  \right) = 1-\alpha .
+P\left(-c_{\alpha/2} < \frac{\widehat{\theta}-\theta}{\Sigma} < c_{\alpha/2}  \right) = 1-\alpha .
 \end{equation}
 $$
-This requires $\Phi(c_{1-\alpha/2}) = 1-\frac{\alpha}{2}$. 
+This requires $\Phi(c_{\alpha/2}) = 1-\frac{\alpha}{2}$. 
 
-Hence, $c_{1-\alpha/2}=\Phi^{-1}(1-\frac{\alpha}{2})$, which is the $\left(1-\frac{\alpha}{2}\right)$ quantile of the standard normal distribution (inverse of cdf of standard normal).  
+Hence, $c_{\alpha/2}=\Phi^{-1}(1-\frac{\alpha}{2})$, which is the $\left(1-\frac{\alpha}{2}\right)$ quantile of the standard normal distribution (inverse of the cdf of standard normal).  
 
 Re-arranging \@ref(eq:CI), we have 
 $$
-P\left(\widehat{\theta}-c_{1-\alpha/2}\cdot \Sigma, \; \widehat{\theta}+c_{1+\alpha/2}\cdot \Sigma\right) = 1-\alpha
+P\left(\widehat{\theta}-c_{\alpha/2}\cdot \Sigma, \; \widehat{\theta}+c_{\alpha/2}\cdot \Sigma\right) = 1-\alpha
 $$
 This says the random interval, 
 $$
-(\widehat{\theta}-c_{1-\alpha/2}\cdot \Sigma, \; \widehat{\theta}+c_{1-\alpha/2}\cdot \Sigma),
+(\widehat{\theta}-c_{\alpha/2}\cdot \Sigma, \; \widehat{\theta}+c_{\alpha/2}\cdot \Sigma),
 $$
 contains $\theta$ with probability $1-\alpha.$
 
 
 One can also generate one-sided intervals:
 $$
-P\left(\widehat{\theta}-c_{1-\alpha}\cdot \Sigma < \theta \right) = 1-\alpha ,
+P\left(\widehat{\theta}-c_{\alpha}\cdot \Sigma < \theta \right) = 1-\alpha ,
 $$
 or
 $$
-P\left(\theta < \widehat{\theta}+c_{1-\alpha}\cdot \Sigma \right) = 1-\alpha ,
+P\left(\theta < \widehat{\theta}+c_{\alpha}\cdot \Sigma \right) = 1-\alpha ,
 $$
-but a two-sided interval is more common.
+where $c_{\alpha}=\Phi^{-1}(1-\alpha)$, which is the $(1-\alpha)$ quantile of the standard normal.
+But a two-sided interval is more common.
 
 ___
 
 # Hypothesis Testing
+
+**Two-sided hypothesis testing**
 
 Let us again consider the generic case of equation:
 
@@ -326,16 +329,16 @@ $$
 
 - we reject $H_0: \theta=r$ in favor of $H_1$ at $\alpha$ level of significance if 
     $$
-    |Z| = \left\vert \frac{\widehat{\theta}-r}{\Sigma} \right\vert > c_{1-\alpha/2},
+    |Z| = \left\vert \frac{\widehat{\theta}-r}{\Sigma} \right\vert > c_{\alpha/2},
     $$
-    where the corresponding cut-off value $c_{\alpha/2}$ is called the <span style='color:#008B45FF'>critical value</span>. $c_{1-\alpha/2}$ is defined as 
+    where the corresponding cut-off value $c_{\alpha/2}$ is called the <span style='color:#008B45FF'>critical value</span>. $c_{\alpha/2}$ is defined as 
     $$
     \begin{aligned}
-    & P(Z>c_{1-\alpha/2}) = \alpha/2 , \\
-    \Rightarrow \, & P(Z\le c_{1-\alpha/2}) = 1-\alpha/2.
+    & P(Z>c_{\alpha/2}) = \alpha/2 , \\
+    \Rightarrow \, & P(Z\le c_{\alpha/2}) = 1-\alpha/2.
     \end{aligned}
     $$
-    That is, $c_{1-\alpha/2}$ is the $1-\alpha/2$ quantile (inverse cdf) of the distribution of $Z$.
+    That is, $c_{\alpha/2}$ is the $(1-\alpha/2)$ quantile (inverse cdf) of the distribution of $Z$.
 
 
 - Otherwise, we **fail to reject** $H_0$ (we never say ACCEPT $H_0$). 
@@ -350,18 +353,20 @@ $$
     > - If I throw the dice 6 times in a row and get two 2's each time, it doesn't look fair to me. I reject the null hypothesis because there is only a (1/36)^6 chance of that happening if the dice are fair.
 
 
+**One-sided hypothesis testing**
+
 Similarly, for one-sided hypothesis testing, we have
 
 - Case 1: $H_0: \theta\ge r \quad \text{vs} \quad H_1: \theta<r$ (left-tailed test). We reject $H_0$ in favor of $H_1$ if 
 $$
-\frac{\widehat{\theta}-r}{\Sigma} < -c_{1-\alpha} \; ,
+\frac{\widehat{\theta}-r}{\Sigma} < -c_{\alpha} \; ,
 $$
 that is, the critical region is in the extreme left region (tail).
 Otherwise, we fail to reject $H_0.$
 
 - Case 2: $H_0: \theta\le r \quad \text{vs} \quad H_1: \theta>r$ (right-tailed test). We reject $H_0$ in favor of $H_1$ if 
 $$
-\frac{\widehat{\theta}-r}{\Sigma} > c_{1-\alpha} \; ,
+\frac{\widehat{\theta}-r}{\Sigma} > c_{\alpha} \; ,
 $$
 that is, the critical region is in the extreme right region (tail).
 Otherwise, we fail to reject $H_0.$
@@ -370,24 +375,38 @@ Otherwise, we fail to reject $H_0.$
 The critical values for typical levels of significance are:
 
 - For one-sided tests,
-    - 1\% level of significance : $c_{1-\alpha} = 2.33$,
-    - 5\% level of significance : $c_{1-\alpha} = 1.64$, 
-    - 10\% level of significance : $c_{1-\alpha}= 1.28$.
+    - 1\% level of significance : $c_{\alpha} = 2.33$,
+        ```{r}
+        alpha <- .01
+        qnorm(p=1-alpha)
+        ```
+        `qnorm(p, mean=0, sd=1)` is the quantile function for the normal distribution, commonly used to find the quantile given a probability `p`. You can specify different values for the mean and standard deviation by adjusting the mean and sd parameters, respectively.
+    
+    - 5\% level of significance : $c_{\alpha} = 1.64$, 
+        ```{r}
+        alpha <- .05
+        qnorm(p=1-alpha)
+        ```
+    - 10\% level of significance : $c_{\alpha}= 1.28$.
+        ```{r}
+        alpha <- .1
+        qnorm(p=1-alpha)
+        ```
 
 - For two-sided tests,
-    - 1\% level of significance : $c_{1-\alpha/2} = 2.58$,
+    - 1\% level of significance : $c_{\alpha/2} = 2.58$,
         ```{r}
         alpha <- .01
         qnorm(p=1-alpha/2)
         ```
     
-    - 5\% level of significance : $\color{#337ab7}{c_{1-\alpha/2} = 1.96}$, 
+    - 5\% level of significance : $\color{#337ab7}{c_{\alpha/2} = 1.96}$, 
         ```{r}
         alpha <- .05
         qnorm(p=1-alpha/2)
         ```
     
-    - 10\% level of significance : $c_{1-\alpha/2}= 1.64$.
+    - 10\% level of significance : $c_{\alpha/2}= 1.64$.
         ```{r}
         alpha <- .1
         qnorm(p=1-alpha/2)
