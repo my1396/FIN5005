@@ -120,12 +120,49 @@ contingency_table %>% addmargins()
 - Of the 1652 non-smokers, 98 developed CHD.
 
 
-The <span style='color:#337ab7'>mosaic plot</span> represents each combination of the variables as a rectangle, and the size of the rectangle is proportional to the number of individuals in that combination.
+Visualization of the contingency table
+
+```{r echo=FALSE, include=FALSE}
+p <- ggplot(contingency_table %>% 
+           as_tibble() %>% 
+           mutate(chd69=factor(chd69, levels=c("non-developed", "developed"))), 
+       aes(x=smoke, y=n, fill=chd69)) +
+    geom_bar(position="stack", stat="identity", color="black", linewidth=0.1) + 
+    scale_fill_grey(start=0.88, end=0.7) +
+    labs(y="Frequency", fill="CHD") +
+    theme(axis.title.x = element_blank(), 
+          axis.title = element_text(size=rel(1.2)),
+          axis.text = element_text(size=rel(1.2)),
+          legend.position = "bottom",
+          legend.text = element_text(size=rel(1.2)),
+          legend.title = element_text(size=rel(1.2)) 
+          )
+f_name <- "images/stacked_bar.png"
+plot_png(p, f_name, 5.17, 5)
+```
+
+
+```{r echo=FALSE, out.width = "50%", fig.cap="Stacked bar plot"}
+include_graphics(f_name)
+```
+
+
+The <span style='color:#337ab7'>stacked bar graph</span> shows
+
+- the sample sizes of smokers and non-smokers;
+- the distribution of developed vs non-developed within each category.
+
+
+The <span style='color:#337ab7'>mosaic plot</span> replaces absolute frequencies (counts) with relative frequencies within each category.
+It represents each combination of the variables as a rectangle, and the size of the rectangle is proportional to the number of individuals in that combination.
+
+The advantage of mosaic plots is that it demonstrates the difference in estimated conditional probabilities among groups.
+
 
 ```{r}
 mosaicplot(contingency_table %>% t(), 
            xlab="Smoke", ylab="CHD", 
-           main="Contingency table visualization: Smoke X CHD")
+           main="Mosaic plot: Smoke X CHD")
 ```
 
 We could see a larger proportion of people that developed CHD for smokers compared to non-smokers.
@@ -170,10 +207,24 @@ ___
 
 - The *risk* refers to outcome risk for individuals who are smokers or non-smokers and are simply the observed proportions of individuals with CHD in these groups.
 
-    - In our case, the risk for non-smokers is the proportion who developed CHD among non-smokers, which is $5.9\%$.
-    - The risk for smokers is the proportion who developed CHD among smokers, which is $10.6\%$.
+    - In our case, the risk for non-smokers (`smoke=0`, control group) is the proportion who developed CHD among non-smokers, which is $5.9\%$, denoted as $P(0)$. 
+    - The risk for smokers (`smoke=1`, treatment group) is the proportion who developed CHD among smokers, which is $10.6\%$, deonoted as $P(1)$.
     
 - The <span style='color:#008B45FF'>*risk difference*</span> or <span style='color:#008B45FF'>*excess risk*</span> (ER) is defined as the difference between the estimated risk in the groups defined by the predictor. 
+    $$
+    ER = P(1)- P(0)
+    $$
+    - If $ER=0$, there is no difference in risk between the two groups.
+    
+    - If $ER>0$, the risk is higher for the treatment group compared to the control group.
+    
+    - If $ER<0$, the risk is lower for the treatment group compared to the control group.
+    
+    Because the component risks range between zero and one, the ER can take on values between $-1$ and $1$, i.e.,
+    $$
+    -1 < ER < 1
+    $$
+    
     - For our contingency table, we can see that the risk difference is
         $$
         10.6\%-5.9\%=4.7\%
@@ -186,7 +237,24 @@ ___
         p1-p0
         ```
     
-- The <span style='color:#008B45FF'>*risk ratio*</span> or <span style='color:#008B45FF'>*relative risk*</span> (RR) is the ratio of these risks. 
+- The <span style='color:#008B45FF'>*risk ratio*</span> or <span style='color:#008B45FF'>*relative risk*</span> (RR) is the ratio of these risks.
+
+    $$
+    RR = \frac{P(1)}{P(0)}
+    $$
+    
+    - If $RR=1$, there is no difference in risk between the two groups.
+        
+    - If $RR>1$, the risk is higher for the treatment group compared to the control group.
+    
+    - If $RR<1$, the risk is lower for the treatment group compared to the control group.
+    
+    $RR$ is a relative measure, and can only take nonegative values.
+    
+    $$
+    RR\ge 0
+    $$
+
     - In our example, the risk ratio is
         $$
         \frac{10.6\%}{5.9\%}=1.8
@@ -214,7 +282,9 @@ ___
     
     - The odds of CHD occurrence in the smokers groups are 
         $$
-        \frac{10.6\%}{1-10.6\%} = 11.84\%
+        \begin{align}(\#eq:odds1)
+        \text{odds}(smoke=1) = \frac{P(1)}{1-P(1)} = \frac{10.6\%}{1-10.6\%} = 11.84\%
+        \end{align}
         $$
         
         Can be verified as
@@ -224,7 +294,9 @@ ___
         
     - The odds of CHD occurrence in the non-smokers groups are 
         $$
-        \frac{5.9\%}{1-5.9\%} = 6.31\%
+        \begin{align}(\#eq:odds0)
+        \text{odds}(smoke=0) = \frac{P(0)}{1-P(0)} = \frac{5.9\%}{1-5.9\%} = 6.31\%
+        \end{align}
         $$
         
         Can be verified as
@@ -232,7 +304,24 @@ ___
         p0/(1-p0)
         ```
     
-    - The odds ratio is the ratio between the corresponding odds in the two groups, which is given by
+    - The odds ratio is the ratio between the corresponding odds in the two groups.
+        
+        $$
+        OR = \frac{P(1)/[1-P(1)]}{P(0)/[1-P(0)]}
+        $$
+        
+        - If $OR=1$, the treatment does not affect odds of outcome. 
+        - If $OR>1$, the treatment groups has higher odds of outcome. 
+        - If $OR<1$, the treatment groups has lower odds of outcome. 
+        
+        
+        $OR$ is nonnegative.
+        
+        $$
+        OR>0
+        $$
+    
+    - In our contingency table, the odds ratio is given by
     
         $$
         \frac{11.84\%}{6.31\%} = 1.88
@@ -252,6 +341,35 @@ From a fitted logistic model we may estimate the odds ratio corresponding to a o
 
 We then use a logistic regression model with smoke as covariate.
 
+Mathematical representation:
+$$
+\begin{align} (\#eq:ex1)
+p(x) = P(y=1\vert x) = \frac{\exp(\beta_0+\beta_1 x)}{1+\exp(\beta_0+\beta_1 x)}
+\end{align}
+$$
+
+We need to reformulate Eq. \@ref(eq:ex1) for the interpretation so that only the linear term is on the right side of the equation. 
+
+$$
+\begin{align} (\#eq:ex1-log)
+\log \left[\frac{p(x)}{1-p(x)} \right] = \beta_0+\beta_1 x \,.
+\end{align}
+$$
+
+The expression on the LHS is called the log odds.
+
+Taking the exponential to Eq. \@ref(eq:ex1-log), we obtain:
+$$
+\begin{align}
+\frac{p(x)}{1-p(x)} = \exp (\beta_0+\beta_1 x) \,.
+\end{align}
+$$
+
+Note that the LHS is actually the odds. 
+
+In logistic regression, if we take <span style='color:#337ab7'>the exponential of the coefficient</span>, it is the <span style='color:#337ab7'>**odds ratio corresponding to one unit's increase in the value of the covariate**</span>, holding other variables constant.
+
+
 ```{r}
 fit.smoke <- glm(chd69~smoke, data=wcgs, family=binomial)
 ```
@@ -266,20 +384,50 @@ tit_html <- paste0('<span id="tab:',
                    ')</span>',
                    tit)
 stargazer(fit.smoke, type="html",
+          digits=4,
           label = paste0("tab:", knitr::opts_current$get("label")),
           title = ifelse(knitr::is_latex_output(), tit, tit_html),
           notes="<span>&#42;</span>: p<0.1; <span>&#42;&#42;</span>: <strong>p<0.05</strong>; <span>&#42;&#42;&#42;</span>: p<0.01 <br> Standard errors in the parentheses.",
           notes.append=F )
 ```
 
-In logistic regression, if we <span style='color:#337ab7'>take the exponential of the coefficient</span>, it is the <span style='color:#337ab7'>odds ratio corresponding to one unit's increase in the value of the covariate</span>, holding other variables constant.
 
-In this case, the odds ratio for CHD for a smoker compared to a non-smoker can be obtained by
+In this case, <span style='color:#337ab7'>the odds ratio for CHD for a smoker compared to a non-smoker</span> can be obtained by
 
 $$
 e^{0.63} = 1.88\, ,
 $$
 which is exactly the same number as we calculated using the contingency table.
+
+More interpretations: the odds ratio being $1.88$ means that <span style='color:#337ab7'>the odds of a smoker developing CHD are $1.88$ times greater than the odds of a non-smoker developing CHD</span>.
+
+More formally, if you increase the value of covariate $x_1$ by one unit, the <span style='color:#337ab7'>estimated odds change by a factor of $\exp(\beta_1)$</span>.
+
+We know that the odds for non-smokers are $6.31\%$ from Eq. \@ref(eq:odds0). Given the odds ratio of $1.88$, this indicates that the **expected** odds for smokers to develop CHD is
+$$
+\begin{aligned}
+\text{odds}\,(smoker=1) &=  \text{odds}\,(smoker=0) \times \text{odds ratio}  \\
+&=6.3\% \times 1.88  \\
+&= 11.84
+\end{aligned}
+$$
+This can be verified as
+```{r}
+# odds(smoker=0) * exp(beta1)
+p0/(1-p0) * exp(fit.smoke$coefficients[2]) 
+```
+
+
+**Interpretation of intercept**: The exponential of $\beta_0$ is the estimated odds when the categorical covariates are at the reference level and all numerical covariates are zero. 
+
+In our case, the odds for a non-smoker to develop CHD is
+$$
+\text{odds}\,(smoker=0) = e^{-2.764} = 6.3\%
+$$
+
+
+
+___
 
 
 We now consider a numerical predictor, `age`.
@@ -301,6 +449,7 @@ tit_html <- paste0('<span id="tab:',
                    ')</span>',
                    tit)
 stargazer::stargazer(fit.age,
+          digits=4,
           label = paste0("tab:", knitr::opts_current$get("label")),
           title = ifelse(knitr::is_latex_output(), tit, tit_html),
           type = ifelse(knitr::is_latex_output(),"latex","html"),
@@ -313,8 +462,8 @@ stargazer::stargazer(fit.age,
 
 &nbsp;
 
-- The odds ratio for one year increase in age is $e^{0.0744} = 1.077\, ,$
-- The odds ratio for a ten-year increase is $e^{0.0744\times 10} = 2.10\, .$
+- The odds ratio for one year increase in age is $e^{0.0744} = 1.077\, .$ This means that for each additional year of age, the odds increase by a factor of $1.077.$
+- The odds ratio for a ten-year increase is $e^{0.0744\times 10} = 2.10\, .$ That is, the odds are $2.10$ times higher for an additional ten years of age.
 
 Can be verified using the following codes.
 ```{r}
@@ -330,7 +479,7 @@ expcoef <- function(glmobj){
 
 ```{r caption = "Exponentail of the coefficient and 95% CI."}
 expcoef(fit.age)[-1,,drop=FALSE] %>% 
-    kable(digits = 2, escape=T) %>% 
+    kable(digits = 4, escape=T) %>% 
     kable_styling(full_width = FALSE)
 ```
 
@@ -340,6 +489,20 @@ ___
 ## Logistic Regression with Several Predictors
 
 Consider the WCGS study with CHD as outcome and age, cholesterol (mg/dL), systolic blood pressure (mmHg), body mass index (kg/m2), and smoking (0/1) as predictors.
+
+
+Mathematical representation:
+$$
+\begin{align} 
+p(\boldsymbol x) = P(y=1\vert \boldsymbol x) = \frac{\exp(\beta_0+\beta_1 x_2 + \cdots +\beta_K x_K)}{1+\exp(\beta_0+\beta_1 x_2+ \cdots +\beta_K x_K)}
+\end{align} (\#eq:ex-multi)
+$$
+The odds given $\boldsymbol{x}=[1, x_2, \ldots, x_K]^T$ can be obtained by:
+$$
+\log \left[\frac{p(\boldsymbol x)}{1-p(\boldsymbol x)}\right] = \beta_0+\beta_1 x_x + \cdots +\beta_K x_K
+$$
+
+
 
 ```{r}
 wcgs.mult <- glm(chd69~age+chol+sbp+bmi+smoke, data=wcgs, family=binomial, subset=(chol<600))
@@ -354,7 +517,7 @@ tit_html <- paste0('<span id="tab:',
                    knitr::opts_current$get("label"),
                    ')</span>',
                    tit)
-stargazer(wcgs.mult, type="html",
+stargazer(wcgs.mult, type="html", digits=4,
           label = paste0("tab:", knitr::opts_current$get("label")),
           title = ifelse(knitr::is_latex_output(), tit, tit_html),
           notes="<span>&#42;</span>: p<0.1; <span>&#42;&#42;</span>: <strong>p<0.05</strong>; <span>&#42;&#42;&#42;</span>: p<0.01 <br> Standard errors in the parentheses.",
@@ -363,11 +526,19 @@ stargazer(wcgs.mult, type="html",
 
 
 
-```{r caption="Odds ratios with confidence intervals."}
+The coefficient ($0.635$) for the binary predictor variable `smoke` is the log odds ratio comparing smokers to nonsmokers for fixed values of `age`, `chol`, `sbp`, and `bmi`. The corresponding odds ratio
+$$
+\exp(0.635) = 1.89
+$$
+measures the proportionate increase in the odds of developing CHD for smokers compared to nonsmokers *adjusted for age, cholesterol, SBP, and BMI*.
+
+Table \@ref(tab:log-mult) shows ddds ratios corresponding to all covariates and their confidence intervals.
+```{r log-mult, echo=FALSE}
 expcoef(wcgs.mult)[-1,] %>% 
-    kable(digits = 2, escape=T) %>% 
+    kable(digits = 4, escape=T, caption="Odds ratios with confidence intervals.") %>% 
     kable_styling(full_width = FALSE)
 ```
+
 
 ___
 
@@ -398,7 +569,7 @@ $$
 $$
 where $\mathcal Y = \{0, 1\}$ is the sample space of $y_i$.
 
-We can estimate $\beta$ in \@ref(eq:linear-probability-model) by OLS.
+We can estimate $\beta$ in Eq. \@ref(eq:linear-probability-model) by OLS.
 
 Issues: Will have $x'\beta$ outside of $[0,1]$ for some values of $x$. 
 
@@ -416,13 +587,14 @@ Plug in $u=x'\beta$ and the logistic cdf, we can express the logistic model as:
 
 $$
 \begin{align}
-p(x) &= \frac{1}{1+e^{-u}} \notag \\
-&= \frac{1}{1+e^{-x'\beta}} \notag \\
-&= \frac{e^{x'\beta}}{1+e^{x'\beta}}  (\#eq:logit-model) \\
+p(x) &= \frac{1}{1+e^{-u}}  (\#eq:logit-model0) \\
+&= \frac{1}{1+e^{-x'\beta}} (\#eq:logit-model1) \\
+&= \frac{e^{x'\beta}}{1+e^{x'\beta}}  (\#eq:logit-model2) \\
 \end{align}
 $$
 
-Eq. \@ref(eq:logit-model) gives a “S-shaped” relationship between $p(x)$ and $x$ and ensures that $p(x)$ stays between 0 and 1. See Fig.&nbsp;\@ref(fig:logit-regression).
+Eq. \@ref(eq:logit-model1) gives a “S-shaped” relationship between $p(x)$ and $x'\beta$ and ensures that $p(x)$ stays between 0 and 1. 
+See Fig.&nbsp;\@ref(fig:logit-regression).
 
 
 ```{r logit-regression, echo=FALSE, fig.cap="Logistic regression cdf", out.width = "80%"}
@@ -430,7 +602,15 @@ knitr::include_graphics("images/logistic_regression.png")
 ```
 
 
-Eq. \@ref(eq:logit-model) can be written as:
+- If $\mu=x'\beta=0$, then $p(x)=0.5$, there is an equal probability whether the outcome event will occur or not.
+- If $\mu=x'\beta>0$, then $p(x)>0.5$, there is a larger probability that the outcome event will occur.
+    - In this case, we could predict $E[y\vert x]=1$.
+- If $\mu=x'\beta<0$, then $p(x)<0.5$, there is a smaller probability that the outcome event will occur.
+    - In this case, we could predict $E[y\vert x]=0$.
+- Note that it is *not* necessary to divide at $0.5$. Different threshold values could be used depending on the application in question.
+
+
+Eq. \@ref(eq:logit-model1) can be written as:
 
 $$
 \begin{equation} (\#eq:logit-odds)
@@ -438,20 +618,117 @@ $$
 \end{equation}
 $$
 
-We use an example of a single predictor to demonstrate the interpretation of $\beta$. 
+We use an example of a single predictor with an intercept to demonstrate the **interpretation** of the regression coefficient $\beta$. 
 
-If we consider two observations with covariate values $x$ and $x+\Delta x$, respectively, their odds ratio becomes
+If we consider two observations with covariate values $x$ and $x+\Delta x$, respectively.
+
+The odds given $x$ can be obtained by:
 $$
-\frac{p(x+\Delta x)/[1-p(x+\Delta x)]}{p(x)/[1-p(x)} = \frac{\exp{\left(\beta_0 + \beta_1 (x+\Delta x)\right)}}{\exp{\left(\beta_0 + \beta_1 x\right)}} = \exp{(\beta_1\Delta x)} \,.
+\text{odds}(x) = \frac{P(y=1\vert x)}{1- P(y=1\vert x)} = \exp(\beta_0 + \beta_1 x) \,.
 $$
-In particular, $e^{\beta_1}$ is the odds ratio corresponding to one unit's increase in the value of the covariate.
+The odds given $(x+\Delta x)$ are
+$$
+\text{odds}(x+\Delta x) = \frac{P(y=1\vert x+\Delta x)}{1- P(y=1\vert x+\Delta x)} = \exp\left(\beta_0 + \beta_1 (x+\Delta x)\right)  \,.
+$$
+
+Their odds ratio becomes
+$$
+\begin{aligned}
+\frac{\text{odds}(x+\Delta x)}{\text{odds}(x)} 
+&= \frac{p(x+\Delta x)/[1-p(x+\Delta x)]}{p(x)/[1-p(x)}  \\
+&= \frac{\exp{\left(\beta_0 + \beta_1 (x+\Delta x)\right)}}{\exp{\left(\beta_0 + \beta_1 x\right)}} \\
+&= \exp{(\beta_1\Delta x)} \,.
+\end{aligned}
+$$
+In particular, $e^{\beta_1}$ is the <span style='color:#337ab7'>odds ratio corresponding to one unit's increase in the value of the covariate</span>.
+
+Suppose $x$ is binary (smoker vs. non-smoker), then 
+$$
+\frac{\text{odds}(x=1)}{\text{odds}(x=0)} = \exp (\beta_1). 
+$$
+
+In other words, the exponential of the regression coefficient $(e^{\beta_1})$ is the odds ratio for the odds given the treatment (smokers) to the odds in absence of the treatment (non-smokers).
+
+In our case, the odds ratio for CHD for a smoker compared to a non-smoker based on the logistic regression in Table \@ref(tab:fit-smoke) is
+$$
+\frac{\text{odds}(smoke=1)}{\text{odds}(smoke=0)} = \exp (0.63) = 1.88 \,. 
+$$
+
+
+Suppose $x$ is numerical (e.g., age), then the interpretation would be changing $x$ by one unit would lead to the odds change by a factor of $\exp (\beta).$
+
+
+- $\beta>0 \Rightarrow OR=\exp(\beta)>1$, indicating one unit change in $x$ would make the event more likely to happen.
+- $\beta<0 \Rightarrow OR=\exp(\beta)<1$, indicating one unit change in $x$ would make the event less likely to happen.
+- $\beta=0 \Rightarrow OR=\exp(\beta)=1$, indicating there is a $50/50$ chance that the event will occur given one unit change in $x$.
+
+
+The same interpretations apply to logistic regressions with several indicators too, except that you have to add an additional comment — *holding all other variables constant*. 
 
 By Eq. \@ref(eq:logit-odds), the logistic regression model may also be given as:
 
 $$
 \log \left[\frac{p(x)}{1-p(x)} \right] = x'\beta \,.
 $$
-Thus the logistic regression model is linear in the log-odds. See Table \@ref(tab:fit-age).
+Thus the logistic regression model is linear in the log-odds. 
+
+___
+
+## Confidence intervals for $\beta$ and odds ratio
+
+A $95\%$ confidence interval for $\beta_j$, $j=1,\ldots,K,$ (based on the normal approximation) is given by:
+$$
+[\widehat{L}, \widehat{U}] = [\hat{\beta}_j - 1.96\cdot se(\hat{\beta}_j),\, \hat{\beta}_j + 1.96\cdot se(\hat{\beta}_j)]
+$$
+The odds ratio:
+$$
+OR = \exp (\hat{\beta}_j)
+$$
+We obtain the $95\%$ confidence interval for OR by taking the exponential of the lower and upper limits of the confidence interval for $\beta_j$
+$$
+[\exp(\widehat{L}),\, \exp(\widehat{U})] \,.
+$$
+
+Using the regression result in Table \@ref(tab:fit-age), we have $\hat{\beta}_1= 0.0744$ and $se(\hat{\beta}_1)=0.0113$. Hence, the $95\%$ CI for $\beta_1$:
+$$
+[0.0744-1.96\times 0.0113, \, 0.0744+1.96\times 0.0113] = [0.0523, \, 0.0965] \,.
+$$
+The estimate of odds ratio:
+$$
+OR = e^{0.0744} = 1.077
+$$
+The $95\%$ confidence interval for OR :
+$$
+[\exp(0.0523), \, \exp(0.0965)] = [1.0537, 1.1013]
+$$
+
+Note that odds ratios for continuous independent variables tend to be close to one, this does NOT suggest that the coefficients are insignificant. Use the *t*-test for statistical significance.
+
+<span style='color:#008B45FF'>T-test</span> for $\beta_j=0$. 
+
+$$
+\begin{aligned}
+&\text{H}_0: \beta_j=0  \\
+&\text{H}_1: \beta_j\ne0 
+\end{aligned}
+$$
+
+We use the following statistic
+$$
+z = \frac{\hat{\beta}_j-\beta_j}{se_{\hat{\beta}_j}}  \sim N(0,1) \,,
+$$
+which follows a standard normal distribution.
+
+It can be calculated as
+$$
+z = \frac{0.0744}{0.0113} = 6.58
+$$
+which is larger than the critical value at $5\%$ significance level
+$$
+c_{.025} = \Phi^{-1}(1-.025) = 1.96 \,.
+$$
+
+We conclude that $\beta_1$ is highly significant. That is, an increase in age significantly raises the odds for developing CHD.
 
 
 ___

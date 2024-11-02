@@ -400,11 +400,25 @@ contingency_table</code></pre>
 <li>We see that there are 1502 smokers and that 159 of these developed CHD.</li>
 <li>Of the 1652 non-smokers, 98 developed CHD.</li>
 </ul>
-<p>The <span style="color:#337ab7">mosaic plot</span> represents each combination of the variables as a rectangle, and the size of the rectangle is proportional to the number of individuals in that combination.</p>
+<p>Visualization of the contingency table</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-6"></span>
+<img src="images/stacked_bar.png" alt="Stacked bar plot" width="50%" />
+<p class="caption">
+Fig. 1: Stacked bar plot
+</p>
+</div>
+<p>The <span style="color:#337ab7">stacked bar graph</span> shows</p>
+<ul>
+<li>the sample sizes of smokers and non-smokers;</li>
+<li>the distribution of developed vs non-developed within each category.</li>
+</ul>
+<p>The <span style="color:#337ab7">mosaic plot</span> replaces absolute frequencies (counts) with relative frequencies within each category.
+It represents each combination of the variables as a rectangle, and the size of the rectangle is proportional to the number of individuals in that combination.</p>
+<p>The advantage of mosaic plots is that it demonstrates the difference in estimated conditional probabilities among groups.</p>
 <pre class="r"><code>mosaicplot(contingency_table %&gt;% t(), 
            xlab=&quot;Smoke&quot;, ylab=&quot;CHD&quot;, 
-           main=&quot;Contingency table visualization: Smoke X CHD&quot;)</code></pre>
-<p><img src="10_Oct_25_LDV_files/figure-html/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+           main=&quot;Mosaic plot: Smoke X CHD&quot;)</code></pre>
+<p><img src="10_Oct_25_LDV_files/figure-html/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>We could see a larger proportion of people that developed CHD for smokers compared to non-smokers.</p>
 <p>We can show the proportions based on rows (developed vs. non-developed) .</p>
 <pre class="r"><code>contingency_table %&gt;% 
@@ -488,10 +502,22 @@ developed
 <ul>
 <li><p>The <em>risk</em> refers to outcome risk for individuals who are smokers or non-smokers and are simply the observed proportions of individuals with CHD in these groups.</p>
 <ul>
-<li>In our case, the risk for non-smokers is the proportion who developed CHD among non-smokers, which is <span class="math inline">\(5.9\%\)</span>.</li>
-<li>The risk for smokers is the proportion who developed CHD among smokers, which is <span class="math inline">\(10.6\%\)</span>.</li>
+<li>In our case, the risk for non-smokers (<code>smoke=0</code>, control group) is the proportion who developed CHD among non-smokers, which is <span class="math inline">\(5.9\%\)</span>, denoted as <span class="math inline">\(P(0)\)</span>.</li>
+<li>The risk for smokers (<code>smoke=1</code>, treatment group) is the proportion who developed CHD among smokers, which is <span class="math inline">\(10.6\%\)</span>, deonoted as <span class="math inline">\(P(1)\)</span>.</li>
 </ul></li>
-<li><p>The <span style="color:#008B45FF"><em>risk difference</em></span> or <span style="color:#008B45FF"><em>excess risk</em></span> (ER) is defined as the difference between the estimated risk in the groups defined by the predictor.</p>
+<li><p>The <span style="color:#008B45FF"><em>risk difference</em></span> or <span style="color:#008B45FF"><em>excess risk</em></span> (ER) is defined as the difference between the estimated risk in the groups defined by the predictor.
+<span class="math display">\[
+  ER = P(1)- P(0)
+  \]</span></p>
+<ul>
+<li><p>If <span class="math inline">\(ER=0\)</span>, there is no difference in risk between the two groups.</p></li>
+<li><p>If <span class="math inline">\(ER&gt;0\)</span>, the risk is higher for the treatment group compared to the control group.</p></li>
+<li><p>If <span class="math inline">\(ER&lt;0\)</span>, the risk is lower for the treatment group compared to the control group.</p></li>
+</ul>
+<p>Because the component risks range between zero and one, the ER can take on values between <span class="math inline">\(-1\)</span> and <span class="math inline">\(1\)</span>, i.e.,
+<span class="math display">\[
+  -1 &lt; ER &lt; 1
+  \]</span></p>
 <ul>
 <li><p>For our contingency table, we can see that the risk difference is
 <span class="math display">\[
@@ -504,6 +530,18 @@ p1-p0</code></pre>
 <pre><code>## [1] 0.04653682</code></pre></li>
 </ul></li>
 <li><p>The <span style="color:#008B45FF"><em>risk ratio</em></span> or <span style="color:#008B45FF"><em>relative risk</em></span> (RR) is the ratio of these risks.</p>
+<p><span class="math display">\[
+  RR = \frac{P(1)}{P(0)}
+  \]</span></p>
+<ul>
+<li><p>If <span class="math inline">\(RR=1\)</span>, there is no difference in risk between the two groups.</p></li>
+<li><p>If <span class="math inline">\(RR&gt;1\)</span>, the risk is higher for the treatment group compared to the control group.</p></li>
+<li><p>If <span class="math inline">\(RR&lt;1\)</span>, the risk is lower for the treatment group compared to the control group.</p></li>
+</ul>
+<p><span class="math inline">\(RR\)</span> is a relative measure, and can only take nonegative values.</p>
+<p><span class="math display">\[
+  RR\ge 0
+  \]</span></p>
 <ul>
 <li><p>In our example, the risk ratio is
 <span class="math display">\[
@@ -524,20 +562,37 @@ RR</code></pre>
 <p>Since the denominators of these two probabilities are identical, the odds can be also be calculated as the ratio of the number of outcomes to nonoutcomes.</p>
 <p>For example, getting heads with a fair coin has <em>even odds</em>, that is, the probability of getting a head is <span class="math inline">\(50\%\)</span>.</p></li>
 <li><p>The odds of CHD occurrence in the smokers groups are
-<span class="math display">\[
-  \frac{10.6\%}{1-10.6\%} = 11.84\%
+<span class="math display" id="eq:odds1">\[
+  \begin{align}\tag{1}
+  \text{odds}(smoke=1) = \frac{P(1)}{1-P(1)} = \frac{10.6\%}{1-10.6\%} = 11.84\%
+  \end{align}
   \]</span></p>
 <p>Can be verified as</p>
 <pre class="r"><code>p1/(1-p1)</code></pre>
 <pre><code>## [1] 0.1183917</code></pre></li>
 <li><p>The odds of CHD occurrence in the non-smokers groups are
-<span class="math display">\[
-  \frac{5.9\%}{1-5.9\%} = 6.31\%
+<span class="math display" id="eq:odds0">\[
+  \begin{align}\tag{2}
+  \text{odds}(smoke=0) = \frac{P(0)}{1-P(0)} = \frac{5.9\%}{1-5.9\%} = 6.31\%
+  \end{align}
   \]</span></p>
 <p>Can be verified as</p>
 <pre class="r"><code>p0/(1-p0)</code></pre>
 <pre><code>## [1] 0.06306306</code></pre></li>
-<li><p>The odds ratio is the ratio between the corresponding odds in the two groups, which is given by</p>
+<li><p>The odds ratio is the ratio between the corresponding odds in the two groups.</p>
+<p><span class="math display">\[
+  OR = \frac{P(1)/[1-P(1)]}{P(0)/[1-P(0)]}
+  \]</span></p>
+<ul>
+<li>If <span class="math inline">\(OR=1\)</span>, the treatment does not affect odds of outcome.</li>
+<li>If <span class="math inline">\(OR&gt;1\)</span>, the treatment groups has higher odds of outcome.</li>
+<li>If <span class="math inline">\(OR&lt;1\)</span>, the treatment groups has lower odds of outcome.</li>
+</ul>
+<p><span class="math inline">\(OR\)</span> is nonnegative.</p>
+<p><span class="math display">\[
+  OR&gt;0
+  \]</span></p></li>
+<li><p>In our contingency table, the odds ratio is given by</p>
 <p><span class="math display">\[
   \frac{11.84\%}{6.31\%} = 1.88
   \]</span></p>
@@ -553,6 +608,27 @@ OR</code></pre>
 <div id="logistic-regression-with-a-single-predictor" class="section level2">
 <h2>Logistic Regression with a Single Predictor</h2>
 <p>We then use a logistic regression model with smoke as covariate.</p>
+<p>Mathematical representation:
+<span class="math display" id="eq:ex1">\[
+\begin{align} \tag{3}
+p(x) = P(y=1\vert x) = \frac{\exp(\beta_0+\beta_1 x)}{1+\exp(\beta_0+\beta_1 x)}
+\end{align}
+\]</span></p>
+<p>We need to reformulate Eq. <a href="#eq:ex1">(3)</a> for the interpretation so that only the linear term is on the right side of the equation.</p>
+<p><span class="math display" id="eq:ex1-log">\[
+\begin{align} \tag{4}
+\log \left[\frac{p(x)}{1-p(x)} \right] = \beta_0+\beta_1 x \,.
+\end{align}
+\]</span></p>
+<p>The expression on the LHS is called the log odds.</p>
+<p>Taking the exponential to Eq. <a href="#eq:ex1-log">(4)</a>, we obtain:
+<span class="math display">\[
+\begin{align}
+\frac{p(x)}{1-p(x)} = \exp (\beta_0+\beta_1 x) \,.
+\end{align}
+\]</span></p>
+<p>Note that the LHS is actually the odds.</p>
+<p>In logistic regression, if we take <span style="color:#337ab7">the exponential of the coefficient</span>, it is the <span style="color:#337ab7"><strong>odds ratio corresponding to one unit’s increase in the value of the covariate</strong></span>, holding other variables constant.</p>
 <pre class="r"><code>fit.smoke &lt;- glm(chd69~smoke, data=wcgs, family=binomial)</code></pre>
 <table style="text-align:center">
 <caption>
@@ -591,14 +667,14 @@ chd69
 smoke
 </td>
 <td>
-0.630<sup>***</sup>
+0.6299<sup>***</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.134)
+(0.1337)
 </td>
 </tr>
 <tr>
@@ -612,14 +688,14 @@ smoke
 Constant
 </td>
 <td>
--2.764<sup>***</sup>
+-2.7636<sup>***</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.104)
+(0.1042)
 </td>
 </tr>
 <tr>
@@ -645,7 +721,7 @@ Observations
 Log Likelihood
 </td>
 <td>
--879.190
+-879.1905
 </td>
 </tr>
 <tr>
@@ -653,7 +729,7 @@ Log Likelihood
 Akaike Inf. Crit.
 </td>
 <td>
-1,762.381
+1,762.3810
 </td>
 </tr>
 <tr>
@@ -669,12 +745,32 @@ Akaike Inf. Crit.
 </td>
 </tr>
 </table>
-<p>In logistic regression, if we <span style="color:#337ab7">take the exponential of the coefficient</span>, it is the <span style="color:#337ab7">odds ratio corresponding to one unit’s increase in the value of the covariate</span>, holding other variables constant.</p>
-<p>In this case, the odds ratio for CHD for a smoker compared to a non-smoker can be obtained by</p>
+<p>In this case, <span style="color:#337ab7">the odds ratio for CHD for a smoker compared to a non-smoker</span> can be obtained by</p>
 <p><span class="math display">\[
 e^{0.63} = 1.88\, ,
 \]</span>
 which is exactly the same number as we calculated using the contingency table.</p>
+<p>More interpretations: the odds ratio being <span class="math inline">\(1.88\)</span> means that <span style="color:#337ab7">the odds of a smoker developing CHD are <span class="math inline">\(1.88\)</span> times greater than the odds of a non-smoker developing CHD</span>.</p>
+<p>More formally, if you increase the value of covariate <span class="math inline">\(x_1\)</span> by one unit, the <span style="color:#337ab7">estimated odds change by a factor of <span class="math inline">\(\exp(\beta_1)\)</span></span>.</p>
+<p>We know that the odds for non-smokers are <span class="math inline">\(6.31\%\)</span> from Eq. <a href="#eq:odds0">(2)</a>. Given the odds ratio of <span class="math inline">\(1.88\)</span>, this indicates that the <strong>expected</strong> odds for smokers to develop CHD is
+<span class="math display">\[
+\begin{aligned}
+\text{odds}\,(smoker=1) &amp;=  \text{odds}\,(smoker=0) \times \text{odds ratio}  \\
+&amp;=6.3\% \times 1.88  \\
+&amp;= 11.84
+\end{aligned}
+\]</span>
+This can be verified as</p>
+<pre class="r"><code># odds(smoker=0) * exp(beta1)
+p0/(1-p0) * exp(fit.smoke$coefficients[2]) </code></pre>
+<pre><code>##     smoke 
+## 0.1183917</code></pre>
+<p><strong>Interpretation of intercept</strong>: The exponential of <span class="math inline">\(\beta_0\)</span> is the estimated odds when the categorical covariates are at the reference level and all numerical covariates are zero.</p>
+<p>In our case, the odds for a non-smoker to develop CHD is
+<span class="math display">\[
+\text{odds}\,(smoker=0) = e^{-2.764} = 6.3\%
+\]</span></p>
+<hr />
 <p>We now consider a numerical predictor, <code>age</code>.
 We then use logistic regression to study the effect of age for the risk of developing CHD:</p>
 <pre class="r"><code>fit.age &lt;-  glm(chd69~age, data=wcgs, family=binomial)</code></pre>
@@ -715,14 +811,14 @@ chd69
 age
 </td>
 <td>
-0.074<sup>***</sup>
+0.0744<sup>***</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.011)
+(0.0113)
 </td>
 </tr>
 <tr>
@@ -736,14 +832,14 @@ age
 Constant
 </td>
 <td>
--5.940<sup>***</sup>
+-5.9395<sup>***</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.549)
+(0.5493)
 </td>
 </tr>
 <tr>
@@ -769,7 +865,7 @@ Observations
 Log Likelihood
 </td>
 <td>
--869.178
+-869.1781
 </td>
 </tr>
 <tr>
@@ -777,7 +873,7 @@ Log Likelihood
 Akaike Inf. Crit.
 </td>
 <td>
-1,742.356
+1,742.3560
 </td>
 </tr>
 <tr>
@@ -795,8 +891,8 @@ Akaike Inf. Crit.
 </table>
 <p> </p>
 <ul>
-<li>The odds ratio for one year increase in age is <span class="math inline">\(e^{0.0744} = 1.077\, ,\)</span></li>
-<li>The odds ratio for a ten-year increase is <span class="math inline">\(e^{0.0744\times 10} = 2.10\, .\)</span></li>
+<li>The odds ratio for one year increase in age is <span class="math inline">\(e^{0.0744} = 1.077\, .\)</span> This means that for each additional year of age, the odds increase by a factor of <span class="math inline">\(1.077.\)</span></li>
+<li>The odds ratio for a ten-year increase is <span class="math inline">\(e^{0.0744\times 10} = 2.10\, .\)</span> That is, the odds are <span class="math inline">\(2.10\)</span> times higher for an additional ten years of age.</li>
 </ul>
 <p>Can be verified using the following codes.</p>
 <pre class="r"><code>expcoef &lt;- function(glmobj){
@@ -808,7 +904,7 @@ Akaike Inf. Crit.
     cbind(expcoef,lower,upper)
 } </code></pre>
 <pre class="r"><code>expcoef(fit.age)[-1,,drop=FALSE] %&gt;% 
-    kable(digits = 2, escape=T) %&gt;% 
+    kable(digits = 4, escape=T) %&gt;% 
     kable_styling(full_width = FALSE)</code></pre>
 <table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
@@ -832,13 +928,13 @@ upper
 age
 </td>
 <td style="text-align:right;">
-1.08
+1.0773
 </td>
 <td style="text-align:right;">
-1.05
+1.0537
 </td>
 <td style="text-align:right;">
-1.1
+1.1014
 </td>
 </tr>
 </tbody>
@@ -848,6 +944,16 @@ age
 <div id="logistic-regression-with-several-predictors" class="section level2">
 <h2>Logistic Regression with Several Predictors</h2>
 <p>Consider the WCGS study with CHD as outcome and age, cholesterol (mg/dL), systolic blood pressure (mmHg), body mass index (kg/m2), and smoking (0/1) as predictors.</p>
+<p>Mathematical representation:
+<span class="math display" id="eq:ex-multi">\[
+\begin{align}
+p(\boldsymbol x) = P(y=1\vert \boldsymbol x) = \frac{\exp(\beta_0+\beta_1 x_2 + \cdots +\beta_K x_K)}{1+\exp(\beta_0+\beta_1 x_2+ \cdots +\beta_K x_K)}
+\end{align} \tag{5}
+\]</span>
+The odds given <span class="math inline">\(\boldsymbol{x}=[1, x_2, \ldots, x_K]^T\)</span> can be obtained by:
+<span class="math display">\[
+\log \left[\frac{p(\boldsymbol x)}{1-p(\boldsymbol x)}\right] = \beta_0+\beta_1 x_x + \cdots +\beta_K x_K
+\]</span></p>
 <pre class="r"><code>wcgs.mult &lt;- glm(chd69~age+chol+sbp+bmi+smoke, data=wcgs, family=binomial, subset=(chol&lt;600))</code></pre>
 <table style="text-align:center">
 <caption>
@@ -886,14 +992,14 @@ chd69
 age
 </td>
 <td>
-0.064<sup>***</sup>
+0.0644<sup>***</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.012)
+(0.0119)
 </td>
 </tr>
 <tr>
@@ -907,14 +1013,14 @@ age
 chol
 </td>
 <td>
-0.011<sup>***</sup>
+0.0107<sup>***</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.002)
+(0.0015)
 </td>
 </tr>
 <tr>
@@ -928,14 +1034,14 @@ chol
 sbp
 </td>
 <td>
-0.019<sup>***</sup>
+0.0193<sup>***</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.004)
+(0.0041)
 </td>
 </tr>
 <tr>
@@ -949,14 +1055,14 @@ sbp
 bmi
 </td>
 <td>
-0.057<sup>**</sup>
+0.0574<sup>**</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.026)
+(0.0264)
 </td>
 </tr>
 <tr>
@@ -970,14 +1076,14 @@ bmi
 smoke
 </td>
 <td>
-0.634<sup>***</sup>
+0.6345<sup>***</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.140)
+(0.1402)
 </td>
 </tr>
 <tr>
@@ -991,14 +1097,14 @@ smoke
 Constant
 </td>
 <td>
--12.311<sup>***</sup>
+-12.3110<sup>***</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.977)
+(0.9773)
 </td>
 </tr>
 <tr>
@@ -1024,7 +1130,7 @@ Observations
 Log Likelihood
 </td>
 <td>
--807.193
+-807.1925
 </td>
 </tr>
 <tr>
@@ -1032,7 +1138,7 @@ Log Likelihood
 Akaike Inf. Crit.
 </td>
 <td>
-1,626.385
+1,626.3850
 </td>
 </tr>
 <tr>
@@ -1048,10 +1154,16 @@ Akaike Inf. Crit.
 </td>
 </tr>
 </table>
-<pre class="r"><code>expcoef(wcgs.mult)[-1,] %&gt;% 
-    kable(digits = 2, escape=T) %&gt;% 
-    kable_styling(full_width = FALSE)</code></pre>
+<p>The coefficient (<span class="math inline">\(0.635\)</span>) for the binary predictor variable <code>smoke</code> is the log odds ratio comparing smokers to nonsmokers for fixed values of <code>age</code>, <code>chol</code>, <code>sbp</code>, and <code>bmi</code>. The corresponding odds ratio
+<span class="math display">\[
+\exp(0.635) = 1.89
+\]</span>
+measures the proportionate increase in the odds of developing CHD for smokers compared to nonsmokers <em>adjusted for age, cholesterol, SBP, and BMI</em>.</p>
+Table <a href="#tab:log-mult">5</a> shows ddds ratios corresponding to all covariates and their confidence intervals.
 <table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:log-mult">Table 5: </span>Odds ratios with confidence intervals.
+</caption>
 <thead>
 <tr>
 <th style="text-align:left;">
@@ -1073,13 +1185,13 @@ upper
 age
 </td>
 <td style="text-align:right;">
-1.07
+1.0666
 </td>
 <td style="text-align:right;">
-1.04
+1.0420
 </td>
 <td style="text-align:right;">
-1.09
+1.0918
 </td>
 </tr>
 <tr>
@@ -1087,13 +1199,13 @@ age
 chol
 </td>
 <td style="text-align:right;">
-1.01
+1.0108
 </td>
 <td style="text-align:right;">
-1.01
+1.0078
 </td>
 <td style="text-align:right;">
-1.01
+1.0138
 </td>
 </tr>
 <tr>
@@ -1101,13 +1213,13 @@ chol
 sbp
 </td>
 <td style="text-align:right;">
-1.02
+1.0195
 </td>
 <td style="text-align:right;">
-1.01
+1.0113
 </td>
 <td style="text-align:right;">
-1.03
+1.0277
 </td>
 </tr>
 <tr>
@@ -1115,13 +1227,13 @@ sbp
 bmi
 </td>
 <td style="text-align:right;">
-1.06
+1.0591
 </td>
 <td style="text-align:right;">
-1.01
+1.0058
 </td>
 <td style="text-align:right;">
-1.12
+1.1153
 </td>
 </tr>
 <tr>
@@ -1129,13 +1241,13 @@ bmi
 smoke
 </td>
 <td style="text-align:right;">
-1.89
+1.8860
 </td>
 <td style="text-align:right;">
-1.43
+1.4329
 </td>
 <td style="text-align:right;">
-2.48
+2.4824
 </td>
 </tr>
 </tbody>
@@ -1149,11 +1261,11 @@ smoke
 <p>Here <span class="math inline">\(y_i\)</span> is a binary outcome variable for observation <span class="math inline">\(i\)</span> and takes values 0 or 1, and <span class="math inline">\(x_i\)</span> is a predictor.</p>
 <p>We want to model the probability of <span class="math inline">\(y_i=1\)</span>:</p>
 <p><span class="math display" id="eq:linear-probability-model">\[
-\begin{equation} \tag{1}
+\begin{equation} \tag{6}
 P\,(y_i=1 | x_i) = x_i&#39;\beta .
 \end{equation}
 \]</span>
-Note that <span class="math inline">\(\mathbb{E}(y_i\vert x_i) = P\,(y_i=1 | x_i)\)</span>. We call Eq. <a href="#eq:linear-probability-model">(1)</a> as the <span style="color:#008B45FF">Linear Probability Model</span>.</p>
+Note that <span class="math inline">\(\mathbb{E}(y_i\vert x_i) = P\,(y_i=1 | x_i)\)</span>. We call Eq. <a href="#eq:linear-probability-model">(6)</a> as the <span style="color:#008B45FF">Linear Probability Model</span>.</p>
 <p>Proof:</p>
 <p><span class="math display">\[
 \begin{aligned}
@@ -1164,7 +1276,7 @@ Note that <span class="math inline">\(\mathbb{E}(y_i\vert x_i) = P\,(y_i=1 | x_i
 \end{aligned}
 \]</span>
 where <span class="math inline">\(\mathcal Y = \{0, 1\}\)</span> is the sample space of <span class="math inline">\(y_i\)</span>.</p>
-<p>We can estimate <span class="math inline">\(\beta\)</span> in <a href="#eq:linear-probability-model">(1)</a> by OLS.</p>
+<p>We can estimate <span class="math inline">\(\beta\)</span> in Eq. <a href="#eq:linear-probability-model">(6)</a> by OLS.</p>
 <p>Issues: Will have <span class="math inline">\(x&#39;\beta\)</span> outside of <span class="math inline">\([0,1]\)</span> for some values of <span class="math inline">\(x\)</span>.</p>
 <p>Alternative approach: let <span class="math inline">\(F(·)\)</span> be a known cdf and specify</p>
 <p><span class="math display">\[
@@ -1175,38 +1287,131 @@ P\,(y_i=1|x_i) = F(x_i&#39;\beta) \,.
 <li>When <span class="math inline">\(\displaystyle F(u)= \Phi(u)\)</span> (the standard normal cdf), this is called the <span style="color:#008B45FF">probit model</span>.</li>
 </ul>
 <p>Plug in <span class="math inline">\(u=x&#39;\beta\)</span> and the logistic cdf, we can express the logistic model as:</p>
-<p><span class="math display" id="eq:logit-model">\[
+<p><span class="math display" id="eq:logit-model2" id="eq:logit-model1" id="eq:logit-model0">\[
 \begin{align}
-p(x) &amp;= \frac{1}{1+e^{-u}} \notag \\
-&amp;= \frac{1}{1+e^{-x&#39;\beta}} \notag \\
-&amp;= \frac{e^{x&#39;\beta}}{1+e^{x&#39;\beta}}  \tag{2} \\
+p(x) &amp;= \frac{1}{1+e^{-u}}  \tag{7} \\
+&amp;= \frac{1}{1+e^{-x&#39;\beta}} \tag{8} \\
+&amp;= \frac{e^{x&#39;\beta}}{1+e^{x&#39;\beta}}  \tag{9} \\
 \end{align}
 \]</span></p>
-<p>Eq. <a href="#eq:logit-model">(2)</a> gives a “S-shaped” relationship between <span class="math inline">\(p(x)\)</span> and <span class="math inline">\(x\)</span> and ensures that <span class="math inline">\(p(x)\)</span> stays between 0 and 1. See Fig. <a href="#fig:logit-regression">1</a>.</p>
+<p>Eq. <a href="#eq:logit-model1">(8)</a> gives a “S-shaped” relationship between <span class="math inline">\(p(x)\)</span> and <span class="math inline">\(x&#39;\beta\)</span> and ensures that <span class="math inline">\(p(x)\)</span> stays between 0 and 1.
+See Fig. <a href="#fig:logit-regression">2</a>.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:logit-regression"></span>
 <img src="images/logistic_regression.png" alt="Logistic regression cdf" width="80%" />
 <p class="caption">
-Fig. 1: Logistic regression cdf
+Fig. 2: Logistic regression cdf
 </p>
 </div>
-<p>Eq. <a href="#eq:logit-model">(2)</a> can be written as:</p>
+<ul>
+<li>If <span class="math inline">\(\mu=x&#39;\beta=0\)</span>, then <span class="math inline">\(p(x)=0.5\)</span>, there is an equal probability whether the outcome event will occur or not.</li>
+<li>If <span class="math inline">\(\mu=x&#39;\beta&gt;0\)</span>, then <span class="math inline">\(p(x)&gt;0.5\)</span>, there is a larger probability that the outcome event will occur.
+<ul>
+<li>In this case, we could predict <span class="math inline">\(E[y\vert x]=1\)</span>.</li>
+</ul></li>
+<li>If <span class="math inline">\(\mu=x&#39;\beta&lt;0\)</span>, then <span class="math inline">\(p(x)&lt;0.5\)</span>, there is a smaller probability that the outcome event will occur.
+<ul>
+<li>In this case, we could predict <span class="math inline">\(E[y\vert x]=0\)</span>.</li>
+</ul></li>
+<li>Note that it is <em>not</em> necessary to divide at <span class="math inline">\(0.5\)</span>. Different threshold values could be used depending on the application in question.</li>
+</ul>
+<p>Eq. <a href="#eq:logit-model1">(8)</a> can be written as:</p>
 <p><span class="math display" id="eq:logit-odds">\[
-\begin{equation} \tag{3}
+\begin{equation} \tag{10}
 \frac{p(x)}{1-p(x)} = \exp{(x&#39;\beta)}
 \end{equation}
 \]</span></p>
-<p>We use an example of a single predictor to demonstrate the interpretation of <span class="math inline">\(\beta\)</span>.</p>
-<p>If we consider two observations with covariate values <span class="math inline">\(x\)</span> and <span class="math inline">\(x+\Delta x\)</span>, respectively, their odds ratio becomes
+<p>We use an example of a single predictor with an intercept to demonstrate the <strong>interpretation</strong> of the regression coefficient <span class="math inline">\(\beta\)</span>.</p>
+<p>If we consider two observations with covariate values <span class="math inline">\(x\)</span> and <span class="math inline">\(x+\Delta x\)</span>, respectively.</p>
+<p>The odds given <span class="math inline">\(x\)</span> can be obtained by:
 <span class="math display">\[
-\frac{p(x+\Delta x)/[1-p(x+\Delta x)]}{p(x)/[1-p(x)} = \frac{\exp{\left(\beta_0 + \beta_1 (x+\Delta x)\right)}}{\exp{\left(\beta_0 + \beta_1 x\right)}} = \exp{(\beta_1\Delta x)} \,.
+\text{odds}(x) = \frac{P(y=1\vert x)}{1- P(y=1\vert x)} = \exp(\beta_0 + \beta_1 x) \,.
 \]</span>
-In particular, <span class="math inline">\(e^{\beta_1}\)</span> is the odds ratio corresponding to one unit’s increase in the value of the covariate.</p>
-<p>By Eq. <a href="#eq:logit-odds">(3)</a>, the logistic regression model may also be given as:</p>
+The odds given <span class="math inline">\((x+\Delta x)\)</span> are
+<span class="math display">\[
+\text{odds}(x+\Delta x) = \frac{P(y=1\vert x+\Delta x)}{1- P(y=1\vert x+\Delta x)} = \exp\left(\beta_0 + \beta_1 (x+\Delta x)\right)  \,.
+\]</span></p>
+<p>Their odds ratio becomes
+<span class="math display">\[
+\begin{aligned}
+\frac{\text{odds}(x+\Delta x)}{\text{odds}(x)}
+&amp;= \frac{p(x+\Delta x)/[1-p(x+\Delta x)]}{p(x)/[1-p(x)}  \\
+&amp;= \frac{\exp{\left(\beta_0 + \beta_1 (x+\Delta x)\right)}}{\exp{\left(\beta_0 + \beta_1 x\right)}} \\
+&amp;= \exp{(\beta_1\Delta x)} \,.
+\end{aligned}
+\]</span>
+In particular, <span class="math inline">\(e^{\beta_1}\)</span> is the <span style="color:#337ab7">odds ratio corresponding to one unit’s increase in the value of the covariate</span>.</p>
+<p>Suppose <span class="math inline">\(x\)</span> is binary (smoker vs. non-smoker), then
+<span class="math display">\[
+\frac{\text{odds}(x=1)}{\text{odds}(x=0)} = \exp (\beta_1).
+\]</span></p>
+<p>In other words, the exponential of the regression coefficient <span class="math inline">\((e^{\beta_1})\)</span> is the odds ratio for the odds given the treatment (smokers) to the odds in absence of the treatment (non-smokers).</p>
+<p>In our case, the odds ratio for CHD for a smoker compared to a non-smoker based on the logistic regression in Table <a href="#tab:fit-smoke">2</a> is
+<span class="math display">\[
+\frac{\text{odds}(smoke=1)}{\text{odds}(smoke=0)} = \exp (0.63) = 1.88 \,.
+\]</span></p>
+<p>Suppose <span class="math inline">\(x\)</span> is numerical (e.g., age), then the interpretation would be changing <span class="math inline">\(x\)</span> by one unit would lead to the odds change by a factor of <span class="math inline">\(\exp (\beta).\)</span></p>
+<ul>
+<li><span class="math inline">\(\beta&gt;0 \Rightarrow OR=\exp(\beta)&gt;1\)</span>, indicating one unit change in <span class="math inline">\(x\)</span> would make the event more likely to happen.</li>
+<li><span class="math inline">\(\beta&lt;0 \Rightarrow OR=\exp(\beta)&lt;1\)</span>, indicating one unit change in <span class="math inline">\(x\)</span> would make the event less likely to happen.</li>
+<li><span class="math inline">\(\beta=0 \Rightarrow OR=\exp(\beta)=1\)</span>, indicating there is a <span class="math inline">\(50/50\)</span> chance that the event will occur given one unit change in <span class="math inline">\(x\)</span>.</li>
+</ul>
+<p>The same interpretations apply to logistic regressions with several indicators too, except that you have to add an additional comment — <em>holding all other variables constant</em>.</p>
+<p>By Eq. <a href="#eq:logit-odds">(10)</a>, the logistic regression model may also be given as:</p>
 <p><span class="math display">\[
 \log \left[\frac{p(x)}{1-p(x)} \right] = x&#39;\beta \,.
 \]</span>
-Thus the logistic regression model is linear in the log-odds. See Table <a href="#tab:fit-age">3</a>.</p>
+Thus the logistic regression model is linear in the log-odds.</p>
 <hr />
+<div id="confidence-intervals-for-beta-and-odds-ratio" class="section level2">
+<h2>Confidence intervals for <span class="math inline">\(\beta\)</span> and odds ratio</h2>
+<p>A <span class="math inline">\(95\%\)</span> confidence interval for <span class="math inline">\(\beta_j\)</span>, <span class="math inline">\(j=1,\ldots,K,\)</span> (based on the normal approximation) is given by:
+<span class="math display">\[
+[\widehat{L}, \widehat{U}] = [\hat{\beta}_j - 1.96\cdot se(\hat{\beta}_j),\, \hat{\beta}_j + 1.96\cdot se(\hat{\beta}_j)]
+\]</span>
+The odds ratio:
+<span class="math display">\[
+OR = \exp (\hat{\beta}_j)
+\]</span>
+We obtain the <span class="math inline">\(95\%\)</span> confidence interval for OR by taking the exponential of the lower and upper limits of the confidence interval for <span class="math inline">\(\beta_j\)</span>
+<span class="math display">\[
+[\exp(\widehat{L}),\, \exp(\widehat{U})] \,.
+\]</span></p>
+<p>Using the regression result in Table <a href="#tab:fit-age">3</a>, we have <span class="math inline">\(\hat{\beta}_1= 0.0744\)</span> and <span class="math inline">\(se(\hat{\beta}_1)=0.0113\)</span>. Hence, the <span class="math inline">\(95\%\)</span> CI for <span class="math inline">\(\beta_1\)</span>:
+<span class="math display">\[
+[0.0744-1.96\times 0.0113, \, 0.0744+1.96\times 0.0113] = [0.0523, \, 0.0965] \,.
+\]</span>
+The estimate of odds ratio:
+<span class="math display">\[
+OR = e^{0.0744} = 1.077
+\]</span>
+The <span class="math inline">\(95\%\)</span> confidence interval for OR :
+<span class="math display">\[
+[\exp(0.0523), \, \exp(0.0965)] = [1.0537, 1.1013]
+\]</span></p>
+<p>Note that odds ratios for continuous independent variables tend to be close to one, this does NOT suggest that the coefficients are insignificant. Use the <em>t</em>-test for statistical significance.</p>
+<p><span style="color:#008B45FF">T-test</span> for <span class="math inline">\(\beta_j=0\)</span>.</p>
+<p><span class="math display">\[
+\begin{aligned}
+&amp;\text{H}_0: \beta_j=0  \\
+&amp;\text{H}_1: \beta_j\ne0
+\end{aligned}
+\]</span></p>
+<p>We use the following statistic
+<span class="math display">\[
+z = \frac{\hat{\beta}_j-\beta_j}{se_{\hat{\beta}_j}}  \sim N(0,1) \,,
+\]</span>
+which follows a standard normal distribution.</p>
+<p>It can be calculated as
+<span class="math display">\[
+z = \frac{0.0744}{0.0113} = 6.58
+\]</span>
+which is larger than the critical value at <span class="math inline">\(5\%\)</span> significance level
+<span class="math display">\[
+c_{.025} = \Phi^{-1}(1-.025) = 1.96 \,.
+\]</span></p>
+<p>We conclude that <span class="math inline">\(\beta_1\)</span> is highly significant. That is, an increase in age significantly raises the odds for developing CHD.</p>
+<hr />
+</div>
 <div id="estimation-by-maximum-likelihood" class="section level2">
 <h2>Estimation by Maximum Likelihood</h2>
 <p>If we condition on the <span class="math inline">\(x_i\)</span>’s, the distribution of <span class="math inline">\(y_i\)</span> given <span class="math inline">\(x_i\)</span> is <span class="math inline">\(\text{Bernoulli}\,(p(x))\)</span>, where <span class="math inline">\(p(x)=F(x&#39;\beta)\)</span>.</p>
