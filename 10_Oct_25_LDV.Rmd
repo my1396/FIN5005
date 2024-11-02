@@ -162,22 +162,16 @@ The advantage of mosaic plots is that it demonstrates the difference in estimate
 ```{r}
 mosaicplot(contingency_table %>% t(), 
            xlab="Smoke", ylab="CHD", 
-           main="Mosaic plot: Smoke X CHD")
+           main="Mosaic plot: Smoke X CHD", cex.axis = 1.2)
 ```
 
-We could see a larger proportion of people that developed CHD for smokers compared to non-smokers.
 
-We can show the proportions based on rows (developed vs. non-developed) .
-```{r}
-contingency_table %>% 
-    prop.table(margin=1)
-```
-
-- For people who developed CHD, $61.9\%$ smoke.
-- For people who did not develop CHD, $46.4\%$ smoke.
+- The widths of the boxes are proportional to the percentage of non-smokers and smokers, respectively. In fact, $52.38\%$ of applicants were non-smokers and $47.62\%$ were smokers.
+- The heights of the boxes are proportional to percent developed. We can see that non-smokers' box for the developed on the left is much shorter than the smokers’ developed box on the right.
+In fact, $5.93\%$ of the non-smokers developed CHD, while $10.59\%$ of the smokers developed CHD. That is, there is a larger proportion of people that developed CHD for smokers compared to non-smokers.
 
 
-We can show the proportions based on columns (smokers vs. non-smokers) in Table \@ref(tab:risk-table).
+We can show the proportions of developing CHD for the two groups (smokers vs. non-smokers) in Table \@ref(tab:risk-table).
 
 ```{r}
 risk_table <- contingency_table %>% 
@@ -420,7 +414,7 @@ p0/(1-p0) * exp(fit.smoke$coefficients[2])
 
 **Interpretation of intercept**: The exponential of $\beta_0$ is the estimated odds when the categorical covariates are at the reference level and all numerical covariates are zero. 
 
-In our case, the odds for a non-smoker to develop CHD is
+In our case, the estimated odds for a non-smoker to develop CHD is
 $$
 \text{odds}\,(smoker=0) = e^{-2.764} = 6.3\%
 $$

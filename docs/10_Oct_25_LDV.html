@@ -417,21 +417,14 @@ It represents each combination of the variables as a rectangle, and the size of 
 <p>The advantage of mosaic plots is that it demonstrates the difference in estimated conditional probabilities among groups.</p>
 <pre class="r"><code>mosaicplot(contingency_table %&gt;% t(), 
            xlab=&quot;Smoke&quot;, ylab=&quot;CHD&quot;, 
-           main=&quot;Mosaic plot: Smoke X CHD&quot;)</code></pre>
+           main=&quot;Mosaic plot: Smoke X CHD&quot;, cex.axis = 1.2)</code></pre>
 <p><img src="10_Oct_25_LDV_files/figure-html/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>We could see a larger proportion of people that developed CHD for smokers compared to non-smokers.</p>
-<p>We can show the proportions based on rows (developed vs. non-developed) .</p>
-<pre class="r"><code>contingency_table %&gt;% 
-    prop.table(margin=1)</code></pre>
-<pre><code>##                smoke
-## chd69           non-smoker   smoker
-##   non-developed   0.536417 0.463583
-##   developed       0.381323 0.618677</code></pre>
 <ul>
-<li>For people who developed CHD, <span class="math inline">\(61.9\%\)</span> smoke.</li>
-<li>For people who did not develop CHD, <span class="math inline">\(46.4\%\)</span> smoke.</li>
+<li>The widths of the boxes are proportional to the percentage of non-smokers and smokers, respectively. In fact, <span class="math inline">\(52.38\%\)</span> of applicants were non-smokers and <span class="math inline">\(47.62\%\)</span> were smokers.</li>
+<li>The heights of the boxes are proportional to percent developed. We can see that non-smokers’ box for the developed on the left is much shorter than the smokers’ developed box on the right.
+In fact, <span class="math inline">\(5.93\%\)</span> of the non-smokers developed CHD, while <span class="math inline">\(10.59\%\)</span> of the smokers developed CHD. That is, there is a larger proportion of people that developed CHD for smokers compared to non-smokers.</li>
 </ul>
-<p>We can show the proportions based on columns (smokers vs. non-smokers) in Table <a href="#tab:risk-table">1</a>.</p>
+<p>We can show the proportions of developing CHD for the two groups (smokers vs. non-smokers) in Table <a href="#tab:risk-table">1</a>.</p>
 <pre class="r"><code>risk_table &lt;- contingency_table %&gt;% 
             prop.table(margin=2) %&gt;% 
             as.data.frame.matrix() </code></pre>
@@ -766,7 +759,7 @@ p0/(1-p0) * exp(fit.smoke$coefficients[2]) </code></pre>
 <pre><code>##     smoke 
 ## 0.1183917</code></pre>
 <p><strong>Interpretation of intercept</strong>: The exponential of <span class="math inline">\(\beta_0\)</span> is the estimated odds when the categorical covariates are at the reference level and all numerical covariates are zero.</p>
-<p>In our case, the odds for a non-smoker to develop CHD is
+<p>In our case, the estimated odds for a non-smoker to develop CHD is
 <span class="math display">\[
 \text{odds}\,(smoker=0) = e^{-2.764} = 6.3\%
 \]</span></p>
