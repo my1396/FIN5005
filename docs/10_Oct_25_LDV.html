@@ -421,7 +421,7 @@ It represents each combination of the variables as a rectangle, and the size of 
 <p><img src="10_Oct_25_LDV_files/figure-html/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
 <ul>
 <li>The widths of the boxes are proportional to the percentage of non-smokers and smokers, respectively. In fact, <span class="math inline">\(52.38\%\)</span> of applicants were non-smokers and <span class="math inline">\(47.62\%\)</span> were smokers.</li>
-<li>The heights of the boxes are proportional to percent developed. We can see that non-smokers’ box for the developed on the left is much shorter than the smokers’ developed box on the right.
+<li>The heights of the boxes are proportional to percent developed. We can see that non-smokers’ box for the developed on the left is shorter than the smokers’ developed box on the right.
 In fact, <span class="math inline">\(5.93\%\)</span> of the non-smokers developed CHD, while <span class="math inline">\(10.59\%\)</span> of the smokers developed CHD. That is, there is a larger proportion of people that developed CHD for smokers compared to non-smokers.</li>
 </ul>
 <p>We can show the proportions of developing CHD for the two groups (smokers vs. non-smokers) in Table <a href="#tab:risk-table">1</a>.</p>
@@ -622,7 +622,27 @@ p(x) = P(y=1\vert x) = \frac{\exp(\beta_0+\beta_1 x)}{1+\exp(\beta_0+\beta_1 x)}
 \]</span></p>
 <p>Note that the LHS is actually the odds.</p>
 <p>In logistic regression, if we take <span style="color:#337ab7">the exponential of the coefficient</span>, it is the <span style="color:#337ab7"><strong>odds ratio corresponding to one unit’s increase in the value of the covariate</strong></span>, holding other variables constant.</p>
-<pre class="r"><code>fit.smoke &lt;- glm(chd69~smoke, data=wcgs, family=binomial)</code></pre>
+<pre class="r"><code>fit.smoke &lt;- glm(chd69~smoke, data=wcgs, family=binomial)
+summary(fit.smoke)</code></pre>
+<pre><code>## 
+## Call:
+## glm(formula = chd69 ~ smoke, family = binomial, data = wcgs)
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)  -2.7636     0.1042  -26.54  &lt; 2e-16 ***
+## smoke         0.6299     0.1337    4.71 2.47e-06 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 1781.2  on 3153  degrees of freedom
+## Residual deviance: 1758.4  on 3152  degrees of freedom
+## AIC: 1762.4
+## 
+## Number of Fisher Scoring iterations: 5</code></pre>
+<p>The regression result can be summarized in Table <a href="#tab:fit-smoke">2</a>.</p>
 <table style="text-align:center">
 <caption>
 <strong><span id="tab:fit-smoke"><span id="tab:fit-smoke">Table 2: </span></span>Logistic regression of CHD on smoke.</strong>
@@ -766,7 +786,27 @@ p0/(1-p0) * exp(fit.smoke$coefficients[2]) </code></pre>
 <hr />
 <p>We now consider a numerical predictor, <code>age</code>.
 We then use logistic regression to study the effect of age for the risk of developing CHD:</p>
-<pre class="r"><code>fit.age &lt;-  glm(chd69~age, data=wcgs, family=binomial)</code></pre>
+<pre class="r"><code>fit.age &lt;-  glm(chd69~age, data=wcgs, family=binomial)
+summary(fit.age)</code></pre>
+<pre><code>## 
+## Call:
+## glm(formula = chd69 ~ age, family = binomial, data = wcgs)
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept) -5.93952    0.54932 -10.813  &lt; 2e-16 ***
+## age          0.07442    0.01130   6.585 4.56e-11 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 1781.2  on 3153  degrees of freedom
+## Residual deviance: 1738.4  on 3152  degrees of freedom
+## AIC: 1742.4
+## 
+## Number of Fisher Scoring iterations: 5</code></pre>
+<p>The regression result can be summarized in Table <a href="#tab:fit-age">3</a>.</p>
 <table style="text-align:center">
 <caption>
 <strong><span id="tab:fit-age"><span id="tab:fit-age">Table 3: </span></span>Logistic regression of CHD on age.</strong>
@@ -896,10 +936,14 @@ Akaike Inf. Crit.
     upper=expcoef*exp(1.96*regtab[,2]) 
     cbind(expcoef,lower,upper)
 } </code></pre>
+<p>Table <a href="#tab:OR-age">4</a> shows the odds ratio for age and its <span class="math inline">\(95\%\)</span> confidence interval.</p>
 <pre class="r"><code>expcoef(fit.age)[-1,,drop=FALSE] %&gt;% 
-    kable(digits = 4, escape=T) %&gt;% 
+    kable(digits = 4, escape=T, caption = &quot;Exponential of the coefficient and 95% CI.&quot;) %&gt;% 
     kable_styling(full_width = FALSE)</code></pre>
 <table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:OR-age">Table 4: </span>Exponential of the coefficient and 95% CI.
+</caption>
 <thead>
 <tr>
 <th style="text-align:left;">
@@ -950,7 +994,7 @@ The odds given <span class="math inline">\(\boldsymbol{x}=[1, x_2, \ldots, x_K]^
 <pre class="r"><code>wcgs.mult &lt;- glm(chd69~age+chol+sbp+bmi+smoke, data=wcgs, family=binomial, subset=(chol&lt;600))</code></pre>
 <table style="text-align:center">
 <caption>
-<strong><span id="tab:fit-mult"><span id="tab:fit-mult">Table 4: </span></span>Logistic regression of CHD on multiple covariates.</strong>
+<strong><span id="tab:fit-mult"><span id="tab:fit-mult">Table 5: </span></span>Logistic regression of CHD on multiple covariates.</strong>
 </caption>
 <tr>
 <td colspan="2" style="border-bottom: 1px solid black">
@@ -1152,10 +1196,10 @@ Akaike Inf. Crit.
 \exp(0.635) = 1.89
 \]</span>
 measures the proportionate increase in the odds of developing CHD for smokers compared to nonsmokers <em>adjusted for age, cholesterol, SBP, and BMI</em>.</p>
-Table <a href="#tab:log-mult">5</a> shows ddds ratios corresponding to all covariates and their confidence intervals.
+Table <a href="#tab:log-mult">6</a> shows ddds ratios corresponding to all covariates and their confidence intervals.
 <table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
-<span id="tab:log-mult">Table 5: </span>Odds ratios with confidence intervals.
+<span id="tab:log-mult">Table 6: </span>Odds ratios with confidence intervals.
 </caption>
 <thead>
 <tr>
@@ -1394,7 +1438,7 @@ The <span class="math inline">\(95\%\)</span> confidence interval for OR :
 z = \frac{\hat{\beta}_j-\beta_j}{se_{\hat{\beta}_j}}  \sim N(0,1) \,,
 \]</span>
 which follows a standard normal distribution.</p>
-<p>It can be calculated as
+<p>The <em>z</em>-value can be calculated as
 <span class="math display">\[
 z = \frac{0.0744}{0.0113} = 6.58
 \]</span>

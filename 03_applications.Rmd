@@ -11,6 +11,8 @@ output:
         toc_depth: 4
         number_sections: false
         css: "style.css"
+editor_options: 
+  chunk_output_type: console
 ---
 
 <a class="top-link" href="#top" id="js-top">↑</a>

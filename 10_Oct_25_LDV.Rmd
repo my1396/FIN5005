@@ -167,7 +167,7 @@ mosaicplot(contingency_table %>% t(),
 
 
 - The widths of the boxes are proportional to the percentage of non-smokers and smokers, respectively. In fact, $52.38\%$ of applicants were non-smokers and $47.62\%$ were smokers.
-- The heights of the boxes are proportional to percent developed. We can see that non-smokers' box for the developed on the left is much shorter than the smokers’ developed box on the right.
+- The heights of the boxes are proportional to percent developed. We can see that non-smokers' box for the developed on the left is shorter than the smokers’ developed box on the right.
 In fact, $5.93\%$ of the non-smokers developed CHD, while $10.59\%$ of the smokers developed CHD. That is, there is a larger proportion of people that developed CHD for smokers compared to non-smokers.
 
 
@@ -366,9 +366,10 @@ In logistic regression, if we take <span style='color:#337ab7'>the exponential o
 
 ```{r}
 fit.smoke <- glm(chd69~smoke, data=wcgs, family=binomial)
+summary(fit.smoke)
 ```
 
-
+The regression result can be summarized in Table \@ref(tab:fit-smoke).
 ```{r fit-smoke, echo=FALSE, results='asis', fig.cap="Logistic regression of CHD on smoke."}
 tit <- knitr::opts_current$get("fig.cap")
 tit_html <- paste0('<span id="tab:',
@@ -429,9 +430,10 @@ We then use logistic regression to study the effect of age for the risk of devel
 
 ```{r}
 fit.age <-  glm(chd69~age, data=wcgs, family=binomial)
+summary(fit.age)
 ```
 
-
+The regression result can be summarized in Table \@ref(tab:fit-age).
 ```{r fit-age, echo=FALSE, results='asis', fig.cap="Logistic regression of CHD on age."}
 # Use title caption from fig.cap
 tit <- knitr::opts_current$get("fig.cap")
@@ -471,9 +473,11 @@ expcoef <- function(glmobj){
 } 
 ```
 
-```{r caption = "Exponentail of the coefficient and 95% CI."}
+Table \@ref(tab:OR-age) shows the odds ratio for age and its $95\%$ confidence interval. 
+
+```{r OR-age}
 expcoef(fit.age)[-1,,drop=FALSE] %>% 
-    kable(digits = 4, escape=T) %>% 
+    kable(digits = 4, escape=T, caption = "Exponential of the coefficient and 95% CI.") %>% 
     kable_styling(full_width = FALSE)
 ```
 
@@ -713,7 +717,7 @@ z = \frac{\hat{\beta}_j-\beta_j}{se_{\hat{\beta}_j}}  \sim N(0,1) \,,
 $$
 which follows a standard normal distribution.
 
-It can be calculated as
+The *z*-value can be calculated as
 $$
 z = \frac{0.0744}{0.0113} = 6.58
 $$
