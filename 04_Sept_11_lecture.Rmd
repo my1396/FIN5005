@@ -288,7 +288,7 @@ ___
 
 # Hypothesis Testing
 
-**Two-sided hypothesis testing**
+## Two-sided hypothesis testing
 
 Let us again consider the generic case of equation:
 
@@ -353,23 +353,29 @@ $$
     > - If I throw the dice 6 times in a row and get two 2's each time, it doesn't look fair to me. I reject the null hypothesis because there is only a (1/36)^6 chance of that happening if the dice are fair.
 
 
-**One-sided hypothesis testing**
+___
+
+## One-sided hypothesis testing
 
 Similarly, for one-sided hypothesis testing, we have
 
-- Case 1: $H_0: \theta\ge r \quad \text{vs} \quad H_1: \theta<r$ (left-tailed test). We reject $H_0$ in favor of $H_1$ if 
-$$
-\frac{\widehat{\theta}-r}{\Sigma} < -c_{\alpha} \; ,
-$$
-that is, the critical region is in the extreme left region (tail).
-Otherwise, we fail to reject $H_0.$
+- Case 1: $H_0: \theta\ge r \quad \text{vs} \quad H_1: \theta<r$ (<span style='color:#008B45FF'>**left-tailed test**</span>). 
 
-- Case 2: $H_0: \theta\le r \quad \text{vs} \quad H_1: \theta>r$ (right-tailed test). We reject $H_0$ in favor of $H_1$ if 
-$$
-\frac{\widehat{\theta}-r}{\Sigma} > c_{\alpha} \; ,
-$$
-that is, the critical region is in the extreme right region (tail).
-Otherwise, we fail to reject $H_0.$
+    We reject $H_0$ in favor of $H_1$ if 
+    $$
+    \frac{\widehat{\theta}-r}{\Sigma} < -c_{\alpha} \; ,
+    $$
+    that is, the critical region is in the extreme left region (tail).
+    Otherwise, we fail to reject $H_0.$
+
+- Case 2: $H_0: \theta\le r \quad \text{vs} \quad H_1: \theta>r$ (<span style='color:#008B45FF'>**right-tailed test**</span>). 
+
+    We reject $H_0$ in favor of $H_1$ if 
+    $$
+    \frac{\widehat{\theta}-r}{\Sigma} > c_{\alpha} \; ,
+    $$
+    that is, the critical region is in the extreme right region (tail).
+    Otherwise, we fail to reject $H_0.$
 
 
 The critical values for typical levels of significance are:

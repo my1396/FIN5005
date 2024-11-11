@@ -546,14 +546,17 @@ We have $n$ observations $(x_1, y_1), (x_2, y_2), \ldots, (x_n, y_n)$.
 
 Here $y_i$ is a binary outcome variable for observation $i$ and takes values 0 or 1, and $x_i$ is a predictor.
 
-We want to model the probability of $y_i=1$:
+We want to model the probability of $y_i=1$ (observing a one) conditional on some predictors $x_i$:
 
 $$
 \begin{equation} (\#eq:linear-probability-model)
 P\,(y_i=1 | x_i) = x_i'\beta .
 \end{equation}
 $$
-Note that $\mathbb{E}(y_i\vert x_i) = P\,(y_i=1 | x_i)$. We call Eq. \@ref(eq:linear-probability-model) as the <span style='color:#008B45FF'>Linear Probability Model</span>.
+We call Eq. \@ref(eq:linear-probability-model) as the <span style='color:#008B45FF'>Linear Probability Model</span>.
+
+
+Note that $\mathbb{E}(y_i\vert x_i) = P\,(y_i=1 | x_i)$. That is, the conditional expectation of $y_i$ is the probability of observing a one given $x_i\,.$
 
 Proof:
 
@@ -569,7 +572,7 @@ where $\mathcal Y = \{0, 1\}$ is the sample space of $y_i$.
 
 We can estimate $\beta$ in Eq. \@ref(eq:linear-probability-model) by OLS.
 
-Issues: Will have $x'\beta$ outside of $[0,1]$ for some values of $x$. 
+**Issue**: Will have $x'\beta$ outside of $[0,1]$ for some values of $x$. 
 
 Alternative approach: let $F(·)$ be a known cdf and specify
 
@@ -581,7 +584,7 @@ $$
 - When $\displaystyle F(u)= \Phi(u)$ (the standard normal cdf), this is called the <span style='color:#008B45FF'>probit model</span>.
 
 
-Plug in $u=x'\beta$ and the logistic cdf, we can express the logistic model as:
+Plug in $u=x'\beta$ and the logistic cdf, we can express the general logistic model as:
 
 $$
 \begin{align}
@@ -591,12 +594,17 @@ p(x) &= \frac{1}{1+e^{-u}}  (\#eq:logit-model0) \\
 \end{align}
 $$
 
+
+On the left hand side, $p(x)=P(y=1\vert x)$ is a probability function that we observe a one ($y=1$ is the outcome) conditional on $x$ (predictors).
+
 Eq. \@ref(eq:logit-model1) gives a “S-shaped” relationship between $p(x)$ and $x'\beta$ and ensures that $p(x)$ stays between 0 and 1. 
-See Fig.&nbsp;\@ref(fig:logit-regression).
+See Fig.&nbsp;\@ref(fig:logit-regression). No matter the value of $u$, $p$ remains bounded between 0 and 1.
 
 
-```{r logit-regression, echo=FALSE, fig.cap="Logistic regression cdf", out.width = "80%"}
-knitr::include_graphics("images/logistic_regression.png") 
+```{r logit-regression, fig.cap="Logistic regression cdf", out.width = "80%"}
+u <- seq(-4, 4, length.out = 100)
+p <- 1/(1 + exp(-u))
+plot(u, p, type = "l", ylab="F(u)")
 ```
 
 

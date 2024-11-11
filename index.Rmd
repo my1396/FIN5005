@@ -26,6 +26,8 @@ title: "Course website for FIN 5005"
 
 This webpage is based on materials from Bent Nielsen’s Lecture Notes for Core Econometrics. 
 
+<hr>
+
 **Office hour**: By appointment.
 
 **Office location**: Hovedbygning A257.
