@@ -228,7 +228,8 @@ ___
         ```{r}
         p1 <- risk_table[2,2]
         p0 <- risk_table[2,1]
-        p1-p0
+        ER <- p1-p0
+        ER
         ```
     
 - The <span style='color:#008B45FF'>*risk ratio*</span> or <span style='color:#008B45FF'>*relative risk*</span> (RR) is the ratio of these risks.
