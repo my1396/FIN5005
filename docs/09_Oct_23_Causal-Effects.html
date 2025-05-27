@@ -395,7 +395,7 @@ hers.no %&gt;% select(glucose, exercise, age, BMI) %&gt;% str()</code></pre>
 ##   47.00   89.00   95.00   95.67  101.00  125.00</code></pre>
 <pre class="r"><code>boxplot(hers.no$glucose~hers.no$exercise, xlab=&quot;Exercise&quot;, ylab=&quot;Glucose (mg/dL)&quot;)</code></pre>
 <p><img src="09_Oct_23_Causal-Effects_files/figure-html/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>Test if there is a statistically significant difference in glucose levels using <em>t</em>-test for equal sample means.</p>
+<p>Test if there is a statistically significant difference in glucose levels using <em>t</em>-test for equal population means.</p>
 <pre class="r"><code>t.test(glucose~exercise, var.equal=T, data=hers.no)</code></pre>
 <pre><code>## 
 ##  Two Sample t-test
@@ -712,16 +712,16 @@ y &lt;- beta0 + beta1*X + epsilon
 data &lt;- tibble(&quot;D&quot;=factor(D), X, y)
 data</code></pre>
 <pre><code>## # A tibble: 8 × 3
-##   D         X     y
-##   &lt;fct&gt; &lt;dbl&gt; &lt;dbl&gt;
-## 1 0         1  1.20
-## 2 0         2  2.22
-## 3 0         3  3.20
-## 4 0         4  4.20
-## 5 1         5  5.20
-## 6 1         6  6.20
-## 7 1         7  7.21
-## 8 1         8  8.19</code></pre>
+##   D         X        y
+##   &lt;fct&gt; &lt;dbl&gt;    &lt;dbl&gt;
+## 1 0         1 1.197986
+## 2 0         2 2.217899
+## 3 0         3 3.201568
+## 4 0         4 4.199669
+## 5 1         5 5.196721
+## 6 1         6 6.199000
+## 7 1         7 7.205956
+## 8 1         8 8.194845</code></pre>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:confound-suspicious"></span>
 <img src="images/confounding_suspicious_simulation.png" alt="Suspicious correlation due to confounding." width="100%" />
 <p class="caption">
@@ -1015,16 +1015,16 @@ y &lt;- beta0 + beta1*X + beta2*D + epsilon
 data &lt;- tibble(&quot;D&quot;=factor(D), X, y)
 data</code></pre>
 <pre><code>## # A tibble: 8 × 3
-##   D         X     y
-##   &lt;fct&gt; &lt;dbl&gt; &lt;dbl&gt;
-## 1 0         1  1.19
-## 2 0         2  2.19
-## 3 0         3  3.21
-## 4 0         4  4.20
-## 5 1         5  1.19
-## 6 1         6  2.20
-## 7 1         7  3.20
-## 8 1         8  4.20</code></pre>
+##   D         X        y
+##   &lt;fct&gt; &lt;dbl&gt;    &lt;dbl&gt;
+## 1 0         1 1.186889
+## 2 0         2 2.194721
+## 3 0         3 3.208888
+## 4 0         4 4.200772
+## 5 1         5 1.194479
+## 6 1         6 2.202968
+## 7 1         7 3.196526
+## 8 1         8 4.197454</code></pre>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:confound-negative-sim"></span>
 <img src="images/confounding_negative_simulation.png" alt="Negative confounding." width="100%" />
 <p class="caption">

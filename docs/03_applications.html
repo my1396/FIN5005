@@ -5410,6 +5410,18 @@ kurtosis  3.71  11.64   5.27  2.50
 <li>sd(SMB) &lt; sd(HML), meaning SMB has less dispersion, smaller spread.</li>
 <li>kurtosis(SMB) &gt; kurtosis(HML), meaning SMB has more outliers.</li>
 </ul>
+<p><strong>Box plot</strong> shows a quick preview of the distribution.</p>
+<p><img src="images/box.png" width="40%" style="display: block; margin: auto;" /></p>
+<ul>
+<li>The hinges span from Q1 (1st quartile) to Q3 (3rd quartile).</li>
+<li>The line inside the box is the Q2 (median).</li>
+<li>The whiskers display the min and max, <strong>excluding outliers</strong>.
+<ul>
+<li>If there are no outliers, the whiskers are the min and max.</li>
+<li>If there are outliers, the whiskers extend the box by 1.5 time the IQR (IQR = Q3 - Q1).</li>
+</ul></li>
+<li>Outliers are data outside <span class="math inline">\([Q1-1.5\times IQR,\, Q3+1.5\times IQR].\)</span></li>
+</ul>
 <div id="distribution-of-smb" class="section level2">
 <h2>Distribution of SMB</h2>
 <p>Plot histogram, empirical density, and compare with normal density (in blue).</p>
@@ -5422,7 +5434,7 @@ kurtosis  3.71  11.64   5.27  2.50
     geom_density(color=&quot;black&quot;) +
     stat_function(fun = dnorm, args = list(mean = 0, sd = 1), color=&quot;blue&quot;) +
     labs(x=&quot;Small minus big, SMB&quot;)</code></pre>
-<p><img src="03_applications_files/figure-html/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="03_applications_files/figure-html/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Issue: hard to see the tail behavior.</p>
 <p>Solution: use Quantile-Quantile (Q-Q) plots.</p>
 <p>The <span style="color:#008B45FF">Q-Q plot</span>, or <span style="color:#008B45FF">quantile-quantile plot</span>, is a graphical tool to help us assess if a set of data plausibly came from some theoretical distribution such as a normal distribution.</p>
@@ -5439,7 +5451,7 @@ kurtosis  3.71  11.64   5.27  2.50
     labs(x=&quot;Theoretical quantiles&quot;, y=&quot;Sample quantiles&quot;, 
          title=sprintf(&quot;Normal Q-Q plot — SMB, sd: %.2f, kurtosis: %.2f&quot;, sd(data$SMB), kurtosis(data$SMB))) +
     scale_y_continuous(limits=c(-15,20))</code></pre>
-<p><img src="03_applications_files/figure-html/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="03_applications_files/figure-html/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p><span style="color:#337ab7">Standardize</span> SMB to improve visualization</p>
 <ul>
 <li>Without standardization, the scale of the RV will affect your judgement.</li>
@@ -5449,7 +5461,7 @@ kurtosis  3.71  11.64   5.27  2.50
     geom_qq_line(aes(sample=with(data, (SMB-mean(SMB))/sd(SMB))), color=&quot;red&quot;) +
     labs(x=&quot;Theoretical quantiles&quot;, y=&quot;Sample quantiles&quot;, 
          title=sprintf(&quot;Normal Q-Q plot — SMB, sd: %.2f, kurtosis: %.2f&quot;, sd(data$SMB), kurtosis(data$SMB))) </code></pre>
-<p><img src="03_applications_files/figure-html/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="03_applications_files/figure-html/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="distribution-of-hml" class="section level2">
 <h2>Distribution of HML</h2>
@@ -5462,21 +5474,21 @@ kurtosis  3.71  11.64   5.27  2.50
     geom_density(color=&quot;black&quot;) +
     stat_function(fun = dnorm, args = list(mean = 0, sd = 1), color=&quot;blue&quot;) +
     labs(x=&quot;High minus low, HML&quot;)</code></pre>
-<p><img src="03_applications_files/figure-html/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="03_applications_files/figure-html/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>ggplot(data, aes(sample=HML)) +
     geom_qq() +
     geom_qq_line(color=&quot;red&quot;) +
     labs(x=&quot;Theoretical quantiles&quot;, y=&quot;Sample quantiles&quot;, 
          title=sprintf(&quot;Normal Q-Q plot — HML, sd: %.2f, kurtosis: %.2f&quot;, sd(data$HML), kurtosis(data$HML))) +
     scale_y_continuous(limits=c(-15,20))</code></pre>
-<p><img src="03_applications_files/figure-html/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="03_applications_files/figure-html/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p><span style="color:#337ab7">Standardize</span> HML to improve visualization</p>
 <pre class="r"><code>ggplot() +
     geom_qq(aes(sample=with(data, (HML-mean(HML))/sd(HML)))) +
     geom_qq_line(aes(sample=with(data, (HML-mean(HML))/sd(HML))), color=&quot;red&quot;) +
     labs(x=&quot;Theoretical quantiles&quot;, y=&quot;Sample quantiles&quot;, 
          title=sprintf(&quot;Normal Q-Q plot — HML, sd: %.2f, kurtosis: %.2f&quot;, sd(data$HML), kurtosis(data$HML)))</code></pre>
-<p><img src="03_applications_files/figure-html/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="03_applications_files/figure-html/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
 <hr />
 </div>
 </div>
@@ -5644,13 +5656,13 @@ kurtosis
     stat_function(fun = dnorm, args = list(mean = 0, sd = 1), fill=&quot;blue&quot;, geom=&quot;area&quot;, alpha=0.2) +
     labs(x=&quot;Sample values&quot;, y=&quot;Density&quot;, title=&quot;Density plot&quot;) +
     scale_x_continuous(limits = c(-4,4))</code></pre>
-<p><img src="03_applications_files/figure-html/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="03_applications_files/figure-html/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>ggplot() +
     geom_qq(aes(sample=sim_data)) +
     geom_qq_line(aes(sample=sim_data), color=&quot;red&quot;) +
     labs(x=&quot;Theoretical quantiles&quot;, y=&quot;Sample quantiles&quot;, 
          title=&quot;Normal Q-Q plot&quot;)</code></pre>
-<p><img src="03_applications_files/figure-html/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="03_applications_files/figure-html/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="negative-skew" class="section level2">
 <h2>Negative skew</h2>
@@ -5695,8 +5707,8 @@ kurtosis
 </tr>
 </tbody>
 </table>
-<p><img src="03_applications_files/figure-html/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p><img src="03_applications_files/figure-html/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="03_applications_files/figure-html/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="03_applications_files/figure-html/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" /></p>
 <hr />
 </div>
 </div>
@@ -5745,8 +5757,8 @@ kurtosis
 </tr>
 </tbody>
 </table>
-<p><img src="03_applications_files/figure-html/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p><img src="03_applications_files/figure-html/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="03_applications_files/figure-html/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="03_applications_files/figure-html/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="thin-tails" class="section level2">
 <h2>Thin tails</h2>
@@ -5791,8 +5803,8 @@ kurtosis
 </tr>
 </tbody>
 </table>
-<p><img src="03_applications_files/figure-html/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p><img src="03_applications_files/figure-html/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="03_applications_files/figure-html/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="03_applications_files/figure-html/unnamed-chunk-28-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p><strong>Q-Q plot visualization</strong>:<br />
 <a href="https://xiongge.shinyapps.io/QQplots/" class="uri">https://xiongge.shinyapps.io/QQplots/</a></p>
 </div>

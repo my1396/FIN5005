@@ -443,7 +443,7 @@ Or we can also write as</p>
   \overline{X} -\mu  &amp;\overset{a}{\sim} N(0,\sigma^2/n) \\
 
   \overline{X} &amp;\xrightarrow{d} N(\mu,\sigma^2/n), &amp;
-  \color{#008B45FF}{\overline{X}} &amp; \color{#008B45FF}{\overset{a}{\sim} N(\mu,\sigma^2/n)} .
+  \color{red}{\overline{X}} &amp; \color{red}{\overset{a}{\sim} N(\mu,\sigma^2/n)} .
 \end{array}\]</span>
 <p><strong>Note</strong>: The CLT is a very powerful result. <span class="math inline">\(X_1, \ldots, X_n\)</span> can be from <span style="color:#337ab7">any possible distribution</span> (as long as it’s <em>iid</em> with <em>finite mean and variance</em>), and still their <span style="color:#337ab7"><strong>normalized sample mean</strong></span> will be <span style="color:#008B45FF"><strong>standard normal</strong></span>.</p>
 <ul>
@@ -463,6 +463,61 @@ s_2^2 = \frac{1}{n-1} \sum_{i=1}^n [(X_i-\overline{X})^2] .
 <li>Both options are consistent; using either is fine.</li>
 </ul></li>
 </ul>
+<hr />
+<p>CLT Example: The amount of time customers spend in a grocery store is a random variable with mean <span class="math inline">\(\mu = 40\)</span> minutes and standard deviation <span class="math inline">\(\sigma = 15\)</span> minutes.</p>
+<p><span class="math display">\[
+\mathbb{E}[X] = \mu = 40, \quad \text{and} \quad \text{SD}(X) = \sigma = 15
+\]</span>
+Consider the following probabilities:</p>
+<ul>
+<li><p>Assuming <span class="math inline">\(X\)</span> is normally distributed, what is the probability that a randomly selected customer spends more than 42 minutes in the store, i.e., compute <span class="math inline">\(P(X &gt; 42)\)</span>?</p></li>
+<li><p>Given a random sample of <span class="math inline">\(n=64\)</span> customers, what is the probability of the average time spent by the 64 customers exceeds 42 minutes, i.e., compute <span class="math inline">\(P(\overline{X}_{64} &gt; 42)\)</span>?</p></li>
+<li><p>Given a random sample of <span class="math inline">\(n=81\)</span> customers, what is the probability of the average time spent by the 64 customers exceeds 42 minutes, i.e., compute <span class="math inline">\(P(\overline{X}_{64} &gt; 42)\)</span>?</p></li>
+</ul>
+<p><strong>Individual Customer</strong></p>
+<p>We define the standard normal variable <span class="math inline">\(Z\)</span> as:</p>
+<p><span class="math display">\[
+Z = \frac{X - \mu}{\sigma}
+\]</span>
+To compute <span class="math inline">\(P(X &gt; 42)\)</span>, we convert to the standard normal:</p>
+<p><span class="math display">\[
+P(X &gt; 42) = P(\frac{X-40}{15} &gt; \frac{42-40}{15}) =  P(Z &gt; 0.1333) \approx 0.4469
+\]</span></p>
+<p>There is approximately a <strong>44.69%</strong> probability that a randomly selected customer will spend more than 42 minutes in the store.</p>
+<p>Note that the <strong>specific distribution</strong> for <span class="math inline">\(X\)</span>, i.e., normality here, is <strong>required</strong> to compute the probability for a single customer.</p>
+<hr />
+<p><strong>Sample Mean for <span class="math inline">\(n = 64\)</span></strong></p>
+<p>By the Central Limit Theorem, for large <span class="math inline">\(n\)</span>, the sampling distribution of the sample mean <span class="math inline">\(\overline{X}_{64}\)</span> is approximately normal (regardless the distribution of <span class="math inline">\(X\)</span>):</p>
+<p><span class="math display">\[
+\overline{X}_{64} \sim N (\mu, \frac{\sigma^2}{n}) = N\left(40, \frac{15^2}{64}\right) = N\left(40, \frac{225}{64}\right)
+\]</span></p>
+<p><span class="math display">\[
+\text{Standard Error} = \frac{\sigma}{\sqrt{n}} = \frac{15}{\sqrt{64}} = 1.875
+\]</span></p>
+<p>We standardize using the standard normal variable <span class="math inline">\(Z\)</span>, defined as:</p>
+<p><span class="math display">\[
+Z = \frac{\overline{X} - \mu}{\sigma/\sqrt{n}} = \frac{42 - 40}{1.875} \approx 1.067
+\]</span></p>
+<p>Using the standard normal distribution table:</p>
+<p><span class="math display">\[
+P(\overline{X} &gt; 42) = P(Z &gt; 1.067) \approx 0.1436
+\]</span></p>
+<p>There is a <strong>14.35%</strong> probability that the average time spent by a random sample of 64 customers exceeds 42 minutes.</p>
+<hr />
+<p><strong>Sample Mean for <span class="math inline">\(n = 81\)</span></strong></p>
+<p><span class="math display">\[
+\text{Standard Error} = \frac{15}{\sqrt{81}} = \frac{15}{9} = 1.6667
+\]</span></p>
+<p><span class="math display">\[
+Z = \frac{42 - 40}{1.6667} =  1.2
+\]</span></p>
+<p><span class="math display">\[
+P(\overline{X} &gt; 42) = P(Z &gt; 1.2) \approx 0.1151
+\]</span>
+A random sample of 81 customers has a <strong>11.51%</strong> chance of yielding an average time above 42 minutes.</p>
+<p><strong>Interpretation</strong></p>
+<p>As sample size increases, the standard error (the standard deviation of the sample mean) decreases. This means the distribution of the sample mean becomes more concentrated around the population mean. Thus, extreme values (like sample means above 42) become less likely as <span class="math inline">\(n\)</span> increases.</p>
+<p><img src="images/CLT.png" width="80%" style="display: block; margin: auto;" /></p>
 <hr />
 </div>
 <div id="confidence-intervals" class="section level1">
@@ -531,7 +586,8 @@ But a two-sided interval is more common.</p>
 </div>
 <div id="hypothesis-testing" class="section level1">
 <h1>Hypothesis Testing</h1>
-<p><strong>Two-sided hypothesis testing</strong></p>
+<div id="two-sided-hypothesis-testing" class="section level2">
+<h2>Two-sided hypothesis testing</h2>
 <p>Let us again consider the generic case of equation:</p>
 <p><span class="math display">\[
 \frac{\widehat{\theta}-\theta}{\Sigma} \sim N(0,1).
@@ -586,19 +642,24 @@ That is, <span class="math inline">\(c_{\alpha/2}\)</span> is the <span class="m
 </ul>
 </blockquote></li>
 </ul>
-<p><strong>One-sided hypothesis testing</strong></p>
+<hr />
+</div>
+<div id="one-sided-hypothesis-testing" class="section level2">
+<h2>One-sided hypothesis testing</h2>
 <p>Similarly, for one-sided hypothesis testing, we have</p>
 <ul>
-<li><p>Case 1: <span class="math inline">\(H_0: \theta\ge r \quad \text{vs} \quad H_1: \theta&lt;r\)</span> (left-tailed test). We reject <span class="math inline">\(H_0\)</span> in favor of <span class="math inline">\(H_1\)</span> if
+<li><p>Case 1: <span class="math inline">\(H_0: \theta\ge r \quad \text{vs} \quad H_1: \theta&lt;r\)</span> (<span style="color:#008B45FF"><strong>left-tailed test</strong></span>).</p>
+<p>We reject <span class="math inline">\(H_0\)</span> in favor of <span class="math inline">\(H_1\)</span> if
 <span class="math display">\[
-\frac{\widehat{\theta}-r}{\Sigma} &lt; -c_{\alpha} \; ,
-\]</span>
+  \frac{\widehat{\theta}-r}{\Sigma} &lt; -c_{\alpha} \; ,
+  \]</span>
 that is, the critical region is in the extreme left region (tail).
 Otherwise, we fail to reject <span class="math inline">\(H_0.\)</span></p></li>
-<li><p>Case 2: <span class="math inline">\(H_0: \theta\le r \quad \text{vs} \quad H_1: \theta&gt;r\)</span> (right-tailed test). We reject <span class="math inline">\(H_0\)</span> in favor of <span class="math inline">\(H_1\)</span> if
+<li><p>Case 2: <span class="math inline">\(H_0: \theta\le r \quad \text{vs} \quad H_1: \theta&gt;r\)</span> (<span style="color:#008B45FF"><strong>right-tailed test</strong></span>).</p>
+<p>We reject <span class="math inline">\(H_0\)</span> in favor of <span class="math inline">\(H_1\)</span> if
 <span class="math display">\[
-\frac{\widehat{\theta}-r}{\Sigma} &gt; c_{\alpha} \; ,
-\]</span>
+  \frac{\widehat{\theta}-r}{\Sigma} &gt; c_{\alpha} \; ,
+  \]</span>
 that is, the critical region is in the extreme right region (tail).
 Otherwise, we fail to reject <span class="math inline">\(H_0.\)</span></p></li>
 </ul>
@@ -637,6 +698,7 @@ qnorm(p=1-alpha/2)</code></pre>
 </ul></li>
 </ul>
 <hr />
+</div>
 </div>
 <div id="reading-for-this-week" class="section level1">
 <h1>Reading for this week</h1>

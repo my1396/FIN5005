@@ -105,7 +105,7 @@ boxplot(hers.no$glucose~hers.no$exercise, xlab="Exercise", ylab="Glucose (mg/dL)
 ```
 
 
-Test if there is a statistically significant difference in glucose levels using *t*-test for equal sample means.
+Test if there is a statistically significant difference in glucose levels using *t*-test for equal population means.
 ```{r}
 t.test(glucose~exercise, var.equal=T, data=hers.no)
 ```

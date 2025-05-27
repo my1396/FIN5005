@@ -91,7 +91,7 @@ $$
     $$
     1 = \frac{\sum_{i=1}^n (\hat{y}_i-\overline{y})^2}{\sum_{i=1}^n (y_i-\overline{y})^2} - \frac{\sum_{i=1}^n (y_i-\hat{y}_i)^2}{\sum_{i=1}^n (y_i-\overline{y})^2} .
     $$
-    Define <span style='color:#008B45FF'>$R^2=\frac{\sum_{i=1}^n (\hat{y}_i-\overline{y})^2}{\sum_{i=1}^n (y_i-\overline{y})^2}$, which is the ratio of $ESS$ to $TSS$</span>. 
+    Define $\color{#008B45FF}{R^2=\frac{\sum_{i=1}^n (\hat{y}_i-\overline{y})^2}{\sum_{i=1}^n (y_i-\overline{y})^2}}$, which is the <span style='color:#008B45FF'>ratio of $ESS$ to $TSS$</span>. 
     Rearranging the equation, we have
     $$
     \begin{aligned}
@@ -770,7 +770,7 @@ summary(dummy_lm_restricted)
 Summarize the unrestricted and restricted models in a table.
 
 ```{r, echo=FALSE, results='asis'}
-stargazer(dummy_lm_restricted, dummy_lm, type="html", title="Regression Results for bone density", notes="<span>&#42;&#42;&#42;</span>: p<0.01; <span>&#42;&#42;</span>: <strong>p<0.05</strong>; <span>&#42;</span>: p<0.1", notes.append=F)
+stargazer(dummy_lm_restricted, dummy_lm, type="html", title="Regression results with and without interactions.", notes="<span>&#42;&#42;&#42;</span>: p<0.01; <span>&#42;&#42;</span>: <strong>p<0.05</strong>; <span>&#42;</span>: p<0.1", notes.append=F)
 ```
 
 

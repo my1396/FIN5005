@@ -380,7 +380,7 @@ Dividing both sides by <span class="math inline">\(\sum_{i=1}^n (y_i-\overline{y
 <span class="math display">\[
   1 = \frac{\sum_{i=1}^n (\hat{y}_i-\overline{y})^2}{\sum_{i=1}^n (y_i-\overline{y})^2} - \frac{\sum_{i=1}^n (y_i-\hat{y}_i)^2}{\sum_{i=1}^n (y_i-\overline{y})^2} .
   \]</span>
-Define <span style="color:#008B45FF"><span class="math inline">\(R^2=\frac{\sum_{i=1}^n (\hat{y}_i-\overline{y})^2}{\sum_{i=1}^n (y_i-\overline{y})^2}\)</span>, which is the ratio of <span class="math inline">\(ESS\)</span> to <span class="math inline">\(TSS\)</span></span>.
+Define <span class="math inline">\(\color{#008B45FF}{R^2=\frac{\sum_{i=1}^n (\hat{y}_i-\overline{y})^2}{\sum_{i=1}^n (y_i-\overline{y})^2}}\)</span>, which is the <span style="color:#008B45FF">ratio of <span class="math inline">\(ESS\)</span> to <span class="math inline">\(TSS\)</span></span>.
 Rearranging the equation, we have
 <span class="math display">\[
   \begin{aligned}
@@ -1114,18 +1114,18 @@ cps_data &lt;- cps_data %&gt;%
            )
 cps_data %&gt;% select(lwage, female, married)</code></pre>
 <pre><code>## # A tibble: 50,742 × 3
-##    lwage female married
-##    &lt;dbl&gt; &lt;fct&gt;  &lt;fct&gt;  
-##  1  4.13 0      1      
-##  2  3.06 0      1      
-##  3  2.75 0      1      
-##  4  3.12 1      1      
-##  5  4.13 0      1      
-##  6  2.76 1      0      
-##  7  2.78 0      1      
-##  8  2.78 1      1      
-##  9  3.65 0      1      
-## 10  2.73 1      1      
+##       lwage female married
+##       &lt;dbl&gt; &lt;fct&gt;  &lt;fct&gt;  
+##  1 4.133456 0      1      
+##  2 3.061872 0      1      
+##  3 2.752786 0      1      
+##  4 3.117780 1      1      
+##  5 4.129148 0      1      
+##  6 2.764140 1      0      
+##  7 2.783240 0      1      
+##  8 2.783240 1      1      
+##  9 3.649659 0      1      
+## 10 2.733368 1      1      
 ## # ℹ 50,732 more rows</code></pre>
 <pre class="r"><code>dummy_lm &lt;- lm(lwage~female+married+female:married, data=cps_data)
 summary(dummy_lm)</code></pre>
@@ -1455,7 +1455,7 @@ summary(dummy_lm_restricted)</code></pre>
 <p>Summarize the unrestricted and restricted models in a table.</p>
 <table style="text-align:center">
 <caption>
-<strong>Regression Results for bone density</strong>
+<strong>Regression results with and without interactions.</strong>
 </caption>
 <tr>
 <td colspan="3" style="border-bottom: 1px solid black">

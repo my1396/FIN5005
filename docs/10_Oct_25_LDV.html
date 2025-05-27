@@ -519,7 +519,8 @@ developed
 <p>Can be verified as:</p>
 <pre class="r"><code>p1 &lt;- risk_table[2,2]
 p0 &lt;- risk_table[2,1]
-p1-p0</code></pre>
+ER &lt;- p1-p0
+ER</code></pre>
 <pre><code>## [1] 0.04653682</code></pre></li>
 </ul></li>
 <li><p>The <span style="color:#008B45FF"><em>risk ratio</em></span> or <span style="color:#008B45FF"><em>relative risk</em></span> (RR) is the ratio of these risks.</p>
@@ -1296,13 +1297,14 @@ smoke
 <h1>Logistic Regression Model Representation</h1>
 <p>We have <span class="math inline">\(n\)</span> observations <span class="math inline">\((x_1, y_1), (x_2, y_2), \ldots, (x_n, y_n)\)</span>.</p>
 <p>Here <span class="math inline">\(y_i\)</span> is a binary outcome variable for observation <span class="math inline">\(i\)</span> and takes values 0 or 1, and <span class="math inline">\(x_i\)</span> is a predictor.</p>
-<p>We want to model the probability of <span class="math inline">\(y_i=1\)</span>:</p>
+<p>We want to model the probability of <span class="math inline">\(y_i=1\)</span> (observing a one) conditional on some predictors <span class="math inline">\(x_i\)</span>:</p>
 <p><span class="math display" id="eq:linear-probability-model">\[
 \begin{equation} \tag{6}
 P\,(y_i=1 | x_i) = x_i&#39;\beta .
 \end{equation}
 \]</span>
-Note that <span class="math inline">\(\mathbb{E}(y_i\vert x_i) = P\,(y_i=1 | x_i)\)</span>. We call Eq. <a href="#eq:linear-probability-model">(6)</a> as the <span style="color:#008B45FF">Linear Probability Model</span>.</p>
+We call Eq. <a href="#eq:linear-probability-model">(6)</a> as the <span style="color:#008B45FF">Linear Probability Model</span>.</p>
+<p>Note that <span class="math inline">\(\mathbb{E}(y_i\vert x_i) = P\,(y_i=1 | x_i)\)</span>. That is, the conditional expectation of <span class="math inline">\(y_i\)</span> is the probability of observing a one given <span class="math inline">\(x_i\,.\)</span></p>
 <p>Proof:</p>
 <p><span class="math display">\[
 \begin{aligned}
@@ -1314,7 +1316,7 @@ Note that <span class="math inline">\(\mathbb{E}(y_i\vert x_i) = P\,(y_i=1 | x_i
 \]</span>
 where <span class="math inline">\(\mathcal Y = \{0, 1\}\)</span> is the sample space of <span class="math inline">\(y_i\)</span>.</p>
 <p>We can estimate <span class="math inline">\(\beta\)</span> in Eq. <a href="#eq:linear-probability-model">(6)</a> by OLS.</p>
-<p>Issues: Will have <span class="math inline">\(x&#39;\beta\)</span> outside of <span class="math inline">\([0,1]\)</span> for some values of <span class="math inline">\(x\)</span>.</p>
+<p><strong>Issue</strong>: Will have <span class="math inline">\(x&#39;\beta\)</span> outside of <span class="math inline">\([0,1]\)</span> for some values of <span class="math inline">\(x\)</span>.</p>
 <p>Alternative approach: let <span class="math inline">\(F(·)\)</span> be a known cdf and specify</p>
 <p><span class="math display">\[
 P\,(y_i=1|x_i) = F(x_i&#39;\beta) \,.
@@ -1323,7 +1325,7 @@ P\,(y_i=1|x_i) = F(x_i&#39;\beta) \,.
 <li>When <span class="math inline">\(\displaystyle F(u)= \frac{1}{1+e^{-u}}\)</span> (the logistic cdf), where <span class="math inline">\(u=x&#39;\beta\)</span>, this is called the <span style="color:#008B45FF">logit model</span>.</li>
 <li>When <span class="math inline">\(\displaystyle F(u)= \Phi(u)\)</span> (the standard normal cdf), this is called the <span style="color:#008B45FF">probit model</span>.</li>
 </ul>
-<p>Plug in <span class="math inline">\(u=x&#39;\beta\)</span> and the logistic cdf, we can express the logistic model as:</p>
+<p>Plug in <span class="math inline">\(u=x&#39;\beta\)</span> and the logistic cdf, we can express the general logistic model as:</p>
 <p><span class="math display" id="eq:logit-model2" id="eq:logit-model1" id="eq:logit-model0">\[
 \begin{align}
 p(x) &amp;= \frac{1}{1+e^{-u}}  \tag{7} \\
@@ -1331,10 +1333,14 @@ p(x) &amp;= \frac{1}{1+e^{-u}}  \tag{7} \\
 &amp;= \frac{e^{x&#39;\beta}}{1+e^{x&#39;\beta}}  \tag{9} \\
 \end{align}
 \]</span></p>
+<p>On the left hand side, <span class="math inline">\(p(x)=P(y=1\vert x)\)</span> is a probability function that we observe a one (<span class="math inline">\(y=1\)</span> is the outcome) conditional on <span class="math inline">\(x\)</span> (predictors).</p>
 <p>Eq. <a href="#eq:logit-model1">(8)</a> gives a “S-shaped” relationship between <span class="math inline">\(p(x)\)</span> and <span class="math inline">\(x&#39;\beta\)</span> and ensures that <span class="math inline">\(p(x)\)</span> stays between 0 and 1.
-See Fig. <a href="#fig:logit-regression">2</a>.</p>
+See Fig. <a href="#fig:logit-regression">2</a>. No matter the value of <span class="math inline">\(u\)</span>, <span class="math inline">\(p\)</span> remains bounded between 0 and 1.</p>
+<pre class="r"><code>u &lt;- seq(-4, 4, length.out = 100)
+p &lt;- 1/(1 + exp(-u))
+plot(u, p, type = &quot;l&quot;, ylab=&quot;F(u)&quot;)</code></pre>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:logit-regression"></span>
-<img src="images/logistic_regression.png" alt="Logistic regression cdf" width="80%" />
+<img src="10_Oct_25_LDV_files/figure-html/logit-regression-1.png" alt="Logistic regression cdf" width="80%" />
 <p class="caption">
 Fig. 2: Logistic regression cdf
 </p>

@@ -11,6 +11,8 @@ output:
         toc_depth: 4
         number_sections: false
         css: "style.css"
+editor_options: 
+  chunk_output_type: console
 ---
 
 <SCRIPT language="JavaScript" SRC="my_jxscript.js"></SCRIPT>
@@ -26,7 +28,7 @@ library(stargazer)
 library(bookdown)
 
 # don't show code unless we explicitly set echo = TRUE
-opts_chunk$set(echo = TRUE, message=FALSE, fig.align="center", fig.pos = "H")
+opts_chunk$set(warning=FALSE, echo = TRUE, message=FALSE, fig.align="center", fig.pos = "H")
 opts <- options(knitr.kable.NA = "")
 
 ## control long outputs by using eg `max.lines = 10`
@@ -178,7 +180,7 @@ Or we can also write as
   \overline{X} -\mu  &\overset{a}{\sim} N(0,\sigma^2/n) \\
 
   \overline{X} &\xrightarrow{d} N(\mu,\sigma^2/n), &
-  \color{#008B45FF}{\overline{X}} & \color{#008B45FF}{\overset{a}{\sim} N(\mu,\sigma^2/n)} .
+  \color{red}{\overline{X}} & \color{red}{\overset{a}{\sim} N(\mu,\sigma^2/n)} .
 \end{array} 
 
 
@@ -201,6 +203,143 @@ Or we can also write as
   s_2^2 = \frac{1}{n-1} \sum_{i=1}^n [(X_i-\overline{X})^2] .
   $$
   - Both options are consistent; using either is fine.
+
+
+
+--------------------------------------------------------------------------------
+
+
+CLT Example: The amount of time customers spend in a grocery store is a random variable with mean $\mu = 40$ minutes and standard deviation $\sigma = 15$ minutes. 
+
+$$
+\mathbb{E}[X] = \mu = 40, \quad \text{and} \quad \text{SD}(X) = \sigma = 15
+$$
+Consider the following probabilities:
+
+- Assuming $X$ is normally distributed, what is the probability that a randomly selected customer spends more than 42 minutes in the store, i.e., compute $P(X > 42)$?
+
+- Given a random sample of $n=64$ customers, what is the probability of the average time spent by the 64 customers exceeds 42 minutes, i.e., compute $P(\overline{X}_{64} > 42)$?
+
+- Given a random sample of $n=81$ customers, what is the probability of the average time spent by the 64 customers exceeds 42 minutes, i.e., compute $P(\overline{X}_{64} > 42)$?
+
+
+**Individual Customer**
+
+We define the standard normal variable $Z$ as:
+
+$$
+Z = \frac{X - \mu}{\sigma}
+$$
+To compute $P(X > 42)$, we convert to the standard normal:
+
+$$
+P(X > 42) = P(\frac{X-40}{15} > \frac{42-40}{15}) =  P(Z > 0.1333) \approx 0.4469
+$$
+
+There is approximately a **44.69%** probability that a randomly selected customer will spend more than 42 minutes in the store.
+
+Note that the **specific distribution** for \( X \), i.e., normality here, is **required** to compute the probability for a single customer.
+
+--------------------------------------------------------------------------------
+
+**Sample Mean for \(n = 64\)**
+
+By the Central Limit Theorem, for large \( n \), the sampling distribution of the sample mean \( \overline{X}_{64} \) is approximately normal (regardless the distribution of $X$):
+
+$$
+\overline{X}_{64} \sim N (\mu, \frac{\sigma^2}{n}) = N\left(40, \frac{15^2}{64}\right) = N\left(40, \frac{225}{64}\right)
+$$
+
+
+$$
+\text{Standard Error} = \frac{\sigma}{\sqrt{n}} = \frac{15}{\sqrt{64}} = 1.875
+$$
+
+
+We standardize using the standard normal variable \( Z \), defined as:
+
+$$
+Z = \frac{\overline{X} - \mu}{\sigma/\sqrt{n}} = \frac{42 - 40}{1.875} \approx 1.067
+$$
+
+Using the standard normal distribution table:
+
+$$
+P(\overline{X} > 42) = P(Z > 1.067) \approx 0.1436
+$$
+
+There is a **14.35%** probability that the average time spent by a random sample of 64 customers exceeds 42 minutes.
+
+--------------------------------------------------------------------------------
+
+**Sample Mean for \(n = 81\)**
+
+$$
+\text{Standard Error} = \frac{15}{\sqrt{81}} = \frac{15}{9} = 1.6667
+$$
+
+$$
+Z = \frac{42 - 40}{1.6667} =  1.2
+$$
+
+$$
+P(\overline{X} > 42) = P(Z > 1.2) \approx 0.1151
+$$
+A random sample of 81 customers has a **11.51%** chance of yielding an average time above 42 minutes.
+
+
+**Interpretation**
+
+As sample size increases, the standard error (the standard deviation of the sample mean) decreases. This means the distribution of the sample mean becomes more concentrated around the population mean. Thus, extreme values (like sample means above 42) become less likely as \(n\) increases.
+
+
+```{r echo=FALSE}
+# Load necessary package
+library(ggplot2)
+
+# Parameters
+mu <- 40
+sigma <- 15
+n1 <- 64
+n2 <- 81
+
+# Create x values
+x <- seq(20, 60, length.out = 500)
+
+# Compute densities
+individual <- dnorm(x, mean = mu, sd = sigma)
+sample_64 <- dnorm(x, mean = mu, sd = sigma / sqrt(n1))
+sample_81 <- dnorm(x, mean = mu, sd = sigma / sqrt(n2))
+
+# Create data frame
+df <- data.frame(
+  x = rep(x, 3),
+  density = c(individual, sample_64, sample_81),
+  group = factor(rep(c("Individual (n=1)", "Sample Mean (n=64)", "Sample Mean (n=81)"), each = length(x)))
+)
+
+# Plot
+p <- ggplot(df, aes(x = x, y = density, color = group)) +
+  geom_line(size = 1) +
+  geom_vline(xintercept = 42, linetype = "dashed", color = "gray") +
+  scale_color_manual(values=c("#1F77B4FF", "#008B45FF", "#EE0000FF")) +
+  labs(
+    title = "Comparison of Distributions: Individual vs Sample Means",
+    x = "Time Spent in Store (minutes)",
+    y = "Density",
+    color = "Distribution"
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(legend.position = c(0.8,0.7))
+f_name <- "images/CLT.png"
+png(f_name, width=1166*2.5, height=565*2.5, res=300)
+p
+invisible(dev.off())
+```
+
+```{r echo=FALSE,out.width="80%" }
+knitr::include_graphics(f_name) 
+```
 
 
 ___

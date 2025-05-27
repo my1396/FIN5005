@@ -89,6 +89,27 @@ apply(data[,-1], 2, get_stat) %>%
 - sd(SMB) < sd(HML), meaning SMB has less dispersion, smaller spread.
 - kurtosis(SMB) > kurtosis(HML), meaning SMB has more outliers.
 
+```{r echo=FALSE}
+f_name <- "images/box.png"
+png(f_name, width=384*3, height=537*3, res=300)
+data %>% 
+    gather("key", "value", -Date, -RF) %>% 
+    boxplot(value~key, data=., xlab="", ylab="%")
+invisible(dev.off())
+```
+
+**Box plot** shows a quick preview of the distribution.
+
+```{r echo=FALSE, out.width="40%"}
+knitr::include_graphics(f_name) 
+```
+
+- The hinges span from Q1 (1st quartile) to Q3 (3rd quartile).
+- The line inside the box is the Q2 (median).
+- The whiskers display the min and max, **excluding outliers**.
+    - If there are no outliers, the whiskers are the min and max.
+    - If there are outliers, the whiskers extend the box by 1.5 time the IQR (IQR = Q3 - Q1).
+- Outliers are data outside $[Q1-1.5\times IQR,\, Q3+1.5\times IQR].$
 
 ## Distribution of SMB
 
