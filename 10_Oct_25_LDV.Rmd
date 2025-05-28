@@ -77,7 +77,7 @@ We will focus on the binary dependent variable case for our course.
 The western collaborative group study (WCGS) was a large epidemiological study designed to investigate the risk factors and coronary heart disease (CHD).
 More than 3000 men were recruited to the study, and a number of (potential) risk factors were recorded at entry. The men were then followed for about ten years and it was recorded if they developed CHD or not. 
 
-In this introductory example, we will study the effect of smoking and age on the risk for CHD.
+In this introductory example, we will study **the effect of smoking and age on the risk for CHD**.
 
 ```{r paged.print=TRUE}
 wcgs <- read.table("https://raw.githubusercontent.com/my1396/course_dataset/refs/heads/main/wcgs.txt", sep="\t", header=T, na.strings=".")
@@ -465,11 +465,11 @@ Can be verified using the following codes.
 ```{r}
 expcoef <- function(glmobj){
     # computing odds ratio with 95% confidence limits
-    regtab=summary(glmobj)$coef 
-    expcoef=exp(regtab[,1]) 
-    lower=expcoef*exp(-1.96*regtab[,2]) 
-    upper=expcoef*exp(1.96*regtab[,2]) 
-    cbind(expcoef,lower,upper)
+    regtab <- summary(glmobj)$coef 
+    expcoef <- exp(regtab[,1]) 
+    lower <- expcoef * exp(-1.96*regtab[,2]) 
+    upper <- expcoef * exp(1.96*regtab[,2]) 
+    return (cbind(expcoef,lower, upper))
 } 
 ```
 
@@ -477,7 +477,8 @@ Table \@ref(tab:OR-age) shows the odds ratio for age and its $95\%$ confidence i
 
 ```{r OR-age}
 expcoef(fit.age)[-1,,drop=FALSE] %>% 
-    kable(digits = 4, escape=T, caption = "Exponential of the coefficient and 95% CI.") %>% 
+    kable(digits = 4, escape= TRUE, 
+          caption = "Exponential of the coefficient and 95% CI.") %>% 
     kable_styling(full_width = FALSE)
 ```
 
