@@ -359,7 +359,7 @@ div.tocify {
 <p>The western collaborative group study (WCGS) was a large epidemiological study designed to investigate the risk factors and coronary heart disease (CHD).
 More than 3000 men were recruited to the study, and a number of (potential) risk factors were recorded at entry. The men were then followed for about ten years and it was recorded if they developed CHD or not.</p>
 <p>In this introductory example, we will study <strong>the effect of smoking and age on the risk for CHD</strong>.</p>
-<pre class="r"><code>wcgs &lt;- read.table(&quot;https://raw.githubusercontent.com/my1396/course_dataset/refs/heads/main/wcgs.txt&quot;, sep=&quot;\t&quot;, header=T, na.strings=&quot;.&quot;)
+<pre class="r"><code>wcgs &lt;- read.table(&quot;https://raw.githubusercontent.com/my1396/course_dataset/refs/heads/main/wcgs.txt&quot;, sep=&quot;\t&quot;, header=TRUE, na.strings=&quot;.&quot;)
 wcgs %&gt;% head(20)</code></pre>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
@@ -754,7 +754,7 @@ Akaike Inf. Crit.
 <em>Note:</em>
 </td>
 <td style="text-align:right">
-<span>*</span>: p&lt;0.1; <span>**</span>: <strong>p&lt;0.05</strong>; <span>***</span>: p&lt;0.01 <br> Standard errors in the parentheses.
+<span>*</span>: p&lt;0.1; <span>**</span>: <strong>p&lt;0.05</strong>; <span>***</span>: p&lt;0.01 <br> Standard errors in parentheses.
 </td>
 </tr>
 </table>
@@ -918,7 +918,7 @@ Akaike Inf. Crit.
 <em>Note:</em>
 </td>
 <td style="text-align:right">
-<span>*</span>: p&lt;0.1; <span>**</span>: <strong>p&lt;0.05</strong>; <span>***</span>: p&lt;0.01 <br> Standard errors in the parentheses.
+<span>*</span>: p&lt;0.1; <span>**</span>: <strong>p&lt;0.05</strong>; <span>***</span>: p&lt;0.01 <br> Standard errors in parentheses.
 </td>
 </tr>
 </table>
@@ -930,15 +930,16 @@ Akaike Inf. Crit.
 <p>Can be verified using the following codes.</p>
 <pre class="r"><code>expcoef &lt;- function(glmobj){
     # computing odds ratio with 95% confidence limits
-    regtab=summary(glmobj)$coef 
-    expcoef=exp(regtab[,1]) 
-    lower=expcoef*exp(-1.96*regtab[,2]) 
-    upper=expcoef*exp(1.96*regtab[,2]) 
-    cbind(expcoef,lower,upper)
+    regtab &lt;- summary(glmobj)$coef 
+    expcoef &lt;- exp(regtab[,1]) 
+    lower &lt;- expcoef * exp(-1.96*regtab[,2]) 
+    upper &lt;- expcoef * exp(1.96*regtab[,2]) 
+    return (cbind(expcoef,lower, upper))
 } </code></pre>
 <p>Table <a href="#tab:OR-age">4</a> shows the odds ratio for age and its <span class="math inline">\(95\%\)</span> confidence interval.</p>
 <pre class="r"><code>expcoef(fit.age)[-1,,drop=FALSE] %&gt;% 
-    kable(digits = 4, escape=T, caption = &quot;Exponential of the coefficient and 95% CI.&quot;) %&gt;% 
+    kable(digits = 4, escape= TRUE, 
+          caption = &quot;Exponential of the coefficient and 95% CI.&quot;) %&gt;% 
     kable_styling(full_width = FALSE)</code></pre>
 <table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
@@ -1187,7 +1188,7 @@ Akaike Inf. Crit.
 <em>Note:</em>
 </td>
 <td style="text-align:right">
-<span>*</span>: p&lt;0.1; <span>**</span>: <strong>p&lt;0.05</strong>; <span>***</span>: p&lt;0.01 <br> Standard errors in the parentheses.
+<span>*</span>: p&lt;0.1; <span>**</span>: <strong>p&lt;0.05</strong>; <span>***</span>: p&lt;0.01 <br> Standard errors in parentheses.
 </td>
 </tr>
 </table>

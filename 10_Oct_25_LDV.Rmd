@@ -31,7 +31,7 @@ library(cowplot)
 library(scales)
 
 # don't show code unless we explicitly set echo = TRUE
-opts_chunk$set(echo = TRUE, message=FALSE, warning = FALSE, fig.align="center", fig.pos = "H", paged.print=FALSE)
+opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, fig.align="center", fig.pos = "H", paged.print=FALSE)
 opts <- options(knitr.kable.NA = "")
 
 ## control long outputs by using eg `max.lines = 10`
@@ -80,7 +80,7 @@ More than 3000 men were recruited to the study, and a number of (potential) risk
 In this introductory example, we will study **the effect of smoking and age on the risk for CHD**.
 
 ```{r paged.print=TRUE}
-wcgs <- read.table("https://raw.githubusercontent.com/my1396/course_dataset/refs/heads/main/wcgs.txt", sep="\t", header=T, na.strings=".")
+wcgs <- read.table("https://raw.githubusercontent.com/my1396/course_dataset/refs/heads/main/wcgs.txt", sep="\t", header=TRUE, na.strings=".")
 wcgs %>% head(20)
 ```
 
@@ -122,10 +122,11 @@ contingency_table %>% addmargins()
 Visualization of the contingency table
 
 ```{r echo=FALSE, include=FALSE}
-p <- ggplot(contingency_table %>% 
-           as_tibble() %>% 
-           mutate(chd69=factor(chd69, levels=c("non-developed", "developed"))), 
-       aes(x=smoke, y=n, fill=chd69)) +
+p <- contingency_table %>% 
+       as_tibble() %>% 
+       mutate(chd69 = factor(chd69, 
+                             levels=c("non-developed", "developed"))) %>%
+    ggplot(aes(x=smoke, y=n, fill=chd69)) +
     geom_bar(position="stack", stat="identity", color="black", linewidth=0.1) + 
     scale_fill_grey(start=0.88, end=0.7) +
     labs(y="Frequency", fill="CHD") +
@@ -382,7 +383,7 @@ stargazer(fit.smoke, type="html",
           digits=4,
           label = paste0("tab:", knitr::opts_current$get("label")),
           title = ifelse(knitr::is_latex_output(), tit, tit_html),
-          notes="<span>&#42;</span>: p<0.1; <span>&#42;&#42;</span>: <strong>p<0.05</strong>; <span>&#42;&#42;&#42;</span>: p<0.01 <br> Standard errors in the parentheses.",
+          notes="<span>&#42;</span>: p<0.1; <span>&#42;&#42;</span>: <strong>p<0.05</strong>; <span>&#42;&#42;&#42;</span>: p<0.01 <br> Standard errors in parentheses.",
           notes.append=F )
 ```
 
@@ -449,7 +450,7 @@ stargazer::stargazer(fit.age,
           label = paste0("tab:", knitr::opts_current$get("label")),
           title = ifelse(knitr::is_latex_output(), tit, tit_html),
           type = ifelse(knitr::is_latex_output(),"latex","html"),
-          notes = "<span>&#42;</span>: p<0.1; <span>&#42;&#42;</span>: <strong>p<0.05</strong>; <span>&#42;&#42;&#42;</span>: p<0.01 <br> Standard errors in the parentheses.",
+          notes = "<span>&#42;</span>: p<0.1; <span>&#42;&#42;</span>: <strong>p<0.05</strong>; <span>&#42;&#42;&#42;</span>: p<0.01 <br> Standard errors in parentheses.",
           notes.append = F,
           header = F
           )
@@ -519,7 +520,7 @@ tit_html <- paste0('<span id="tab:',
 stargazer(wcgs.mult, type="html", digits=4,
           label = paste0("tab:", knitr::opts_current$get("label")),
           title = ifelse(knitr::is_latex_output(), tit, tit_html),
-          notes="<span>&#42;</span>: p<0.1; <span>&#42;&#42;</span>: <strong>p<0.05</strong>; <span>&#42;&#42;&#42;</span>: p<0.01 <br> Standard errors in the parentheses.",
+          notes="<span>&#42;</span>: p<0.1; <span>&#42;&#42;</span>: <strong>p<0.05</strong>; <span>&#42;&#42;&#42;</span>: p<0.01 <br> Standard errors in parentheses.",
           notes.append=F )
 ```
 
