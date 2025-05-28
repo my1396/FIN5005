@@ -80,8 +80,7 @@ More than 3000 men were recruited to the study, and a number of (potential) risk
 In this introductory example, we will study the effect of smoking and age on the risk for CHD.
 
 ```{r paged.print=TRUE}
-wcgs <- read.table("https://raw.githubusercontent.com/my1396/course_dataset/refs/heads/main/wcgs.txt",
-                   sep="\t", header=T, na.strings=".")
+wcgs <- read.table("https://raw.githubusercontent.com/my1396/course_dataset/refs/heads/main/wcgs.txt", sep="\t", header=T, na.strings=".")
 wcgs %>% head(20)
 ```
 
