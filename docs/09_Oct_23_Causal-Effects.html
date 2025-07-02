@@ -714,14 +714,14 @@ data</code></pre>
 <pre><code>## # A tibble: 8 × 3
 ##   D         X        y
 ##   &lt;fct&gt; &lt;dbl&gt;    &lt;dbl&gt;
-## 1 0         1 1.197986
-## 2 0         2 2.217899
-## 3 0         3 3.201568
-## 4 0         4 4.199669
-## 5 1         5 5.196721
-## 6 1         6 6.199000
-## 7 1         7 7.205956
-## 8 1         8 8.194845</code></pre>
+## 1 0         1 1.195832
+## 2 0         2 2.206070
+## 3 0         3 3.205025
+## 4 0         4 4.186948
+## 5 1         5 5.194737
+## 6 1         6 6.211223
+## 7 1         7 7.178220
+## 8 1         8 8.207029</code></pre>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:confound-suspicious"></span>
 <img src="images/confounding_suspicious_simulation.png" alt="Suspicious correlation due to confounding." width="100%" />
 <p class="caption">
@@ -795,10 +795,10 @@ True model
 D1
 </td>
 <td>
-3.995<sup>***</sup>
+3.999<sup>***</sup>
 </td>
 <td>
--0.003
+0.004
 </td>
 <td>
 </td>
@@ -810,7 +810,7 @@ D1
 (0.912)
 </td>
 <td>
-(0.012)
+(0.019)
 </td>
 <td>
 </td>
@@ -832,10 +832,10 @@ X
 <td>
 </td>
 <td>
-1.000<sup>***</sup>
+0.999<sup>***</sup>
 </td>
 <td>
-0.999<sup>***</sup>
+1.000<sup>***</sup>
 </td>
 </tr>
 <tr>
@@ -844,10 +844,10 @@ X
 <td>
 </td>
 <td>
-(0.003)
+(0.004)
 </td>
 <td>
-(0.001)
+(0.002)
 </td>
 </tr>
 <tr>
@@ -865,13 +865,13 @@ X
 Constant
 </td>
 <td>
-2.704<sup>***</sup>
+2.698<sup>***</sup>
 </td>
 <td>
-0.206<sup>***</sup>
+0.201<sup>***</sup>
 </td>
 <td>
-0.207<sup>***</sup>
+0.200<sup>***</sup>
 </td>
 </tr>
 <tr>
@@ -881,10 +881,10 @@ Constant
 (0.645)
 </td>
 <td>
-(0.008)
+(0.012)
 </td>
 <td>
-(0.006)
+(0.010)
 </td>
 </tr>
 <tr>
@@ -934,7 +934,7 @@ R<sup>2</sup>
 Adjusted R<sup>2</sup>
 </td>
 <td>
-0.722
+0.723
 </td>
 <td>
 1.000
@@ -951,10 +951,10 @@ Residual Std. Error
 1.290 (df = 6)
 </td>
 <td>
-0.008 (df = 5)
+0.013 (df = 5)
 </td>
 <td>
-0.007 (df = 6)
+0.012 (df = 6)
 </td>
 </tr>
 <tr>
@@ -962,13 +962,13 @@ Residual Std. Error
 F Statistic
 </td>
 <td>
-19.169<sup>***</sup> (df = 1; 6)
+19.238<sup>***</sup> (df = 1; 6)
 </td>
 <td>
-325,352.300<sup>***</sup> (df = 2; 5)
+118,632.500<sup>***</sup> (df = 2; 5)
 </td>
 <td>
-769,487.000<sup>***</sup> (df = 1; 6)
+282,166.700<sup>***</sup> (df = 1; 6)
 </td>
 </tr>
 <tr>
@@ -1017,14 +1017,14 @@ data</code></pre>
 <pre><code>## # A tibble: 8 × 3
 ##   D         X        y
 ##   &lt;fct&gt; &lt;dbl&gt;    &lt;dbl&gt;
-## 1 0         1 1.186889
-## 2 0         2 2.194721
-## 3 0         3 3.208888
-## 4 0         4 4.200772
-## 5 1         5 1.194479
-## 6 1         6 2.202968
-## 7 1         7 3.196526
-## 8 1         8 4.197454</code></pre>
+## 1 0         1 1.198295
+## 2 0         2 2.215090
+## 3 0         3 3.211248
+## 4 0         4 4.183635
+## 5 1         5 1.206994
+## 6 1         6 2.187007
+## 7 1         7 3.201751
+## 8 1         8 4.212129</code></pre>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:confound-negative-sim"></span>
 <img src="images/confounding_negative_simulation.png" alt="Negative confounding." width="100%" />
 <p class="caption">
@@ -1091,20 +1091,20 @@ Conditional on X
 D1
 </td>
 <td>
-0.00004
+-0.0001
 </td>
 <td>
--4.012<sup>***</sup>
+-3.997<sup>***</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.916)
+(0.912)
 </td>
 <td>
-(0.009)
+(0.020)
 </td>
 </tr>
 <tr>
@@ -1122,7 +1122,7 @@ X
 <td>
 </td>
 <td>
-1.003<sup>***</sup>
+0.999<sup>***</sup>
 </td>
 </tr>
 <tr>
@@ -1131,7 +1131,7 @@ X
 <td>
 </td>
 <td>
-(0.002)
+(0.004)
 </td>
 </tr>
 <tr>
@@ -1147,20 +1147,20 @@ X
 Constant
 </td>
 <td>
-2.698<sup>***</sup>
+2.702<sup>***</sup>
 </td>
 <td>
-0.191<sup>***</sup>
+0.204<sup>***</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.647)
+(0.645)
 </td>
 <td>
-(0.006)
+(0.013)
 </td>
 </tr>
 <tr>
@@ -1213,10 +1213,10 @@ Adjusted R<sup>2</sup>
 Residual Std. Error
 </td>
 <td>
-1.295 (df = 6)
+1.290 (df = 6)
 </td>
 <td>
-0.007 (df = 5)
+0.014 (df = 5)
 </td>
 </tr>
 <tr>
@@ -1227,7 +1227,7 @@ F Statistic
 0.000 (df = 1; 6)
 </td>
 <td>
-117,054.500<sup>***</sup> (df = 2; 5)
+26,201.610<sup>***</sup> (df = 2; 5)
 </td>
 </tr>
 <tr>

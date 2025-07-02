@@ -218,9 +218,9 @@ Consider the following probabilities:
 
 - Assuming $X$ is normally distributed, what is the probability that a randomly selected customer spends more than 42 minutes in the store, i.e., compute $P(X > 42)$?
 
-- Given a random sample of $n=64$ customers, what is the probability of the average time spent by the 64 customers exceeds 42 minutes, i.e., compute $P(\overline{X}_{64} > 42)$?
+- Given a random sample of $n=16$ customers, what is the probability of the average time spent by the 64 customers exceeds 42 minutes, i.e., compute $P(\overline{X}_{16} > 42)$?
 
-- Given a random sample of $n=81$ customers, what is the probability of the average time spent by the 64 customers exceeds 42 minutes, i.e., compute $P(\overline{X}_{64} > 42)$?
+- Given a random sample of $n=64$ customers, what is the probability of the average time spent by the 64 customers exceeds 42 minutes, i.e., compute $P(\overline{X}_{64} > 42)$?
 
 
 **Individual Customer**
@@ -239,6 +239,23 @@ $$
 There is approximately a **44.69%** probability that a randomly selected customer will spend more than 42 minutes in the store.
 
 Note that the **specific distribution** for \( X \), i.e., normality here, is **required** to compute the probability for a single customer.
+
+--------------------------------------------------------------------------------
+
+**Sample Mean for \(n = 16\)**
+
+$$
+\text{Standard Error} = \frac{15}{\sqrt{16}} = \frac{15}{4} = 3.75
+$$
+
+$$
+Z = \frac{42 - 40}{3.75} = 0.533
+$$
+
+$$
+P(\overline{X} > 42) = P(Z > 0.533) \approx 0.2970
+$$
+A random sample of 16 customers has a **29.70%** chance of yielding an average time above 42 minutes.
 
 --------------------------------------------------------------------------------
 
@@ -270,22 +287,7 @@ $$
 
 There is a **14.35%** probability that the average time spent by a random sample of 64 customers exceeds 42 minutes.
 
---------------------------------------------------------------------------------
 
-**Sample Mean for \(n = 81\)**
-
-$$
-\text{Standard Error} = \frac{15}{\sqrt{81}} = \frac{15}{9} = 1.6667
-$$
-
-$$
-Z = \frac{42 - 40}{1.6667} =  1.2
-$$
-
-$$
-P(\overline{X} > 42) = P(Z > 1.2) \approx 0.1151
-$$
-A random sample of 81 customers has a **11.51%** chance of yielding an average time above 42 minutes.
 
 
 **Interpretation**
@@ -300,22 +302,23 @@ library(ggplot2)
 # Parameters
 mu <- 40
 sigma <- 15
-n1 <- 64
-n2 <- 81
+n1 <- 16
+n2 <- 64
 
 # Create x values
 x <- seq(20, 60, length.out = 500)
 
 # Compute densities
+set.seed(123)
 individual <- dnorm(x, mean = mu, sd = sigma)
-sample_64 <- dnorm(x, mean = mu, sd = sigma / sqrt(n1))
-sample_81 <- dnorm(x, mean = mu, sd = sigma / sqrt(n2))
+sample_n1 <- dnorm(x, mean = mu, sd = sigma / sqrt(n1))
+sample_n2 <- dnorm(x, mean = mu, sd = sigma / sqrt(n2))
 
 # Create data frame
 df <- data.frame(
   x = rep(x, 3),
-  density = c(individual, sample_64, sample_81),
-  group = factor(rep(c("Individual (n=1)", "Sample Mean (n=64)", "Sample Mean (n=81)"), each = length(x)))
+  density = c(individual, sample_n1, sample_n2),
+  group = factor(rep(c("Individual (n=1)", "Sample Mean (n=16)", "Sample Mean (n=64)"), each = length(x)))
 )
 
 # Plot
