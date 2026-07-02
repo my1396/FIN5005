@@ -323,11 +323,11 @@ Note
 We consider the following models:
 $$
 \begin{aligned}
-  (I) \quad TestScore=& \, \beta_0 + \beta_1 \times STR + u, \\
-  (II) \quad TestScore=& \, \beta_0 + \beta_1 \times STR + \beta_2 \times english + u, \\
-  (III) \quad TestScore=& \, \beta_0 + \beta_1 \times STR + \beta_2 \times english + \beta_3 \times lunch + u, \\
-  (IV) \quad TestScore=& \, \beta_0 + \beta_1 \times STR + \beta_2 \times english + \beta_4 \times calworks + u, \\
-  (V) \quad TestScore=& \, \beta_0 + \beta_1 \times STR + \beta_2 \times english + \beta_3 \times lunch + \beta_4 \times calworks + u.
+  (I) \; TestScore=& \, \beta_0 + \beta_1 \times STR + u, \\
+  (II) \; TestScore=& \, \beta_0 + \beta_1 \times STR + \beta_2 \times english + u, \\
+  (III) \; TestScore=& \, \beta_0 + \beta_1 \times STR + \beta_2 \times english + \beta_3 \times lunch + u, \\
+  (IV) \; TestScore=& \, \beta_0 + \beta_1 \times STR + \beta_2 \times english + \beta_4 \times calworks + u, \\
+  (V) \; TestScore=& \, \beta_0 + \beta_1 \times STR + \beta_2 \times english + \beta_3 \times lunch + \beta_4 \times calworks + u.
 \end{aligned}
 $$
 

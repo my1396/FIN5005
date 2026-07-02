@@ -56,7 +56,7 @@ v <- setdiff(names(cas), c("district", "school", "county", "grades"))
 stargazer(
   as.data.frame(cas[v]), 
   type = ifelse(knitr::is_html_output(), "html", "latex"), 
-  digits=2)
+  digits = 2)
 ```
 
 ## Scatter Plot
