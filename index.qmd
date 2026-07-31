@@ -14,21 +14,23 @@ The aim of this course is to provide students advanced knowledge, skills and com
 - **Predictive**: what will happen
   
   Using statistical models on historical data and forecast future outcomes. E.g., regression, time series.
+
 - Prescriptive: what should we do
   
-  Using optimization, simulation, and decision analysis techniques to suggest the best course of action based on data, predictions, and constraints. 
+  Using optimization, simulation, and decision analysis techniques to suggest the best course of action based on data, predictions, and constraints. E.g., determine the optimal price for a product to maximize profit.
+
 - Autonomous: automated decision-making using Machine Learning (ML) and Artificial Intelligence (AI) techniques.
 
 
 Outline of models and applications we will cover in this course:<sup>1</sup>
 
-| **Category**     | **Topics**                               | **Applications in Business**                                                                         |
-| ---------------- | ---------------------------------------- | ---------------------------------------------------------------------------------------------------- |
-| **Descriptive**  | Data Visualization, Descriptive Analysis | Asset return → **Finance**                                                                           |
-| **Predictive**   | Linear regression                        | Asset return prediction → **Finance**<br>Test Score Determinants → **Sociology**                           |
-|                  | Hypothesis testing                       | Test Score Determinants → **Sociology**                                                      |
-|                  | Classification, logistic regression      | Mortgage denial prediction → **Finance**<br> |
-| **Prescriptive** | Optimization models                      | Pricing optimization → **Operation**<br>Sensitivity analysis, Scenario analysis → **Accounting**     |
+| **Category**     | **Topics**            | **Applications in Business**                                |
+| ---------------- | --------------------- | ----------------------------------------------------------- |
+| **Descriptive**  | Data Visualization, Descriptive Analysis | Asset return → **Finance** <br> California school expenditure and academic performance → **Education** |
+| **Predictive**   | Linear regression                        | Asset return prediction (Factor models) → **Finance**<br>Test Score Determinants → **Sociology**  |
+|                  | Hypothesis testing                       | Test Score determinants → **Sociology**  |
+|                  | Classification, logistic regression      | Boston housing value determinants → **Finance**<br> |
+
 
 <sup>[1]<sub> This is a preliminary plan. Topics and applications are subject to change as the course moves forward.</sub></sup>
 
@@ -92,7 +94,7 @@ If you want to learn in-depth, you can refer to the following textbooks and reso
 
 ## Course Evaluation
 
-**Compud Assessment**
+**Compound Assessment**
 
 ❗️ In case of any discrepancies between the dates listed on the course website and StudentWeb, <span class="env-green">**ALWAYS use the dates on <u>StudentWeb</u> as the reference.**</span>
 
