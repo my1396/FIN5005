@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>2&nbsp; Environment Setup – FIN5005 Fall 2025</title>
+<title>2&nbsp; Environment Setup – FIN5005 Fall 2026</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +19,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -470,9 +505,9 @@ ul.task-list li input[type="checkbox"] {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">FIN5005 Fall 2025</a> 
+      <a href="./">FIN5005 Fall 2026</a> 
         <div class="sidebar-tools-main">
-    <a href="./FIN5005-Fall-2025.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
+    <a href="./FIN5005-Fall-2026.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
     </div>
@@ -590,12 +625,13 @@ ul.task-list li input[type="checkbox"] {
   <ul>
   <li><a href="#cloud-solution" id="toc-cloud-solution" class="nav-link active" data-scroll-target="#cloud-solution"><span class="header-section-number">2.1</span> Cloud Solution</a>
   <ul>
-  <li><a href="#rstudio-cloud" id="toc-rstudio-cloud" class="nav-link" data-scroll-target="#rstudio-cloud"><span class="header-section-number">2.1.1</span> RStudio Cloud</a></li>
+  <li><a href="#google-colab" id="toc-google-colab" class="nav-link" data-scroll-target="#google-colab"><span class="header-section-number">2.1.1</span> Google Colab</a></li>
   </ul></li>
   <li><a href="#local-solution" id="toc-local-solution" class="nav-link" data-scroll-target="#local-solution"><span class="header-section-number">2.2</span> Local Solution</a>
   <ul>
   <li><a href="#RStudio-Desktop" id="toc-RStudio-Desktop" class="nav-link" data-scroll-target="#RStudio-Desktop"><span class="header-section-number">2.2.1</span> RStudio Desktop</a></li>
   </ul></li>
+  <li><a href="#ai-coding-assistant" id="toc-ai-coding-assistant" class="nav-link" data-scroll-target="#ai-coding-assistant"><span class="header-section-number">2.3</span> AI Coding Assistant</a></li>
   </ul>
 </nav>
     </div>
@@ -628,54 +664,84 @@ ul.task-list li input[type="checkbox"] {
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<p>This guide will help you set up your coding environment for FIN5005, with both cloud-based and local options available (you may choose either).</p>
+<p>This guide will help you set up your coding environment for FIN5005, with both cloud-based and local options available.</p>
 <ul>
-<li><p>You will learn how to use <strong>RStudio Cloud</strong> for quick, browser-based access and <strong>RStudio Desktop</strong> for the full set of features on your computer.</p></li>
-<li><p><strong>It is strongly recommended to install the local version (<a href="#RStudio-Desktop">RStudio Desktop</a>) on your computer.</strong></p></li>
+<li><strong>Cloud option:</strong> <a href="https://colab.research.google.com/">Google Colab with R Kernel</a> (Course Labs will be run in this)</li>
+<li><strong>Local option:</strong> <a href="#RStudio-Desktop">RStudio Desktop</a> (You will most likely use this for the home assignment)</li>
 </ul>
 <p>Follow the instructions below to get started.</p>
-<p><strong>Estimated reading time: 6 minutes</strong></p>
 </div>
 </div>
 </div>
 <section id="cloud-solution" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="cloud-solution"><span class="header-section-number">2.1</span> Cloud Solution</h2>
 <p>Cloud solution means that you don’t need to install anything on your computer. You can run R code directly in your web browser. This is the easiest way to get started without worrying about installation issues.</p>
-<p>But soon enough, you will realize that the cloud-based solution is <strong>limited</strong> in:</p>
-<ul>
-<li><p>compute power: 1 CPU core, 1 GB RAM</p></li>
-<li><p>execution hours: 25 hours per month;</p></li>
-<li><p>slow performance</p></li>
-<li><p><span class="env-green"><strong>AI integration</strong></span> is better in local environment</p>
-<p><strong>GitHub Copilot</strong> is a powerful AI tool that offers autocomplete-style suggestions as you code. The tool can give you suggestions based on the code you want to use or by simply inquiring about what you want the code to do.</p>
-<p>It is developed by GitHub in partnership with OpenAI, and it is designated to best assist developers in writing code more efficiently.</p>
-<p>Some of its highlight features include:</p>
-<ul>
-<li><strong>Code autocompletion</strong>: generating suggestions while typing the code.</li>
-<li><strong>Code generation</strong>: Copilot will use the context of the active document to generate suggestions for code that might be useful.</li>
-<li><strong>Answering questions</strong>: it can also be used to ask simple questions while you are coding (e.g., “What is the definition of mean?”).</li>
-<li><strong>Language support</strong>: supports multiple programming languages, including R, Python, SQL, HTML, and JavaScript.</li>
-</ul>
-<p><strong>To enable Copilot in RStudio</strong>: click on Tools → Global Options → Copilot → tick the box saying “Enable GitHub Copilot” → sign in to your GitHub account, and there you go; you are ready to start!</p>
-<p>GiHub Copilot free plan has limited usage: 2000 code autocompletions per month, 30 code generations per month, and 30 question answers per month.</p>
-<p>Soon enough, you will realize that you need more than that. Because every character you type counts as usage, regless of whether you accept the suggestion or not.</p>
-<p>🎈 The good news is: You can use <strong>Copilot Pro for free</strong> if you are a student!</p>
-<p>See <a href="https://docs.github.com/en/education/explore-the-benefits-of-teaching-and-learning-with-github-education/github-education-for-students/apply-to-github-education-as-a-student">Apply to GitHub Education as a student</a>.</p>
-<p>If you wonder anything, look up in <a href="https://docs.github.com/en/copilot">GitHub Copilot Documentation</a>.</p></li>
-</ul>
+<p>However, convenience comes at the cost of performance and control. Below is a comparison between cloud and local solutions.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 39%">
+<col style="width: 39%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Feature</th>
+<th>Cloud Solution</th>
+<th>Local Solution</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Compute power</td>
+<td>1 CPU core, 1 GB RAM</td>
+<td>Depend on your computer</td>
+</tr>
+<tr class="even">
+<td>Performance</td>
+<td>Slower; up to the server</td>
+<td>Faster; dependNon your computer</td>
+</tr>
+<tr class="odd">
+<td>Environment control</td>
+<td>Limited; when your session ends, your installed packages will be removed</td>
+<td>Full control; environment is persistent across sessions;</td>
+</tr>
+<tr class="even">
+<td>Internet connection</td>
+<td>Required</td>
+<td>Not required</td>
+</tr>
+<tr class="odd">
+<td>Storage</td>
+<td>Limited; files need to be uploaded/downloaded</td>
+<td>Files are stored directly on your computer</td>
+</tr>
+<tr class="even">
+<td>Best for</td>
+<td>Learning, experimenting, and small projects</td>
+<td>Regular coursework, larger datasets, and research projects</td>
+</tr>
+</tbody>
+</table>
 <hr>
-<p><strong>Nonetheless, here are two popular cloud solutions:</strong></p>
-<ul>
-<li><p><a href="https://colab.research.google.com/">Google Colab</a>: good support for Jupyter Notebooks <code>.ipynb</code>.</p>
-<p>We will use Jupyter Notebooks in this course.</p></li>
-<li><p><a href="https://rstudio.cloud/">RStudio Cloud</a>: basic emulator for RStudio IDE in the cloud.</p></li>
-</ul>
-<section id="rstudio-cloud" class="level3" data-number="2.1.1">
-<h3 data-number="2.1.1" class="anchored" data-anchor-id="rstudio-cloud"><span class="header-section-number">2.1.1</span> RStudio Cloud</h3>
-<p>Once in the dashboard, you can click on the <em>New Project</em> - <em>New RStudio Project</em> to get started:</p>
-<p><img src="https://webflow-prod-assets.s3.amazonaws.com/6525256482c9e9a06c7a9d3c%2F65b01f0848b83fcd2e55d022_new-project-in-rstudio-cloud.webp" alt="New Project in RStudio Cloud" style="display: block; margin: 0 auto; width: 60vw;"></p>
-<p>Once the new project is created, you will see the RStudio IDE interface, which is similar to the one you would find in RStudio Desktop. You can write and execute R code, create scripts, and manage your projects directly in the cloud.</p>
-<p><img src="https://webflow-prod-assets.s3.amazonaws.com/6525256482c9e9a06c7a9d3c%2F65b01f0a0a2ba062e1ba336f_rstudio-cloud-interface.webp" alt="RStudio Cloud Interface" style="display: block; margin-right: auto; margin-left: auto; width: 60vw;"></p>
+<section id="google-colab" class="level3" data-number="2.1.1">
+<h3 data-number="2.1.1" class="anchored" data-anchor-id="google-colab"><span class="header-section-number">2.1.1</span> Google Colab</h3>
+<ol type="1">
+<li><p><strong>Create a new R-Notebook using the following link:</strong></p>
+<p><a href="https://colab.research.google.com/notebook#create=true&amp;language=r">colab.research.google.com/notebook#create=true&amp;language=r</a></p>
+<p><img src="images/colab new notebook.png" alt="" style="display: block; margin-right: auto; margin-left: auto; zoom:30%;"></p></li>
+<li><p><strong>Type your first R code.</strong></p>
+<p>A notebook consists of cells, which can contain either code or text. Use the toolbar to add new cells.</p>
+<p>For example, type the following code in a code cell and click the play button to run it:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The code output will show the R version and the packages currently loaded in your session.</p>
+<p><img src="images/colab sessionInfo.png" alt="" style="display: block; margin-right: auto; margin-left: auto; zoom:60%;"></p>
+<p>Congratulations! You have successfully set up your cloud-based R environment using Google Colab. You can now start coding and exploring R without any installation hassles.</p></li>
+</ol>
+<hr>
+<p><strong>FAQ</strong></p>
+<p>Q: My environment is set to Python, how do I change it to R?<br>
+A: Click on the “<strong>Runtime</strong>” in the menu bar &gt; Select “<strong>Change runtime type</strong>” &gt; Select “<strong>R</strong>” from the dropdown menu &gt; Click “<strong>Save</strong>”.</p>
 </section>
 </section>
 <section id="local-solution" class="level2" data-number="2.2">
@@ -685,18 +751,38 @@ ul.task-list li input[type="checkbox"] {
 <p><a href="https://posit.co/download/rstudio-desktop/">RStudio Desktop</a> is a free and open-source integrated development environment (IDE) for R. It provides a user-friendly interface for writing and executing R code, making it easier to work with R scripts, data analysis, visualization.</p>
 <p>To install RStudio Desktop, follow these steps:</p>
 <ol type="1">
-<li>Install R</li>
-<li>Install RStudio Desktop</li>
+<li><p><strong>Install the R programming language</strong></p>
+<p>Download the R installer from the <a href="https://cran.r-project.org">CRAN website</a>. Choose the appropriate version for your operating system (Windows, macOS, or Linux) and follow the installation instructions.</p>
+<p><img src="images/R installer.png" alt="" style="display: block; margin-right: auto; margin-left: auto; zoom:50%;"></p></li>
+<li><p><strong>Install RStudio IDE</strong></p>
+<p>Go to <a href="https://docs.posit.co/ide/user/#direct-downloads-open-source">RStudio IDE Direct Download</a> and download the installer for your operating system (Windows, macOS, or Linux).</p></li>
+<li><p><strong>Check the installation is working</strong></p>
+<p>After installing both pieces of software, open RStudio to check the installation. It should start, and R should run in the Console window, listing the R version.</p>
+<p><img src="images/RStudio layout.png" alt="" style="display: block; margin-right: auto; margin-left: auto; zoom:50%;"></p></li>
 </ol>
-<p>Go to <a href="https://posit.co/download/rstudio-desktop/">RStudio Desktop Download</a> and download the installer for your operating system (Windows, macOS, or Linux).</p>
 <hr>
-<p>ref:</p>
+</section>
+</section>
+<section id="ai-coding-assistant" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="ai-coding-assistant"><span class="header-section-number">2.3</span> AI Coding Assistant</h2>
+<p><strong>What AI coding assistant can do for you:</strong></p>
 <ul>
-<li><a href="https://www.appsilon.com/post/r-studio-cloud">RStudio Cloud - How to Get Started For Free</a></li>
+<li><strong>Code autocompletion</strong>: generating suggestions while typing the code.</li>
+<li><strong>Code generation</strong>: Copilot will use the context of the active document to generate suggestions for code that might be useful.</li>
+<li><strong>Answering questions</strong>: it can also be used to ask simple questions while you are coding (e.g., “What is the definition of mean?”).</li>
+<li><strong>Language support</strong>: supports multiple programming languages, including R, Python, SQL, HTML, and JavaScript.</li>
+</ul>
+<hr>
+<p><i class="codicon codicon-lightbulb-sparkle env-green" aria-hidden="true" style="font-size:1.5em; vertical-align: middle;"></i> <strong>How to use AI coding assistant in Google Colab and RStudio:</strong></p>
+<ul>
+<li><p>Google Colab has built-in support for <strong>Gemini</strong>.</p></li>
+<li><p>RStudio uses <strong>GitHub Copilot</strong> as the AI coding assistant.</p>
+<p><strong>GitHub Copilot</strong> is a powerful AI tool that offers autocomplete-style suggestions as you code. The tool can give you suggestions based on the code you want to use or by simply inquiring about what you want the code to do.</p>
+<p>It is developed by GitHub in partnership with OpenAI, and it is designated to best assist developers in writing code more efficiently.</p>
+<p><strong>To enable Copilot in RStudio</strong>: click on Tools → Global Options → Copilot → tick the box saying “Enable GitHub Copilot” → sign in to your GitHub account, and there you go; you are ready to start!</p></li>
 </ul>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->

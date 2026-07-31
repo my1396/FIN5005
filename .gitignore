@@ -5,7 +5,7 @@
 .Ruserdata
 *.pdf
 # escape pdf output
-!docs/FIN5005-Fall-2025.pdf
+!docs/FIN5005-Fall-20??.pdf
 
 # ignore output
 /.quarto/

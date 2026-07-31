@@ -3,71 +3,61 @@ title: "Environment Setup"
 ---
 
 ::: {.callout-note appearance="simple" icon=false}
-This guide will help you set up your coding environment for FIN5005, with both cloud-based and local options available (you may choose either).
+This guide will help you set up your coding environment for FIN5005, with both cloud-based and local options available.
 
-- You will learn how to use **RStudio Cloud** for quick, browser-based access and **RStudio Desktop** for the full set of features on your computer.
-
-- **It is strongly recommended to install the local version ([RStudio Desktop](#RStudio-Desktop)) on your computer.** 
+- **Cloud option:** [Google Colab with R Kernel](https://colab.research.google.com/) (Course Labs will be run in this)
+- **Local option:** [RStudio Desktop](#RStudio-Desktop) (You will most likely use this for the home assignment)
 
 Follow the instructions below to get started.
-
-**Estimated reading time: 6 minutes**
 :::
 
 ## Cloud Solution
 
 Cloud solution means that you don't need to install anything on your computer. You can run R code directly in your web browser. This is the easiest way to get started without worrying about installation issues. 
 
-But soon enough, you will realize that the cloud-based solution is **limited** in:
+However, convenience comes at the cost of performance and control. Below is a comparison between cloud and local solutions. 
 
-- compute power: 1 CPU core, 1 GB RAM
-- execution hours: 25 hours per month; 
-- slow performance
-- <span class="env-green">**AI integration**</span> is better in local environment
-  
-  **GitHub Copilot** is a powerful AI tool that offers autocomplete-style suggestions as you code. The tool can give you suggestions based on the code you want to use or by simply inquiring about what you want the code to do.
-
-  It is developed by GitHub in partnership with OpenAI, and it is designated to best assist developers in writing code more efficiently.
-
-  Some of its highlight features include: 
-
-  - **Code autocompletion**: generating suggestions while typing the code. 
-  - **Code generation**: Copilot will use the context of the active document to generate suggestions for code that might be useful. 
-  - **Answering questions**: it can also be used to ask simple questions while you are coding (e.g., "What is the definition of mean?"). 
-  - **Language support**: supports multiple programming languages, including R, Python, SQL, HTML, and JavaScript.
-
-  **To enable Copilot in RStudio**: click on Tools → Global Options → Copilot → tick the box saying "Enable GitHub Copilot" → sign in to your GitHub account, and there you go; you are ready to start!
-
-  GiHub Copilot free plan has limited usage: 2000 code autocompletions per month, 30 code generations per month, and 30 question answers per month. 
-  
-  Soon enough, you will realize that you need more than that. Because every character you type counts as usage, regless of whether you accept the suggestion or not.
-  
-  🎈 The good news is: You can use **Copilot Pro for free** if you are a student! 
-
-  See [Apply to GitHub Education as a student](https://docs.github.com/en/education/explore-the-benefits-of-teaching-and-learning-with-github-education/github-education-for-students/apply-to-github-education-as-a-student).
-
-  If you wonder anything, look up in [GitHub Copilot Documentation](https://docs.github.com/en/copilot).
-
+| Feature  | Cloud Solution  | Local Solution  |
+| -------- | --------------- | --------------- |
+| Compute power | 1 CPU core, 1 GB RAM | Depend on your computer |
+| Performance   | Slower; up to the server | Faster; dependNon your computer |
+| Environment control | Limited; when your session ends, your installed packages will be removed | Full control; environment is persistent across sessions; |
+| Internet connection | Required | Not required |
+| Storage | Limited; files need to be uploaded/downloaded | Files are stored directly on your computer |
+| Best for | Learning, experimenting, and small projects | Regular coursework, larger datasets, and research projects |
 
 --------------------------------------------------------------------------------
 
-**Nonetheless, here are two popular cloud solutions:**
+### Google Colab
 
-- [Google Colab](https://colab.research.google.com/): good support for Jupyter Notebooks `.ipynb`.
-  
-  We will use Jupyter Notebooks in this course.
-- [RStudio Cloud](https://rstudio.cloud/): basic emulator for RStudio IDE in the cloud.
+1. **Create a new R-Notebook using the following link:** 
 
+   [colab.research.google.com/notebook#create=true&language=r](https://colab.research.google.com/notebook#create=true&language=r)
 
-### RStudio Cloud
+   <img src="images/colab new notebook.png" alt="" style="display: block; margin-right: auto; margin-left: auto; zoom:30%;" />
 
-Once in the dashboard, you can click on the *New Project* \- *New RStudio Project* to get started:
+2. **Type your first R code.**
+   
+   A notebook consists of cells, which can contain either code or text. Use the toolbar to add new cells.
 
-<img src="https://webflow-prod-assets.s3.amazonaws.com/6525256482c9e9a06c7a9d3c%2F65b01f0848b83fcd2e55d022_new-project-in-rstudio-cloud.webp" alt="New Project in RStudio Cloud" style="display: block; margin: 0 auto; width: 60vw;" />
+   For example, type the following code in a code cell and click the play button to run it:
 
-Once the new project is created, you will see the RStudio IDE interface, which is similar to the one you would find in RStudio Desktop. You can write and execute R code, create scripts, and manage your projects directly in the cloud.
+   ```r
+   sessionInfo()
+   ```
 
-<img src="https://webflow-prod-assets.s3.amazonaws.com/6525256482c9e9a06c7a9d3c%2F65b01f0a0a2ba062e1ba336f_rstudio-cloud-interface.webp" alt="RStudio Cloud Interface" style="display: block; margin-right: auto; margin-left: auto; width: 60vw;" />
+   The code output will show the R version and the packages currently loaded in your session.
+
+   <img src="images/colab sessionInfo.png" alt="" style="display: block; margin-right: auto; margin-left: auto; zoom:60%;" />
+
+   Congratulations! You have successfully set up your cloud-based R environment using Google Colab. You can now start coding and exploring R without any installation hassles.
+
+--------------------------------------------------------------------------------
+
+**FAQ**
+
+Q: My environment is set to Python, how do I change it to R?  
+A: Click on the "**Runtime**" in the menu bar > Select "**Change runtime type**" > Select "**R**" from the dropdown menu > Click "**Save**".
 
 
 ## Local Solution
@@ -78,13 +68,44 @@ Once the new project is created, you will see the RStudio IDE interface, which i
 
 To install RStudio Desktop, follow these steps:
 
-1. Install R
-2. Install RStudio Desktop
+1. **Install the R programming language**
+   
+   Download the R installer from the [CRAN website](https://cran.r-project.org). Choose the appropriate version for your operating system (Windows, macOS, or Linux) and follow the installation instructions.
 
-Go to [RStudio Desktop Download](https://posit.co/download/rstudio-desktop/) and download the installer for your operating system (Windows, macOS, or Linux).
+   <img src="images/R installer.png" alt="" style="display: block; margin-right: auto; margin-left: auto; zoom:50%;" />
+
+2. **Install RStudio IDE**
+
+   Go to [RStudio IDE Direct Download](https://docs.posit.co/ide/user/#direct-downloads-open-source) and download the installer for your operating system (Windows, macOS, or Linux).
+
+3. **Check the installation is working**
+   
+   After installing both pieces of software, open RStudio to check the installation. It should start, and R should run in the Console window, listing the R version.
+
+   <img src="images/RStudio layout.png" alt="" style="display: block; margin-right: auto; margin-left: auto; zoom:50%;" />
 
 --------------------------------------------------------------------------------
 
-ref: 
+## AI Coding Assistant
 
-- [RStudio Cloud - How to Get Started For Free](https://www.appsilon.com/post/r-studio-cloud)
+
+**What AI coding assistant can do for you:**
+
+  - **Code autocompletion**: generating suggestions while typing the code. 
+  - **Code generation**: Copilot will use the context of the active document to generate suggestions for code that might be useful. 
+  - **Answering questions**: it can also be used to ask simple questions while you are coding (e.g., "What is the definition of mean?"). 
+  - **Language support**: supports multiple programming languages, including R, Python, SQL, HTML, and JavaScript.
+
+--------------------------------------------------------------------------------
+
+<i class="codicon codicon-lightbulb-sparkle env-green" aria-hidden="true" style="font-size:1.5em; vertical-align: middle;"></i> **How to use AI coding assistant in Google Colab and RStudio:**
+
+- Google Colab has built-in support for **Gemini**.
+
+- RStudio uses **GitHub Copilot** as the AI coding assistant. 
+  
+  **GitHub Copilot** is a powerful AI tool that offers autocomplete-style suggestions as you code. The tool can give you suggestions based on the code you want to use or by simply inquiring about what you want the code to do.
+
+  It is developed by GitHub in partnership with OpenAI, and it is designated to best assist developers in writing code more efficiently.
+
+  **To enable Copilot in RStudio**: click on Tools → Global Options → Copilot → tick the box saying "Enable GitHub Copilot" → sign in to your GitHub account, and there you go; you are ready to start!

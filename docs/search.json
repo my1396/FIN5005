@@ -2,7 +2,7 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "FIN5005 Fall 2025",
+    "title": "FIN5005 Fall 2026",
     "section": "",
     "text": "1 Course Overview",
     "crumbs": [
@@ -13,7 +13,7 @@
   {
     "objectID": "index.html#course-overview-1",
     "href": "index.html#course-overview-1",
-    "title": "FIN5005 Fall 2025",
+    "title": "FIN5005 Fall 2026",
     "section": "1.1 Course Overview",
     "text": "1.1 Course Overview\nWhat Business Analytics (BA) is about?\nThe aim of this course is to provide students advanced knowledge, skills and competencies they can use to make data driven decisions for organizations.\nData-driven decision making\n\nDescribe the data: what happened\nUsing introductory statistics to identify patterns, trends, and insights embedded in historical data. E.g., summary statistics.\nPredictive: what will happen\nUsing statistical models on historical data and forecast future outcomes. E.g., regression, time series.\nPrescriptive: what should we do\nUsing optimization, simulation, and decision analysis techniques to suggest the best course of action based on data, predictions, and constraints.\nAutonomous: automated decision-making using Machine Learning (ML) and Artificial Intelligence (AI) techniques.\n\nOutline of models and applications we will cover in this course:1\n\n\n\n\n\n\n\n\nCategory\nTopics\nApplications in Business\n\n\n\n\nDescriptive\nData Visualization, Descriptive Analysis\nAsset return → Finance\n\n\nPredictive\nLinear regression\nAsset return prediction → FinanceTest Score Determinants → Sociology\n\n\n\nHypothesis testing\nTest Score Determinants → Sociology\n\n\n\nClassification, logistic regression\nMortgage denial prediction → Finance\n\n\nPrescriptive\nOptimization models\nPricing optimization → OperationSensitivity analysis, Scenario analysis → Accounting\n\n\n\n[1] This is a preliminary plan. Topics and applications are subject to change as the course moves forward.\n\nSoftware: R programming\nR is an open-source programming language widely used for statistical computing and data analysis. It provides a rich ecosystem of packages and libraries for data manipulation, visualization, and modeling.\nWhy open-source stands out in the competition?\nAI is the game changer here. AI significantly improves coding efficiency and productivity. You don’t need to memorize every function or syntax anymore. The current role for humans is to communicate your needs to AI, and AI will generate the code for you.\n\nOpen-source software integrates cutting-edge AI tools, faster and more efficiently than paid software.\nBy contrast, paid software is often slower to implement new features due to development cycles and licensing restrictions.\n\n Demonstration in VS Code. \nBy typing # create a function taking the n-th power of a number, AI will generate the code for you.\nHere is how to use GitHub Copilot in RStudio: RStudio User Guide: Tools, GitHub Copilot.",
     "crumbs": [
@@ -24,9 +24,9 @@
   {
     "objectID": "index.html#course-materials",
     "href": "index.html#course-materials",
-    "title": "FIN5005 Fall 2025",
+    "title": "FIN5005 Fall 2026",
     "section": "1.2 Course Materials",
-    "text": "1.2 Course Materials\nThe course materials will be self-contained.\n\nLecture notes: lecture notes will be provided in the course website.\nR code: R code will be provided in form of Lab Jupyter Notebooks.\nYou may copy and paste the code into RStudio to run it.\n\nIf you want to learn in-depth, you can refer to the following textbooks and resources.\nTextbooks\n\nEvans, J.R. (2021) Business analytics: methods, models, and decisions. Third edition. Harlow: Pearson.\nStatistics primer. Basic introduction to business analytics at the undergraduate level.\nJames, G., Witten, D., Hastie, T., & Tibshirani, R. (2021). An Introduction to Statistical Learning with Applications in R. 2nd edition. Springer. Online version\nMain textbook for the course. It covers the fundamental concepts and methods of statistical learning, with practical applications in R.\nHuntsinger, R. (2025). Business Analytics: Methods and Cases for Data-Driven Decisions. Cambridge: Cambridge University Press. eTextbook available through Cambridge University Press.\nAdvanced methods and case studies for data-driven decision-making. We might use case studies from this book in the course.\n\nResources:\n\nDistribution Tables\nFormula Sheet",
+    "text": "1.2 Course Materials\nThe course materials will be self-contained.\n\nLecture notes: lecture notes will be provided in the course website.\nYou can download the lecture notes in PDF format for offline reading. Click on the  icon in the top-left corner to download the lecture notes in PDF format.\nR code: R code will be provided in form of Lab Jupyter Notebooks.\nYou may copy and paste the code into RStudio to run it.\n\nIf you want to learn in-depth, you can refer to the following textbooks and resources.\nTextbooks\n\nEvans, J.R. (2021) Business analytics: methods, models, and decisions. Third edition. Harlow: Pearson.\nStatistics primer. Basic introduction to business analytics at the undergraduate level.\nJames, G., Witten, D., Hastie, T., & Tibshirani, R. (2021). An Introduction to Statistical Learning with Applications in R. 2nd edition. Springer. Online version\nMain textbook for the course. It covers the fundamental concepts and methods of statistical learning, with practical applications in R.\nHuntsinger, R. (2025). Business Analytics: Methods and Cases for Data-Driven Decisions. Cambridge: Cambridge University Press. eTextbook available through Cambridge University Press.\nAdvanced methods and case studies for data-driven decision-making. We might use case studies from this book in the course.\n\nResources:\n\nDistribution Tables\nFormula Sheet",
     "crumbs": [
       "Introduction",
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Course Overview</span>"
@@ -35,9 +35,9 @@
   {
     "objectID": "index.html#course-evaluation",
     "href": "index.html#course-evaluation",
-    "title": "FIN5005 Fall 2025",
+    "title": "FIN5005 Fall 2026",
     "section": "1.3 Course Evaluation",
-    "text": "1.3 Course Evaluation\nCompud Assessment\n️ In case of any discrepancies between the dates listed on the course website and StudentWeb, use the dates on StudentWeb as the reference.\n\nOppgave (home assignment): 40%\nGroup work (1-3 students) is possible; including a case study with data analysis and visualization; a report will be submitted;\nDate: week 42 (preliminary date: 14.10.2025)\nDuration: 2 weeks.\nThe assignment will be released in Inspera, and you will have two weeks to complete it.\nMore details will be provided as the course progresses.\nEksamen (school exam): 60%\nDigitally in Inspera;\nDate: 18.11.2025 (Refer to Studentweb for the exact time)",
+    "text": "1.3 Course Evaluation\nCompud Assessment\n️ In case of any discrepancies between the dates listed on the course website and StudentWeb, ALWAYS use the dates on StudentWeb as the reference.\n\nOppgave (mandatory home assignment): 40%\nGroup work (1-3 students) is possible; including a case study with data analysis and visualization; a report will be submitted;\nDate: week 42\nDuration: 2 weeks.\nThe assignment will be released in WISEflow, and you will have two weeks to complete it.\nMore details will be provided as the course progresses.\nEksamen (school exam): 60%\nDigitally in WISEflow;\nDate: Refer to Studentweb",
     "crumbs": [
       "Introduction",
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Course Overview</span>"
@@ -46,7 +46,7 @@
   {
     "objectID": "index.html#study-objectives",
     "href": "index.html#study-objectives",
-    "title": "FIN5005 Fall 2025",
+    "title": "FIN5005 Fall 2026",
     "section": "1.4 Study Objectives",
     "text": "1.4 Study Objectives\n\nKnowledge:\n\nFamiliarity with statistical methods and models used in business analytics.\nFocus on descriptive analytics and predictive analytics. Prescriptive analytics will be introduced if time allows.\nKnowledge of data visualization techniques and tools.\n\nSkills:\n\nAbility to analyze and interpret data using statistical methods.\nProficiency in using R for data analysis and visualization.\nCompetence in applying business analytics techniques to real-world problems.\n\nCompetencies:\n\nDevelop critical thinking skills to evaluate data-driven decisions.\nAbility to communicate findings effectively through reports and presentations.",
     "crumbs": [
@@ -57,7 +57,7 @@
   {
     "objectID": "index.html#how-to-reach-me",
     "href": "index.html#how-to-reach-me",
-    "title": "FIN5005 Fall 2025",
+    "title": "FIN5005 Fall 2026",
     "section": "1.5 How to Reach Me",
     "text": "1.5 How to Reach Me\n\n\n\nInstructor:\n\n\nMenghan Yuan\n\n\n\n\nEmail:\n\n\nmenghan.yuan@nord.no\n\n\n\n\nOffice Hours:\n\n\nBy appointment\n\n\n\n\nOffice:\n\n\nHovedbygning A257",
     "crumbs": [
@@ -70,7 +70,7 @@
     "href": "00_environment_setup.html",
     "title": "2  Environment Setup",
     "section": "",
-    "text": "2.1 Cloud Solution\nCloud solution means that you don’t need to install anything on your computer. You can run R code directly in your web browser. This is the easiest way to get started without worrying about installation issues.\nBut soon enough, you will realize that the cloud-based solution is limited in:\nNonetheless, here are two popular cloud solutions:",
+    "text": "2.1 Cloud Solution\nCloud solution means that you don’t need to install anything on your computer. You can run R code directly in your web browser. This is the easiest way to get started without worrying about installation issues.\nHowever, convenience comes at the cost of performance and control. Below is a comparison between cloud and local solutions.",
     "crumbs": [
       "Introduction",
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Environment Setup</span>"
@@ -81,7 +81,7 @@
     "href": "00_environment_setup.html#cloud-solution",
     "title": "2  Environment Setup",
     "section": "",
-    "text": "compute power: 1 CPU core, 1 GB RAM\nexecution hours: 25 hours per month;\nslow performance\nAI integration is better in local environment\nGitHub Copilot is a powerful AI tool that offers autocomplete-style suggestions as you code. The tool can give you suggestions based on the code you want to use or by simply inquiring about what you want the code to do.\nIt is developed by GitHub in partnership with OpenAI, and it is designated to best assist developers in writing code more efficiently.\nSome of its highlight features include:\n\nCode autocompletion: generating suggestions while typing the code.\nCode generation: Copilot will use the context of the active document to generate suggestions for code that might be useful.\nAnswering questions: it can also be used to ask simple questions while you are coding (e.g., “What is the definition of mean?”).\nLanguage support: supports multiple programming languages, including R, Python, SQL, HTML, and JavaScript.\n\nTo enable Copilot in RStudio: click on Tools → Global Options → Copilot → tick the box saying “Enable GitHub Copilot” → sign in to your GitHub account, and there you go; you are ready to start!\nGiHub Copilot free plan has limited usage: 2000 code autocompletions per month, 30 code generations per month, and 30 question answers per month.\nSoon enough, you will realize that you need more than that. Because every character you type counts as usage, regless of whether you accept the suggestion or not.\n🎈 The good news is: You can use Copilot Pro for free if you are a student!\nSee Apply to GitHub Education as a student.\nIf you wonder anything, look up in GitHub Copilot Documentation.\n\n\n\n\nGoogle Colab: good support for Jupyter Notebooks .ipynb.\nWe will use Jupyter Notebooks in this course.\nRStudio Cloud: basic emulator for RStudio IDE in the cloud.\n\n\n2.1.1 RStudio Cloud\nOnce in the dashboard, you can click on the New Project - New RStudio Project to get started:\n\nOnce the new project is created, you will see the RStudio IDE interface, which is similar to the one you would find in RStudio Desktop. You can write and execute R code, create scripts, and manage your projects directly in the cloud.",
+    "text": "Feature\nCloud Solution\nLocal Solution\n\n\n\n\nCompute power\n1 CPU core, 1 GB RAM\nDepend on your computer\n\n\nPerformance\nSlower; up to the server\nFaster; dependNon your computer\n\n\nEnvironment control\nLimited; when your session ends, your installed packages will be removed\nFull control; environment is persistent across sessions;\n\n\nInternet connection\nRequired\nNot required\n\n\nStorage\nLimited; files need to be uploaded/downloaded\nFiles are stored directly on your computer\n\n\nBest for\nLearning, experimenting, and small projects\nRegular coursework, larger datasets, and research projects\n\n\n\n\n\n2.1.1 Google Colab\n\nCreate a new R-Notebook using the following link:\ncolab.research.google.com/notebook#create=true&language=r\n\nType your first R code.\nA notebook consists of cells, which can contain either code or text. Use the toolbar to add new cells.\nFor example, type the following code in a code cell and click the play button to run it:\nsessionInfo()\nThe code output will show the R version and the packages currently loaded in your session.\n\nCongratulations! You have successfully set up your cloud-based R environment using Google Colab. You can now start coding and exploring R without any installation hassles.\n\n\nFAQ\nQ: My environment is set to Python, how do I change it to R?\nA: Click on the “Runtime” in the menu bar &gt; Select “Change runtime type” &gt; Select “R” from the dropdown menu &gt; Click “Save”.",
     "crumbs": [
       "Introduction",
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Environment Setup</span>"
@@ -92,7 +92,18 @@
     "href": "00_environment_setup.html#local-solution",
     "title": "2  Environment Setup",
     "section": "2.2 Local Solution",
-    "text": "2.2 Local Solution\n\n2.2.1 RStudio Desktop\nRStudio Desktop is a free and open-source integrated development environment (IDE) for R. It provides a user-friendly interface for writing and executing R code, making it easier to work with R scripts, data analysis, visualization.\nTo install RStudio Desktop, follow these steps:\n\nInstall R\nInstall RStudio Desktop\n\nGo to RStudio Desktop Download and download the installer for your operating system (Windows, macOS, or Linux).\n\nref:\n\nRStudio Cloud - How to Get Started For Free",
+    "text": "2.2 Local Solution\n\n2.2.1 RStudio Desktop\nRStudio Desktop is a free and open-source integrated development environment (IDE) for R. It provides a user-friendly interface for writing and executing R code, making it easier to work with R scripts, data analysis, visualization.\nTo install RStudio Desktop, follow these steps:\n\nInstall the R programming language\nDownload the R installer from the CRAN website. Choose the appropriate version for your operating system (Windows, macOS, or Linux) and follow the installation instructions.\n\nInstall RStudio IDE\nGo to RStudio IDE Direct Download and download the installer for your operating system (Windows, macOS, or Linux).\nCheck the installation is working\nAfter installing both pieces of software, open RStudio to check the installation. It should start, and R should run in the Console window, listing the R version.",
+    "crumbs": [
+      "Introduction",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Environment Setup</span>"
+    ]
+  },
+  {
+    "objectID": "00_environment_setup.html#ai-coding-assistant",
+    "href": "00_environment_setup.html#ai-coding-assistant",
+    "title": "2  Environment Setup",
+    "section": "2.3 AI Coding Assistant",
+    "text": "2.3 AI Coding Assistant\nWhat AI coding assistant can do for you:\n\nCode autocompletion: generating suggestions while typing the code.\nCode generation: Copilot will use the context of the active document to generate suggestions for code that might be useful.\nAnswering questions: it can also be used to ask simple questions while you are coding (e.g., “What is the definition of mean?”).\nLanguage support: supports multiple programming languages, including R, Python, SQL, HTML, and JavaScript.\n\n\n How to use AI coding assistant in Google Colab and RStudio:\n\nGoogle Colab has built-in support for Gemini.\nRStudio uses GitHub Copilot as the AI coding assistant.\nGitHub Copilot is a powerful AI tool that offers autocomplete-style suggestions as you code. The tool can give you suggestions based on the code you want to use or by simply inquiring about what you want the code to do.\nIt is developed by GitHub in partnership with OpenAI, and it is designated to best assist developers in writing code more efficiently.\nTo enable Copilot in RStudio: click on Tools → Global Options → Copilot → tick the box saying “Enable GitHub Copilot” → sign in to your GitHub account, and there you go; you are ready to start!",
     "crumbs": [
       "Introduction",
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Environment Setup</span>"

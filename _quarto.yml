@@ -15,7 +15,7 @@ execute:
 
 # Define book structure
 book:
-  title: "FIN5005 Fall 2025"
+  title: "FIN5005 Fall 2026"
   search: true
   downloads: 
     - pdf
