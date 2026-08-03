@@ -114,7 +114,7 @@
     "href": "00_environment_setup.html#exercise",
     "title": "2  Environment Setup",
     "section": "2.4  Exercise",
-    "text": "2.4  Exercise\nNow it is your turn to get started with R programming.\nUse THIS LINK to open the R Notebook in Google Colab. Follow the instructions in the notebook to complete the exercises.\nThe Notebook looks like the following:",
+    "text": "2.4  Exercise\nNow it is your turn to get started with R programming.\nUse THIS LINK to open the R Notebook in Google Colab.\nThe Notebook looks like the following:\n\n\n\n\n\n\n\n\n\nNote: You only have View access to the notebook. To edit it, you need to make a copy of the notebook by clicking on “File” → “Save a copy in Drive”. You can then edit the notebook in your own Google Drive.\nFollow the instructions in the notebook to complete the exercises.",
     "crumbs": [
       "Introduction",
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Environment Setup</span>"

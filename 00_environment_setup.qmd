@@ -122,7 +122,7 @@ To install RStudio Desktop, follow these steps:
 
 Now it is your turn to get started with R programming. 
 
-Use [THIS LINK](https://colab.research.google.com/drive/1cpY6EGpNrqwIz-7ZITTQHZie3BPV-BpF?usp=sharing) to open the R Notebook in Google Colab. Follow the instructions in the notebook to complete the exercises.
+Use [THIS LINK](https://colab.research.google.com/drive/1cpY6EGpNrqwIz-7ZITTQHZie3BPV-BpF?usp=sharing) to open the R Notebook in Google Colab. 
 
 The Notebook looks like the following:
 
@@ -130,3 +130,6 @@ The Notebook looks like the following:
 knitr::include_graphics("images/Colab lab0.png")
 ```
 
+Note: You only have View access to the notebook. To edit it, you need to make a copy of the notebook by clicking on "**File**" → "**Save a copy in Drive**". You can then edit the notebook in your own Google Drive.
+
+Follow the instructions in the notebook to complete the exercises.
