@@ -133,6 +133,7 @@ If you want to learn in-depth, you can refer to the following textbooks and reso
 
 ## How to Reach Me
 
+::: {.content-visible when-format="html"}
 <table border="0" cellspacing="0" cellpadding="5">
   <tr>
     <td>Instructor:</td>
@@ -150,7 +151,18 @@ If you want to learn in-depth, you can refer to the following textbooks and reso
     <td>Office:</td>
     <td>Hovedbygning A257</td>
   </tr>
-  <tr><td colspan="2">&nbsp;</td></tr>
 </table>
+:::
+
+::: {.content-visible when-format="pdf"}
+```{=latex}
+\begin{tabular}{@{}ll@{}}
+Instructor:    & Menghan Yuan \\[2pt]
+Email:         & \href{mailto:menghan.yuan@nord.no}{menghan.yuan@nord.no} \\[2pt]
+Office Hours:  & By appointment \\[2pt]
+Office:        & Hovedbygning A257 \\
+\end{tabular}
+```
+:::
 
 

@@ -24,16 +24,19 @@ book:
       chapters:
         - index.qmd
         - 00_environment_setup.qmd
+        - 00_Lab-0_Intro_to_R.ipynb
     - part: "Basics"
       chapters:
         - 01_introduction.qmd
-        - 01_Lab-1.ipynb
+        - 01_Lab-1_Descriptive-Statistics.ipynb
         - 02_Data_Visualization.qmd
         - 03_Linear_Regression.qmd
         - 04_Theoretical_Framework_LR.qmd
         - 05_Hypothesis_Testing.qmd
         - 06_Multiple_Linear_Regression.qmd
         - 07_Lab-2_dummy-variable.ipynb
+    - part: "Advanced"
+      chapters:
         - 08_Interactions.qmd
         - 09_Logistic_Regression.qmd
 
@@ -65,6 +68,10 @@ format:
     keep-tex: true
     fontsize: 12pt
     fig-format: pdf
+    colorlinks: true
+    linkcolor: blue
+    urlcolor: blue
+    citecolor: blue
 
 knitr:
   opts_chunk: 

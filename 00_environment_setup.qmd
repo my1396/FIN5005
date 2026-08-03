@@ -52,6 +52,12 @@ However, convenience comes at the cost of performance and control. Below is a co
 
    Congratulations! You have successfully set up your cloud-based R environment using Google Colab. You can now start coding and exploring R without any installation hassles.
 
+**Further readings about Google Colab:**
+
+- [Introduction to Google Colab Notebook](https://www.kaggle.com/code/ybifoundation/introduction-to-google-colab-notebook#Code-cells)
+  
+  This tutorial introduces how to upload/download data, sharing with others, adding text cells, and more.
+
 --------------------------------------------------------------------------------
 
 **FAQ**
@@ -84,7 +90,6 @@ To install RStudio Desktop, follow these steps:
 
    <img src="images/RStudio layout.png" alt="" style="display: block; margin-right: auto; margin-left: auto; zoom:50%;" />
 
---------------------------------------------------------------------------------
 
 ## AI Coding Assistant
 
@@ -109,3 +114,22 @@ To install RStudio Desktop, follow these steps:
   It is developed by GitHub in partnership with OpenAI, and it is designated to best assist developers in writing code more efficiently.
 
   **To enable Copilot in RStudio**: click on Tools → Global Options → Copilot → tick the box saying "Enable GitHub Copilot" → sign in to your GitHub account, and there you go; you are ready to start!
+
+
+## <span class="env-green"><i class="codicon codicon-rocket" style="font-size:2em; "></i> Exercise</span>
+
+It is your turn to get started with R programming. 
+
+Use [THIS LINK](https://drive.google.com/file/d/1LBVxO0rFgBTOnwSSERDL1aPShxppgSje/view?usp=sharing) to open the R Notebook in Google Colab. Follow the instructions in the notebook to complete the exercises.
+
+The Notebook looks like the following:
+
+```{r colab-1, echo=FALSE, out.width="100%"}
+knitr::include_graphics("images/Colab lab0.png")
+```
+
+**Troubleshoot:** If the Notebook shows as raw code, click on the "**Open with**" button in the top right corner and select "**Colaboratory**" to open it in Google Colab.
+
+```{r colab-2, echo=FALSE, out.width="100%"}
+knitr::include_graphics("images/Colab open.png")
+```

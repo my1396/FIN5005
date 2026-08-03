@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>FIN5005 Fall 2026</title>
+<title>3&nbsp; Lab 0: Introduction to R – FIN5005 Fall 2026</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,17 +20,53 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/quarto-nav/headroom.min.js"></script>
 <script src="site_libs/clipboard/clipboard.min.js"></script>
 <script src="site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./00_environment_setup.html" rel="next">
+<link href="./01_introduction.html" rel="next">
+<link href="./00_environment_setup.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -72,6 +108,9 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 <!-- This is what works with Quarto and MathJax 3+ -->
 <script>
   MathJax = {
@@ -454,7 +493,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Introduction</a></li><li class="breadcrumb-item"><a href="./index.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Course Overview</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Introduction</a></li><li class="breadcrumb-item"><a href="./00_Lab-0_Intro_to_R.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Lab 0: Introduction to R</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -494,7 +533,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Course Overview</span></span></a>
   </div>
 </li>
@@ -506,7 +545,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./00_Lab-0_Intro_to_R.html" class="sidebar-item-text sidebar-link">
+  <a href="./00_Lab-0_Intro_to_R.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Lab 0: Introduction to R</span></span></a>
   </div>
 </li>
@@ -604,14 +643,9 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#course-overview" id="toc-course-overview" class="nav-link active" data-scroll-target="#course-overview"><span class="header-section-number">1</span> Course Overview</a>
-  <ul>
-  <li><a href="#course-overview-1" id="toc-course-overview-1" class="nav-link" data-scroll-target="#course-overview-1"><span class="header-section-number">1.1</span> Course Overview</a></li>
-  <li><a href="#course-materials" id="toc-course-materials" class="nav-link" data-scroll-target="#course-materials"><span class="header-section-number">1.2</span> Course Materials</a></li>
-  <li><a href="#course-evaluation" id="toc-course-evaluation" class="nav-link" data-scroll-target="#course-evaluation"><span class="header-section-number">1.3</span> Course Evaluation</a></li>
-  <li><a href="#study-objectives" id="toc-study-objectives" class="nav-link" data-scroll-target="#study-objectives"><span class="header-section-number">1.4</span> Study Objectives</a></li>
-  <li><a href="#how-to-reach-me" id="toc-how-to-reach-me" class="nav-link" data-scroll-target="#how-to-reach-me"><span class="header-section-number">1.5</span> How to Reach Me</a></li>
-  </ul></li>
+  <li><a href="#arithmetic-operations" id="toc-arithmetic-operations" class="nav-link active" data-scroll-target="#arithmetic-operations"><span class="header-section-number">3.1</span> Arithmetic Operations</a></li>
+  <li><a href="#variable-assignments" id="toc-variable-assignments" class="nav-link" data-scroll-target="#variable-assignments"><span class="header-section-number">3.2</span> Variable Assignments</a></li>
+  <li><a href="#basic-data-types" id="toc-basic-data-types" class="nav-link" data-scroll-target="#basic-data-types"><span class="header-section-number">3.3</span> Basic Data Types</a></li>
   </ul>
 </nav>
     </div>
@@ -619,9 +653,9 @@ ul.task-list li input[type="checkbox"] {
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Introduction</a></li><li class="breadcrumb-item"><a href="./index.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Course Overview</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Introduction</a></li><li class="breadcrumb-item"><a href="./00_Lab-0_Intro_to_R.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Lab 0: Introduction to R</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">FIN5005 Fall 2026</h1>
+<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Lab 0: Introduction to R</span></h1>
 </div>
 
 
@@ -638,175 +672,89 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="course-overview" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Course Overview</h1>
-<section id="course-overview-1" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="course-overview-1"><span class="header-section-number">1.1</span> Course Overview</h2>
-<p>What Business Analytics (BA) is about?</p>
-<p>The aim of this course is to provide students advanced knowledge, skills and competencies they can use to make data driven decisions for organizations.</p>
-<p><strong>Data-driven decision making</strong></p>
+<p><strong>Basic rules:</strong></p>
 <ul>
-<li><p><strong>Describe the data</strong>: what happened</p>
-<p>Using introductory statistics to identify patterns, trends, and insights embedded in historical data. E.g., summary statistics.</p></li>
-<li><p><strong>Predictive</strong>: what will happen</p>
-<p>Using statistical models on historical data and forecast future outcomes. E.g., regression, time series.</p></li>
-<li><p>Prescriptive: what should we do</p>
-<p>Using optimization, simulation, and decision analysis techniques to suggest the best course of action based on data, predictions, and constraints. E.g., determine the optimal price for a product to maximize profit.</p></li>
-<li><p>Autonomous: automated decision-making using Machine Learning (ML) and Artificial Intelligence (AI) techniques.</p></li>
+<li>R makes use of the <code>#</code> sign to add comments, so that you and others can understand what the R code is about.</li>
+<li>R is case sensitive, so <code>my_apples</code> and <code>My_Apples</code> are two different variables.</li>
 </ul>
-<p>Outline of models and applications we will cover in this course:<sup>1</sup></p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 16%">
-<col style="width: 21%">
-<col style="width: 61%">
-</colgroup>
-<thead>
-<tr class="header">
-<th><strong>Category</strong></th>
-<th><strong>Topics</strong></th>
-<th><strong>Applications in Business</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>Descriptive</strong></td>
-<td>Data Visualization, Descriptive Analysis</td>
-<td>Asset return → <strong>Finance</strong> <br> California school expenditure and academic performance → <strong>Education</strong></td>
-</tr>
-<tr class="even">
-<td><strong>Predictive</strong></td>
-<td>Linear regression</td>
-<td>Asset return prediction (Factor models) → <strong>Finance</strong><br>Test Score Determinants → <strong>Sociology</strong></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td>Hypothesis testing</td>
-<td>Test Score determinants → <strong>Sociology</strong></td>
-</tr>
-<tr class="even">
-<td></td>
-<td>Classification, logistic regression</td>
-<td>Boston housing value determinants → <strong>Finance</strong><br></td>
-</tr>
-</tbody>
-</table>
-<p><sup>[1]<sub> This is a preliminary plan. Topics and applications are subject to change as the course moves forward.</sub></sup></p>
-<hr>
-<p><strong>Software</strong>: R programming</p>
-<p>R is an open-source programming language widely used for statistical computing and data analysis. It provides a rich ecosystem of packages and libraries for data manipulation, visualization, and modeling.</p>
-<p>Why open-source stands out in the competition?</p>
-<p>AI is the game changer here. AI significantly improves coding efficiency and productivity. You don’t need to memorize every function or syntax anymore. The current role for humans is to communicate your needs to AI, and AI will generate the code for you.</p>
+<section id="arithmetic-operations" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="arithmetic-operations"><span class="header-section-number">3.1</span> Arithmetic Operations</h2>
 <ul>
-<li>Open-source software integrates cutting-edge AI tools, faster and more efficiently than paid software.</li>
-<li>By contrast, paid software is often slower to implement new features due to development cycles and licensing restrictions.</li>
+<li>Addition: <code>+</code></li>
+<li>Subtraction: <code>-</code></li>
+<li>Multiplication: <code>*</code></li>
+<li>Division: <code>/</code></li>
+<li>Exponentiation: <code>^</code></li>
+<li>Square root: <code>sqrt()</code></li>
 </ul>
-<p><span class="env-green"><i class="codicon codicon-debug-console" style="font-size:1.5em; vertical-align: middle;"></i> Demonstration in VS Code. </span></p>
-<p>By typing <code># create a function taking the n-th power of a number</code>, AI will generate the code for you.</p>
-<p>Here is how to use GitHub Copilot in RStudio: <a href="https://docs.posit.co/ide/user/ide/guide/tools/copilot.html#using-copilot">RStudio User Guide: Tools, GitHub Copilot</a>.</p>
+<div id="2f2c4c02" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate 3 + 4</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="sc">+</span> <span class="dv">4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+7
+</div>
+</div>
+<p>Complete the following arithmetic operations in R:</p>
+<div id="15210350" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate 6 + 12</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="09f264e5" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Subtract 5 from 10</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="34c1a3b0" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Multiply 3 by 5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="065f95a5" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Divide 15 by 3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="68e64b15" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Take the square of 3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="4925ea08" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Take the square root of 16</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
-<section id="course-materials" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="course-materials"><span class="header-section-number">1.2</span> Course Materials</h2>
-<p>The course materials will be self-contained.</p>
-<ul>
-<li><p><strong>Lecture notes</strong>: lecture notes will be provided in the course website.</p>
-<p>You can download the lecture notes in PDF format for offline reading. Click on the <i class="bi bi-file-pdf" style="font-size:1.5em; vertical-align: middle;"></i> icon in the top-left corner to download the lecture notes in PDF format.</p></li>
-<li><p><strong>R code</strong>: R code will be provided in form of Lab Jupyter Notebooks.</p>
-<p>You may copy and paste the code into RStudio to run it.</p></li>
-</ul>
-<p>If you want to learn in-depth, you can refer to the following textbooks and resources.</p>
-<p><strong>Textbooks</strong></p>
-<ul>
-<li><p>Evans, J.R. (2021) <em>Business analytics: methods, models, and decisions</em>. Third edition. Harlow: Pearson.</p>
-<p>Statistics primer. Basic introduction to business analytics at the undergraduate level.</p></li>
-<li><p>James, G., Witten, D., Hastie, T., &amp; Tibshirani, R. (2021). <em>An Introduction to Statistical Learning with Applications in R</em>. 2nd edition. Springer. <a href="https://www.statlearning.com/">Online version</a></p>
-<p><strong>Main textbook</strong> for the course. It covers the fundamental concepts and methods of statistical learning, with practical applications in R.</p></li>
-<li><p>Huntsinger, R. (2025). <em>Business Analytics: Methods and Cases for Data-Driven Decisions.</em> Cambridge: Cambridge University Press. eTextbook available through <a href="https://www.cambridge.org/highereducation/books/business-analytics/49F97FC7360294F70056ADDC895C61AE#overview">Cambridge University Press</a>.</p>
-<p>Advanced methods and case studies for data-driven decision-making. We might use case studies from this book in the course.</p></li>
-</ul>
-<p><strong>Resources:</strong></p>
-<ul>
-<li><a href="https://drive.google.com/file/d/1Iwec44x4N5AItbpFugbUOKHBIE10cMOw/view?usp=drive_link">Distribution Tables</a></li>
-<li><a href="https://drive.google.com/file/d/1FhRrVo8BkmVwwQdt0Xm47j4HIBhYHCbb/view?usp=drive_link">Formula Sheet</a></li>
-</ul>
+<section id="variable-assignments" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="variable-assignments"><span class="header-section-number">3.2</span> Variable Assignments</h2>
+<p>A basic concept in (statistical) programming is called a variable.</p>
+<p>A variable allows you to store a value (e.g.&nbsp;4) or an object (e.g.&nbsp;a function description) in R. You can then later use this variable’s name to easily access the value or the object that is stored within this variable.</p>
+<div id="3644ac2b" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Assign the value 4 to a variable called my_apples</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>my_apples <span class="ot">&lt;-</span> <span class="dv">4</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Print out the value of my_apples</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>my_apples</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+4
+</div>
+</div>
+<div id="07058067" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Assign the value 5 to a variable called my_oranges</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Add the values of my_apples and my_oranges and assign the result to a variable called my_fruit</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
-<section id="course-evaluation" class="level2" data-number="1.3">
-<h2 data-number="1.3" class="anchored" data-anchor-id="course-evaluation"><span class="header-section-number">1.3</span> Course Evaluation</h2>
-<p><strong>Compound Assessment</strong></p>
-<p><img src="filters/emoji/2757.png" style="height:1em">️ In case of any discrepancies between the dates listed on the course website and StudentWeb, <span class="env-green"><strong>ALWAYS use the dates on <u>StudentWeb</u> as the reference.</strong></span></p>
+<section id="basic-data-types" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="basic-data-types"><span class="header-section-number">3.3</span> Basic Data Types</h2>
+<p>R works with numerous data types. Some of the most basic types to get started are:</p>
 <ul>
-<li><p><strong>Oppgave</strong> (mandatory home assignment): 40%</p>
-<p>Group work (1-3 students) is possible; including a case study with data analysis and visualization; a report will be submitted;</p>
-<p>Date: week 42<br>
-Duration: 2 weeks.</p>
-<p>The assignment will be released in WISEflow, and you will have <strong>two weeks</strong> to complete it.</p>
-<p>More details will be provided as the course progresses.</p></li>
-<li><p><strong>Eksamen</strong> (school exam): 60%</p>
-<p>Digitally in WISEflow;<br>
-Date: Refer to Studentweb</p></li>
+<li>Decimal values like <code>4.5</code> are called <strong>numerics</strong>.</li>
+<li>Whole numbers like <code>4</code> are called <strong>integers</strong>. Integers are also numerics.</li>
+<li>Boolean values (<code>TRUE</code> or <code>FALSE</code>) are called <strong>logical</strong>.</li>
+<li>Text (or string) values are called <strong>characters</strong>.</li>
 </ul>
-</section>
-<section id="study-objectives" class="level2" data-number="1.4">
-<h2 data-number="1.4" class="anchored" data-anchor-id="study-objectives"><span class="header-section-number">1.4</span> Study Objectives</h2>
-<ul>
-<li><strong>Knowledge</strong>:
-<ul>
-<li>Familiarity with statistical methods and models used in business analytics.</li>
-<li>Focus on descriptive analytics and predictive analytics. Prescriptive analytics will be introduced if time allows.</li>
-<li>Knowledge of data visualization techniques and tools.</li>
-</ul></li>
-<li><strong>Skills</strong>:
-<ul>
-<li>Ability to analyze and interpret data using statistical methods.</li>
-<li>Proficiency in using R for data analysis and visualization.</li>
-<li>Competence in applying business analytics techniques to real-world problems.</li>
-</ul></li>
-<li><strong>Competencies</strong>:
-<ul>
-<li>Develop critical thinking skills to evaluate data-driven decisions.</li>
-<li>Ability to communicate findings effectively through reports and presentations.</li>
-</ul></li>
-</ul>
-</section>
-<section id="how-to-reach-me" class="level2" data-number="1.5">
-<h2 data-number="1.5" class="anchored" data-anchor-id="how-to-reach-me"><span class="header-section-number">1.5</span> How to Reach Me</h2>
-<table border="0" cellspacing="0" cellpadding="5">
-<tbody><tr>
-<td>
-Instructor:
-</td>
-<td>
-Menghan Yuan
-</td>
-</tr>
-<tr>
-<td>
-Email:
-</td>
-<td>
-<a href="mailto:menghan.yuan@nord.no">menghan.yuan@nord.no</a>
-</td>
-</tr>
-<tr>
-<td>
-Office Hours:
-</td>
-<td>
-By appointment
-</td>
-</tr>
-<tr>
-<td>
-Office:
-</td>
-<td>
-Hovedbygning A257
-</td>
-</tr>
-</tbody></table>
+<p>Use <code>class()</code> function to check the data type of a variable.</p>
+<div id="2fe4e3c9" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Assign "Nord University" to a variable called my_school</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Check class of my_school</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Check class of my_apples</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Go to DataCamp’s <a href="https://www.datacamp.com/courses/free-introduction-to-r?utm_medium=organic_social&amp;utm_campaign=sharewidget&amp;utm_content=coursedetailpage&amp;utm_source=copy">Introduction to R</a> course to learn more about R programming. The course is for free if you join the DataCamp Classroom I have created for this course (Otherwise, you will see many contents are locked). The course is 4 hours long and will help you to know the basics of R programming.</p>
+<p>Use your <strong>Nord University email</strong> (<span class="citation" data-cites="nord.no">@nord.no</span> or <span class="citation" data-cites="student.nord.no">@student.nord.no</span>) to sign up for a free account and join the DataCamp Classroom using <a href="https://www.datacamp.com/groups/shared_links/7104062fbde7415c350e33d8d22c9d1c739434092786cf9a3cb1266d78a56b68">THIS LINK</a>. Contact me if you have any issues joining the classroom.</p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -1224,10 +1172,13 @@ Hovedbygning A257
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./00_environment_setup.html" class="pagination-link" aria-label="Environment Setup">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Environment Setup</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./00_environment_setup.html" class="pagination-link" aria-label="Environment Setup">
-        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Environment Setup</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./01_introduction.html" class="pagination-link" aria-label="Probability and Data in Business Analytics">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Probability and Data in Business Analytics</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
