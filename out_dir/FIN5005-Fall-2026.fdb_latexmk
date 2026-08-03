@@ -1,11 +1,11 @@
 # Fdb version 4
 ["xdvipdfmx"] 1785748735.88551 "out_dir/FIN5005-Fall-2026.xdv" "out_dir/FIN5005-Fall-2026.pdf" "out_dir/FIN5005-Fall-2026" 1785748735.87968 2
-  "out_dir/FIN5005-Fall-2026.xdv" 1785748712.21065 2348784 61b2f72a833311695874d43e7c8e87e4 "xelatex"
+  "out_dir/FIN5005-Fall-2026.xdv" 1785752129.8977 2349760 c31d360d0334f4e7148619d305779298 "xelatex"
   (generated)
   "out_dir/FIN5005-Fall-2026.pdf"
   (rewritten before read)
-["xelatex"] 1785748694.53401 "/Users/menghan/Library/CloudStorage/OneDrive-Norduniversitet/FIN5005/course_web/FIN5005-Fall-2026.tex" "out_dir/FIN5005-Fall-2026.xdv" "FIN5005-Fall-2026" 1785748738.53209 2
-  "/Users/menghan/Library/CloudStorage/OneDrive-Norduniversitet/FIN5005/course_web/FIN5005-Fall-2026.tex" 1785748658.9344 314845 ee8a4f0be281295a2d07a82df24e864e ""
+["xelatex"] 1785752115.70004 "/Users/menghan/Library/CloudStorage/OneDrive-Norduniversitet/FIN5005/course_web/FIN5005-Fall-2026.tex" "out_dir/FIN5005-Fall-2026.xdv" "FIN5005-Fall-2026" 1785752130.61293 2
+  "/Users/menghan/Library/CloudStorage/OneDrive-Norduniversitet/FIN5005/course_web/FIN5005-Fall-2026.tex" 1785752085.63867 315113 11fcd964492c6fc199ef763ddb899b3e ""
   "/usr/local/texlive/2026/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2026/texmf-dist/fonts/tfm/adobe/zapfding/pzdr.tfm" 1136768653 1528 f853c4d1b4e0550255e02831fdc8496f ""
   "/usr/local/texlive/2026/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam10.tfm" 1246382020 916 f87d7c45f9c908e672703b83b72241a3 ""
@@ -253,7 +253,7 @@
   "04_Theoretical_Framework_LR_files/figure-pdf/unnamed-chunk-1-1.pdf" 1782903295.04752 31974 6fb9451df756229223286694bc19fbee ""
   "06_Multiple_Linear_Regression_files/figure-pdf/fig-scatter-1-1.pdf" 1782992532.87356 56622 67a35ef88fe15d63de9bdc298bf791f3 ""
   "06_Multiple_Linear_Regression_files/figure-pdf/fig-scatter-2-1.pdf" 1782992533.94139 30590 61558c8e3ff0ddbc5361f7e2bfb2b60d ""
-  "07_Lab-2_dummy-variable_files/figure-pdf/cell-14-output-1.png" 1785748643.91874 46102 58faeb89b25b8d22faf5fd0b8c9d4036 ""
+  "07_Lab-2_dummy-variable_files/figure-pdf/cell-14-output-1.png" 1785752070.21721 46102 58faeb89b25b8d22faf5fd0b8c9d4036 ""
   "08_Interactions_files/figure-pdf/unnamed-chunk-4-1.pdf" 1782903321.61249 10194 eca13c155b4b5f7bac07ee7f493b82ab ""
   "08_Interactions_files/figure-pdf/unnamed-chunk-7-1.pdf" 1782903323.40942 29875 46860d670dd07fdeab934770e8496323 ""
   "09_Logistic_Regression_files/figure-pdf/fig-linear-1.pdf" 1782903337.88638 52838 9f52aae96e18e13ba462c4fa9192c73a ""
@@ -261,7 +261,7 @@
   "09_Logistic_Regression_files/figure-pdf/unnamed-chunk-20-1.pdf" 1782903339.14148 55975 2fac0c86dd4fc8ac76658f4c3fe6792f ""
   "09_Logistic_Regression_files/figure-pdf/unnamed-chunk-6-1.pdf" 1782903336.64777 5335 d06d49cc255ac5b58a2a769570dde468 ""
   "09_Logistic_Regression_files/figure-pdf/unnamed-chunk-7-1.pdf" 1782903337.19057 5240 5a557182e4b5788442acad78f5123991 ""
-  "FIN5005-Fall-2026.tex" 1785748658.9344 314845 ee8a4f0be281295a2d07a82df24e864e ""
+  "FIN5005-Fall-2026.tex" 1785752085.63867 315113 11fcd964492c6fc199ef763ddb899b3e ""
   "FIN5005-Fall-2026.toc" 0 -1 0 ""
   "filters/emoji/1f3af.png" 1758630356.41743 1196 06b300d40615d296b1650cef5f7d8517 ""
   "filters/emoji/1f4a1.png" 1758624033.45936 687 cddcb146e40e28558dd30e42a1285021 ""
@@ -274,13 +274,14 @@
   "images/Colab open.png" 1785743850.44158 635143 0233c60b9fa20f3e506b8ff848493aaa ""
   "images/Skewness.png" 1755525082.10669 15248 07f356c00ce03e424376d4a84753a4d8 ""
   "images/asset_returns_histograms.png" 1781953046.11988 213574 c4bc957792efbdf8f8d39664f813352b ""
+  "images/icon-google-colab.png" 1785750426.01124 4203 fec1c68328d2c910687cec3fc5775160 ""
   "images/t-dist_chang_df_static.png" 1781863062.94531 28137 f11e0999b97826f2fd75db7ccca609cc ""
   "images/t_distribution.png" 1781860967.93661 199524 cc38296475c7c291d593fe7ce01715c8 ""
   "out_dir/01_Lab-1_Descriptive-Statistics_files/figure-pdf/cell-12-output-1.png" 0 -1 0 ""
   "out_dir/01_Lab-1_Descriptive-Statistics_files/figure-pdf/cell-15-output-1.png" 0 -1 0 ""
   "out_dir/01_Lab-1_Descriptive-Statistics_files/figure-pdf/cell-6-output-1.png" 0 -1 0 ""
-  "out_dir/FIN5005-Fall-2026.aux" 1785748712.20235 46161 397de31c2d2d41e85de004959026d917 "xelatex"
-  "out_dir/FIN5005-Fall-2026.toc" 1785748712.21039 13161 771252c7502c16bdd191390726ab4e50 "xelatex"
+  "out_dir/FIN5005-Fall-2026.aux" 1785752129.89129 46359 9ee3c5c864d636f5e95a9e0b8afc9735 "xelatex"
+  "out_dir/FIN5005-Fall-2026.toc" 1785752129.89756 13243 f3750fd983d6e1b4d63fa0212f37722a "xelatex"
   (generated)
   "out_dir/FIN5005-Fall-2026.aux"
   "out_dir/FIN5005-Fall-2026.log"

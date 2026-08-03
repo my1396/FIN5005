@@ -787,7 +787,7 @@ Y_i = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + \beta_3 X_{3i} + \ldots + \bet
 <p>Scatter plot of TestScore against expenditure and STR:</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-scatter-1" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="H" data-fig-align="center">
+<div id="fig-scatter-1" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" data-fig-pos="H">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-scatter-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="06_Multiple_Linear_Regression_files/figure-html/fig-scatter-1-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" data-fig-pos="H" width="1152">
@@ -1159,7 +1159,15 @@ F &amp;= \frac{R^2/k}{(1-R^2)/(n-k-1)} = \frac{SSE/k}{SSR/(n-k-1)} \\
 <ul>
 <li><span class="math inline">\(F_{\alpha}(k,n-k-1)\)</span> is the <span class="math inline">\((1-\alpha)\)</span> percentile in the <span class="math inline">\(F(k, n-k-1)\)</span> distribution, corresponding to the level of significance, <span class="math inline">\(\alpha\)</span>.</li>
 </ul>
-<p><img src="https://drive.google.com/thumbnail?id=1LSF9a8en1SvwZDL76SHeZ0BpDYhHbLz-&amp;sz=w1000" alt="F distribution" style="display: block; margin-right: auto; margin-left: auto; zoom:80%;"></p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/F-dist.gif" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%" data-fig-pos="H"></p>
+</figure>
+</div>
+</div>
+</div>
 <p>The <span class="math inline">\(p\)</span>-value is found by: <span class="math display">\[
 \text{P-value} = \mathbb{P}(F&gt;F_{\text{obs}}) ,
 \]</span> where <span class="math inline">\(F_{\text{obs}}\)</span> is your calculated/observed test statistic based on your data sample.</p>
@@ -1746,7 +1754,7 @@ calworks  0.74     1.00</code></pre>
 </div>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-scatter-2" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="H" data-fig-align="center">
+<div id="fig-scatter-2" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" data-fig-pos="H">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-scatter-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="06_Multiple_Linear_Regression_files/figure-html/fig-scatter-2-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" data-fig-pos="H" width="672">

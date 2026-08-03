@@ -435,10 +435,19 @@ INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam1
 INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam7.tfm
 INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm10.tfm
 INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm7.tfm
+INPUT ./images/icon-google-colab.png
+INPUT ./images/icon-google-colab.png
+INPUT ./images/icon-google-colab.png
 OUTPUT out_dir/FIN5005-Fall-2026.toc
 INPUT ./filters/emoji/2757.png
 INPUT ./filters/emoji/2757.png
 INPUT ./filters/emoji/2757.png
+INPUT ./images/icon-google-colab.png
+INPUT ./images/icon-google-colab.png
+INPUT ./images/icon-google-colab.png
+INPUT ./images/icon-google-colab.png
+INPUT ./images/icon-google-colab.png
+INPUT ./images/icon-google-colab.png
 INPUT ./images/Colab lab0.png
 INPUT ./images/Colab lab0.png
 INPUT ./images/Colab lab0.png

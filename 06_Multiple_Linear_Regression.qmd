@@ -234,9 +234,9 @@ We reject $\text{H}_0$ if $F>F_{\alpha}(k, n-k-1)$.
 
 - $F_{\alpha}(k,n-k-1)$ is the $(1-\alpha)$ percentile in the $F(k, n-k-1)$ distribution, corresponding to the level of significance, $\alpha$.
 
-
-<img src="https://drive.google.com/thumbnail?id=1LSF9a8en1SvwZDL76SHeZ0BpDYhHbLz-&sz=w1000" alt="F distribution" style="display: block; margin-right: auto; margin-left: auto; zoom:80%;" />
-
+```{r F-dist, echo=FALSE, out.width='80%', fig.align='center'}
+include_gif("images/F-dist.gif")
+```
 
 The $p$-value is found by:
 $$

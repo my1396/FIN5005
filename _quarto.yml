@@ -41,9 +41,10 @@ book:
         - 09_Logistic_Regression.qmd
 
 filters:
-  - filters/color-text.lua
-  - filters/col-eqn.lua
-  - filters/emoji.lua
+  - filters/color-text.lua  # Add color to text in pdf
+  - filters/col-eqn.lua     # Add color to equations in pdf
+  - filters/emoji.lua       # Add emoji support for pdf
+  - filters/html-img.lua    # Convert <img> to \includegraphics for pdf
 
 # Output formats, styles, dependencies
 format:

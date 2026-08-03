@@ -8,6 +8,8 @@ This guide will help you set up your coding environment for FIN5005, with both c
 - **Cloud option:** [Google Colab with R Kernel](https://colab.research.google.com/) (Course Labs will be run in this)
 - **Local option:** [RStudio Desktop](#RStudio-Desktop) (You will most likely use this for the home assignment)
 
+At the end of the session, you will learn R basics using Google Colab <img src="images/icon-google-colab.svg" alt="" style="display: inline; height: 1.5em; vertical-align: bottom;" />.
+
 Follow the instructions below to get started.
 :::
 
@@ -28,7 +30,7 @@ However, convenience comes at the cost of performance and control. Below is a co
 
 --------------------------------------------------------------------------------
 
-### Google Colab
+### Google Colab `r if (knitr::is_html_output()) '<img src="images/icon-google-colab.svg" alt="" style="display: inline; height: 1.5em; vertical-align: middle;" />' else '\\raisebox{-0.4em}{\\includegraphics[height=1.5em]{images/icon-google-colab.png}}'`
 
 1. **Create a new R-Notebook using the following link:** 
 
@@ -56,7 +58,7 @@ However, convenience comes at the cost of performance and control. Below is a co
 
 - [Introduction to Google Colab Notebook](https://www.kaggle.com/code/ybifoundation/introduction-to-google-colab-notebook#Code-cells)
   
-  This tutorial introduces how to upload/download data, sharing with others, adding text cells, and more.
+  This tutorial introduces how to upload/download data, sharing with others, editing cells, and more.
 
 --------------------------------------------------------------------------------
 
@@ -118,9 +120,9 @@ To install RStudio Desktop, follow these steps:
 
 ## <span class="env-green"><i class="codicon codicon-rocket" style="font-size:2em; "></i> Exercise</span>
 
-It is your turn to get started with R programming. 
+Now it is your turn to get started with R programming. 
 
-Use [THIS LINK](https://drive.google.com/file/d/1LBVxO0rFgBTOnwSSERDL1aPShxppgSje/view?usp=sharing) to open the R Notebook in Google Colab. Follow the instructions in the notebook to complete the exercises.
+Use [THIS LINK](https://colab.research.google.com/drive/1cpY6EGpNrqwIz-7ZITTQHZie3BPV-BpF?usp=sharing) to open the R Notebook in Google Colab. Follow the instructions in the notebook to complete the exercises.
 
 The Notebook looks like the following:
 
@@ -128,8 +130,3 @@ The Notebook looks like the following:
 knitr::include_graphics("images/Colab lab0.png")
 ```
 
-**Troubleshoot:** If the Notebook shows as raw code, click on the "**Open with**" button in the top right corner and select "**Colaboratory**" to open it in Google Colab.
-
-```{r colab-2, echo=FALSE, out.width="100%"}
-knitr::include_graphics("images/Colab open.png")
-```

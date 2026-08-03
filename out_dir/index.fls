@@ -1,11 +1,12 @@
-PWD /Users/menghan/Library/CloudStorage/OneDrive-Norduniversitet/FIN5005 2025Fall/course_web
+PWD /Users/menghan/Library/CloudStorage/OneDrive-Norduniversitet/FIN5005/course_web
 INPUT /usr/local/texlive/2026/texmf.cnf
 INPUT /usr/local/texlive/2026/texmf-dist/web2c/texmf.cnf
 INPUT /usr/local/texlive/2026/texmf-var/web2c/xetex/xelatex.fmt
-INPUT /Users/menghan/Library/CloudStorage/OneDrive-Norduniversitet/FIN5005 2025Fall/course_web/index.tex
+INPUT /Users/menghan/Library/CloudStorage/OneDrive-Norduniversitet/FIN5005/course_web/index.tex
 OUTPUT out_dir/index.log
 INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/hyperref/hyperref.sty
 INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/url/url.sty
+INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/xcolor/xcolor.sty
 INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/koma-script/scrbook.cls
 INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/koma-script/scrbook.cls
 INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/koma-script/scrkbase.sty
@@ -32,7 +33,6 @@ INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/koma-script/typearea.sty
 INPUT /usr/local/texlive/2026/texmf-dist/fonts/map/fontname/texfonts.map
 INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/public/cm/cmr10.tfm
 INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/xcolor/xcolor.sty
-INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/xcolor/xcolor.sty
 INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/graphics-cfg/color.cfg
 INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/graphics-cfg/color.cfg
 INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/graphics-cfg/color.cfg
@@ -42,6 +42,15 @@ INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/graphics-def/xetex.def
 INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/graphics/mathcolor.ltx
 INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/graphics/mathcolor.ltx
 INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/graphics/mathcolor.ltx
+INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/graphics/dvipsnam.def
+INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/graphics/dvipsnam.def
+INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/graphics/dvipsnam.def
+INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/xcolor/svgnam.def
+INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/xcolor/svgnam.def
+INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/xcolor/svgnam.def
+INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/xcolor/x11nam.def
+INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/xcolor/x11nam.def
+INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/xcolor/x11nam.def
 INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/amsmath/amsmath.sty
 INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/amsmath/amsmath.sty
 INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/amsmath/amsopn.sty
@@ -426,31 +435,58 @@ INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam1
 INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam7.tfm
 INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm10.tfm
 INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm7.tfm
+INPUT ./images/icon-google-colab.png
+INPUT ./images/icon-google-colab.png
+INPUT ./images/icon-google-colab.png
 OUTPUT out_dir/index.toc
 INPUT ./filters/emoji/2757.png
 INPUT ./filters/emoji/2757.png
 INPUT ./filters/emoji/2757.png
-INPUT ./filters/emoji/1f3af.png
-INPUT ./filters/emoji/1f3af.png
-INPUT ./filters/emoji/1f3af.png
-INPUT ./images/Skewness.png
-INPUT ./images/Skewness.png
-INPUT ./images/Skewness.png
-INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/microtype/mt-TU-empty.cfg
-INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/microtype/mt-TU-empty.cfg
-INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/microtype/mt-TU-empty.cfg
-INPUT ./images/t_distribution.png
-INPUT ./images/t_distribution.png
-INPUT ./images/t_distribution.png
-INPUT ./images/t-dist_chang_df_static.png
-INPUT ./images/t-dist_chang_df_static.png
-INPUT ./images/t-dist_chang_df_static.png
+INPUT ./images/icon-google-colab.png
+INPUT ./images/icon-google-colab.png
+INPUT ./images/icon-google-colab.png
+INPUT ./images/icon-google-colab.png
+INPUT ./images/icon-google-colab.png
+INPUT ./images/icon-google-colab.png
+INPUT ./images/colab new notebook.png
+INPUT ./images/colab new notebook.png
+INPUT ./images/colab new notebook.png
+INPUT ./images/colab sessionInfo.png
+INPUT ./images/colab sessionInfo.png
+INPUT ./images/colab sessionInfo.png
+INPUT ./images/R installer.png
+INPUT ./images/R installer.png
+INPUT ./images/R installer.png
+INPUT ./images/RStudio layout.png
+INPUT ./images/RStudio layout.png
+INPUT ./images/RStudio layout.png
+INPUT ./images/Colab lab0.png
+INPUT ./images/Colab lab0.png
+INPUT ./images/Colab lab0.png
+INPUT ./images/Colab open.png
+INPUT ./images/Colab open.png
+INPUT ./images/Colab open.png
 INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/public/lm/lmmi6.tfm
 INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/public/lm/lmmi5.tfm
 INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam7.tfm
 INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam5.tfm
 INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm7.tfm
 INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm5.tfm
+INPUT ./filters/emoji/1f3af.png
+INPUT ./filters/emoji/1f3af.png
+INPUT ./filters/emoji/1f3af.png
+INPUT ./images/Skewness.png
+INPUT ./images/Skewness.png
+INPUT ./images/Skewness.png
+INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/microtype/mt-TU-empty.cfg
+INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/microtype/mt-TU-empty.cfg
+INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/microtype/mt-TU-empty.cfg
+INPUT ./images/t_distribution.png
+INPUT ./images/t_distribution.png
+INPUT ./images/t_distribution.png
+INPUT ./images/t-dist_chang_df_static.png
+INPUT ./images/t-dist_chang_df_static.png
+INPUT ./images/t-dist_chang_df_static.png
 INPUT ./filters/emoji/1f4a1.png
 INPUT ./filters/emoji/1f4a1.png
 INPUT ./filters/emoji/1f4a1.png
@@ -460,9 +496,9 @@ INPUT ./filters/emoji/274c.png
 INPUT ./filters/emoji/2705.png
 INPUT ./filters/emoji/2705.png
 INPUT ./filters/emoji/2705.png
-INPUT ./01_Lab-1_files/figure-pdf/cell-6-output-1.png
-INPUT ./01_Lab-1_files/figure-pdf/cell-6-output-1.png
-INPUT ./01_Lab-1_files/figure-pdf/cell-6-output-1.png
+INPUT ./01_Lab-1_Descriptive-Statistics_files/figure-pdf/cell-6-output-1.png
+INPUT ./01_Lab-1_Descriptive-Statistics_files/figure-pdf/cell-6-output-1.png
+INPUT ./01_Lab-1_Descriptive-Statistics_files/figure-pdf/cell-6-output-1.png
 INPUT ./images/asset_returns_histograms.png
 INPUT ./images/asset_returns_histograms.png
 INPUT ./images/asset_returns_histograms.png
@@ -472,12 +508,12 @@ INPUT ./filters/emoji/1f4a1.png
 INPUT ./filters/emoji/1f4a1.png
 INPUT ./filters/emoji/1f4a1.png
 INPUT ./filters/emoji/1f4a1.png
-INPUT ./01_Lab-1_files/figure-pdf/cell-12-output-1.png
-INPUT ./01_Lab-1_files/figure-pdf/cell-12-output-1.png
-INPUT ./01_Lab-1_files/figure-pdf/cell-12-output-1.png
-INPUT ./01_Lab-1_files/figure-pdf/cell-15-output-1.png
-INPUT ./01_Lab-1_files/figure-pdf/cell-15-output-1.png
-INPUT ./01_Lab-1_files/figure-pdf/cell-15-output-1.png
+INPUT ./01_Lab-1_Descriptive-Statistics_files/figure-pdf/cell-12-output-1.png
+INPUT ./01_Lab-1_Descriptive-Statistics_files/figure-pdf/cell-12-output-1.png
+INPUT ./01_Lab-1_Descriptive-Statistics_files/figure-pdf/cell-12-output-1.png
+INPUT ./01_Lab-1_Descriptive-Statistics_files/figure-pdf/cell-15-output-1.png
+INPUT ./01_Lab-1_Descriptive-Statistics_files/figure-pdf/cell-15-output-1.png
+INPUT ./01_Lab-1_Descriptive-Statistics_files/figure-pdf/cell-15-output-1.png
 INPUT ./filters/emoji/1f4a1.png
 INPUT ./filters/emoji/1f4a1.png
 INPUT ./filters/emoji/1f4a1.png
@@ -559,6 +595,9 @@ INPUT ./filters/emoji/1f4a1.png
 INPUT ./06_Multiple_Linear_Regression_files/figure-pdf/fig-scatter-1-1.pdf
 INPUT ./06_Multiple_Linear_Regression_files/figure-pdf/fig-scatter-1-1.pdf
 INPUT ./06_Multiple_Linear_Regression_files/figure-pdf/fig-scatter-1-1.pdf
+INPUT ./images/F-dist_static.png
+INPUT ./images/F-dist_static.png
+INPUT ./images/F-dist_static.png
 INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/public/lm/lmmi10.tfm
 INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/public/lm/lmmi8.tfm
 INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam10.tfm
