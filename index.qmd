@@ -112,7 +112,7 @@ If you want to learn in-depth, you can refer to the following textbooks and reso
 - **Eksamen** (school exam): 60%
   
   Digitally in WISEflow;  \
-  Date: Refer to Studentweb
+  Date: Refer to [StudentWeb](https://www.nord.no/student/studentverktoy/studentweb)
 
 
 ## Study Objectives
