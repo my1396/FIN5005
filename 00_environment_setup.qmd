@@ -97,6 +97,11 @@ To install RStudio Desktop, follow these steps:
 
 Read [THIS guide](https://docs.posit.co/ide/user/ide/guide/ui/ui-panes.html) to learn about the RStudio user interface.
 
+
+```{r echo=FALSE, out.width='100%', fig.align='center'}
+knitr::include_graphics("images/rstudio-panes-labeled.png")
+```
+
 ### Create and save a script
 
 R scripts (`.R` or `.r` files) are text files that contain R code. 
