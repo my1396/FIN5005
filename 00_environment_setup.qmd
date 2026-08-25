@@ -180,7 +180,7 @@ Follow the instructions in the notebook to complete the exercises. <span class="
 You can also download the notebook as a PDF file by clicking on "**File**" → "**Print**" → "**Save as PDF**".
 
 ::: {.callout-tip}
-You need to edit the notebook in Google Colab and **then** download it for submission. 
+You need to edit the notebook in Google Colab and <strong>then</strong> download it for submission. 
 If you want to edit the notebook on your local computer, you can use [JupyterLab or Jupyter Notebook](https://jupyter.org/install). It requires extra installation and configuration. You may follow online tutorials to set it up.
 
 For the purpose of this course, we simply use Google Colab for its simplicity to use out-of-the-box without any installation and configuration.
