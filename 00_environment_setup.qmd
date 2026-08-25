@@ -175,7 +175,17 @@ knitr::include_graphics("images/Colab lab0.png")
 
 Note: You only have View access to the notebook. To edit it, you need to make a copy of the notebook by clicking on "**File**" → "**Save a copy in Drive**". You can then edit the notebook in your own Google Drive.
 
-Follow the instructions in the notebook to complete the exercises. You can download the notebook to your local computer by clicking on "**File**" → "**Download**" → "**Download .ipynb**". 
+Follow the instructions in the notebook to complete the exercises. <span class="env-green">When you are done with the exercises</span>, you can download the notebook to your local computer by clicking on "**File**" → "**Download**" → "**Download .ipynb**". 
+
+You can also download the notebook as a PDF file by clicking on "**File**" → "**Print**" → "**Save as PDF**".
+
+::: {.callout-tip}
+You need to edit the notebook in Google Colab and **then** download it for submission. 
+If you want to edit the notebook on your local computer, you can use [JupyterLab or Jupyter Notebook](https://jupyter.org/install). It requires extra installation and configuration. You may follow online tutorials to set it up.
+
+For the purpose of this course, we simply use Google Colab for its simplicity to use out-of-the-box without any installation and configuration.
+:::
+
 
 ### Exercise 2: Work with R script in RStudio
 
