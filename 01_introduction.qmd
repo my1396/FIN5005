@@ -42,26 +42,26 @@ $$P(A) = \frac{\text{Number of ways A can occur}}{\text{Total possible outcomes}
 
 
 ::: {.example #exm-1}
-A retailer estimates a 30% chance of a supply chain disruption and a 50% chance of a demand spike. If these events are mutually exclusive, what is the probability of either event occurring?
+A logistics provider records the delivery outcome of every shipment as *early*, *on time*, or *late*. For a randomly selected shipment, the probability of arriving early is 30% and the probability of arriving on time is 50%. What is the probability that the shipment arrives early or on time?
 :::
 
 <button class="solution-btn" onclick="myFunction('sol-1')">Solution</button>
 <div id="sol-1" class="solution-answer env-green">
-Since the events are mutually exclusive, $P(A \text{ and } B)=0,$ then
+Let $A=\{\text{early}\}$ and $B=\{\text{on time}\}.$ A single shipment cannot be early **and** on time, so the events are mutually exclusive and $P(A \text{ and } B)=0.$ Then
 $$
 \begin{split}
-P(A \text{ and } B)=P(A)+P(B)-P(A \text{ and } B)=0.30+0.50=0.80.
+P(A \text{ or } B)=P(A)+P(B)-P(A \text{ and } B)=0.30+0.50=0.80.
 \end{split}
 $$
 </div>
 
 
 ::: {.example #exm-2}
-In a multi-channel marketing campaign, 35% of customers click an email offer (Event A) and 25% engage with a social media ad (Event B). Data shows 10% of customers do both. What is the probability a randomly selected customer engages with at least one of the two channels (email OR social)?
+In a multi-channel marketing campaign, 35% of customers click an email offer (Event A) and 25% engage with a social media ad (Event B). Data shows 10% of customers do both. What is the probability a randomly selected customer engages with at least one of the two channels?
 :::
 
 <button class="solution-btn" onclick="myFunction('sol-2')">Solution</button>
-<div id="sol-2" class="solution-answer env-green">$P(A) + P(B) - P(A \text{ and } B) = 0.35 + 0.25 - 0.10 = 0.50$</div>
+<div id="sol-2" class="solution-answer env-green">$P(A) + P(B) - P(A \text{ and } B) = 35\% + 25\& - 10\% = 50\%$</div>
 
 ## Sample vs. Population: Estimating the Big Picture
 
@@ -95,15 +95,25 @@ Why is it important to distinguish between sample and population in business ana
 
 ## Moments
 
+**Moments** are numerical measures that describe the shape and characteristics of a probability distribution.
+
+**k-th raw moment**: $E[x^k]$
+
+**k-th central moment**: $E[(x-\mu)^k]$
+
+| Moment         | What it Measures            | Statistic      |
+| -------------- | --------------------------- | -------------- |
+| **1st moment** | Location / center           | Mean           |
+| **2nd moment** | Dispersion                  | Variance       |
+| **3rd moment** | Asymmetry                   | Skewness       |
+| **4th moment** | Tail thickness / peakedness | Kurtosis       |
+
+
 ### Expectation, Variance, and Standard Deviation
 
 - **Expectation (population):** Average level of the outcome (true but unknown in practice).
   $$
-  \mathbb{E}[X] =
-  \begin{cases}
-  \displaystyle \sum_{i} x_i \, P(X = x_i) & \text{(discrete)} \\
-  \displaystyle \int_{-\infty}^{\infty} x \, f(x) \, dx & \text{(continuous)} \\
-  \end{cases}
+  \mathbb{E}[X] = \sum_{i} x_i \, P(X = x_i)
   $$
   **Sample estimator:** Replace the distribution by observed data: 
   $$\bar{X} = \dfrac{1}{n}\sum_{i=1}^n X_i.$$
@@ -134,7 +144,13 @@ Why is it important to distinguish between sample and population in business ana
     This version has some desirable properties but we will not discuss these for now. Suffice to say that both versions are usually fine in practice.
 
 ::: {.example #exm-10}
-An operations planner models next-hour demand arrivals for a micro-warehouse (number of urgent orders) as $X \in \{0,1,2\}$ with probabilities 0.2, 0.5, 0.3. Compute the variability (variance) of order arrivals using the shortcut formula $\mathbb{E}[X^2] - (\mathbb{E}[X])^2$ to inform staffing.
+An electronics store sells 0, 1, or 2 laptops on a given day. Let $X$ be the number sold on a randomly chosen day:
+
+$$
+P(X=0)=0.2, \qquad P(X=1)=0.5, \qquad P(X=2)=0.3.
+$$
+
+Compute $\text{Var}(X)$ using the shortcut formula $\mathbb{E}[X^2] - (\mathbb{E}[X])^2$.
 :::
 
 <button class="solution-btn" onclick="myFunction('sol-10')">Solution</button>
@@ -148,27 +164,6 @@ $$
 $$
 :::
 
-::: {.example #exm-11}
-A SaaS company tracks daily change in Daily Active Users (DAU) (in %) over 5 days: $0.4$, $0.6$, $-0.2$, $0.5$, $0.7$. Verify that the direct variance definition and the shortcut formula match; interpret what the variance implies for short‑term engagement volatility.
-:::
-
-<button class="solution-btn" onclick="myFunction('sol-11')">Solution</button>
-<div id="sol-11" class="solution-answer env-green">
-Daily % changes: $0.4,\ 0.6,\ -0.2,\ 0.5,\ 0.7$. Let units be **percentage points** (pp).
-$$
-\mathbb{E}[X] = \frac{0.4+0.6-0.2+0.5+0.7}{5} = 0.4 \text{ pp}
-$$
-$$
-\mathbb{E}[X^2] = \frac{0.16+0.36+0.04+0.25+0.49}{5} = \frac{1.30}{5} = 0.26 \text{ (pp)}^2
-$$
-Variance (percentage-point squared):
-$$
-\text{Var}(X) = 0.26 - (0.4)^2 = 0.26 - 0.16 = 0.10 \text{ (pp)}^2
-$$
-Standard deviation $= \sqrt{0.10} \approx 0.316$ pp (about $0.32$ percentage points).
-Direct (long) method matches (0.10).  
-Interpretation: Moderate short-term volatility compared to the mean change of 0.4 pp. This suggests some fluctuations in user engagement, but not extreme. 
-</div>
 
 - **Standard Deviation (population):** Square root of variance, showing average deviation from the true mean.
 
@@ -239,31 +234,69 @@ Two independent projects have profit variances of 100 and 150. What is the varia
 
 
 
-#### Variance of Linear Transformations & Portfolios
+#### Linear Transformations of Random Variables
 
-The variance operator is the expectation of a quadratic function, so it is not linear. Instead, for constants $a, b$:
+For a random variable $X$ and constants $a, b \in \mathbb{R}$, the linear transformation $Y = a + bX$ has:
 
-$$
-\text{Var}(a + bX) = b^2\,\text{Var}(X).
-$$
+- **Expectation:** $E[Y] = a + bE[X]$
+- **Variance:** $\text{Var}(Y) = \text{Var}(a + bX) = b^2 \text{Var}(X)$
 
-More generally, for constants $a_i \in \mathbb{R}, i=1,\ldots,n$:
+More generally, for $n$ constants $a_i$ and random variables $X_i, i=1,\ldots,n$,:
 
-$$
-\text{Var}\left(\sum_{i=1}^n a_i X_i \right) = \sum_{i=1}^n a_i^2 \, \text{Var}(X_i) + \sum_{i=1}^n \sum_{j=1}^n a_i a_j \, \text{Cov}(X_i, X_j).
-$$
+- Expectation: 
+  $$
+  E\left(\sum_{i=1}^n a_i X_i \right) = \sum_{i=1}^n a_i E[X_i]
+  $$
+
+- Variance:
+  $$
+  \text{Var}\left(\sum_{i=1}^n a_i X_i \right) = \sum_{i=1}^n a_i^2 \, \text{Var}(X_i) + \sum_{i=1}^n \sum_{j=1}^n a_i a_j \, \text{Cov}(X_i, X_j).
+  $$
 
 If the $X_i$ are pairwise independent (or uncorrelated), the double sum of covariance terms drops out for $i\neq j$, leaving only the first sum.
 
 ::: {.example #exm-12}
-A portfolio allocates 40% to Asset A and 60% to Asset B. $\text{Var}(A)=0.04$, $\text{Var}(B)=0.09$, and $\text{Cov}(A,B)=0.01$. Compute portfolio variance using the general formula.
+A portfolio allocates 40% to Asset A and 60% to Asset B, so its return is $P = 0.4A + 0.6B$. The two assets have
+$$
+\begin{aligned}
+\mathbb{E}[A] &= 0.08, & \text{Var}(A) &= 0.04, \\
+\mathbb{E}[B] &= 0.12, & \text{Var}(B) &= 0.09, \\
+\text{Cov}(A,B) &= 0.01.
+\end{aligned}
+$$
+Compute the portfolio's expected return $\mathbb{E}[P]$ and its variance $\text{Var}(P)$.
 :::
 
 <button class="solution-btn" onclick="myFunction('sol-12')">Solution</button>
-<div id="sol-12" class="solution-answer env-green">$\text{Var}(P)=0.4^2(0.04)+0.6^2(0.09)+2(0.4)(0.6)(0.01)=0.0064+0.0324+0.0048=0.0436$.</div>
+<div id="sol-12" class="solution-answer env-green">
+Expected return (weights pass straight through):
+$$
+\mathbb{E}[P]=0.4(0.08)+0.6(0.12)=0.032+0.072=0.104,
+$$
+i.e. $10.4\%$.
+
+Variance (weights are squared, and the covariance term enters twice):
+$$
+\text{Var}(P)=0.4^2(0.04)+0.6^2(0.09)+2(0.4)(0.6)(0.01)=0.0064+0.0324+0.0048=0.0436,
+$$
+so $\text{sd}(P)=\sqrt{0.0436}\approx 0.209$, about $20.9\%$.
+</div>
 
 ::: {.example #exm-13}
-A production planner combines forecasts: Final forecast $F = 2 + 0.7X_1 + 0.3X_2$. If $\text{Var}(X_1)=25$, $\text{Var}(X_2)=9$, and $\text{Cov}(X_1,X_2)=6$, find $\text{Var}(F)$.
+A financial analyst uses a company's operating income and investment income to forecast its future net income. Based on historical data, the following forecasting model has been estimated:
+$$
+F = 2 + 0.7X_1 + 0.3X_2,
+$$
+where \(F\) is the forecasted net income, \(X_1\) is operating income, and \(X_2\) is investment income. The constant and the coefficients are estimated from historical data.
+If
+$$
+\begin{aligned}
+\operatorname{Var}(X_1) &= 25, \\
+\operatorname{Var}(X_2) &= 9, \\
+\operatorname{Cov}(X_1,X_2) &= 6,
+\end{aligned}
+$$
+calculate the variance of the final forecast, \(\operatorname{Var}(F)\).
 :::
 
 <button class="solution-btn" onclick="myFunction('sol-13')">Solution</button>
@@ -443,10 +476,7 @@ When analysing data we distinguish between:
 
 Key principles:
 
-1. Replace integrals / probability-weighted sums with empirical averages.
-2. Center around the sample mean when the population mean is unknown.
-3. Use $n-1$ (unbiased) denominators for second moments (variance, covariance) when estimating from an i.i.d. sample.
-4. Always interpret sample statistics as **estimates** with sampling variability; risk management and forecasting should account for estimation error (e.g., standard deviation and confidence intervals).
+- Always interpret sample statistics as **estimates** with sampling variability; risk management and forecasting should account for estimation error (e.g., standard deviation and confidence intervals).
 
 ### Quick Reference Table
 

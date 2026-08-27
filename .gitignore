@@ -25,3 +25,4 @@ CASchools_test_score.csv
 # auto generated system files
 .DS_Store
 ~*
+**/*.quarto_ipynb

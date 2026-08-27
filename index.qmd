@@ -4,7 +4,7 @@
 
 What Business Analytics (BA) is about?
 
-The aim of this course is to provide students advanced knowledge, skills and competencies they can use to make data driven decisions for organizations. 
+The aim of this course is to provide students advanced knowledge, skills and competencies to make data driven decisions. 
 
 **Data-driven decision making**
 
@@ -26,7 +26,7 @@ Outline of models and applications we will cover in this course:<sup>1</sup>
 
 | **Category**     | **Topics**            | **Applications in Business**                                |
 | ---------------- | --------------------- | ----------------------------------------------------------- |
-| **Descriptive**  | Data Visualization, Descriptive Analysis | Asset return → **Finance** <br> California school expenditure and academic performance → **Education** |
+| **Descriptive**  | Descriptive Analysis, <br>Data Visualization  | Asset return → **Finance** <br> California school expenditure and academic performance → **Education** |
 | **Predictive**   | Linear regression                        | Asset return prediction (Factor models) → **Finance**<br>Test Score Determinants → **Sociology**  |
 |                  | Hypothesis testing                       | Test Score determinants → **Sociology**  |
 |                  | Classification, logistic regression      | Boston housing value determinants → **Finance**<br> |
