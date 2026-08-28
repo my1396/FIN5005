@@ -50,7 +50,7 @@ A logistics provider records the delivery outcome of every shipment as *early*, 
 Let $A=\{\text{early}\}$ and $B=\{\text{on time}\}.$ A single shipment cannot be early **and** on time, so the events are mutually exclusive and $P(A \text{ and } B)=0.$ Then
 $$
 \begin{split}
-P(A \text{ or } B)=P(A)+P(B)-P(A \text{ and } B)=0.30+0.50=0.80.
+P(A \text{ or } B) = P(A)+P(B)-P(A \text{ and } B)=0.30+0.50=0.80.
 \end{split}
 $$
 </div>
@@ -61,7 +61,7 @@ In a multi-channel marketing campaign, 35% of customers click an email offer (Ev
 :::
 
 <button class="solution-btn" onclick="myFunction('sol-2')">Solution</button>
-<div id="sol-2" class="solution-answer env-green">$P(A) + P(B) - P(A \text{ and } B) = 35\% + 25\& - 10\% = 50\%$</div>
+<div id="sol-2" class="solution-answer env-green">$P(A) + P(B) - P(A \text{ and } B) = 35\% + 25\% - 10\% = 50\%$</div>
 
 ## Sample vs. Population: Estimating the Big Picture
 
