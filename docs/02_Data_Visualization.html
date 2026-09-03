@@ -935,7 +935,7 @@ window.Quarto = {
 <ul>
 <li><strong>Continuous variables</strong> (students, teachers, expenditure, income, etc.) show their distribution through quartiles, mean, and range</li>
 <li><strong>Categorical variables</strong> (county, grades) show frequency counts</li>
-<li>Notice the <strong>range of expenditure</strong> per student: from around \$3,900 to over \$7,700 - this substantial variation will be a key focus of our analysis</li>
+<li>Notice the <strong>range of expenditure</strong> per student: from around <span class="mathjax_ignore">$3,900</span> to over <span class="mathjax_ignore">$7,700</span> - this substantial variation will be a key focus of our analysis</li>
 <li><strong>Test scores</strong> (reading and math) also show considerable variation, suggesting potential relationships with school resources</li>
 </ul>
 </section>
@@ -985,9 +985,9 @@ window.Quarto = {
 </div>
 <p><strong>Interpreting the Results:</strong></p>
 <ul>
-<li><strong>Range:</strong> Expenditure varies from about \$3,926 to \$7,712 per student - a difference of nearly \$4,000</li>
-<li><strong>Central Tendency:</strong> The mean (\$5,312) is slightly higher than the median (\$5,196), <strong>suggesting a slight right skew</strong></li>
-<li><strong>Variability:</strong> Standard deviation of \$633 indicates moderate spread around the mean</li>
+<li><strong>Range:</strong> Expenditure varies from about <span class="mathjax_ignore">$3,926</span> to <span class="mathjax_ignore">$7,712</span> per student - a difference of nearly <span class="mathjax_ignore">$4,000</span></li>
+<li><strong>Central Tendency:</strong> The mean (<span class="mathjax_ignore">$5,312</span>) is slightly higher than the median (<span class="mathjax_ignore">$5,196</span>), <strong>suggesting a slight right skew</strong></li>
+<li><strong>Variability:</strong> Standard deviation of <span class="mathjax_ignore">$633</span> indicates moderate spread around the mean</li>
 <li><strong>Skewness (1.07):</strong> Positive skewness confirms some districts spend considerably more than average</li>
 <li><strong>Kurtosis (4.88):</strong> Larger than 3 indicates a distribution with fat tails relative to the normal distribution.</li>
 </ul>
@@ -1009,7 +1009,7 @@ window.Quarto = {
 </div>
 <p><strong>What the Histogram Reveals:</strong></p>
 <ul>
-<li>Most districts cluster around the \$5,000–\$5,500 range</li>
+<li>Most districts cluster around the <span class="mathjax_ignore">$5,000</span>–<span class="mathjax_ignore">$5,500</span> range</li>
 <li>Variability is moderate</li>
 <li>The distribution has a long right tail, indicating positive skewness. That suggests that expenditure per student is concentrated at lower values for most districts, while a smaller number of districts spend substantially more, pulling the mean above the median</li>
 <li>There are <strong>few extreme positive outliers</strong>, indicating some districts do spend significantly more than average</li>
@@ -1042,9 +1042,9 @@ window.Quarto = {
 </div>
 <p><strong>Key Findings:</strong></p>
 <ul>
-<li><strong>K–6 schools</strong> (61 districts): Mean expenditure of \$5,577, slightly higher than K–8 schools</li>
-<li><strong>K–8 schools</strong> (359 districts): Mean expenditure of \$5,267, with a larger sample size</li>
-<li>K–6 schools indicating higher variability, with a standard deviation of \$662 compared to \$618 for K-8 schools</li>
+<li><strong>K–6 schools</strong> (61 districts): Mean expenditure of <span class="mathjax_ignore">$5,577,</span> slightly higher than K–8 schools</li>
+<li><strong>K–8 schools</strong> (359 districts): Mean expenditure of <span class="mathjax_ignore">$5,267,</span> with a larger sample size</li>
+<li>K–6 schools indicating higher variability, with a standard deviation of <span class="mathjax_ignore">$662</span> compared to <span class="mathjax_ignore">$618</span> for K-8 schools</li>
 <li><strong>Skewness</strong> is positive for both groups, with K–8 schools showing slightly more skewness</li>
 <li>The difference suggests that <strong>smaller grade span districts may have slightly higher per-pupil spending</strong></li>
 </ul>
@@ -1294,8 +1294,8 @@ sample estimates:
 <p>Summary statistics:</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>      n   min mean median  max sd skewness kurtosis
-1 10000 -2.09    0  -0.17 5.29  1     0.87     3.65</code></pre>
+<pre><code>      n   min mean median  max   sd skewness kurtosis
+1 10000 -1.82    0  -0.17 4.44 0.99     0.83     3.42</code></pre>
 </div>
 </div>
 <p><img src="filters/emoji/1f4a1.png" style="height:1em"> Note that for a positive skewed distribution, <strong>the mean is larger than the median</strong> because the long right tail pulls the mean above the median.</p>
@@ -1332,8 +1332,8 @@ sample estimates:
 <p>Summary statistics:</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>      n  min mean median  max   sd skewness kurtosis
-1 10000 -5.3    0   0.17 1.86 0.99    -0.88     3.64</code></pre>
+<pre><code>      n   min mean median  max   sd skewness kurtosis
+1 10000 -4.87    0   0.18 1.89 0.99    -0.86      3.6</code></pre>
 </div>
 </div>
 <p><img src="filters/emoji/1f4a1.png" style="height:1em"> Note that for a negatively skewed distribution, <strong>the mean is smaller than the median</strong> because the long left tail pulls the mean above the median.</p>
@@ -1378,8 +1378,8 @@ sample estimates:
 <p>Summary statistics:</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>     n    min mean median   max   sd skewness kurtosis
-1 1000 -19.58 0.11   0.09 10.06 1.74    -1.47     24.2</code></pre>
+<pre><code>     n    min  mean median  max   sd skewness kurtosis
+1 1000 -18.43 -0.02   0.03 10.2 1.74    -1.99    29.12</code></pre>
 </div>
 </div>
 <p><strong>Understanding Fat Tails (High Kurtosis):</strong></p>
@@ -1421,7 +1421,7 @@ sample estimates:
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>     n   min mean median  max   sd skewness kurtosis
-1 1000 -1.21    0   0.01 1.18 0.59        0     1.93</code></pre>
+1 1000 -1.18 0.02   0.02 1.17 0.59    -0.02     1.79</code></pre>
 </div>
 </div>
 <p><strong>Understanding Thin Tails (Low Kurtosis):</strong></p>

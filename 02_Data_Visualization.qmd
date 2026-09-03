@@ -89,7 +89,7 @@ This summary provides key insights into our dataset:
 
 - **Continuous variables** (students, teachers, expenditure, income, etc.) show their distribution through quartiles, mean, and range
 - **Categorical variables** (county, grades) show frequency counts
-- Notice the **range of expenditure** per student: from around \\$3,900 to over \\$7,700 - this substantial variation will be a key focus of our analysis
+- Notice the **range of expenditure** per student: from around [\$3,900]{.mathjax_ignore} to over [\$7,700]{.mathjax_ignore} - this substantial variation will be a key focus of our analysis
 - **Test scores** (reading and math) also show considerable variation, suggesting potential relationships with school resources
 
 ### Expenditure Variation Analysis
@@ -137,9 +137,9 @@ quick_summary(cas$expenditure) %>% round(2)
 
 **Interpreting the Results:**
 
-- **Range:** Expenditure varies from about \\$3,926 to \\$7,712 per student - a difference of nearly \\$4,000
-- **Central Tendency:** The mean (\\$5,312) is slightly higher than the median (\\$5,196), **suggesting a slight right skew**
-- **Variability:** Standard deviation of \\$633 indicates moderate spread around the mean
+- **Range:** Expenditure varies from about [\$3,926]{.mathjax_ignore} to [\$7,712]{.mathjax_ignore} per student - a difference of nearly [\$4,000]{.mathjax_ignore}
+- **Central Tendency:** The mean ([\$5,312]{.mathjax_ignore}) is slightly higher than the median ([\$5,196]{.mathjax_ignore}), **suggesting a slight right skew**
+- **Variability:** Standard deviation of [\$633]{.mathjax_ignore} indicates moderate spread around the mean
 - **Skewness (1.07):** Positive skewness confirms some districts spend considerably more than average
 - **Kurtosis (4.88):** Larger than 3 indicates a distribution with fat tails relative to the normal distribution.
 
@@ -156,7 +156,7 @@ ggplot(cas, aes(x = expenditure)) +
 
 **What the Histogram Reveals:**
 
-- Most districts cluster around the \\$5,000–\\$5,500 range
+- Most districts cluster around the [\$5,000]{.mathjax_ignore}–[\$5,500]{.mathjax_ignore} range
 - Variability is moderate
 - The distribution has a long right tail, indicating positive skewness. That suggests that expenditure per student is concentrated at lower values for most districts, while a smaller number of districts spend substantially more, pulling the mean above the median
 - There are **few extreme positive outliers**, indicating some districts do spend significantly more than average
@@ -185,9 +185,9 @@ cas %>%
 
 **Key Findings:**
 
-- **K–6 schools** (61 districts): Mean expenditure of \\$5,577, slightly higher than K–8 schools
-- **K–8 schools** (359 districts): Mean expenditure of \\$5,267, with a larger sample size
-- K–6 schools indicating higher variability, with a standard deviation of \\$662 compared to \\$618 for K-8 schools
+- **K–6 schools** (61 districts): Mean expenditure of [\$5,577,]{.mathjax_ignore} slightly higher than K–8 schools
+- **K–8 schools** (359 districts): Mean expenditure of [\$5,267,]{.mathjax_ignore} with a larger sample size
+- K–6 schools indicating higher variability, with a standard deviation of [\$662]{.mathjax_ignore} compared to [\$618]{.mathjax_ignore} for K-8 schools
 - **Skewness** is positive for both groups, with K--8 schools showing slightly more skewness
 - The difference suggests that **smaller grade span districts may have slightly higher per-pupil spending**
 

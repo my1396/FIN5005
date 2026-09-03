@@ -113,7 +113,7 @@ Why is it important to distinguish between sample and population in business ana
 
 - **Expectation (population):** Average level of the outcome (true but unknown in practice).
   $$
-  \mathbb{E}[X] = \sum_{i} x_i \, P(X = x_i)
+  E[X] = \sum_{i} x_i \, P(X = x_i)
   $$
   **Sample estimator:** Replace the distribution by observed data: 
   $$\bar{X} = \dfrac{1}{n}\sum_{i=1}^n X_i.$$
@@ -121,15 +121,12 @@ Why is it important to distinguish between sample and population in business ana
 
 - **Variance (population):** How much values fluctuate around the true mean.
 
-  $$\text{Var}(X) = E[(X - E[X])^2]$$
+  $$\text{Var}(X) = E(X - E[X])^2 = \sum_{i} (x_i-E(X))^2 P(X=x_i)$$
 
   The variance can also be expressed as:
 
   $$
-  \begin{aligned}
-  \color{#00CC66}{\text{Var}(X)} &= \mathbb{E}\left[\left(X - \mathbb{E}[X]\right)^2\right] \\
-  &= \color{#00CC66}{\mathbb{E}[X^2] - (\mathbb{E}[X])^2}.
-  \end{aligned}
+  \text{Var}(X) = \color{#00CC66}{\mathbb{E}[X^2] - (\mathbb{E}[X])^2}.
   $$
 
   This second form is often faster to compute when you already have (or can easily get) $\mathbb{E}[X^2]$ (e.g., from grouped data or a probability model). In finance, we frequently estimate variance from simulated or historical returns by computing the average of squared returns (giving $\mathbb{E}[X^2]$) and subtracting the square of the average return.
@@ -144,24 +141,37 @@ Why is it important to distinguish between sample and population in business ana
     This version has some desirable properties but we will not discuss these for now. Suffice to say that both versions are usually fine in practice.
 
 ::: {.example #exm-10}
-An electronics store sells 0, 1, or 2 laptops on a given day. Let $X$ be the number sold on a randomly chosen day:
+A logistics company records the number of late deliveries per shift. Let $X$ be the number of late deliveries on a randomly chosen shift:
 
 $$
-P(X=0)=0.2, \qquad P(X=1)=0.5, \qquad P(X=2)=0.3.
+P(X=0)=0.6, \qquad P(X=1)=0.2, \qquad P(X=2)=0.2.
 $$
 
-Compute $\text{Var}(X)$ using the shortcut formula $\mathbb{E}[X^2] - (\mathbb{E}[X])^2$.
+Compute $\text{Var}(X)$ using the shortcut formula $\mathbb{E}[X^2] - (\mathbb{E}[X])^2$ and the variance definition. 
 :::
 
 <button class="solution-btn" onclick="myFunction('sol-10')">Solution</button>
 ::: {#sol-10 .solution-answer .env-green}
+**Using the shortcut formula:**
 $$
 \begin{split}
-\mathbb{E}[X] &= 0(0.2)+1(0.5)+2(0.3)=1.1 \\
-\mathbb{E}[X^2] &= 0^2(0.2)+1^2(0.5)+2^2(0.3)=0+0.5+1.2=1.7 \\
-\text{Var}(X) &= \mathbb{E}[X^2] - (\mathbb{E}[X])^2 = 1.7 - 1.1^2 = 1.7 - 1.21 = 0.49
+\mathbb{E}[X] &= 0(0.6)+1(0.2)+2(0.2)=0+0.2+0.4=0.6 \\
+\mathbb{E}[X^2] &= 0^2(0.6)+1^2(0.2)+2^2(0.2)=0+0.2+0.8=1.0 \\
+\text{Var}(X) &= \mathbb{E}[X^2] - (\mathbb{E}[X])^2 = 1.0 - 0.6^2 = 1.0 - 0.36 = 0.64
 \end{split}
 $$
+**Using the definition of variance:**
+$$
+\begin{split}
+\text{Var}(X) &= E(X-E(X))^2 \\
+&= \sum_i P(X=x_i)(x_i-E(X))^2 \\
+&= 0.6(0-0.6)^2 + 0.2(1-0.6)^2 + 0.2(2-0.6)^2 \\
+&= 0.6(0.36) + 0.2(0.16) + 0.2(1.96) \\
+&= 0.216 + 0.032 + 0.392 \\
+&= 0.64 
+\end{split}
+$$
+Both methods give $\text{Var}(X)=0.64$.
 :::
 
 
@@ -180,7 +190,7 @@ A hedge fund analyzes daily returns of two portfolios. Portfolio A has higher me
 <div id="sol-9" class="solution-answer env-green">Compare risk-adjusted metrics (e.g., Sharpe ratio = (mean - rf)/sd). Higher mean with disproportionate variance may yield lower Sharpe.</div>
 
 ::: {.example #exm-4}
-A business has daily profits of $200, $250, $180, $220, and $210. Calculate the mean and variance.
+A business has daily profits of [\$200, \$250, \$180, \$220, and \$210]{.mathjax_ignore}. Calculate the mean and variance.
 :::
 
 <button class="solution-btn" onclick="myFunction('sol-4')">Solution</button>
@@ -208,7 +218,9 @@ Population variance uses $n$ when treating these 5 observations as the entire po
 ### Sums of Random Variables: Expectation & Variance
 
 Population linearity of expectation:
-$$E[X + Y] = E[X] + E[Y]$$
+$$
+E[X + Y] = E[X] + E[Y]
+$$
 
 Sample counterpart: $\overline{X+Y} = \bar{X} + \bar{Y}$ (sample means add componentwise).
 
@@ -271,13 +283,22 @@ Compute the portfolio's expected return $\mathbb{E}[P]$ and its variance $\text{
 <div id="sol-12" class="solution-answer env-green">
 Expected return (weights pass straight through):
 $$
-\mathbb{E}[P]=0.4(0.08)+0.6(0.12)=0.032+0.072=0.104,
+\begin{aligned}
+\mathbb{E}[P] &= w_a E[A] + w_b E[B] \\
+&= 0.4(0.08)+0.6(0.12)\\
+&= 0.032+0.072 = 0.104,
+\end{aligned}
 $$
 i.e. $10.4\%$.
 
 Variance (weights are squared, and the covariance term enters twice):
 $$
-\text{Var}(P)=0.4^2(0.04)+0.6^2(0.09)+2(0.4)(0.6)(0.01)=0.0064+0.0324+0.0048=0.0436,
+\begin{aligned}
+\text{Var}(P) &= w_a^2\text{Var}(A) + w_b^2\text{Var}(B) + 2 w_a w_b \text{Cov}(A,B) \\
+&= 0.4^2 (0.04) + 0.6^2(0.09) + 2(0.4)(0.6)(0.01) \\
+&= 0.0064 + 0.0324 + 0.0048 \\
+&= 0.0436,
+\end{aligned}
 $$
 so $\text{sd}(P)=\sqrt{0.0436}\approx 0.209$, about $20.9\%$.
 </div>

@@ -679,7 +679,7 @@ window.Quarto = {
   <li><a href="#large-sample-gives-more-accurate-estimates" id="toc-large-sample-gives-more-accurate-estimates" class="nav-link" data-scroll-target="#large-sample-gives-more-accurate-estimates"><span class="header-section-number">5.5</span> Large Sample Gives More Accurate Estimates</a></li>
   <li><a href="#correlated-asset-returns" id="toc-correlated-asset-returns" class="nav-link" data-scroll-target="#correlated-asset-returns"><span class="header-section-number">5.6</span> Correlated Asset Returns</a>
   <ul>
-  <li><a href="#exercise" id="toc-exercise" class="nav-link" data-scroll-target="#exercise"><span class="env-green"><i class="codicon codicon-rocket" style="font-size:2em; "></i> Exercise</span></a></li>
+  <li><a href="#practical-exercise" id="toc-practical-exercise" class="nav-link" data-scroll-target="#practical-exercise"><span class="env-green"><i class="codicon codicon-rocket" style="font-size:2em; "></i>Practical Exercise</span></a></li>
   <li><a href="#reflection" id="toc-reflection" class="nav-link" data-scroll-target="#reflection"><span class="header-section-number">5.6.1</span> Reflection</a></li>
   </ul></li>
   </ul>
@@ -711,7 +711,7 @@ window.Quarto = {
 <section id="instructions" class="level2" data-number="5.1">
 <h2 data-number="5.1" class="anchored" data-anchor-id="instructions"><span class="header-section-number">5.1</span> Instructions</h2>
 <p>Open in Google Colab: <a href="https://colab.research.google.com/drive/1JLABtp6OJUJHmODRHpQ9FQXovp73na_9?usp=share_link">Link</a></p>
-<p>Alternatively, copy and paste the code below into RStuido Desktop or RStudio Cloud.</p>
+<p>Alternatively, copy and paste the R code into RStudio Desktop and run it there.</p>
 <p>Finish Quiz for Lab 1 on Canvas.</p>
 <p>Focus: explore core descriptive statistics and dependence concepts using simple synthetic data.</p>
 <p>You will:</p>
@@ -731,7 +731,7 @@ window.Quarto = {
 <li>Right-skewed transaction values (log-normal)and approx. normal reference sample</li>
 <li>Two correlated asset return series (ρ = 0.90) for sampling exercises</li>
 </ul>
-<p>Run each cell sequentially. Read the comments carefully.</p>
+<p>Run each cell <strong>sequentially</strong>. Read the comments carefully.</p>
 <div id="f8614d24" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># -------- Setup: packages --------</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Unified required package list</span></span>
@@ -759,10 +759,10 @@ Setup complete (packages loaded: tidyverse, data.table, ggsci, moments, knitr, k
 <h2 data-number="5.3" class="anchored" data-anchor-id="independence-vs.-zero-correlation"><span class="header-section-number">5.3</span> Independence vs.&nbsp;Zero Correlation</h2>
 <p>Independence means no influence between events, while correlation measures linear relationship strength.</p>
 <p>Independence implies zero correlation, but zero correlation does not imply independence.</p>
-<p>E.g., <span class="math inline">\(X\)</span> and <span class="math inline">\(Y = X^2\)</span> have zero correlation but are not independent.</p>
-<div id="2596e873" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="28">
+<p>E.g., <span class="math inline">\(X\)</span> and <span class="math inline">\(Y = X^2\)</span> have zero correlation but are NOT independent.</p>
+<div id="2596e873" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- Zero Correlation but NOT Independence: Y = X^2 ----</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Idea: X ~ N(0,1); define Y = X^2.  Then cor(X,Y) ~ 0 (symmetry cancels linear relation),</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Idea: X ~ N(0,1); define Y = X^2. Then cor(X,Y) ~ 0 (symmetry cancels linear relation),</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># yet Y is a deterministic function of X so they are NOT independent.</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2025</span>)</span>
@@ -776,8 +776,8 @@ Setup complete (packages loaded: tidyverse, data.table, ggsci, moments, knitr, k
 </div>
 </div>
 <p>We got <span class="math inline">\(\rho_{X,Y}=0.0198\)</span>. It seems to be close to zero, but we need a statistical test to confirm this formally.</p>
-<p>→ Test for significance of the correlation coefficient</p>
-<div id="3a0f1de8" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="29">
+<p>→ Test for significance of the correlation coefficient.</p>
+<div id="3a0f1de8" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(X, Y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <pre><code>
@@ -798,12 +798,14 @@ sample estimates:
 <p>A: [Type your answer here]</p>
 <p>Distinguish the two expressions:</p>
 <ul>
-<li>correlation coefficient equals zero <img src="filters/emoji/274c.png" style="height:1em"></li>
-<li>correlation coefficient (statistically) indifferent from zero <img src="filters/emoji/2705.png" style="height:1em"></li>
+<li><p>There is no linear correlation. <img src="filters/emoji/274c.png" style="height:1em"></p>
+<p>We cannot say this because the Corr(X, Y) ≈ 0.02, which is not exactly zero.</p></li>
+<li><p>There is no <span class="env-green">statistically significant</span> linear correlation. <img src="filters/emoji/2705.png" style="height:1em"></p>
+<p>This means there exists a linear correlation, but it is a weak one that is not statistically significant.</p></li>
 </ul>
 <hr>
 <p>Now let’s visualize <span class="math inline">\(Y=X^2\)</span> by plotting the scatter plot.</p>
-<div id="7dd71422" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="30">
+<div id="7dd71422" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">repr.plot.width =</span> <span class="dv">8</span>, <span class="at">repr.plot.height =</span> <span class="dv">7</span>)</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>scatter_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">X =</span> X, <span class="at">Y =</span> Y)</span>
@@ -1015,7 +1017,7 @@ sample estimates:
 <p><img src="filters/emoji/1f4a1.png" style="height:1em"> <strong>Q: Answer the following questions based on the summary statistics and the distribution plots:</strong></p>
 <ul>
 <li>Which asset has the highest mean return?</li>
-<li>Which asset is the most risky? and which one has the most stable returns?</li>
+<li>Which asset is the most risky? And which one has the most stable returns?</li>
 <li>Which asset shows the positive skewness and what does it mean?</li>
 <li>If an investor prefers assets with low risk and return distributions with tails close to normal, which asset is most appropriate?</li>
 <li>Based on mean and standard deviation, which asset has the best risk–return trade-off (highest mean per unit of risk)?</li>
@@ -1025,16 +1027,16 @@ sample estimates:
 </section>
 <section id="large-sample-gives-more-accurate-estimates" class="level2" data-number="5.5">
 <h2 data-number="5.5" class="anchored" data-anchor-id="large-sample-gives-more-accurate-estimates"><span class="header-section-number">5.5</span> Large Sample Gives More Accurate Estimates</h2>
-<p>We have a variable <span class="math inline">\(X\sim N(0,5^2).\)</span></p>
+<p>We have a variable <span class="math inline">\(X \sim N(0, 25),\)</span> that is, <span class="math inline">\(X\)</span> is from a normal distribution with mean 0 and variance 5.</p>
 <p>Normal distribution notation: <span class="math inline">\(X\sim N(\mu, \sigma^2)\)</span> means that <span class="math inline">\(X\)</span> is normally distributed with mean <span class="math inline">\(\mu\)</span> and variance <span class="math inline">\(\sigma^2.\)</span></p>
-<p>The second parameter is the variance, <strong>NOT</strong> the standard deviation.</p>
+<p>Note: The second parameter is the variance, <span class="env-orange"><strong>NOT</strong></span> the standard deviation.</p>
 <p>Now we draw random samples of size 5, 10, 10, … until 5000 from this distribution and compute the sample mean and standard deviation for each sample.</p>
 <p>For each sample, we compute the biased and unbiased sample variance</p>
 <ul>
 <li>The biased sample variance is computed as <span class="math display">\[\frac{1}{n}\sum_{i=1}^n (x_i - \bar{x})^2.\]</span></li>
 <li>The unbiased sample variance is computed as <span class="math display">\[\frac{1}{n-1}\sum_{i=1}^n (x_i - \bar{x})^2\]</span></li>
 </ul>
-<div id="726ae372" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="31">
+<div id="726ae372" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- Simulation: Sample vs Population variance ----</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2025</span>)  <span class="co"># for reproducibility</span></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>true_var <span class="ot">&lt;-</span> <span class="dv">25</span>  <span class="co"># sd^2 with sd=5, true population variance</span></span>
@@ -1118,10 +1120,11 @@ sample estimates:
 <ul>
 <li><strong>As the sample size increases, how do the sample variance estimates compare to the true variance <span class="math inline">\(25\)</span>?</strong></li>
 <li><strong>Does the sample variance converge to the true variance as the sample size increases?</strong></li>
-<li><strong>What is the difference between the biased and unbiased sample variance estimators?</strong></li>
+<li><strong>How does the difference between the biased and unbiased sample variance estimators change as sample size increases?</strong></li>
 </ul>
 <p>A: [Type your answer here]</p>
 <hr>
+<p>The figure below shows the how the sample variance estimates change as the sample size increases. The true (population) variance is 25, shown as the horizontal dashed line. The blue line is the biased sample variance and the orange line is the unbiased sample variance.</p>
 <div id="0fff7b04" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-fig-dpi="600" data-fig-width="9" data-fig-height="6">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- Plot: Convergence of variance estimators ----</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -1149,8 +1152,8 @@ sample estimates:
 </section>
 <section id="correlated-asset-returns" class="level2" data-number="5.6">
 <h2 data-number="5.6" class="anchored" data-anchor-id="correlated-asset-returns"><span class="header-section-number">5.6</span> Correlated Asset Returns</h2>
-<p>We will use data of two (correlated) asset return series and compare the sampling distributions of their sample means and the distribution of the portfolio mean (equal weights).</p>
-<p>We want to show how holding multiple assets can reduce risk through diversification.</p>
+<p>We will use 2,000 days of data on the returns of two (correlated) asset to examine the benfits of diversification.</p>
+<p>You will first calculate the average volatility of the two assets and compare it with that of an equally weighted portfolio.</p>
 <div id="6e243cba" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- Load Correlated Asset Returns Data ----</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>X_demo <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://raw.githubusercontent.com/my1396/FIN5005-Fall2025/refs/heads/main/data/correlated_asset_returns.csv"</span>)</span>
@@ -1239,11 +1242,11 @@ sample estimates:
 <p><img src="filters/emoji/1f4a1.png" style="height:1em"><strong>Q: What is the correlation between the two asset returns? How do their prices move together?</strong></p>
 <p>A: [Type your answer here]</p>
 <hr>
-<section id="exercise" class="level4">
-<h4 class="anchored" data-anchor-id="exercise"><span class="env-green"><i class="codicon codicon-rocket" style="font-size:2em; "></i> Exercise</span></h4>
+<section id="practical-exercise" class="level4">
+<h4 class="anchored" data-anchor-id="practical-exercise"><span class="env-green"><i class="codicon codicon-rocket" style="font-size:2em; "></i>Practical Exercise</span></h4>
 <p>Following the steps below, you will compute the mean and standard deviation of the two asset returns, construct a portfolio, and analyze its properties.</p>
 <p>Step 1: Calculate the standard deviation of Asset A and B returns, respectively.</p>
-<p>Step 2: Construct a equally weighted portfolio of the two assets. Calculate the portfolio returns. <span class="math display">\[
+<p>Step 2: Construct a equally weighted portfolio of the two assets. Calculate the average portfolio returns. <span class="math display">\[
 E[r_p] = \frac{1}{2} (E[r_A] + E[r_B])
 \]</span></p>
 <p>Step 3: Calculate the standard deviation of the portfolio returns, <span class="math inline">\(\text{sd}(r_p)\)</span>.</p>

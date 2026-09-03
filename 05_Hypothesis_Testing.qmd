@@ -106,7 +106,7 @@ Here is the hypothesis test step by step for the expenditure coefficient in the 
 
 5. Interpretation in context
    
-   Expenditure has a statistically significant positive association with test scores at the 5% level. The point estimate implies that a \$1,000 increase in per-student expenditure is associated with about $0.005749\times 1000=5.75$ points higher test scores. 
+   Expenditure has a statistically significant positive association with test scores at the 5% level. The point estimate implies that a [\$1,000]{.mathjax_ignore} increase in per-student expenditure is associated with about $0.005749\times 1000=5.75$ points higher test scores. 
 :::
 
 --------------------------------------------------------------------------------
@@ -192,7 +192,7 @@ $$
 0.005749 \pm 1.96\times 0.001443 \approx [0.0029,\ 0.0086],
 $$
 
-which corresponds to roughly 2.9 to 8.6 points per \$1,000. 
+which corresponds to roughly 2.9 to 8.6 points per [\$1,000]{.mathjax_ignore}. 
 
 The effect is statistically significant but modest in size, and the low $R^2$ indicates that many other factors also influence test scores.
 

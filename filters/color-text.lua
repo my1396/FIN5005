@@ -78,6 +78,11 @@ local function process_blue_blocks(blocks, fmt)
   return processed
 end
 
+-- Vertical space added after a block-level .blue div (a solution block) so it
+-- does not butt up against the next question. Adjust the multiplier here, or
+-- set the string to '' to switch the skip off.
+local blue_div_skip = '\\vspace{6pt}'
+
 local function wrap_blue_blocks(blocks, fmt)
   local processed_blocks = process_blue_blocks(blocks, fmt)
   
@@ -89,6 +94,9 @@ local function wrap_blue_blocks(blocks, fmt)
       wrapped:insert(b) 
     end
     wrapped:insert(pandoc.RawBlock('latex', '\\endgroup'))
+    if blue_div_skip ~= '' then
+      wrapped:insert(pandoc.RawBlock('latex', blue_div_skip))
+    end
     return wrapped
   else
     return { pandoc.Div(processed_blocks, {class = 'blue', style = 'color: blue;'}) }

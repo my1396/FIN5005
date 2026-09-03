@@ -50,11 +50,25 @@ local unicode_map = {
   ["❗"] = "2757.png"    -- red exclamation mark
 }
 
+-- Resolve the asset directory relative to THIS filter file rather than the
+-- process working directory, which is the document's own folder. Pandoc sets
+-- PANDOC_SCRIPT_FILE to the path given in the YAML: "filters/emoji.lua" when
+-- rendering from the project root, "../filters/emoji.lua" from _lab/ or _quiz/.
+-- That prefix is also what \includegraphics needs, since LaTeX compiles in the
+-- same directory.
+local emoji_dir = ((PANDOC_SCRIPT_FILE or "filters/emoji.lua"):gsub("[^/\\]+$", "")) .. "emoji/"
+local warned = false
+
 local function make_img(filename, alt)
-  local path = "filters/emoji/" .. filename
+  local path = emoji_dir .. filename
   local f = io.open(path, "rb")
   if f then f:close() else
-    -- If the asset is missing, fall back to plain text to keep compilation robust
+    -- If the asset is missing, fall back to plain text to keep compilation
+    -- robust -- but say so once, otherwise the emoji silently stay as text.
+    if not warned then
+      warned = true
+      io.stderr:write("[emoji.lua] asset not found: " .. path .. " (emoji left as text)\n")
+    end
     return pandoc.Str(alt or "")
   end
   local attr = pandoc.Attr("", {}, {height = "1em"})

@@ -40,7 +40,7 @@ This approach is called the **Linear Probability Model (LPM)** because it estima
 2. **Heteroskedasticity**: The error term variance depends on $X$, violating the homoskedasticity assumption. This means standard errors are incorrect.
 
 3. **Nonlinear relationship**: The effect of $X$ on the probability of $Y=1$ is unlikely to be constant across all values of $X$. 
-   For example, increasing income from \\$20,000 to \\$30,000 likely has a different effect on mortgage approval than increasing from \\$200,000 to \\$210,000.
+   For example, increasing income from [\$20,000]{.mathjax_ignore} to [\$30,000]{.mathjax_ignore} likely has a different effect on mortgage approval than increasing from [\$200,000]{.mathjax_ignore} to [\$210,000]{.mathjax_ignore}.
 
 ### The Solution: Logit and Probit Models
 

@@ -448,12 +448,36 @@ INPUT ./images/icon-google-colab.png
 INPUT ./images/icon-google-colab.png
 INPUT ./images/icon-google-colab.png
 INPUT ./images/icon-google-colab.png
+INPUT ./images/colab new notebook.png
+INPUT ./images/colab new notebook.png
+INPUT ./images/colab new notebook.png
+INPUT ./images/colab sessionInfo.png
+INPUT ./images/colab sessionInfo.png
+INPUT ./images/colab sessionInfo.png
+INPUT ./images/R installer.png
+INPUT ./images/R installer.png
+INPUT ./images/R installer.png
+INPUT ./images/RStudio layout.png
+INPUT ./images/RStudio layout.png
+INPUT ./images/RStudio layout.png
+INPUT ./images/rstudio-panes-labeled.png
+INPUT ./images/rstudio-panes-labeled.png
+INPUT ./images/rstudio-panes-labeled.png
+INPUT ./images/rstudio_rscript.png
+INPUT ./images/rstudio_rscript.png
+INPUT ./images/rstudio_rscript.png
+INPUT ./images/rstudio_rscript_cmd.png
+INPUT ./images/rstudio_rscript_cmd.png
+INPUT ./images/rstudio_rscript_cmd.png
+INPUT ./images/rstudio_copilot.png
+INPUT ./images/rstudio_copilot.png
+INPUT ./images/rstudio_copilot.png
 INPUT ./images/Colab lab0.png
 INPUT ./images/Colab lab0.png
 INPUT ./images/Colab lab0.png
-INPUT ./images/Colab open.png
-INPUT ./images/Colab open.png
-INPUT ./images/Colab open.png
+INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/microtype/mt-TU-empty.cfg
+INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/microtype/mt-TU-empty.cfg
+INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/microtype/mt-TU-empty.cfg
 INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/public/lm/lmmi6.tfm
 INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/public/lm/lmmi5.tfm
 INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam7.tfm
@@ -466,9 +490,6 @@ INPUT ./filters/emoji/1f3af.png
 INPUT ./images/Skewness.png
 INPUT ./images/Skewness.png
 INPUT ./images/Skewness.png
-INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/microtype/mt-TU-empty.cfg
-INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/microtype/mt-TU-empty.cfg
-INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/microtype/mt-TU-empty.cfg
 INPUT ./images/t_distribution.png
 INPUT ./images/t_distribution.png
 INPUT ./images/t_distribution.png
@@ -484,6 +505,9 @@ INPUT ./filters/emoji/274c.png
 INPUT ./filters/emoji/2705.png
 INPUT ./filters/emoji/2705.png
 INPUT ./filters/emoji/2705.png
+INPUT ./images/correlation_varying_rho.png
+INPUT ./images/correlation_varying_rho.png
+INPUT ./images/correlation_varying_rho.png
 INPUT ./images/asset_returns_histograms.png
 INPUT ./images/asset_returns_histograms.png
 INPUT ./images/asset_returns_histograms.png
@@ -574,6 +598,9 @@ INPUT ./filters/emoji/1f4a1.png
 INPUT ./06_Multiple_Linear_Regression_files/figure-pdf/fig-scatter-1-1.pdf
 INPUT ./06_Multiple_Linear_Regression_files/figure-pdf/fig-scatter-1-1.pdf
 INPUT ./06_Multiple_Linear_Regression_files/figure-pdf/fig-scatter-1-1.pdf
+INPUT ./images/F-dist_static.png
+INPUT ./images/F-dist_static.png
+INPUT ./images/F-dist_static.png
 INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/public/lm/lmmi10.tfm
 INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/public/lm/lmmi8.tfm
 INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam10.tfm
@@ -586,6 +613,9 @@ INPUT ./06_Multiple_Linear_Regression_files/figure-pdf/fig-scatter-2-1.pdf
 INPUT ./filters/emoji/1f3af.png
 INPUT ./filters/emoji/1f3af.png
 INPUT ./filters/emoji/1f3af.png
+INPUT ./images/change-working-directory-r.png
+INPUT ./images/change-working-directory-r.png
+INPUT ./images/change-working-directory-r.png
 INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/public/lm/lmmi6.tfm
 INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/public/lm/lmmi5.tfm
 INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam5.tfm

@@ -31,7 +31,7 @@ Here are some variables in the dataset which we are going to use in this session
 
 | Variables | Definitions                                                  |
 | --------- | ------------------------------------------------------------ |
-| `medv`    | median value of owner-occupied homes in \$1000s.             |
+| `medv`    | median value of owner-occupied homes in [\$1000s]{.mathjax_ignore}.             |
 | `lstat`   | the percentage of individuals with low socioeconomic status  |
 | `indus`   | proportion of non-retail business acres per town; industrial, office, or commercial land not directly serving consumers.            |
 | `age`     | proportion of owner-occupied units built prior to 1940.      |

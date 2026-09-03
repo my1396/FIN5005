@@ -1,0 +1,282 @@
+%% LaTeX macros for twoside book class
+\usepackage[paper=a4paper, top=30mm, bottom=30mm, inner=25mm, outer=30mm, heightrounded]{geometry}
+
+%% Section numbering: remove trailing dot (e.g., "1." → "1", "1.1." → "1.1")
+\KOMAoptions{numbers=noenddot}
+
+%% TOC: widen number column so two-digit numbers (10+) have a space before the title.
+%% tocindent of each level = tocindent + tocnumwidth of the parent level.
+\RedeclareSectionCommands[tocindent=0pt,   tocnumwidth=2.0em]{chapter}
+\RedeclareSectionCommands[tocindent=2.0em, tocnumwidth=2.7em]{section}
+\RedeclareSectionCommands[tocindent=4.7em, tocnumwidth=3.6em]{subsection}
+\RedeclareSectionCommands[tocindent=8.3em, tocnumwidth=4.6em]{subsubsection}
+
+\usepackage{xcolor}
+% define colors
+\newcommand{\red}[1]{\color[RGB]{185,64,71}{#1}}
+\newcommand{\green}[1]{\color[RGB]{0, 139, 69}{#1}}
+\definecolor{red}{RGB}{185,64,71}
+
+% autowrap code blocks
+\usepackage{fvextra}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,commandchars=\\\{\}}
+
+
+% Configure hyperref for expanded bookmarks
+% Note that this only works for Adobe Acrobat Reader
+\usepackage{hyperref}
+\hypersetup{
+  bookmarksopen = true,       % show TOC with all the subtrees expanded
+  bookmarksopenlevel = 2,     % level to which bookmarks are open
+  pdfpagemode = UseOutlines,
+  bookmarksnumbered = true
+}
+
+%% bullet list
+\usepackage{enumitem}
+\setlist[itemize, 1]{
+    itemsep = 0.5\baselineskip,
+    parsep = 0.2\baselineskip}
+\setlist[itemize, 2]{
+    itemsep = 0.2\baselineskip
+}
+\renewcommand{\tightlist}{\setlength{\itemsep}{0.5\baselineskip}\setlength{\parskip}{0.2\baselineskip}}
+
+%% set font
+\usepackage{fontspec}
+% \setmainfont{XCharter}
+% \setmonofont{Consolas}
+
+% DejaVu font family, wider, easy on the eyes
+\setmainfont{DejaVu Serif}
+\setsansfont{DejaVu Sans}
+\setmonofont{DejaVu Sans Mono}
+
+\usepackage{unicode-math}
+\setmathfont{XCharter-Math.otf} % do NOT delete the .otf extension
+
+
+
+%% define custom unicode characters
+\usepackage{newunicodechar}
+%% for symbols that are not included in the main font, we can use a more symbol robust font to render them, here we use Apple Symbols
+\newfontfamily\symbolfont{DejaVu Sans} % Sans is more readable for symbols, rounder and thicker than Serif; Sans Mono is a bit more compact
+\newunicodechar{→}{{\symbolfont →}}
+\newunicodechar{≈}{{\symbolfont ≈}}
+\newunicodechar{⨯}{{\symbolfont ⨯}}
+\newunicodechar{♂}{{\symbolfont ♂}}
+\newunicodechar{♀}{{\symbolfont ♀}}
+
+%% support for Chinese
+\usepackage{xeCJK}
+\setCJKmainfont{LXGW WenKai}
+\setCJKsansfont{Microsoft YaHei}
+\setCJKmonofont{Maple Mono NF CN}
+
+\usepackage{changepage}   % for the adjustwidth environment
+\usepackage[all]{nowidow} % prevent widow/orphan lines
+\pretolerance = 1000               % Relaxes parameters for line breaks
+\tolerance    = 2000               % Relaxes parameters for line breaks
+
+
+%% table typesetting
+\usepackage{threeparttable, adjustbox}
+\usepackage{booktabs}
+\renewcommand{\arraystretch}{1.3} % increase row spacing
+\usepackage{rotating}  % for sideways table
+\usepackage{lscape} % for landscape table
+\usepackage{float} % for [H] placement specifier
+% Make all tables use [H] placement by default
+% Still takes placement, eg [htbp]; defaults to [H] if no placement is specified
+\makeatletter
+\renewenvironment{table}[1][H]{%
+  \@float{table}[#1]%
+}{%
+  \end@float
+}
+\makeatother
+\usepackage[labelfont={bf}, labelsep=space, skip=4pt]{caption}
+\usepackage{siunitx}
+% define new column types
+\newcommand\mc[1]{\multicolumn{1}{c}{#1}} % center table header
+\usepackage{dcolumn}
+\newcolumntype{d}[1]{D{.}{.}{#1}} % align at decimal point
+
+%% Math symbols
+\usepackage{amsmath, amssymb, textcomp}
+
+%% define TeX macros
+
+% bold face capital letter 大写加粗
+\newcommand{\bA}{\boldsymbol{A}}
+\newcommand{\bB}{\boldsymbol{B}}
+\newcommand{\bC}{\boldsymbol{C}}
+\newcommand{\bD}{\boldsymbol{D}}
+\newcommand{\bE}{\boldsymbol{E}}
+\newcommand{\bF}{\boldsymbol{F}}
+\newcommand{\bG}{\boldsymbol{G}}
+\newcommand{\bH}{\boldsymbol{H}}
+\newcommand{\bI}{\boldsymbol{I}}
+\newcommand{\bJ}{\boldsymbol{J}}
+\newcommand{\bK}{\boldsymbol{K}}
+\newcommand{\bL}{\boldsymbol{L}}
+\newcommand{\bM}{\boldsymbol{M}}
+\newcommand{\bN}{\boldsymbol{N}}
+\newcommand{\bP}{\boldsymbol{P}}
+\newcommand{\bQ}{\boldsymbol{Q}}
+\newcommand{\bR}{\boldsymbol{R}}
+\newcommand{\bS}{\boldsymbol{S}}
+\newcommand{\bT}{\boldsymbol{T}}
+\newcommand{\bU}{\boldsymbol{U}}
+\newcommand{\bV}{\boldsymbol{V}}
+\newcommand{\bW}{\boldsymbol{W}}
+\newcommand{\bX}{\boldsymbol{X}}
+\newcommand{\bY}{\boldsymbol{Y}}
+\newcommand{\bZ}{\boldsymbol{Z}}
+
+% bold face small letter 小写加粗
+\newcommand{\ba}{\boldsymbol{a}}
+\newcommand{\bb}{\boldsymbol{b}}
+\newcommand{\bc}{\boldsymbol{c}}
+\newcommand{\bd}{\boldsymbol{d}}
+\newcommand{\be}{\boldsymbol{e}}
+\newcommand{\bg}{\boldsymbol{g}}
+\newcommand{\bh}{\boldsymbol{h}}
+\newcommand{\bi}{\boldsymbol{i}}
+\newcommand{\bm}{\boldsymbol{m}}
+\newcommand{\bp}{\boldsymbol{p}}
+\newcommand{\bq}{\boldsymbol{q}}
+\newcommand{\br}{\boldsymbol{r}}
+\newcommand{\bs}{\boldsymbol{s}}
+\newcommand{\bt}{\boldsymbol{t}}
+\newcommand{\bu}{\boldsymbol{u}}
+\newcommand{\bv}{\boldsymbol{v}}
+\newcommand{\bw}{\boldsymbol{w}}
+\newcommand{\bx}{\boldsymbol{x}}
+\newcommand{\by}{\boldsymbol{y}}
+
+% math calligraphic font 花体
+\newcommand{\Acal}{\mathcal{A}}
+\newcommand{\Bcal}{\mathcal{B}}
+\newcommand{\Ccal}{\mathcal{C}}
+\newcommand{\Dcal}{\mathcal{D}}
+\newcommand{\Ecal}{\mathcal{E}}
+\newcommand{\Fcal}{\mathcal{F}}
+\newcommand{\Gcal}{\mathcal{G}}
+\newcommand{\Hcal}{\mathcal{H}}
+\newcommand{\Ical}{\mathcal{I}}
+\newcommand{\Jcal}{\mathcal{J}}
+\newcommand{\Kcal}{\mathcal{K}}
+\newcommand{\Lcal}{\mathcal{L}}
+\newcommand{\Mcal}{\mathcal{M}}
+\newcommand{\Ncal}{\mathcal{N}}
+\newcommand{\Ocal}{\mathcal{O}}
+\newcommand{\Pcal}{\mathcal{P}}
+\newcommand{\Qcal}{\mathcal{Q}}
+\newcommand{\Rcal}{\mathcal{R}}
+\newcommand{\Scal}{\mathcal{S}}
+\newcommand{\Tcal}{\mathcal{T}}
+\newcommand{\Ucal}{\mathcal{U}}
+\newcommand{\Vcal}{\mathcal{V}}
+\newcommand{\Wcal}{\mathcal{W}}
+\newcommand{\Xcal}{\mathcal{X}}
+\newcommand{\Ycal}{\mathcal{Y}}
+\newcommand{\Zcal}{\mathcal{Z}}
+
+% blackboard face 黑板粗体
+\newcommand{\A}{\mathbb{A}}
+\newcommand{\B}{\mathbb{B}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\D}{\mathbb{D}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\G}{\mathbb{G}}
+\renewcommand{\H}{\mathbb{H}}
+\newcommand{\I}{\mathbb{I}}
+\newcommand{\J}{\mathbb{J}}
+\newcommand{\K}{\mathbb{K}}
+\renewcommand{\L}{\mathbb{L}}
+\newcommand{\M}{\mathbb{M}}
+\newcommand{\N}{\mathbb{N}}
+\renewcommand{\O}{\mathbb{O}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\renewcommand{\S}{\mathbb{S}}
+\newcommand{\T}{\mathbb{T}}
+\newcommand{\U}{\mathbb{U}}
+\newcommand{\V}{\mathbb{V}}
+\newcommand{\W}{\mathbb{W}}
+\newcommand{\X}{\mathbb{X}}
+\newcommand{\Y}{\mathbb{Y}}
+\newcommand{\Z}{\mathbb{Z}}
+
+% bold face uppercase Greeks
+\newcommand{\bAlpha}{\boldsymbol{\Alpha}}
+\newcommand{\bBeta}{\boldsymbol{\Beta}}
+\newcommand{\bDelta}{\boldsymbol{\Delta}}
+\newcommand{\bEta}{\boldsymbol{\eta}}
+\newcommand{\bGamma}{\boldsymbol{\Gamma}}
+\newcommand{\bLambda}{\boldsymbol{\Lambda}}
+\newcommand{\bOmega}{\boldsymbol{\Omega}}
+\newcommand{\bPhi}{\boldsymbol{\Phi}}
+\newcommand{\bPi}{\boldsymbol{\Pi}}
+\newcommand{\bPsi}{\boldsymbol{\Psi}}
+\newcommand{\bSigma}{\boldsymbol{\Sigma}}
+\newcommand{\bTau}{\boldsymbol{\tau}}
+\newcommand{\bXi}{\boldsymbol{\Xi}}
+
+% bold face lowercase Greeks
+\newcommand{\bbeta}{\boldsymbol{\beta}}
+\newcommand{\bdelta}{\boldsymbol{\delta}}
+\newcommand{\blambda}{\boldsymbol{\lambda}}
+\newcommand{\bmu}{\boldsymbol{\mu}}
+\newcommand{\bphi}{\boldsymbol{\phi}}
+\newcommand{\bpi}{\boldsymbol{\pi}}
+\newcommand{\bpsi}{\boldsymbol{\psi}}
+\newcommand{\brho}{\boldsymbol{\rho}}
+\newcommand{\bsigma}{\boldsymbol{\sigma}}
+\newcommand{\btau}{\boldsymbol{\tau}}
+\newcommand{\bxi}{\boldsymbol{\xi}}
+
+% Functions (single argument)
+\newcommand{\curl}[1]{\left\lbrace #1 \right\rbrace}
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+\newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
+
+% Other operators
+\newcommand{\var}{\mathrm{Var}}
+\newcommand{\cov}{\mathrm{Cov}}
+\newcommand{\cor}{\mathrm{Corr}}
+\newcommand{\diag}{\mathrm{diag}}
+\newcommand{\rank}{\mathrm{rank}}
+\newcommand{\vecc}{\mathrm{vec}}
+\newcommand{\indep}{\perp \! \! \! \perp}
+
+% Remove "0." prefix from subsection and subsubsection numbering
+\makeatletter
+\renewcommand{\thesubsection}{%
+  \ifnum\value{section}=0
+    \arabic{subsection}%
+  \else
+    \thesection.\arabic{subsection}%
+  \fi
+}
+\renewcommand{\thesubsubsection}{%
+  \ifnum\value{subsection}=0
+    \ifnum\value{section}=0
+      \arabic{subsubsection}%
+    \else
+      \thesection.\arabic{subsubsection}%
+    \fi
+  \else
+    \ifnum\value{section}=0
+      \arabic{subsection}.\arabic{subsubsection}%
+    \else
+      \thesection.\arabic{subsection}.\arabic{subsubsection}%
+    \fi
+  \fi
+}
+\makeatother
