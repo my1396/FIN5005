@@ -59,7 +59,7 @@ The dataset includes:
 | `district`    | Character. District code. Unique ID.                         |
 | `school`      | Character. School name.                                      |
 | `county`      | Factor indicating county.                                    |
-| `grades`      | Factor indicating grade span covered by the district’s schools. <br />It takes on two values: <br />- `KK-06`: means the district’s schools serve kindergarten through 6th grade.<br />- `KK-08`: means the district’s schools serve kindergarten through 6th grade. |
+| `grades`      | Factor indicating grade span covered by the district’s schools. <br />It takes on two values: <br />- `KK-06`: means the district’s schools serve kindergarten through 6th grade.<br />- `KK-08`: means the district’s schools serve kindergarten through 8th grade. |
 | `students`    | Total enrollment.                                            |
 | `teachers`    | Number of teachers.                                          |
 | `calworks`    | Percent qualifying for CalWorks (income assistance program). |

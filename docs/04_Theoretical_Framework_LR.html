@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>8&nbsp; Theoretical Framework of Linear Regression – FIN5005 Fall 2026</title>
+<title>9&nbsp; Theoretical Framework of Linear Regression – FIN5005 Fall 2026</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -519,7 +519,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01_introduction.html">Basics</a></li><li class="breadcrumb-item"><a href="./04_Theoretical_Framework_LR.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Theoretical Framework of Linear Regression</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01_introduction.html">Basics</a></li><li class="breadcrumb-item"><a href="./04_Theoretical_Framework_LR.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Theoretical Framework of Linear Regression</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -606,32 +606,38 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./02_Lab-2_Data_Visualization_Asset_Returns.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Lab 2: Data Visualization — Asset Returns</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./03_Linear_Regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Simple Linear Regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Simple Linear Regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./04_Theoretical_Framework_LR.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Theoretical Framework of Linear Regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Theoretical Framework of Linear Regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./05_Hypothesis_Testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Hypothesis Testing and Confidence Intervals</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Hypothesis Testing and Confidence Intervals</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./06_Multiple_Linear_Regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Multiple Linear Regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Multiple Linear Regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./07_Lab-2_dummy-variable.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Lab 2: Regression with Dummy Variables</span></span></a>
+  <a href="./07_Lab-3_dummy-variable.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Lab 2: Regression with Dummy Variables</span></span></a>
   </div>
 </li>
       </ul>
@@ -648,13 +654,13 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./08_Interactions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Interactions of Binary Variables</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Interactions of Binary Variables</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./09_Logistic_Regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Regression with a Binary Dependent Variable</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Regression with a Binary Dependent Variable</span></span></a>
   </div>
 </li>
       </ul>
@@ -669,23 +675,23 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#assumptions-of-linear-regression" id="toc-assumptions-of-linear-regression" class="nav-link active" data-scroll-target="#assumptions-of-linear-regression"><span class="header-section-number">8.1</span> Assumptions of Linear Regression</a></li>
-  <li><a href="#regression-framework-and-ols-estimator" id="toc-regression-framework-and-ols-estimator" class="nav-link" data-scroll-target="#regression-framework-and-ols-estimator"><span class="header-section-number">8.2</span> Regression Framework and OLS Estimator</a>
+  <li><a href="#assumptions-of-linear-regression" id="toc-assumptions-of-linear-regression" class="nav-link active" data-scroll-target="#assumptions-of-linear-regression"><span class="header-section-number">9.1</span> Assumptions of Linear Regression</a></li>
+  <li><a href="#regression-framework-and-ols-estimator" id="toc-regression-framework-and-ols-estimator" class="nav-link" data-scroll-target="#regression-framework-and-ols-estimator"><span class="header-section-number">9.2</span> Regression Framework and OLS Estimator</a>
   <ul>
-  <li><a href="#exact-distribution-of-ols-estimator" id="toc-exact-distribution-of-ols-estimator" class="nav-link" data-scroll-target="#exact-distribution-of-ols-estimator"><span class="header-section-number">8.2.1</span> Exact Distribution of OLS Estimator</a></li>
+  <li><a href="#exact-distribution-of-ols-estimator" id="toc-exact-distribution-of-ols-estimator" class="nav-link" data-scroll-target="#exact-distribution-of-ols-estimator"><span class="header-section-number">9.2.1</span> Exact Distribution of OLS Estimator</a></li>
   </ul></li>
-  <li><a href="#sampling-distribution-of-ols-estimator" id="toc-sampling-distribution-of-ols-estimator" class="nav-link" data-scroll-target="#sampling-distribution-of-ols-estimator"><span class="header-section-number">8.3</span> Sampling Distribution of OLS Estimator</a>
+  <li><a href="#sampling-distribution-of-ols-estimator" id="toc-sampling-distribution-of-ols-estimator" class="nav-link" data-scroll-target="#sampling-distribution-of-ols-estimator"><span class="header-section-number">9.3</span> Sampling Distribution of OLS Estimator</a>
   <ul>
-  <li><a href="#central-limit-theorem-clt" id="toc-central-limit-theorem-clt" class="nav-link" data-scroll-target="#central-limit-theorem-clt"><span class="header-section-number">8.3.1</span> Central Limit Theorem (CLT)</a></li>
-  <li><a href="#clt-example" id="toc-clt-example" class="nav-link" data-scroll-target="#clt-example"><span class="header-section-number">8.3.2</span> CLT Example</a></li>
-  <li><a href="#large-sample-distribution-of-ols-estimator" id="toc-large-sample-distribution-of-ols-estimator" class="nav-link" data-scroll-target="#large-sample-distribution-of-ols-estimator"><span class="header-section-number">8.3.3</span> Large Sample Distribution of OLS Estimator</a></li>
+  <li><a href="#central-limit-theorem-clt" id="toc-central-limit-theorem-clt" class="nav-link" data-scroll-target="#central-limit-theorem-clt"><span class="header-section-number">9.3.1</span> Central Limit Theorem (CLT)</a></li>
+  <li><a href="#clt-example" id="toc-clt-example" class="nav-link" data-scroll-target="#clt-example"><span class="header-section-number">9.3.2</span> CLT Example</a></li>
+  <li><a href="#large-sample-distribution-of-ols-estimator" id="toc-large-sample-distribution-of-ols-estimator" class="nav-link" data-scroll-target="#large-sample-distribution-of-ols-estimator"><span class="header-section-number">9.3.3</span> Large Sample Distribution of OLS Estimator</a></li>
   </ul></li>
-  <li><a href="#measure-of-fit" id="toc-measure-of-fit" class="nav-link" data-scroll-target="#measure-of-fit"><span class="header-section-number">8.4</span> Measure of Fit</a></li>
-  <li><a href="#homoskedasticity" id="toc-homoskedasticity" class="nav-link" data-scroll-target="#homoskedasticity"><span class="header-section-number">8.5</span> Homoskedasticity</a>
+  <li><a href="#measure-of-fit" id="toc-measure-of-fit" class="nav-link" data-scroll-target="#measure-of-fit"><span class="header-section-number">9.4</span> Measure of Fit</a></li>
+  <li><a href="#homoskedasticity" id="toc-homoskedasticity" class="nav-link" data-scroll-target="#homoskedasticity"><span class="header-section-number">9.5</span> Homoskedasticity</a>
   <ul>
-  <li><a href="#detection-of-heteroskedasticity" id="toc-detection-of-heteroskedasticity" class="nav-link" data-scroll-target="#detection-of-heteroskedasticity"><span class="header-section-number">8.5.1</span> Detection of Heteroskedasticity</a></li>
-  <li><a href="#graphical-method" id="toc-graphical-method" class="nav-link" data-scroll-target="#graphical-method"><span class="header-section-number">8.5.2</span> Graphical Method</a></li>
-  <li><a href="#fix-heteroskedasticity" id="toc-fix-heteroskedasticity" class="nav-link" data-scroll-target="#fix-heteroskedasticity"><span class="header-section-number">8.5.3</span> Fix Heteroskedasticity</a></li>
+  <li><a href="#detection-of-heteroskedasticity" id="toc-detection-of-heteroskedasticity" class="nav-link" data-scroll-target="#detection-of-heteroskedasticity"><span class="header-section-number">9.5.1</span> Detection of Heteroskedasticity</a></li>
+  <li><a href="#graphical-method" id="toc-graphical-method" class="nav-link" data-scroll-target="#graphical-method"><span class="header-section-number">9.5.2</span> Graphical Method</a></li>
+  <li><a href="#fix-heteroskedasticity" id="toc-fix-heteroskedasticity" class="nav-link" data-scroll-target="#fix-heteroskedasticity"><span class="header-section-number">9.5.3</span> Fix Heteroskedasticity</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -694,9 +700,9 @@ window.Quarto = {
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01_introduction.html">Basics</a></li><li class="breadcrumb-item"><a href="./04_Theoretical_Framework_LR.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Theoretical Framework of Linear Regression</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01_introduction.html">Basics</a></li><li class="breadcrumb-item"><a href="./04_Theoretical_Framework_LR.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Theoretical Framework of Linear Regression</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Theoretical Framework of Linear Regression</span></h1>
+<h1 class="title"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Theoretical Framework of Linear Regression</span></h1>
 </div>
 
 
@@ -743,8 +749,8 @@ window.Quarto = {
 <p>Q: Why the assumptions matter?</p>
 <p>A: In short, violation of the assumptions may lead to biased or inefficient estimates, incorrect inferences, and unreliable predictions.</p>
 <hr>
-<section id="assumptions-of-linear-regression" class="level2" data-number="8.1">
-<h2 data-number="8.1" class="anchored" data-anchor-id="assumptions-of-linear-regression"><span class="header-section-number">8.1</span> Assumptions of Linear Regression</h2>
+<section id="assumptions-of-linear-regression" class="level2" data-number="9.1">
+<h2 data-number="9.1" class="anchored" data-anchor-id="assumptions-of-linear-regression"><span class="header-section-number">9.1</span> Assumptions of Linear Regression</h2>
 <p>Q: What are the assumptions of linear regression?</p>
 <p>A: The <strong>Gauss-Markov Assumptions</strong> ensure that the Ordinary Least Squares (OLS) estimator is the Best Linear Unbiased Estimator (BLUE).</p>
 <ol type="1">
@@ -767,8 +773,8 @@ window.Quarto = {
 <p>Mathematically, this assumption can be stated as: <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> have <strong>finite kurtosis</strong>.</p></li>
 </ol>
 </section>
-<section id="regression-framework-and-ols-estimator" class="level2" data-number="8.2">
-<h2 data-number="8.2" class="anchored" data-anchor-id="regression-framework-and-ols-estimator"><span class="header-section-number">8.2</span> Regression Framework and OLS Estimator</h2>
+<section id="regression-framework-and-ols-estimator" class="level2" data-number="9.2">
+<h2 data-number="9.2" class="anchored" data-anchor-id="regression-framework-and-ols-estimator"><span class="header-section-number">9.2</span> Regression Framework and OLS Estimator</h2>
 <p>Multiple linear regression models is defined as</p>
 <p><span class="math display">\[
 Y_i = \beta_0 + \beta_1 X_{i1} + \beta_2 X_{i2} + ... + \beta_k X_{ik} + \varepsilon_i
@@ -807,12 +813,12 @@ X_i = \begin{pmatrix}1 \\ X_{i1} \\ X_{i2} \\ \vdots \\ X_{ik}\end{pmatrix}
 <li><strong>Efficiency</strong>: Among all linear unbiased estimators, OLS has the smallest variance</li>
 <li><strong>Consistency</strong>: As sample size <span class="math inline">\(n \to \infty\)</span>, <span class="math inline">\(\hat{\beta}^{OLS} \to \beta\)</span> in probability</li>
 </ul>
-<section id="exact-distribution-of-ols-estimator" class="level3" data-number="8.2.1">
-<h3 data-number="8.2.1" class="anchored" data-anchor-id="exact-distribution-of-ols-estimator"><span class="header-section-number">8.2.1</span> Exact Distribution of OLS Estimator</h3>
+<section id="exact-distribution-of-ols-estimator" class="level3" data-number="9.2.1">
+<h3 data-number="9.2.1" class="anchored" data-anchor-id="exact-distribution-of-ols-estimator"><span class="header-section-number">9.2.1</span> Exact Distribution of OLS Estimator</h3>
 <p>Under the assumption of normally distributed errors, <span class="math inline">\(\boldsymbol{\varepsilon} \vert \boldsymbol{X} \sim N(\boldsymbol{0}, \sigma^2\boldsymbol{I})\)</span>, we have in matrix form</p>
 <p><span id="eq-beta-distribution"><span class="math display">\[
 \hat{\boldsymbol{\beta}} \sim N(\boldsymbol{\beta}, \sigma^2 (\boldsymbol{X}'\boldsymbol{X})^{-1}).
-\tag{8.1}\]</span></span></p>
+\tag{9.1}\]</span></span></p>
 <p>where</p>
 <ul>
 <li><span class="math inline">\(\sigma^2 = \var (\varepsilon_i \mid \bX)\)</span> is the variance of the error term.</li>
@@ -822,7 +828,7 @@ X_i = \begin{pmatrix}1 \\ X_{i1} \\ X_{i2} \\ \vdots \\ X_{ik}\end{pmatrix}
 \end{pmatrix}_{n \times (k+1)}
 \]</span></li>
 </ul>
-<p><a href="#eq-beta-distribution" class="quarto-xref">Equation&nbsp;<span>8.1</span></a> is called the <strong>exact (finite-sample) distribution</strong> of the OLS estimator.</p>
+<p><a href="#eq-beta-distribution" class="quarto-xref">Equation&nbsp;<span>9.1</span></a> is called the <strong>exact (finite-sample) distribution</strong> of the OLS estimator.</p>
 <p><span class="math inline">\(\var(\hat{\bbeta}) = \sigma^2 (\boldsymbol{X}'\boldsymbol{X})^{-1}\)</span> is called the <strong>variance-covariance matrix</strong> of the OLS estimator, often denoted as <span class="math inline">\(V_{\hat\beta}.\)</span></p>
 <p>We estimate <span class="math inline">\(\sigma^2\)</span> with <span class="math inline">\(\hat{\sigma}^2:\)</span> <span class="math display">\[
 \hat{\sigma}^2 = \frac{\sum_{i=1}^ne_i^2}{n-k-1}.
@@ -834,8 +840,8 @@ X_i = \begin{pmatrix}1 \\ X_{i1} \\ X_{i2} \\ \vdots \\ X_{ik}\end{pmatrix}
 \]</span></p>
 </section>
 </section>
-<section id="sampling-distribution-of-ols-estimator" class="level2" data-number="8.3">
-<h2 data-number="8.3" class="anchored" data-anchor-id="sampling-distribution-of-ols-estimator"><span class="header-section-number">8.3</span> Sampling Distribution of OLS Estimator</h2>
+<section id="sampling-distribution-of-ols-estimator" class="level2" data-number="9.3">
+<h2 data-number="9.3" class="anchored" data-anchor-id="sampling-distribution-of-ols-estimator"><span class="header-section-number">9.3</span> Sampling Distribution of OLS Estimator</h2>
 <p>Becausethe OLS estimator <span class="math inline">\(\hat\beta_0, \hat\beta_1, \ldots\)</span> are computed from a randomly drawn sample of data, the estimators themselves are random variables with a probability distribution.</p>
 <p>The sampling distribution describes the values they could take over different possible random samples. In small samples, theses sampling distributions are complicated, but in large samples, they are normal because of the Central Limit Theorem (CLT).</p>
 <div class="callout callout-style-default callout-tip callout-titled" title="Sampling Distribution vs. Exact Distribution">
@@ -854,10 +860,10 @@ Sampling Distribution vs.&nbsp;Exact Distribution
 </ul>
 </div>
 </div>
-<section id="central-limit-theorem-clt" class="level3" data-number="8.3.1">
-<h3 data-number="8.3.1" class="anchored" data-anchor-id="central-limit-theorem-clt"><span class="header-section-number">8.3.1</span> Central Limit Theorem (CLT)</h3>
+<section id="central-limit-theorem-clt" class="level3" data-number="9.3.1">
+<h3 data-number="9.3.1" class="anchored" data-anchor-id="central-limit-theorem-clt"><span class="header-section-number">9.3.1</span> Central Limit Theorem (CLT)</h3>
 <div id="thm-clt" class="theorem" title="Central Limit Theorem (CLT)">
-<p><span class="theorem-title"><strong>Theorem 8.1</strong></span> Suppose that <span class="math inline">\(X_1, \ldots, X_n\)</span> is an independent and identically distributed (iid) sequence with a finite mean <span class="math inline">\(\mathbb{E}(X_i)=\mu\)</span> and variance <span class="math inline">\(\text{Var}(X_i)=\sigma^2\)</span>, where <span class="math inline">\(0&lt;\sigma^2&lt;\infty\)</span>.</p>
+<p><span class="theorem-title"><strong>Theorem 9.1</strong></span> Suppose that <span class="math inline">\(X_1, \ldots, X_n\)</span> is an independent and identically distributed (iid) sequence with a finite mean <span class="math inline">\(\mathbb{E}(X_i)=\mu\)</span> and variance <span class="math inline">\(\text{Var}(X_i)=\sigma^2\)</span>, where <span class="math inline">\(0&lt;\sigma^2&lt;\infty\)</span>.</p>
 <p>Define a sample mean: <span class="math inline">\(\overline{X}=\frac{1}{n}\sum_{i=1}^n X_i.\)</span></p>
 <p>The <span class="env-green"><strong>Lindeberg-Lévy CLT</strong></span> states that</p>
 <p><span class="math display">\[
@@ -898,15 +904,15 @@ Tip
 <p>Because the distribution of <span class="math inline">\(\overline{X}\)</span> approaches the normal distribution as <span class="math inline">\(n\)</span> increases, <span class="math inline">\(\overline{X}\)</span> is said to have an <span class="env-green"><strong>asymptotic normal distribution</strong></span>.</p></li>
 </ul>
 </section>
-<section id="clt-example" class="level3" data-number="8.3.2">
-<h3 data-number="8.3.2" class="anchored" data-anchor-id="clt-example"><span class="header-section-number">8.3.2</span> CLT Example</h3>
+<section id="clt-example" class="level3" data-number="9.3.2">
+<h3 data-number="9.3.2" class="anchored" data-anchor-id="clt-example"><span class="header-section-number">9.3.2</span> CLT Example</h3>
 <p>The amount of time customers spend in a grocery store is a random variable with mean <span class="math inline">\(\mu = 40\)</span> minutes and standard deviation <span class="math inline">\(\sigma = 15\)</span> minutes. Assume each customer’s time in the store is independent of others.</p>
 <p><span class="math display">\[
 \mathbb{E}[X] = \mu = 40, \quad \text{and} \quad \text{SD}(X) = \sigma = 15
 \]</span></p>
 <p>Consider the following probabilities:</p>
 <div id="exm-clt1" class="example theorem">
-<p><span class="theorem-title"><strong>Example 8.1</strong></span> Assuming <span class="math inline">\(X\)</span> is normally distributed, what is the probability that a randomly selected customer spends more than 42 minutes in the store, i.e., compute <span class="math inline">\(P(X &gt; 42)\)</span>?</p>
+<p><span class="theorem-title"><strong>Example 9.1</strong></span> Assuming <span class="math inline">\(X\)</span> is normally distributed, what is the probability that a randomly selected customer spends more than 42 minutes in the store, i.e., compute <span class="math inline">\(P(X &gt; 42)\)</span>?</p>
 <p>Use the <a href="https://drive.google.com/file/d/1Iwec44x4N5AItbpFugbUOKHBIE10cMOw/view?usp=drive_link" target="_blank">normal distribution table</a> to look up the probabilities.</p>
 </div>
 <button class="solution-btn" onclick="myFunction('clt1')">
@@ -930,7 +936,7 @@ P(X &gt; 42) = P(\frac{X-40}{15} &gt; \frac{42-40}{15}) =  P(Z &gt; 0.1333)
 <p>Note that the <strong>specific distribution</strong> for <span class="math inline">\(X\)</span>, i.e., normality here, is <strong>required</strong> to compute the probability for a single customer.</p>
 </div>
 <div id="exm-clt2" class="example theorem">
-<p><span class="theorem-title"><strong>Example 8.2</strong></span> Given a random sample of <span class="math inline">\(n=64\)</span> customers, what is the probability of the average time spent by the 64 customers exceeds 42 minutes, i.e., compute <span class="math inline">\(P(\overline{X}_{64} &gt; 42)\)</span>?</p>
+<p><span class="theorem-title"><strong>Example 9.2</strong></span> Given a random sample of <span class="math inline">\(n=64\)</span> customers, what is the probability of the average time spent by the 64 customers exceeds 42 minutes, i.e., compute <span class="math inline">\(P(\overline{X}_{64} &gt; 42)\)</span>?</p>
 <p>Hint: apply CLT and justify why CLT can be applied here.</p>
 </div>
 <button class="solution-btn" onclick="myFunction('clt2')">
@@ -966,7 +972,7 @@ P(Z &gt; 1.067) = P(Z &lt; -1.067)
 <p><strong>Interpretation:</strong> There is a <strong>14.23%</strong> probability that the average time spent by a random sample of 64 customers exceeds 42 minutes.</p>
 </div>
 <div id="exm-clt3" class="example theorem">
-<p><span class="theorem-title"><strong>Example 8.3</strong></span> Given a random sample of <span class="math inline">\(n=81\)</span> customers, what is the probability of the average time spent by the 81 customers exceeds 42 minutes, i.e., compute <span class="math inline">\(P(\overline{X}_{81} &gt; 42)\)</span>?</p>
+<p><span class="theorem-title"><strong>Example 9.3</strong></span> Given a random sample of <span class="math inline">\(n=81\)</span> customers, what is the probability of the average time spent by the 81 customers exceeds 42 minutes, i.e., compute <span class="math inline">\(P(\overline{X}_{81} &gt; 42)\)</span>?</p>
 </div>
 <button class="solution-btn" onclick="myFunction('clt3')">
 Solution
@@ -997,7 +1003,7 @@ P(Z &gt; 1.20) = P(Z&lt;-1.2) \approx 0.1151
 <p><strong>Interpretation:</strong> A random sample of 16 customers has a <strong>11.51%</strong> chance of yielding an average time above 42 minutes.</p>
 </div>
 <div id="exm-clt4" class="example theorem">
-<p><span class="theorem-title"><strong>Example 8.4</strong></span> Discussion: Compare your results in the three probabilities. Provide a brief interpretation of how the probabilities differ and why.</p>
+<p><span class="theorem-title"><strong>Example 9.4</strong></span> Discussion: Compare your results in the three probabilities. Provide a brief interpretation of how the probabilities differ and why.</p>
 </div>
 <button class="solution-btn" onclick="myFunction('clt4')">
 Solution
@@ -1007,7 +1013,7 @@ Solution
 <li><p>For <strong>a single customer</strong>, there is a <strong>44.83%</strong> chance of spending more than 42 minutes.</p></li>
 <li><p>For the <strong>average of 64 customers</strong>, the probability drops to <strong>14.23%</strong>.</p></li>
 <li><p>For the <strong>average of 81 customers</strong>, it drops further to <strong>11.51%</strong>.</p></li>
-<li><p><strong>Why?</strong> As sample size increases, the variability (standard deviation) of the sample mean decreases, making it less likely to observe extreme values like an average over 42 minutes. This demonstrates the Central Limit Theorem and the stabilizing effect of larger samples. (See <a href="#fig-clt" class="quarto-xref">Figure&nbsp;<span>8.1</span></a> for a graphical illustration.)</p>
+<li><p><strong>Why?</strong> As sample size increases, the variability (standard deviation) of the sample mean decreases, making it less likely to observe extreme values like an average over 42 minutes. This demonstrates the Central Limit Theorem and the stabilizing effect of larger samples. (See <a href="#fig-clt" class="quarto-xref">Figure&nbsp;<span>9.1</span></a> for a graphical illustration.)</p>
 <ul>
 <li>The individual distribution is wider (larger standard deviation), so the chance of extreme values is higher.</li>
 <li>As sample size increases, the standard error decreases, so the distribution of the sample mean becomes narrower.</li>
@@ -1017,13 +1023,13 @@ Solution
 </div>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="fig-clt" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center" width="990" data-fig-pos="H">
+<div id="fig-clt" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-pos="H" data-fig-align="center" width="990">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-clt-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="images/CLT.png" id="fig-clt" class="img-fluid quarto-figure quarto-figure-center anchored figure-img" data-fig-pos="H" width="990">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-clt-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;8.1
+Figure&nbsp;9.1
 </figcaption>
 </figure>
 </div>
@@ -1045,8 +1051,8 @@ Key Takeaways from CLT
 </div>
 </div>
 </section>
-<section id="large-sample-distribution-of-ols-estimator" class="level3" data-number="8.3.3">
-<h3 data-number="8.3.3" class="anchored" data-anchor-id="large-sample-distribution-of-ols-estimator"><span class="header-section-number">8.3.3</span> Large Sample Distribution of OLS Estimator</h3>
+<section id="large-sample-distribution-of-ols-estimator" class="level3" data-number="9.3.3">
+<h3 data-number="9.3.3" class="anchored" data-anchor-id="large-sample-distribution-of-ols-estimator"><span class="header-section-number">9.3.3</span> Large Sample Distribution of OLS Estimator</h3>
 <p>Now we can establish the large sample distribution of the OLS estimator <span class="math inline">\(\hat{\bbeta}\)</span> based on CLT.</p>
 <p>Under the Gauss-Markov assumptions, as <span class="math inline">\(n\to\infty\)</span>, <span class="math display">\[
 \sqrt{n} (\hat{\bbeta} - \bbeta) \xrightarrow{d} N(0, \sigma^2 E(\bX_i\bX_i')^{-1})
@@ -1063,8 +1069,8 @@ Key Takeaways from CLT
 </ul>
 </section>
 </section>
-<section id="measure-of-fit" class="level2" data-number="8.4">
-<h2 data-number="8.4" class="anchored" data-anchor-id="measure-of-fit"><span class="header-section-number">8.4</span> Measure of Fit</h2>
+<section id="measure-of-fit" class="level2" data-number="9.4">
+<h2 data-number="9.4" class="anchored" data-anchor-id="measure-of-fit"><span class="header-section-number">9.4</span> Measure of Fit</h2>
 <p>We often use <span class="math inline">\(R^2\)</span> to measure the goodness of fit of a regression model.</p>
 <ul>
 <li><span class="math inline">\(R^2\)</span> is called “the coefficient of determination.”</li>
@@ -1088,8 +1094,8 @@ R^2 = 1 - \frac{SSR}{SST} = \frac{SST - SSR}{SST} = \frac{SSE}{SST}
 \overline{R}^2 = 1- \frac{n-1}{n-k}(1-R^2) ,
 \]</span> which imposes a penalty as <span class="math inline">\(k\)</span> increases in a given sample size <span class="math inline">\(n\)</span>.</p>
 </section>
-<section id="homoskedasticity" class="level2" data-number="8.5">
-<h2 data-number="8.5" class="anchored" data-anchor-id="homoskedasticity"><span class="header-section-number">8.5</span> Homoskedasticity</h2>
+<section id="homoskedasticity" class="level2" data-number="9.5">
+<h2 data-number="9.5" class="anchored" data-anchor-id="homoskedasticity"><span class="header-section-number">9.5</span> Homoskedasticity</h2>
 <p>Homoskedasticity assumption requires constant variance of the error term across all levels of the independent variable(s).</p>
 <p><span class="math display">\[
 \var(\varepsilon_i | X) = \sigma^2
@@ -1100,11 +1106,11 @@ R^2 = 1 - \frac{SSR}{SST} = \frac{SST - SSR}{SST} = \frac{SSE}{SST}
 \]</span></p>
 <p>that is, the variance of the error term varies with the level of the independent variable(s).</p>
 <p>If the error has heteroskedasticity, <span class="env-green">the standard error under homoskedasticity assumption will be underestimated</span>, leading to invalid t statistics, affecting hypothesis tests and confidence intervals.</p>
-<section id="detection-of-heteroskedasticity" class="level3" data-number="8.5.1">
-<h3 data-number="8.5.1" class="anchored" data-anchor-id="detection-of-heteroskedasticity"><span class="header-section-number">8.5.1</span> Detection of Heteroskedasticity</h3>
+<section id="detection-of-heteroskedasticity" class="level3" data-number="9.5.1">
+<h3 data-number="9.5.1" class="anchored" data-anchor-id="detection-of-heteroskedasticity"><span class="header-section-number">9.5.1</span> Detection of Heteroskedasticity</h3>
 </section>
-<section id="graphical-method" class="level3" data-number="8.5.2">
-<h3 data-number="8.5.2" class="anchored" data-anchor-id="graphical-method"><span class="header-section-number">8.5.2</span> Graphical Method</h3>
+<section id="graphical-method" class="level3" data-number="9.5.2">
+<h3 data-number="9.5.2" class="anchored" data-anchor-id="graphical-method"><span class="header-section-number">9.5.2</span> Graphical Method</h3>
 <p>A common graphical method to detect heteroskedasticity is to plot the residuals against the fitted values or one of the independent variables.</p>
 <p>Recall the CASchools example, we regress TestScore on expenditure.</p>
 <div class="cell" data-layout-align="center">
@@ -1122,8 +1128,8 @@ R^2 = 1 - \frac{SSR}{SST} = \frac{SST - SSR}{SST} = \frac{SSE}{SST}
 <li><p>The spread of residuals seems to <strong>increase slightly with fitted values</strong>, indicating potential heteroskedasticity (non-constant variance of errors). This suggests that the assumption of homoskedasticity may be violated, which could affect the reliability of our coefficient estimates standard errors.</p></li>
 </ul>
 </section>
-<section id="fix-heteroskedasticity" class="level3" data-number="8.5.3">
-<h3 data-number="8.5.3" class="anchored" data-anchor-id="fix-heteroskedasticity"><span class="header-section-number">8.5.3</span> Fix Heteroskedasticity</h3>
+<section id="fix-heteroskedasticity" class="level3" data-number="9.5.3">
+<h3 data-number="9.5.3" class="anchored" data-anchor-id="fix-heteroskedasticity"><span class="header-section-number">9.5.3</span> Fix Heteroskedasticity</h3>
 <p>A quick fix is to use <span class="env-green">heteroskedasticity-robust standard errors</span>, which are valid even when the homoskedasticity assumption is violated.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
@@ -1609,12 +1615,12 @@ Note:                           *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./03_Linear_Regression.html" class="pagination-link" aria-label="Simple Linear Regression">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Simple Linear Regression</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Simple Linear Regression</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./05_Hypothesis_Testing.html" class="pagination-link" aria-label="Hypothesis Testing and Confidence Intervals">
-        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Hypothesis Testing and Confidence Intervals</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Hypothesis Testing and Confidence Intervals</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

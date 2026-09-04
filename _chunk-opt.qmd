@@ -11,6 +11,7 @@ opts <- options(knitr.kable.NA = "")
 <!-- Define chunk option `max.lines` --> 
 <!-- controls max lines printed --> 
 ```{r}
+#| echo: false
 ## Control long outputs via a custom chunk option
 ## eg `max.lines = 10`
 hook_output_default <- knitr::knit_hooks$get('output')
@@ -33,6 +34,7 @@ knitr::knit_hooks$set(output = function(x, options) {
 ```
 
 ```{r}
+#| echo: false
 #' Conditionally include a GIF or a static PNG based on output format
 #'   - If knitting to PDF/LaTeX, extract a specified frame from the GIF and include it as a static PNG.
 #'   - If knitting to HTML/Word, include the original animated GIF.

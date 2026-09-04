@@ -32,11 +32,12 @@ book:
         - 01_introduction.qmd
         - 01_Lab-1_Descriptive-Statistics.ipynb
         - 02_Data_Visualization.qmd
+        - 02_Lab-2_Data_Visualization_Asset_Returns.ipynb
         - 03_Linear_Regression.qmd
         - 04_Theoretical_Framework_LR.qmd
         - 05_Hypothesis_Testing.qmd
         - 06_Multiple_Linear_Regression.qmd
-        - 07_Lab-2_dummy-variable.ipynb
+        - 07_Lab-3_dummy-variable.ipynb
     - part: "Advanced"
       chapters:
         - 08_Interactions.qmd

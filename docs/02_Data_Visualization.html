@@ -65,7 +65,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./03_Linear_Regression.html" rel="next">
+<link href="./02_Lab-2_Data_Visualization_Asset_Returns.html" rel="next">
 <link href="./01_Lab-1_Descriptive-Statistics.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -606,32 +606,38 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./02_Lab-2_Data_Visualization_Asset_Returns.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Lab 2: Data Visualization — Asset Returns</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./03_Linear_Regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Simple Linear Regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Simple Linear Regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./04_Theoretical_Framework_LR.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Theoretical Framework of Linear Regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Theoretical Framework of Linear Regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./05_Hypothesis_Testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Hypothesis Testing and Confidence Intervals</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Hypothesis Testing and Confidence Intervals</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./06_Multiple_Linear_Regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Multiple Linear Regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Multiple Linear Regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./07_Lab-2_dummy-variable.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Lab 2: Regression with Dummy Variables</span></span></a>
+  <a href="./07_Lab-3_dummy-variable.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Lab 2: Regression with Dummy Variables</span></span></a>
   </div>
 </li>
       </ul>
@@ -648,13 +654,13 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./08_Interactions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Interactions of Binary Variables</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Interactions of Binary Variables</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./09_Logistic_Regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Regression with a Binary Dependent Variable</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Regression with a Binary Dependent Variable</span></span></a>
   </div>
 </li>
       </ul>
@@ -843,7 +849,7 @@ window.Quarto = {
 </tr>
 <tr class="even">
 <td><code>grades</code></td>
-<td>Factor indicating grade span covered by the district’s schools. <br>It takes on two values: <br>- <code>KK-06</code>: means the district’s schools serve kindergarten through 6th grade.<br>- <code>KK-08</code>: means the district’s schools serve kindergarten through 6th grade.</td>
+<td>Factor indicating grade span covered by the district’s schools. <br>It takes on two values: <br>- <code>KK-06</code>: means the district’s schools serve kindergarten through 6th grade.<br>- <code>KK-08</code>: means the district’s schools serve kindergarten through 8th grade.</td>
 </tr>
 <tr class="odd">
 <td><code>students</code></td>
@@ -1294,8 +1300,8 @@ sample estimates:
 <p>Summary statistics:</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>      n   min mean median  max   sd skewness kurtosis
-1 10000 -1.82    0  -0.17 4.44 0.99     0.83     3.42</code></pre>
+<pre><code>      n   min  mean median  max   sd skewness kurtosis
+1 10000 -1.86 -0.03  -0.19 4.43 0.98     0.84     3.44</code></pre>
 </div>
 </div>
 <p><img src="filters/emoji/1f4a1.png" style="height:1em"> Note that for a positive skewed distribution, <strong>the mean is larger than the median</strong> because the long right tail pulls the mean above the median.</p>
@@ -1333,7 +1339,7 @@ sample estimates:
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>      n   min mean median  max   sd skewness kurtosis
-1 10000 -4.87    0   0.18 1.89 0.99    -0.86      3.6</code></pre>
+1 10000 -5.12 0.02   0.21 1.78 0.99    -0.91     3.73</code></pre>
 </div>
 </div>
 <p><img src="filters/emoji/1f4a1.png" style="height:1em"> Note that for a negatively skewed distribution, <strong>the mean is smaller than the median</strong> because the long left tail pulls the mean above the median.</p>
@@ -1378,8 +1384,8 @@ sample estimates:
 <p>Summary statistics:</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>     n    min  mean median  max   sd skewness kurtosis
-1 1000 -18.43 -0.02   0.03 10.2 1.74    -1.99    29.12</code></pre>
+<pre><code>     n   min  mean median  max   sd skewness kurtosis
+1 1000 -18.6 -0.06   0.03 7.73 1.79    -2.29    23.49</code></pre>
 </div>
 </div>
 <p><strong>Understanding Fat Tails (High Kurtosis):</strong></p>
@@ -1421,7 +1427,7 @@ sample estimates:
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>     n   min mean median  max   sd skewness kurtosis
-1 1000 -1.18 0.02   0.02 1.17 0.59    -0.02     1.79</code></pre>
+1 1000 -1.18 0.04   0.02 1.19 0.58    -0.04     1.95</code></pre>
 </div>
 </div>
 <p><strong>Understanding Thin Tails (Low Kurtosis):</strong></p>
@@ -1868,8 +1874,8 @@ sample estimates:
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./03_Linear_Regression.html" class="pagination-link" aria-label="Simple Linear Regression">
-        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Simple Linear Regression</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./02_Lab-2_Data_Visualization_Asset_Returns.html" class="pagination-link" aria-label="Lab 2: Data Visualization — Asset Returns">
+        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Lab 2: Data Visualization — Asset Returns</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
