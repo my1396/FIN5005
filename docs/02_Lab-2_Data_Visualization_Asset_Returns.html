@@ -724,6 +724,9 @@ window.Quarto = {
 </header>
 
 
+<p>Open in Google Colab: <a href="https://colab.research.google.com/drive/15klt5pDuQFp413jkLaUeh7rIH_WOlCfK?usp=share_link">Link</a></p>
+<p>Alternatively, copy and paste the R code into RStudio Desktop and run it there.</p>
+<p>Finish Quiz for Lab 2 on Canvas.</p>
 <p>In this lab you will work with daily returns of six <strong>sector indices</strong> on Oslo Børs, covering 2020 to 2025.</p>
 <p><img src="filters/emoji/1f3af.png" style="height:1em"> In this lab, you will learn how to:</p>
 <ul>
@@ -734,9 +737,9 @@ window.Quarto = {
 <section id="setup" class="level2" data-number="7.1">
 <h2 data-number="7.1" class="anchored" data-anchor-id="setup"><span class="header-section-number">7.1</span> Setup</h2>
 <p>Run the cell below once. It installs any missing packages and loads them.</p>
-<div id="c198dda4" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}">
+<div id="c198dda4" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load packages</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>pkgs <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"tidyverse"</span>, <span class="st">"moments"</span>, <span class="st">"data.table"</span>, <span class="st">"ggrepel"</span>, <span class="st">"knitr"</span>, <span class="st">"kableExtra"</span>, <span class="st">"IRdisplay"</span>, <span class="st">"ggsci"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>pkgs <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"tidyverse"</span>, <span class="st">"scales"</span>, <span class="st">"moments"</span>, <span class="st">"data.table"</span>, <span class="st">"ggrepel"</span>, <span class="st">"ggsci"</span>, <span class="st">"knitr"</span>, <span class="st">"kableExtra"</span>, <span class="st">"IRdisplay"</span>)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>missing <span class="ot">&lt;-</span> <span class="fu">setdiff</span>(pkgs, <span class="fu">rownames</span>(<span class="fu">installed.packages</span>()))</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">length</span>(missing) <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="fu">install.packages</span>(missing)</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">invisible</span>(<span class="fu">lapply</span>(pkgs, <span class="cf">function</span>(pkg) <span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(pkg, <span class="at">character.only =</span> <span class="cn">TRUE</span>))))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -744,12 +747,29 @@ window.Quarto = {
 </section>
 <section id="the-data" class="level2" data-number="7.2">
 <h2 data-number="7.2" class="anchored" data-anchor-id="the-data"><span class="header-section-number">7.2</span> The Data</h2>
-<div id="eb40430a" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>f_url <span class="ot">&lt;-</span> <span class="st">"data/NO_6-sector_index_daily.csv"</span></span>
+<div id="eb40430a" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>f_url <span class="ot">&lt;-</span> <span class="st">"https://raw.githubusercontent.com/my1396/FIN5005/refs/heads/main/data/NO_6-sector_index_daily.csv"</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>sector_index <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(f_url, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(sector_index<span class="sc">$</span>sector <span class="sc">%&gt;%</span> <span class="fu">unique</span>())</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># data preview, first and last 5 rows</span></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>sector_index <span class="sc">%&gt;%</span> <span class="fu">as.data.table</span>() <span class="sc">%&gt;%</span> <span class="fu">print</span>(<span class="at">topn =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Consumer Non-Cyclicals" "Energy"                 "Finance"               
+[4] "Industrials"            "Non-Energy Materials"   "Technology"            
+                      sector     p_date          ret     cum_ret
+                      &lt;char&gt;     &lt;Date&gt;        &lt;num&gt;       &lt;num&gt;
+   1: Consumer Non-Cyclicals 2020-01-01  0.000000000 0.000000000
+   2: Consumer Non-Cyclicals 2020-01-02  0.009752173 0.009752173
+   3: Consumer Non-Cyclicals 2020-01-03  0.001509442 0.011276336
+   4: Consumer Non-Cyclicals 2020-01-06 -0.006453360 0.004750205
+   5: Consumer Non-Cyclicals 2020-01-07 -0.003441997 0.001291858
+  ---                                                           
+9392:             Technology 2025-12-25  0.000000000 0.750947066
+9393:             Technology 2025-12-26  0.000000000 0.750947066
+9394:             Technology 2025-12-29  0.022808156 0.790882939
+9395:             Technology 2025-12-30  0.003004201 0.796263111
+9396:             Technology 2025-12-31  0.000000000 0.796263111</code></pre>
+</div>
 </div>
 <section id="variable-description" class="level3" data-number="7.2.1">
 <h3 data-number="7.2.1" class="anchored" data-anchor-id="variable-description"><span class="header-section-number">7.2.1</span> Variable description</h3>
@@ -795,50 +815,39 @@ window.Quarto = {
 <section id="part-1-summary-statistics" class="level2" data-number="7.3">
 <h2 data-number="7.3" class="anchored" data-anchor-id="part-1-summary-statistics"><span class="header-section-number">7.3</span> Part 1 — Summary statistics</h2>
 <p>We will use the helper function to calculate summary statistics for each sector.</p>
-<div id="151b3e03" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>quick_summary <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">data.frame</span>(</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">n =</span> <span class="fu">length</span>(x), <span class="at">min =</span> <span class="fu">min</span>(x), <span class="at">mean =</span> <span class="fu">mean</span>(x), <span class="at">median =</span> <span class="fu">median</span>(x),</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">max =</span> <span class="fu">max</span>(x), <span class="at">sd =</span> <span class="fu">sd</span>(x),</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">skewness =</span> moments<span class="sc">::</span><span class="fu">skewness</span>(x), <span class="at">kurtosis =</span> moments<span class="sc">::</span><span class="fu">kurtosis</span>(x),</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">row.names =</span> <span class="cn">NULL</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="151b3e03" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>quick_summary <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">data.frame</span>(</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">n =</span> <span class="fu">length</span>(x), <span class="at">min =</span> <span class="fu">min</span>(x), <span class="at">mean =</span> <span class="fu">mean</span>(x), <span class="at">median =</span> <span class="fu">median</span>(x),</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">max =</span> <span class="fu">max</span>(x), <span class="at">sd =</span> <span class="fu">sd</span>(x),</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">skewness =</span> moments<span class="sc">::</span><span class="fu">skewness</span>(x), <span class="at">kurtosis =</span> moments<span class="sc">::</span><span class="fu">kurtosis</span>(x),</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">row.names =</span> <span class="cn">NULL</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="task-1.1-summary-statistics-by-sector" class="level3" data-number="7.3.1">
 <h3 data-number="7.3.1" class="anchored" data-anchor-id="task-1.1-summary-statistics-by-sector"><span class="header-section-number">7.3.1</span> <img src="filters/emoji/270d.png" style="height:1em"> Task 1.1 — summary statistics by sector</h3>
-<p>Produce the summary statistics <strong>for each sector</strong>. Note that <code>min</code>, <code>mean</code>, <code>median</code>, <code>max</code> and <code>sd</code> are expressed in <strong>percent</strong>, while <code>skewness</code> and <code>kurtosis</code> are <strong>unitless</strong>.</p>
-<div id="07403fc3" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="77">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>stats_by_sector <span class="ot">&lt;-</span> sector_index <span class="sc">%&gt;%</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(sector) <span class="sc">%&gt;%</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_modify</span>(<span class="sc">~</span> <span class="fu">quick_summary</span>(.x<span class="sc">$</span>ret)) <span class="sc">%&gt;%</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">across</span>(<span class="fu">c</span>(min, mean, median, max, sd), <span class="sc">~</span> <span class="fu">round</span>(.x <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">3</span>)),</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>        <span class="fu">across</span>(<span class="fu">c</span>(skewness, kurtosis), <span class="sc">~</span> <span class="fu">round</span>(.x, <span class="dv">2</span>))</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="fu">publish_mimebundle</span>(<span class="fu">list</span>(</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"text/html"</span> <span class="ot">=</span> <span class="fu">as.character</span>(<span class="fu">kable</span>(stats_by_sector, <span class="at">format =</span> <span class="st">"html"</span>)),</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"text/latex"</span> <span class="ot">=</span> <span class="fu">as.character</span>(</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>        <span class="fu">kable</span>(</span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>            stats_by_sector, <span class="at">format =</span> <span class="st">"latex"</span>, </span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>            <span class="at">booktabs =</span> <span class="cn">TRUE</span>, <span class="at">linesep =</span> <span class="st">""</span></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>        ) <span class="sc">%&gt;%</span></span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>        <span class="fu">kable_styling</span>(<span class="at">latex_options =</span> <span class="st">"scale_down"</span>)</span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Produce the summary statistics <strong>for each sector</strong>.</p>
+<div id="ec93f164" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>stats_by_sector <span class="ot">&lt;-</span> sector_index <span class="sc">%&gt;%</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(sector) <span class="sc">%&gt;%</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_modify</span>(<span class="sc">~</span> <span class="fu">quick_summary</span>(.x<span class="sc">$</span>ret)) <span class="sc">%&gt;%</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>stats_by_sector</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="07403fc3" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="5">
 <div class="cell-output cell-output-display">
 <table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<caption>Descriptive Statistics of Asset Returns</caption>
 <thead>
 <tr class="header">
 <th style="text-align: left;" data-quarto-table-cell-role="th">sector</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">n</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">min</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">mean</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">median</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">max</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">sd</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">min</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">mean</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">median</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">max</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">sd</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">skewness</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">kurtosis</th>
 </tr>
@@ -847,68 +856,68 @@ window.Quarto = {
 <tr class="odd">
 <td style="text-align: left;">Consumer Non-Cyclicals</td>
 <td style="text-align: right;">1566</td>
-<td style="text-align: right;">-15.313</td>
-<td style="text-align: right;">0.033</td>
-<td style="text-align: right;">0.000</td>
-<td style="text-align: right;">6.593</td>
-<td style="text-align: right;">1.291</td>
+<td style="text-align: left;">-15.31%</td>
+<td style="text-align: left;">0.03%</td>
+<td style="text-align: left;">0.00%</td>
+<td style="text-align: left;">6.59%</td>
+<td style="text-align: left;">1.29%</td>
 <td style="text-align: right;">-1.23</td>
 <td style="text-align: right;">18.11</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Energy</td>
 <td style="text-align: right;">1566</td>
-<td style="text-align: right;">-20.096</td>
-<td style="text-align: right;">0.063</td>
-<td style="text-align: right;">0.009</td>
-<td style="text-align: right;">10.297</td>
-<td style="text-align: right;">1.961</td>
+<td style="text-align: left;">-20.10%</td>
+<td style="text-align: left;">0.06%</td>
+<td style="text-align: left;">0.01%</td>
+<td style="text-align: left;">10.30%</td>
+<td style="text-align: left;">1.96%</td>
 <td style="text-align: right;">-0.61</td>
 <td style="text-align: right;">11.79</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Industrials</td>
+<td style="text-align: left;">Finance</td>
 <td style="text-align: right;">1566</td>
-<td style="text-align: right;">-11.417</td>
-<td style="text-align: right;">0.058</td>
-<td style="text-align: right;">0.017</td>
-<td style="text-align: right;">7.249</td>
-<td style="text-align: right;">1.625</td>
-<td style="text-align: right;">-0.51</td>
-<td style="text-align: right;">7.22</td>
+<td style="text-align: left;">-11.14%</td>
+<td style="text-align: left;">0.07%</td>
+<td style="text-align: left;">0.08%</td>
+<td style="text-align: left;">7.84%</td>
+<td style="text-align: left;">1.31%</td>
+<td style="text-align: right;">-0.89</td>
+<td style="text-align: right;">13.71</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Technology</td>
+<td style="text-align: left;">Industrials</td>
 <td style="text-align: right;">1566</td>
-<td style="text-align: right;">-8.365</td>
-<td style="text-align: right;">0.054</td>
-<td style="text-align: right;">0.029</td>
-<td style="text-align: right;">9.004</td>
-<td style="text-align: right;">1.802</td>
-<td style="text-align: right;">0.01</td>
-<td style="text-align: right;">5.41</td>
+<td style="text-align: left;">-11.42%</td>
+<td style="text-align: left;">0.06%</td>
+<td style="text-align: left;">0.02%</td>
+<td style="text-align: left;">7.25%</td>
+<td style="text-align: left;">1.63%</td>
+<td style="text-align: right;">-0.51</td>
+<td style="text-align: right;">7.22</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Non-Energy Materials</td>
 <td style="text-align: right;">1566</td>
-<td style="text-align: right;">-7.737</td>
-<td style="text-align: right;">0.070</td>
-<td style="text-align: right;">0.036</td>
-<td style="text-align: right;">10.023</td>
-<td style="text-align: right;">1.520</td>
+<td style="text-align: left;">-7.74%</td>
+<td style="text-align: left;">0.07%</td>
+<td style="text-align: left;">0.04%</td>
+<td style="text-align: left;">10.02%</td>
+<td style="text-align: left;">1.52%</td>
 <td style="text-align: right;">-0.05</td>
 <td style="text-align: right;">5.59</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Finance</td>
+<td style="text-align: left;">Technology</td>
 <td style="text-align: right;">1566</td>
-<td style="text-align: right;">-11.138</td>
-<td style="text-align: right;">0.069</td>
-<td style="text-align: right;">0.083</td>
-<td style="text-align: right;">7.845</td>
-<td style="text-align: right;">1.308</td>
-<td style="text-align: right;">-0.89</td>
-<td style="text-align: right;">13.71</td>
+<td style="text-align: left;">-8.36%</td>
+<td style="text-align: left;">0.05%</td>
+<td style="text-align: left;">0.03%</td>
+<td style="text-align: left;">9.00%</td>
+<td style="text-align: left;">1.80%</td>
+<td style="text-align: right;">0.01</td>
+<td style="text-align: right;">5.41</td>
 </tr>
 </tbody>
 </table>
@@ -928,35 +937,26 @@ window.Quarto = {
 <section id="task-2.1-box-plot-by-sector" class="level3" data-number="7.4.1">
 <h3 data-number="7.4.1" class="anchored" data-anchor-id="task-2.1-box-plot-by-sector"><span class="header-section-number">7.4.1</span> <img src="filters/emoji/270d.png" style="height:1em"> Task 2.1 — box plot by sector</h3>
 <p>A box plot shows the median (the line inside the box), the interquartile range (the box itself, Q1 to Q3), whiskers reaching to the bulk of the data, and individual points for anything beyond. It is the fastest way to compare several groups side by side.</p>
-<div id="b85a0622" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="18">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>sector_order <span class="ot">&lt;-</span> stats_by_sector <span class="sc">%&gt;%</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(median) <span class="sc">%&gt;%</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pull</span>(sector)</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>sector_order</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># fix factor order</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>sector_index <span class="ot">&lt;-</span> sector_index <span class="sc">%&gt;%</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">sector =</span> <span class="fu">factor</span>(sector, <span class="at">levels =</span> sector_order))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<style>
-.list-inline {list-style: none; margin:0; padding: 0}
-.list-inline>li {display: inline-block}
-.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
-</style>
-<ol class="list-inline"><li>'Consumer Non-Cyclicals'</li><li>'Energy'</li><li>'Industrials'</li><li>'Technology'</li><li>'Non-Energy Materials'</li><li>'Finance'</li></ol>
-</div>
-</div>
-<div id="3d66c7f0" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-fig-dpi="600" data-fig-width="9" data-fig-height="12" data-execution_count="68">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>labels <span class="ot">&lt;-</span> <span class="fu">setNames</span>(<span class="fu">c</span>(<span class="st">"Consumer Staple"</span>, <span class="st">"Energy"</span>, <span class="st">"Industry"</span>, <span class="st">"Tech."</span>, <span class="st">"Non-Engergy"</span>, <span class="st">"Finance"</span>), sector_order)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sector_index, <span class="fu">aes</span>(<span class="at">x =</span> sector, <span class="at">y =</span> ret)) <span class="sc">+</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>(<span class="at">outlier.size =</span> <span class="fl">0.4</span>, <span class="at">outlier.alpha =</span> <span class="fl">0.3</span>, <span class="at">fill =</span> <span class="st">"grey90"</span>) <span class="sc">+</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_discrete</span>(<span class="at">labels =</span> labels) <span class="sc">+</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent) <span class="sc">+</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Daily returns by sector"</span>, <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">"Daily return"</span>) <span class="sc">+</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">14</span>) <span class="sc">+</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">vjust =</span> <span class="dv">1</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>)</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="3d66c7f0" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># fix factor order</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>sector_order <span class="ot">&lt;-</span> stats_by_sector <span class="sc">%&gt;%</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(median) <span class="sc">%&gt;%</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pull</span>(sector)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>sector_index <span class="ot">&lt;-</span> sector_index <span class="sc">%&gt;%</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">sector =</span> <span class="fu">factor</span>(sector, <span class="at">levels =</span> sector_order))</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co"># rename sector labels</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>labels <span class="ot">&lt;-</span> <span class="fu">setNames</span>(<span class="fu">c</span>(<span class="st">"Consumer Staple"</span>, <span class="st">"Energy"</span>, <span class="st">"Industry"</span>, <span class="st">"Tech."</span>, <span class="st">"Non-Engergy"</span>, <span class="st">"Finance"</span>), sector_order)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sector_index, <span class="fu">aes</span>(<span class="at">x =</span> sector, <span class="at">y =</span> ret)) <span class="sc">+</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>(<span class="at">outlier.size =</span> <span class="fl">0.4</span>, <span class="at">outlier.alpha =</span> <span class="fl">0.3</span>, <span class="at">fill =</span> <span class="st">"grey90"</span>) <span class="sc">+</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_discrete</span>(<span class="at">labels =</span> labels) <span class="sc">+</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent) <span class="sc">+</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Daily returns by sector"</span>, <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">"Daily return"</span>) <span class="sc">+</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">14</span>) <span class="sc">+</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">vjust =</span> <span class="dv">1</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>)</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -965,7 +965,7 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<div id="68161390" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="50">
+<div id="68161390" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate IQR</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>sector_IQR <span class="ot">&lt;-</span> sector_index <span class="sc">%&gt;%</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(sector) <span class="sc">%&gt;%</span></span>
@@ -973,7 +973,7 @@ window.Quarto = {
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(<span class="fu">desc</span>(IQR)) <span class="sc">%&gt;%</span></span>
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">left_join</span>(stats_by_sector[<span class="fu">c</span>(<span class="st">"sector"</span>, <span class="st">"sd"</span>)], <span class="at">by =</span> <span class="st">"sector"</span>)</span>
 <span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>results <span class="ot">&lt;-</span> sector_IQR <span class="sc">%&gt;%</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">IQR =</span> scales<span class="sc">::</span><span class="fu">percent</span>(IQR, <span class="at">accuracy =</span> <span class="fl">0.02</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">IQR =</span> scales<span class="sc">::</span><span class="fu">percent</span>(IQR, <span class="at">accuracy =</span> <span class="fl">0.01</span>)) <span class="sc">%&gt;%</span></span>
 <span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">kable</span>(<span class="at">format =</span> <span class="st">"html"</span>)</span>
 <span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="fu">display_html</span>(<span class="fu">as.character</span>(results))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
@@ -989,32 +989,32 @@ window.Quarto = {
 <tr class="odd">
 <td style="text-align: left;">Energy</td>
 <td style="text-align: left;">1.94%</td>
-<td style="text-align: right;">1.961</td>
+<td style="text-align: right;">0.0196119</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Technology</td>
 <td style="text-align: left;">1.88%</td>
-<td style="text-align: right;">1.802</td>
+<td style="text-align: right;">0.0180213</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Non-Energy Materials</td>
-<td style="text-align: left;">1.72%</td>
-<td style="text-align: right;">1.520</td>
+<td style="text-align: left;">1.71%</td>
+<td style="text-align: right;">0.0152026</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Industrials</td>
-<td style="text-align: left;">1.68%</td>
-<td style="text-align: right;">1.625</td>
+<td style="text-align: left;">1.67%</td>
+<td style="text-align: right;">0.0162533</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Consumer Non-Cyclicals</td>
 <td style="text-align: left;">1.32%</td>
-<td style="text-align: right;">1.291</td>
+<td style="text-align: right;">0.0129055</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Finance</td>
 <td style="text-align: left;">1.14%</td>
-<td style="text-align: right;">1.308</td>
+<td style="text-align: right;">0.0130790</td>
 </tr>
 </tbody>
 </table>
@@ -1026,7 +1026,7 @@ window.Quarto = {
 <section id="task-2.2-histogram" class="level3" data-number="7.4.2">
 <h3 data-number="7.4.2" class="anchored" data-anchor-id="task-2.2-histogram"><span class="header-section-number">7.4.2</span> <img src="filters/emoji/270d.png" style="height:1em"> Task 2.2 — histogram</h3>
 <p>The box plot compares sectors; a histogram shows the shape of one distribution in detail. Start with 50 bins.</p>
-<div id="89bfcfcf" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}">
+<div id="89bfcfcf" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>sector_data <span class="ot">&lt;-</span> sector_index <span class="sc">%&gt;%</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>     <span class="fu">filter</span>(sector <span class="sc">==</span> <span class="st">"Consumer Non-Cyclicals"</span>)</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1080,7 +1080,7 @@ Warning message:
 </section>
 <section id="task-2.3-qq-plot" class="level3" data-number="7.4.3">
 <h3 data-number="7.4.3" class="anchored" data-anchor-id="task-2.3-qq-plot"><span class="header-section-number">7.4.3</span> <img src="filters/emoji/270d.png" style="height:1em"> Task 2.3 — QQ plot</h3>
-<div id="2f091ea1" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="62">
+<div id="2f091ea1" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot the QQ plot for Consumer Non-Cyclicals</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sector_data, <span class="fu">aes</span>(<span class="at">sample =</span> ret)) <span class="sc">+</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>     <span class="fu">stat_qq</span>(<span class="at">size =</span> <span class="fl">0.5</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
@@ -1124,7 +1124,7 @@ Warning message:
 <section id="task-4.1-plot-the-cumulative-return" class="level3" data-number="7.5.2">
 <h3 data-number="7.5.2" class="anchored" data-anchor-id="task-4.1-plot-the-cumulative-return"><span class="header-section-number">7.5.2</span> <img src="filters/emoji/270d.png" style="height:1em"> Task 4.1 Plot the cumulative return</h3>
 <p>Draw one line per sector.</p>
-<div id="019fc168" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-fig-dpi="600" data-fig-width="12" data-fig-height="9" data-execution_count="74">
+<div id="019fc168" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>sector_cols <span class="ot">&lt;-</span> <span class="fu">setNames</span>(<span class="fu">pal_d3</span>()(<span class="dv">6</span>), sector_order)</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># the last observation of each sector, used to place the labels</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>ends <span class="ot">&lt;-</span> sector_index <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(sector) <span class="sc">%&gt;%</span> <span class="fu">slice_tail</span>(<span class="at">n =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span> <span class="fu">ungroup</span>()</span>
@@ -1157,10 +1157,10 @@ Warning message:
 </div>
 <p><img src="images/index_cum_returns_line-chart.png" class="img-fluid" style="width:100.0%"></p>
 <p><strong>Q6:</strong> Every sector has one obvious collapse early in the sample. Which sector fell furthest, and what event does the date correspond to? Use the code below to check your reading of the chart against the numbers.</p>
-<div id="74929357" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="66">
+<div id="74929357" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>sector_index <span class="sc">%&gt;%</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(sector) <span class="sc">%&gt;%</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">trough =</span> <span class="fu">min</span>(cum_ret), <span class="at">trough_date =</span> p_date[<span class="fu">which.min</span>(cum_ret)])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(sector) <span class="sc">%&gt;%</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">trough =</span> <span class="fu">min</span>(cum_ret), <span class="at">trough_date =</span> p_date[<span class="fu">which.min</span>(cum_ret)])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <caption>A tibble: 6 × 3</caption>

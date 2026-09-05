@@ -734,7 +734,7 @@ window.Quarto = {
 <h2 data-number="12.1" class="anchored" data-anchor-id="instructions"><span class="header-section-number">12.1</span> Instructions</h2>
 <p>Copy and paste <strong>ALL code</strong> in this page into a new R script file in RStudio. Save the file as <code>lab2_binary_variables.R</code> (we call it a script or a source file). Then, run the code step by step, answering the questions.</p>
 <p>Alternatively, use <a href="https://colab.research.google.com/drive/1EcWkJfhHJOhDEHXaZgu3_f66pnlEum5R?usp=share_link">Google Colab</a>.</p>
-<div id="8cf1cd7a" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="2">
+<div id="8cf1cd7a" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load packages and dataset</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>pkgs <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"tidyverse"</span>, <span class="st">"moments"</span>, <span class="st">"data.table"</span>, <span class="st">"stargazer"</span>)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>missing <span class="ot">&lt;-</span> <span class="fu">setdiff</span>(pkgs, <span class="fu">rownames</span>(<span class="fu">installed.packages</span>()))</span>
@@ -762,12 +762,32 @@ window.Quarto = {
 <figcaption>change-working-directory-r</figcaption>
 </figure>
 </div>
-<div id="1a1b745b" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="3">
+<div id="1a1b745b" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load dataset</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>f_name <span class="ot">&lt;-</span> <span class="st">"CASchools_test_score.csv"</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>cas <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(f_name)</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># data preview, first and last 5 rows</span></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>cas <span class="sc">%&gt;%</span> <span class="fu">as.data.table</span>() <span class="sc">%&gt;%</span> <span class="fu">print</span>(<span class="at">topn =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-bold">Rows: </span><span class="ansi-blue-fg">420</span> <span class="ansi-bold">Columns: </span><span class="ansi-blue-fg">14</span>
+
+<span class="ansi-cyan-fg">──</span> <span class="ansi-bold">Column specification</span> <span class="ansi-cyan-fg">────────────────────────────────────────────────────────</span>
+
+<span class="ansi-bold">Delimiter:</span> ","
+
+<span class="ansi-red-fg">chr</span>  (3): school, county, grades
+
+<span class="ansi-green-fg">dbl</span> (11): district, students, teachers, calworks, lunch, computer, expenditu...
+
+
+
+<span class="ansi-cyan-fg">ℹ</span> Use `spec()` to retrieve the full column specification for this data.
+
+<span class="ansi-cyan-fg">ℹ</span> Specify the column types or set `show_col_types = FALSE` to quiet this message.
+</pre>
+</div>
+</div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     district                          school      county grades students
         &lt;num&gt;                          &lt;char&gt;      &lt;char&gt; &lt;char&gt;    &lt;num&gt;
@@ -816,7 +836,7 @@ window.Quarto = {
 <li><code>TestScore</code>: average test score of students in a school (average of math and reading scores)</li>
 <li><code>str</code>: student-teacher ratio</li>
 </ul>
-<div id="d43744db" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="4">
+<div id="d43744db" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>cas <span class="ot">&lt;-</span> cas <span class="sc">%&gt;%</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">TestScore =</span> (read <span class="sc">+</span> math) <span class="sc">/</span> <span class="dv">2</span>,</span>
@@ -844,12 +864,12 @@ TestScore_i = \beta_0 + \beta_1 D_i + u_i.
 \]</span></p>
 <section id="data-visualization" class="level3" data-number="12.3.1">
 <h3 data-number="12.3.1" class="anchored" data-anchor-id="data-visualization"><span class="header-section-number">12.3.1</span> Data Visualization</h3>
-<div id="a31c1e34" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="5">
+<div id="a31c1e34" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the dummy variable as defined above</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># D=1 (low STR); D=0 (high STR)</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>cas<span class="sc">$</span>D <span class="ot">&lt;-</span> cas<span class="sc">$</span>STR <span class="sc">&lt;</span> <span class="dv">20</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="0358ad10" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="6">
+<div id="0358ad10" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute group means</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>means <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(TestScore <span class="sc">~</span> D, <span class="at">data =</span> cas, mean)</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>means</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -879,7 +899,7 @@ TestScore_i = \beta_0 + \beta_1 D_i + u_i.
 </table>
 </div>
 </div>
-<div id="3cffdd3c" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="8">
+<div id="3cffdd3c" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cas, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(D), <span class="at">y =</span> TestScore)) <span class="sc">+</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># scatter points, spreads the points horizontally so they don't overlap</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="fl">0.1</span>, <span class="at">height =</span> <span class="dv">0</span>, <span class="at">size =</span> <span class="fl">0.5</span>, <span class="at">color =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span></span>
@@ -893,7 +913,7 @@ TestScore_i = \beta_0 + \beta_1 D_i + u_i.
 <span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
 <span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">14</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="52bf9270" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="9">
+<div id="52bf9270" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="8">
 <div class="cell-output cell-output-display">
 <div style="text-align: center;"><img src="images/dummy_plot.png" style="width: 70%; height: auto;"></div>
 </div>
@@ -909,7 +929,7 @@ TestScore_i = \beta_0 + \beta_1 D_i + u_i.
 <li><span class="math inline">\(E(Y_i | D_i = 1) = \beta_0 + \beta_1\)</span>, or <span class="math inline">\(\beta_1 = E(Y_i | D_i = 1) - E(Y_i | D_i = 0).\)</span> Thus, <span class="math inline">\(\beta_1\)</span> is the difference in group-specific expectations, i.e., the difference in expected test score between districts with <span class="math inline">\(STR&lt;20\)</span> and those with <span class="math inline">\(STR \geq 20.\)</span></li>
 </ul>
 <p>We now estimate the dummy regression model as defined by Equations (<a href="#eq-binary-regression" class="quarto-xref"><span>12.1</span></a>) and (<a href="#eq-dummy-variable" class="quarto-xref"><span>12.2</span></a>).</p>
-<div id="d4b324d5" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="10">
+<div id="d4b324d5" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>dummy_model_slr <span class="ot">&lt;-</span> <span class="fu">lm</span>(TestScore <span class="sc">~</span> D, <span class="at">data =</span> cas)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(dummy_model_slr, <span class="at">type =</span> <span class="st">"text"</span>, <span class="at">title =</span> <span class="st">"Dummy Variable Regression Results"</span>, <span class="at">digits =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -947,7 +967,7 @@ Note:               *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
 </section>
 <section id="mlr-with-a-binary-variable" class="level2" data-number="12.4">
 <h2 data-number="12.4" class="anchored" data-anchor-id="mlr-with-a-binary-variable"><span class="header-section-number">12.4</span> MLR with a Binary Variable</h2>
-<div id="d11f30c8" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="11">
+<div id="d11f30c8" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>dummy_model_mlr <span class="ot">&lt;-</span> <span class="fu">lm</span>(TestScore <span class="sc">~</span> computer <span class="sc">+</span> english <span class="sc">+</span> lunch <span class="sc">+</span> D, <span class="at">data =</span> cas)</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(dummy_model_slr, dummy_model_mlr,</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">type =</span> <span class="st">"text"</span>,</span>
@@ -1015,7 +1035,7 @@ Note:                                    *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</c
 <li><span class="math inline">\(H_0\)</span>: The average test scores are the same across schools with different sizes of student-teacher ratios (STR).</li>
 <li><span class="math inline">\(H_1\)</span>: At least one pair of average test scores are different.</li>
 </ul>
-<div id="51be454c" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="12">
+<div id="51be454c" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>cas <span class="ot">&lt;-</span> cas <span class="sc">%&gt;%</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">str_cat =</span> <span class="fu">case_when</span>(</span>
@@ -1031,7 +1051,7 @@ Note:                                    *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</c
     92    253     75 </code></pre>
 </div>
 </div>
-<div id="072f2837" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="13">
+<div id="072f2837" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ANOVA test</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>anova_result <span class="ot">&lt;-</span> <span class="fu">aov</span>(TestScore <span class="sc">~</span> str_cat, <span class="at">data =</span> cas)</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(anova_result)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1044,7 +1064,7 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 </div>
 </div>
 <p>Given the significance level <span class="math inline">\(\alpha = 0.05\)</span>, we reject the null hypothesis (p-value &lt; 0.05) and conclude that at least one pair of average test scores are different across schools with different sizes of student-teacher ratios (STR).</p>
-<div id="029d27d9" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="14">
+<div id="029d27d9" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Box plot of TestScore by str_cat</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>p_anova <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(cas, <span class="fu">aes</span>(<span class="at">x =</span> str_cat, <span class="at">y =</span> TestScore)) <span class="sc">+</span></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">"lightblue"</span>) <span class="sc">+</span></span>
@@ -1084,7 +1104,7 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 \end{aligned}
 \]</span> which imposes two exclusion restrictions.</p>
 <p>Coming back to our California school TestScore example, we can use the two-way ANOVA test to see if the multiple regression model with additional control variables (Model 2) significantly improves the model’s ability to explain the variability in TestScore compared to the simple regression model (Model 1).</p>
-<div id="1c6ab3a5" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="15">
+<div id="1c6ab3a5" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>anova_result2 <span class="ot">&lt;-</span> <span class="fu">anova</span>(dummy_model_slr, dummy_model_mlr)</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>anova_result2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">

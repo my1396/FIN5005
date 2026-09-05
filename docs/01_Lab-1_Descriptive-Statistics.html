@@ -720,7 +720,7 @@ window.Quarto = {
 <p>Alternatively, copy and paste the R code into RStudio Desktop and run it there.</p>
 <p>Finish Quiz for Lab 1 on Canvas.</p>
 <p>Focus: explore core descriptive statistics and dependence concepts using simple synthetic data.</p>
-<p>You will:</p>
+<p><img src="filters/emoji/1f3af.png" style="height:1em"> In this lab, you will learn how to:</p>
 <ul>
 <li>Examine independence &amp; correlation</li>
 <li>Compare skewed and roughly normal distributions</li>
@@ -738,7 +738,7 @@ window.Quarto = {
 <li>Two correlated asset return series (ρ = 0.90) for sampling exercises</li>
 </ul>
 <p>Run each cell <strong>sequentially</strong>. Read the comments carefully.</p>
-<div id="f8614d24" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="3">
+<div id="f8614d24" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># -------- Setup: packages --------</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Unified required package list</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>pkgs <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"tidyverse"</span>, <span class="st">"data.table"</span>, <span class="st">"ggsci"</span>, <span class="st">"moments"</span>, <span class="st">"knitr"</span>, <span class="st">"kableExtra"</span>, <span class="st">"IRdisplay"</span>)</span>
@@ -766,7 +766,7 @@ Setup complete (packages loaded: tidyverse, data.table, ggsci, moments, knitr, k
 <p>Independence means no influence between events, while correlation measures linear relationship strength.</p>
 <p>Independence implies zero correlation, but zero correlation does not imply independence.</p>
 <p>E.g., <span class="math inline">\(X\)</span> and <span class="math inline">\(Y = X^2\)</span> have zero correlation but are NOT independent.</p>
-<div id="2596e873" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}">
+<div id="2596e873" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- Zero Correlation but NOT Independence: Y = X^2 ----</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Idea: X ~ N(0,1); define Y = X^2. Then cor(X,Y) ~ 0 (symmetry cancels linear relation),</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># yet Y is a deterministic function of X so they are NOT independent.</span></span>
@@ -783,7 +783,7 @@ Setup complete (packages loaded: tidyverse, data.table, ggsci, moments, knitr, k
 </div>
 <p>We got <span class="math inline">\(\rho_{X,Y}=0.0198\)</span>. It seems to be close to zero, but we need a statistical test to confirm this formally.</p>
 <p>→ Test for significance of the correlation coefficient.</p>
-<div id="3a0f1de8" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}">
+<div id="3a0f1de8" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(X, Y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <pre><code>
@@ -811,7 +811,7 @@ sample estimates:
 </ul>
 <hr>
 <p>Now let’s visualize <span class="math inline">\(Y=X^2\)</span> by plotting the scatter plot.</p>
-<div id="7dd71422" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}">
+<div id="7dd71422" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">repr.plot.width =</span> <span class="dv">8</span>, <span class="at">repr.plot.height =</span> <span class="dv">7</span>)</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>scatter_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">X =</span> X, <span class="at">Y =</span> Y)</span>
@@ -987,7 +987,7 @@ sample estimates:
 </div>
 </div>
 <p>Plot the histograms of the asset returns to visualize their distributions.</p>
-<div id="0a7c1d55" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}">
+<div id="0a7c1d55" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- Visualization: Histograms with Normal Density Overlay ----</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert to long form</span></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>combined <span class="ot">&lt;-</span> asset_df <span class="sc">%&gt;%</span> <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">everything</span>(), <span class="at">names_to =</span> <span class="st">"type"</span>, <span class="at">values_to =</span> <span class="st">"value"</span>)</span>
@@ -1042,7 +1042,7 @@ sample estimates:
 <li>The biased sample variance is computed as <span class="math display">\[\frac{1}{n}\sum_{i=1}^n (x_i - \bar{x})^2.\]</span></li>
 <li>The unbiased sample variance is computed as <span class="math display">\[\frac{1}{n-1}\sum_{i=1}^n (x_i - \bar{x})^2\]</span></li>
 </ul>
-<div id="726ae372" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}">
+<div id="726ae372" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- Simulation: Sample vs Population variance ----</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2025</span>)  <span class="co"># for reproducibility</span></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>true_var <span class="ot">&lt;-</span> <span class="dv">25</span>  <span class="co"># sd^2 with sd=5, true population variance</span></span>
@@ -1131,7 +1131,7 @@ sample estimates:
 <p>A: [Type your answer here]</p>
 <hr>
 <p>The figure below shows the how the sample variance estimates change as the sample size increases. The true (population) variance is 25, shown as the horizontal dashed line. The blue line is the biased sample variance and the orange line is the unbiased sample variance.</p>
-<div id="0fff7b04" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-fig-dpi="600" data-fig-width="9" data-fig-height="6">
+<div id="0fff7b04" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-fig-dpi="600" data-fig-width="9" data-fig-height="6" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- Plot: Convergence of variance estimators ----</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>results_long <span class="ot">&lt;-</span> results <span class="sc">%&gt;%</span></span>
@@ -1150,7 +1150,7 @@ sample estimates:
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="01_Lab-1_Descriptive-Statistics_files/figure-html/cell-12-output-1.png" width="540" height="360" class="figure-img"></p>
+<p><img src="01_Lab-1_Descriptive-Statistics_files/figure-html/cell-12-output-1.png" width="480" height="420" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -1160,7 +1160,7 @@ sample estimates:
 <h2 data-number="5.6" class="anchored" data-anchor-id="correlated-asset-returns"><span class="header-section-number">5.6</span> Correlated Asset Returns</h2>
 <p>We will use 2,000 days of data on the returns of two (correlated) asset to examine the benfits of diversification.</p>
 <p>You will first calculate the average volatility of the two assets and compare it with that of an equally weighted portfolio.</p>
-<div id="6e243cba" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}">
+<div id="6e243cba" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- Load Correlated Asset Returns Data ----</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>X_demo <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://raw.githubusercontent.com/my1396/FIN5005-Fall2025/refs/heads/main/data/correlated_asset_returns.csv"</span>)</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(X_demo) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Asset_A"</span>, <span class="st">"Asset_B"</span>)  <span class="co"># Rename columns for clarity</span></span>
@@ -1202,7 +1202,7 @@ sample estimates:
 2000:  0.0603  0.0746</code></pre>
 </div>
 </div>
-<div id="44d63c33" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}">
+<div id="44d63c33" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>emp_cor <span class="ot">&lt;-</span> <span class="fu">cor</span>(X_demo)</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>emp_cor</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
@@ -1231,7 +1231,7 @@ sample estimates:
 </div>
 </div>
 <p>Plot the scatter plot of the two asset returns to visualize their relationship.</p>
-<div id="68d62995" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-fig-dpi="300" data-fig-width="8" data-fig-height="7">
+<div id="68d62995" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-fig-dpi="300" data-fig-width="8" data-fig-height="7" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">repr.plot.width =</span> <span class="dv">8</span>, <span class="at">repr.plot.height =</span> <span class="dv">7</span>)</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(X_demo, <span class="fu">aes</span>(Asset_A, Asset_B)) <span class="sc">+</span></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.35</span>, <span class="at">color =</span> <span class="st">'#1b7837'</span>) <span class="sc">+</span></span>
