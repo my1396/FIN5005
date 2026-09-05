@@ -6,6 +6,8 @@
 *.pdf
 # escape pdf output
 !docs/FIN5005-Fall-20??.pdf
+# figures are sources, not build output
+!images/**/*.pdf
 
 # ignore output
 /.quarto/
@@ -18,7 +20,6 @@
 /_lab/
 /_exam/
 /data/cps09mar.csv
-CASchools_test_score.csv
 /.vscode/
 
 # auto generated system files

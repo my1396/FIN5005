@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>12&nbsp; Lab 2: Regression with Dummy Variables – FIN5005 Fall 2026</title>
+<title>12&nbsp; Lab 3: Regression with Dummy Variables – FIN5005 Fall 2026</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -522,7 +522,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01_introduction.html">Basics</a></li><li class="breadcrumb-item"><a href="./07_Lab-3_dummy-variable.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Lab 2: Regression with Dummy Variables</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01_introduction.html">Basics</a></li><li class="breadcrumb-item"><a href="./07_Lab-3_dummy-variable.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Lab 3: Regression with Dummy Variables</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -640,7 +640,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./07_Lab-3_dummy-variable.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Lab 2: Regression with Dummy Variables</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Lab 3: Regression with Dummy Variables</span></span></a>
   </div>
 </li>
       </ul>
@@ -698,9 +698,9 @@ window.Quarto = {
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01_introduction.html">Basics</a></li><li class="breadcrumb-item"><a href="./07_Lab-3_dummy-variable.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Lab 2: Regression with Dummy Variables</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01_introduction.html">Basics</a></li><li class="breadcrumb-item"><a href="./07_Lab-3_dummy-variable.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Lab 3: Regression with Dummy Variables</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Lab 2: Regression with Dummy Variables</span></h1>
+<h1 class="title"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Lab 3: Regression with Dummy Variables</span></h1>
 </div>
 
 
@@ -762,32 +762,12 @@ window.Quarto = {
 <figcaption>change-working-directory-r</figcaption>
 </figure>
 </div>
-<div id="1a1b745b" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="2">
+<div id="1a1b745b" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load dataset</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>f_name <span class="ot">&lt;-</span> <span class="st">"CASchools_test_score.csv"</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>cas <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(f_name)</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># data preview, first and last 5 rows</span></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>cas <span class="sc">%&gt;%</span> <span class="fu">as.data.table</span>() <span class="sc">%&gt;%</span> <span class="fu">print</span>(<span class="at">topn =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<div class="ansi-escaped-output">
-<pre><span class="ansi-bold">Rows: </span><span class="ansi-blue-fg">420</span> <span class="ansi-bold">Columns: </span><span class="ansi-blue-fg">14</span>
-
-<span class="ansi-cyan-fg">──</span> <span class="ansi-bold">Column specification</span> <span class="ansi-cyan-fg">────────────────────────────────────────────────────────</span>
-
-<span class="ansi-bold">Delimiter:</span> ","
-
-<span class="ansi-red-fg">chr</span>  (3): school, county, grades
-
-<span class="ansi-green-fg">dbl</span> (11): district, students, teachers, calworks, lunch, computer, expenditu...
-
-
-
-<span class="ansi-cyan-fg">ℹ</span> Use `spec()` to retrieve the full column specification for this data.
-
-<span class="ansi-cyan-fg">ℹ</span> Specify the column types or set `show_col_types = FALSE` to quiet this message.
-</pre>
-</div>
-</div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     district                          school      county grades students
         &lt;num&gt;                          &lt;char&gt;      &lt;char&gt; &lt;char&gt;    &lt;num&gt;
@@ -1078,7 +1058,7 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="07_Lab-3_dummy-variable_files/figure-html/cell-14-output-1.png" width="420" height="420" class="figure-img"></p>
+<p><img src="07_Lab-3_dummy-variable_files/figure-html/cell-15-output-1.png" width="420" height="420" class="figure-img"></p>
 </figure>
 </div>
 </div>
