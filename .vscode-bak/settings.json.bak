@@ -1,0 +1,42 @@
+{
+    "git.ignoreLimitWarning": true,
+    "Lua.diagnostics.disable": ["undefined-global", "lowercase-global"],
+    "Lua.diagnostics.globals": ["pandoc", "FORMAT"],
+    "Lua.workspace.checkThirdParty": false,
+    "Lua.diagnostics.workspaceDelay": -1,
+    
+    // Terminal shell integration for Radian
+    "terminal.integrated.shellIntegration.enabled": true,
+    "terminal.integrated.shellIntegration.showWelcome": false,
+    "terminal.integrated.shellIntegration.decorationsEnabled": "both",
+    
+    // Radian terminal profile
+    "terminal.integrated.profiles.osx": {
+        "radian": {
+            "path": "/Users/menghan/.local/bin/radian",
+            "args": ["--no-save", "--no-restore"],
+            "icon": "terminal",
+            "env": {
+                "TERM_PROGRAM": "vscode",
+                "VSCODE_SHELL_INTEGRATION": "1"
+            }
+        },
+        "radian-wrapped": {
+            "path": "/bin/bash",
+            "args": ["-c", "exec /Users/menghan/.local/bin/radian --no-save --no-restore"],
+            "icon": "terminal"
+        }
+    },
+    
+    // R terminal settings
+    "r.rterm.mac": "/Users/menghan/.local/bin/radian",
+    "r.rterm.option": ["--no-save", "--no-restore"],
+    "r.bracketedPaste": true,
+    "python-envs.defaultEnvManager": "ms-python.python:conda",
+    "python-envs.defaultPackageManager": "ms-python.python:conda",
+    "python-envs.pythonProjects": [],
+    
+    // Font settings
+    "editor.fontSize": 14,
+    "terminal.integrated.fontSize": 14,
+}

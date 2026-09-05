@@ -968,13 +968,13 @@ window.Quarto = {
 <div id="68161390" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate IQR</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>sector_IQR <span class="ot">&lt;-</span> sector_index <span class="sc">%&gt;%</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(sector) <span class="sc">%&gt;%</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">IQR =</span> <span class="fu">IQR</span>(ret)) <span class="sc">%&gt;%</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(<span class="fu">desc</span>(IQR)) <span class="sc">%&gt;%</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">left_join</span>(stats_by_sector[<span class="fu">c</span>(<span class="st">"sector"</span>, <span class="st">"sd"</span>)], <span class="at">by =</span> <span class="st">"sector"</span>)</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>results <span class="ot">&lt;-</span> sector_IQR <span class="sc">%&gt;%</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">IQR =</span> scales<span class="sc">::</span><span class="fu">percent</span>(IQR, <span class="at">accuracy =</span> <span class="fl">0.01</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">kable</span>(<span class="at">format =</span> <span class="st">"html"</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(sector) <span class="sc">%&gt;%</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">IQR =</span> <span class="fu">IQR</span>(ret)) <span class="sc">%&gt;%</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(IQR)) <span class="sc">%&gt;%</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(stats_by_sector[<span class="fu">c</span>(<span class="st">"sector"</span>, <span class="st">"sd"</span>)], <span class="at">by =</span> <span class="st">"sector"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(IQR<span class="sc">:</span>sd, <span class="sc">~</span> <span class="fu">percent</span>(.x, <span class="at">accuracy =</span> <span class="fl">0.01</span>)))</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>results <span class="ot">&lt;-</span> sector_IQR <span class="sc">%&gt;%</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">format =</span> <span class="st">"html"</span>)</span>
 <span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="fu">display_html</span>(<span class="fu">as.character</span>(results))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
@@ -982,39 +982,39 @@ window.Quarto = {
 <tr class="header">
 <th style="text-align: left;" data-quarto-table-cell-role="th">sector</th>
 <th style="text-align: left;" data-quarto-table-cell-role="th">IQR</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">sd</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">sd</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">Energy</td>
 <td style="text-align: left;">1.94%</td>
-<td style="text-align: right;">0.0196119</td>
+<td style="text-align: left;">1.96%</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Technology</td>
 <td style="text-align: left;">1.88%</td>
-<td style="text-align: right;">0.0180213</td>
+<td style="text-align: left;">1.80%</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Non-Energy Materials</td>
 <td style="text-align: left;">1.71%</td>
-<td style="text-align: right;">0.0152026</td>
+<td style="text-align: left;">1.52%</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Industrials</td>
 <td style="text-align: left;">1.67%</td>
-<td style="text-align: right;">0.0162533</td>
+<td style="text-align: left;">1.63%</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Consumer Non-Cyclicals</td>
 <td style="text-align: left;">1.32%</td>
-<td style="text-align: right;">0.0129055</td>
+<td style="text-align: left;">1.29%</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Finance</td>
 <td style="text-align: left;">1.14%</td>
-<td style="text-align: right;">0.0130790</td>
+<td style="text-align: left;">1.31%</td>
 </tr>
 </tbody>
 </table>
@@ -1160,7 +1160,8 @@ Warning message:
 <div id="74929357" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>sector_index <span class="sc">%&gt;%</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(sector) <span class="sc">%&gt;%</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">trough =</span> <span class="fu">min</span>(cum_ret), <span class="at">trough_date =</span> p_date[<span class="fu">which.min</span>(cum_ret)])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">trough =</span> <span class="fu">min</span>(cum_ret), <span class="at">trough_date =</span> p_date[<span class="fu">which.min</span>(cum_ret)]) <span class="sc">%&gt;%</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(trough, <span class="sc">~</span> <span class="fu">round</span>(.x, <span class="dv">4</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <caption>A tibble: 6 × 3</caption>
@@ -1179,32 +1180,32 @@ Warning message:
 <tbody>
 <tr class="odd">
 <td>Consumer Non-Cyclicals</td>
-<td>-0.2170800</td>
+<td>-0.2171</td>
 <td>2020-03-27</td>
 </tr>
 <tr class="even">
 <td>Energy</td>
-<td>-0.4993290</td>
+<td>-0.4993</td>
 <td>2020-03-18</td>
 </tr>
 <tr class="odd">
 <td>Industrials</td>
-<td>-0.2710391</td>
+<td>-0.2710</td>
 <td>2020-03-23</td>
 </tr>
 <tr class="even">
 <td>Technology</td>
-<td>-0.3395207</td>
+<td>-0.3395</td>
 <td>2020-03-18</td>
 </tr>
 <tr class="odd">
 <td>Non-Energy Materials</td>
-<td>-0.2783739</td>
+<td>-0.2784</td>
 <td>2020-03-18</td>
 </tr>
 <tr class="even">
 <td>Finance</td>
-<td>-0.3957562</td>
+<td>-0.3958</td>
 <td>2020-03-18</td>
 </tr>
 </tbody>

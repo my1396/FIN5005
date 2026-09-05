@@ -25,3 +25,19 @@ CASchools_test_score.csv
 .DS_Store
 ~*
 **/*.quarto_ipynb
+
+# LaTeX build artifacts
+*.aux
+*.bcf
+*.run.xml
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+*.xdv
+*.toc
+*.lof
+*.lot
+*.bbl
+*.blg
