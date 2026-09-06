@@ -47,11 +47,11 @@
 \newunicodechar{♂}{{\symbolfont ♂}}
 \newunicodechar{♀}{{\symbolfont ♀}}
 
-%% support for Chinese
-\usepackage{xeCJK}
-\setCJKmainfont{LXGW WenKai}
-\setCJKsansfont{Microsoft YaHei}
-\setCJKmonofont{Maple Mono NF CN}
+%% support for Chinese (lualatex, not xelatex, so use luatexja-fontspec instead of xeCJK)
+\usepackage{luatexja-fontspec}
+\setmainjfont{LXGW WenKai}
+\setsansjfont{Microsoft YaHei}
+\setmonojfont{Maple Mono NF CN}
 
 \usepackage{changepage}   % for the adjustwidth environment
 \usepackage[all]{nowidow} % prevent widow/orphan lines
@@ -76,7 +76,7 @@
 \usepackage[labelfont={bf}, labelsep=space, skip=4pt]{caption}
 \usepackage{siunitx}
 % define new column types
-\newcommand\mc[1]{\multicolumn{1}{c}{#1}} % center table header
+\renewcommand\mc[1]{\multicolumn{1}{c}{#1}} % center table header (overrides luatexja's CJK mincho-switch shortcut, unused here)
 \usepackage{dcolumn}
 \newcolumntype{d}[1]{D{.}{.}{#1}} % align at decimal point
 

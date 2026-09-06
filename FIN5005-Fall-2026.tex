@@ -107,6 +107,7 @@
 \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
 
 \usepackage{longtable,booktabs,array}
+\newcounter{none} % for unnumbered tables
 \usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
 \usepackage{etoolbox}
@@ -215,11 +216,11 @@
 \newunicodechar{♂}{{\symbolfont ♂}}
 \newunicodechar{♀}{{\symbolfont ♀}}
 
-%% support for Chinese
-\usepackage{xeCJK}
-\setCJKmainfont{LXGW WenKai}
-\setCJKsansfont{Microsoft YaHei}
-\setCJKmonofont{Maple Mono NF CN}
+%% support for Chinese (lualatex, not xelatex, so use luatexja-fontspec instead of xeCJK)
+\usepackage{luatexja-fontspec}
+\setmainjfont{LXGW WenKai}
+\setsansjfont{Microsoft YaHei}
+\setmonojfont{Maple Mono NF CN}
 
 \usepackage{changepage}   % for the adjustwidth environment
 \usepackage[all]{nowidow} % prevent widow/orphan lines
@@ -246,7 +247,7 @@
 \usepackage[labelfont={bf}, labelsep=space, skip=4pt]{caption}
 \usepackage{siunitx}
 % define new column types
-\newcommand\mc[1]{\multicolumn{1}{c}{#1}} % center table header
+\renewcommand\mc[1]{\multicolumn{1}{c}{#1}} % center table header (overrides luatexja's CJK mincho-switch shortcut, unused here)
 \usepackage{dcolumn}
 \newcolumntype{d}[1]{D{.}{.}{#1}} % align at decimal point
 
@@ -501,6 +502,10 @@
 \usepackage{bookmark}
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same}
+% fallback for those not using the hyperref driver hyperxmp:
+\makeatletter
+\@ifundefined{xmpquote}{\newcommand{\xmpquote}[1]{#1}}{}
+\makeatother
 \hypersetup{
   pdftitle={FIN5005 Fall 2026},
   colorlinks=true,
@@ -520,7 +525,6 @@
 
 \renewcommand*\contentsname{Table of contents}
 {
-\hypersetup{linkcolor=}
 \setcounter{tocdepth}{2}
 \tableofcontents
 }
@@ -562,6 +566,7 @@ and competencies to make data driven decisions.
 
 Outline of models and applications we will cover in this course:1
 
+{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}
   >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.1667}}
   >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2188}}
@@ -588,6 +593,7 @@ performance → \textbf{Education} \\
 & Classification, logistic regression & Boston housing value
 determinants → \textbf{Finance} \\
 \end{longtable}
+}
 
 {[}1{]} This is a preliminary plan. Topics and applications are subject
 to change as the course moves forward.
@@ -778,7 +784,7 @@ Office:        & Hovedbygning A257 \\
 
 \chapter{Environment Setup}\label{environment-setup}
 
-\begin{tcolorbox}[enhanced jigsaw, colframe=quarto-callout-note-color-frame, colback=white, breakable, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, leftrule=.75mm, toprule=.15mm, opacityback=0, left=2mm]
+\begin{tcolorbox}[enhanced jigsaw, arc=.35mm, bottomrule=.15mm, breakable, colback=white, colframe=quarto-callout-note-color-frame, left=2mm, leftrule=.75mm, opacityback=0, rightrule=.15mm, toprule=.15mm]
 
 This guide will help you set up your coding environment for FIN5005,
 with both cloud-based and local options available.
@@ -812,6 +818,7 @@ easiest way to get started without worrying about installation issues.
 However, convenience comes at the cost of performance and control. Below
 is a comparison between cloud and local solutions.
 
+{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}
   >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2105}}
   >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3947}}
@@ -840,6 +847,7 @@ stored directly on your computer \\
 Best for & Learning, experimenting, and small projects & Regular
 coursework, larger datasets, and research projects \\
 \end{longtable}
+}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -1073,7 +1081,7 @@ local computer by clicking on ``\textbf{File}'' → ``\textbf{Download}''
 You can also download the notebook as a PDF file by clicking on
 ``\textbf{File}'' → ``\textbf{Print}'' → ``\textbf{Save as PDF}''.
 
-\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-tip-color!10!white, coltitle=black, bottomrule=.15mm, bottomtitle=1mm, opacitybacktitle=0.6, opacityback=0, left=2mm, titlerule=0mm, colframe=quarto-callout-tip-color-frame, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Tip}, colback=white, breakable, toptitle=1mm, arc=.35mm, leftrule=.75mm, rightrule=.15mm, toprule=.15mm]
+\begin{tcolorbox}[enhanced jigsaw, arc=.35mm, bottomrule=.15mm, bottomtitle=1mm, breakable, colback=white, colbacktitle=quarto-callout-tip-color!10!white, colframe=quarto-callout-tip-color-frame, coltitle=black, left=2mm, leftrule=.75mm, opacityback=0, opacitybacktitle=0.6, rightrule=.15mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Tip}, titlerule=0mm, toprule=.15mm, toptitle=1mm]
 
 You need to edit the notebook in Google Colab and then download it for
 submission. If you want to edit the notebook on your local computer, you
@@ -1383,7 +1391,7 @@ LINK}. Contact me if you have any issues joining the classroom.
 \chapter{Probability and Data in Business
 Analytics}\label{probability-and-data-in-business-analytics}
 
-\begin{tcolorbox}[enhanced jigsaw, colframe=quarto-callout-note-color-frame, colback=white, breakable, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, leftrule=.75mm, toprule=.15mm, opacityback=0, left=2mm]
+\begin{tcolorbox}[enhanced jigsaw, arc=.35mm, bottomrule=.15mm, breakable, colback=white, colframe=quarto-callout-note-color-frame, left=2mm, leftrule=.75mm, opacityback=0, rightrule=.15mm, toprule=.15mm]
 
 \includegraphics[width=\linewidth,height=1em,keepaspectratio]{filters/emoji/1f3af.png}
 \textbf{Study Objectives}
@@ -1557,6 +1565,7 @@ characteristics of a probability distribution.
 
 \textbf{k-th central moment}: \(E[(x-\mu)^k]\)
 
+{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}lll@{}}
 \toprule\noalign{}
 Moment & What it Measures & Statistic \\
@@ -1569,6 +1578,7 @@ Moment & What it Measures & Statistic \\
 \textbf{3rd moment} & Asymmetry & Skewness \\
 \textbf{4th moment} & Tail thickness / peakedness & Kurtosis \\
 \end{longtable}
+}
 
 \subsection{Expectation, Variance, and Standard
 Deviation}\label{expectation-variance-and-standard-deviation}
@@ -1913,7 +1923,7 @@ Standardized (population) skewness:
 Sample (bias‑adjusted) skewness estimator:
 \[\hat{\gamma}_1 = \frac{n}{(n-1)(n-2)} \sum_{i=1}^n \left(\frac{X_i-\bar{X}}{s}\right)^3.\]
 
-\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-tip-color!10!white, coltitle=black, bottomrule=.15mm, bottomtitle=1mm, opacitybacktitle=0.6, opacityback=0, left=2mm, titlerule=0mm, colframe=quarto-callout-tip-color-frame, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Tip}, colback=white, breakable, toptitle=1mm, arc=.35mm, leftrule=.75mm, rightrule=.15mm, toprule=.15mm]
+\begin{tcolorbox}[enhanced jigsaw, arc=.35mm, bottomrule=.15mm, bottomtitle=1mm, breakable, colback=white, colbacktitle=quarto-callout-tip-color!10!white, colframe=quarto-callout-tip-color-frame, coltitle=black, left=2mm, leftrule=.75mm, opacityback=0, opacitybacktitle=0.6, rightrule=.15mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Tip}, titlerule=0mm, toprule=.15mm, toptitle=1mm]
 
 Note for skewness and kurtosis, it is NOT expected to hand calculate the
 values, the focus is on
@@ -1990,7 +2000,7 @@ Kyner}.}
 
 \end{figure}%
 
-\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-tip-color!10!white, coltitle=black, bottomrule=.15mm, bottomtitle=1mm, opacitybacktitle=0.6, opacityback=0, left=2mm, titlerule=0mm, colframe=quarto-callout-tip-color-frame, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{For the \(t\)-distribution:}, colback=white, breakable, toptitle=1mm, arc=.35mm, leftrule=.75mm, rightrule=.15mm, toprule=.15mm]
+\begin{tcolorbox}[enhanced jigsaw, arc=.35mm, bottomrule=.15mm, bottomtitle=1mm, breakable, colback=white, colbacktitle=quarto-callout-tip-color!10!white, colframe=quarto-callout-tip-color-frame, coltitle=black, left=2mm, leftrule=.75mm, opacityback=0, opacitybacktitle=0.6, rightrule=.15mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{For the \(t\)-distribution:}, titlerule=0mm, toprule=.15mm, toptitle=1mm]
 
 \begin{itemize}
 \tightlist
@@ -2089,7 +2099,7 @@ Population correlation standardizes covariance to a scale from -1 to 1:
 Independence means knowing one event doesn't affect the other:
 \[P(A \text{ and } B) = P(A) \cdot P(B)\]
 
-\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-caution-color!10!white, coltitle=black, bottomrule=.15mm, bottomtitle=1mm, opacitybacktitle=0.6, opacityback=0, left=2mm, titlerule=0mm, colframe=quarto-callout-caution-color-frame, title=\textcolor{quarto-callout-caution-color}{\faFire}\hspace{0.5em}{Independence vs.~Correlation}, colback=white, breakable, toptitle=1mm, arc=.35mm, leftrule=.75mm, rightrule=.15mm, toprule=.15mm]
+\begin{tcolorbox}[enhanced jigsaw, arc=.35mm, bottomrule=.15mm, bottomtitle=1mm, breakable, colback=white, colbacktitle=quarto-callout-caution-color!10!white, colframe=quarto-callout-caution-color-frame, coltitle=black, left=2mm, leftrule=.75mm, opacityback=0, opacitybacktitle=0.6, rightrule=.15mm, title=\textcolor{quarto-callout-caution-color}{\faFire}\hspace{0.5em}{Independence vs.~Correlation}, titlerule=0mm, toprule=.15mm, toptitle=1mm]
 
 Independence means no influence between events, while correlation
 measures linear relationship strength.
@@ -2155,7 +2165,7 @@ reducing portfolio variance.
 
 \end{refsolution}
 
-\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-caution-color!10!white, coltitle=black, bottomrule=.15mm, bottomtitle=1mm, opacitybacktitle=0.6, opacityback=0, left=2mm, titlerule=0mm, colframe=quarto-callout-caution-color-frame, title=\textcolor{quarto-callout-caution-color}{\faFire}\hspace{0.5em}{Mutually Exclusive vs Independence}, colback=white, breakable, toptitle=1mm, arc=.35mm, leftrule=.75mm, rightrule=.15mm, toprule=.15mm]
+\begin{tcolorbox}[enhanced jigsaw, arc=.35mm, bottomrule=.15mm, bottomtitle=1mm, breakable, colback=white, colbacktitle=quarto-callout-caution-color!10!white, colframe=quarto-callout-caution-color-frame, coltitle=black, left=2mm, leftrule=.75mm, opacityback=0, opacitybacktitle=0.6, rightrule=.15mm, title=\textcolor{quarto-callout-caution-color}{\faFire}\hspace{0.5em}{Mutually Exclusive vs Independence}, titlerule=0mm, toprule=.15mm, toptitle=1mm]
 
 \textbf{Mutually exclusive:} Cannot happen together \[P(A\cap B)=0\]
 
@@ -2196,6 +2206,7 @@ Key principles:
 
 \subsection{Quick Reference Table}\label{quick-reference-table}
 
+{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}
   >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.1364}}
   >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.4848}}
@@ -2234,8 +2245,9 @@ direction \\
 Correlation & \(\rho=\dfrac{\text{Cov}(X,Y)}{\text{sd}(X)\text{sd}(Y)}\)
 & \(r_{XY}=\dfrac{s_{XY}}{s_X s_Y}\) & Scale-free ( -1 to 1 ) \\
 \end{longtable}
+}
 
-\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-tip-color!10!white, coltitle=black, bottomrule=.15mm, bottomtitle=1mm, opacitybacktitle=0.6, opacityback=0, left=2mm, titlerule=0mm, colframe=quarto-callout-tip-color-frame, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Interpretation tip}, colback=white, breakable, toptitle=1mm, arc=.35mm, leftrule=.75mm, rightrule=.15mm, toprule=.15mm]
+\begin{tcolorbox}[enhanced jigsaw, arc=.35mm, bottomrule=.15mm, bottomtitle=1mm, breakable, colback=white, colbacktitle=quarto-callout-tip-color!10!white, colframe=quarto-callout-tip-color-frame, coltitle=black, left=2mm, leftrule=.75mm, opacityback=0, opacitybacktitle=0.6, rightrule=.15mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Interpretation tip}, titlerule=0mm, toprule=.15mm, toptitle=1mm]
 
 If a sample statistic looks extreme (e.g., very high skewness or
 kurtosis), examine sample size and outliers; small samples amplify noise
@@ -2465,22 +2477,17 @@ dbl (3): Asset_A, Asset_B, Asset_C
 \end{verbatim}
 
 A tibble: 6 × 3
-
-\begin{longtable}[]{@{}lll@{}}
-\toprule\noalign{}
-Asset\_A \textless dbl\textgreater{} & Asset\_B
-\textless dbl\textgreater{} & Asset\_C \textless dbl\textgreater{} \\
-\midrule\noalign{}
-\endhead
-\bottomrule\noalign{}
-\endlastfoot
-17.89 & 4.31 & 9.94 \\
-10.30 & 4.17 & 10.55 \\
-20.87 & 14.16 & 6.61 \\
-18.21 & 22.33 & 9.58 \\
-17.49 & 2.23 & 10.23 \\
-29.87 & 15.72 & 8.97 \\
-\end{longtable}
+\begin{tabular}{lll}
+ Asset\_A & Asset\_B & Asset\_C\\
+ <dbl> & <dbl> & <dbl>\\
+\hline
+     17.89 &  4.31 &  9.94\\
+     10.30 &  4.17 & 10.55\\
+     20.87 & 14.16 &  6.61\\
+     18.21 & 22.33 &  9.58\\
+     17.49 &  2.23 & 10.23\\
+     29.87 & 15.72 &  8.97\\
+\end{tabular}
 
 We define a summary statistics function to compute the statistics of
 interest.
@@ -2643,33 +2650,20 @@ Variance estimators: var_n (biased, divide by n) vs var_n1 (unbiased, divide by 
 \end{verbatim}
 
 A data.frame: 9 × 3
-
-\begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}@{}}
-\toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
-sample\_size \textless dbl\textgreater{}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-var\_biased \textless dbl\textgreater{}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-var\_unbiased \textless dbl\textgreater{}
-\end{minipage} \\
-\midrule\noalign{}
-\endhead
-\bottomrule\noalign{}
-\endlastfoot
-5 & 4.262707 & 5.328384 \\
-10 & 14.832929 & 16.481032 \\
-20 & 33.210505 & 34.958426 \\
-50 & 25.332410 & 25.849398 \\
-100 & 24.957059 & 25.209150 \\
-250 & 22.936725 & 23.028840 \\
-500 & 25.862610 & 25.914439 \\
-1000 & 25.574182 & 25.599782 \\
-5000 & 25.301658 & 25.306719 \\
-\end{longtable}
+\begin{tabular}{lll}
+ sample\_size & var\_biased & var\_unbiased\\
+ <dbl> & <dbl> & <dbl>\\
+\hline
+        5 &  4.262707 &  5.328384\\
+       10 & 14.832929 & 16.481032\\
+       20 & 33.210505 & 34.958426\\
+       50 & 25.332410 & 25.849398\\
+      100 & 24.957059 & 25.209150\\
+      250 & 22.936725 & 23.028840\\
+      500 & 25.862610 & 25.914439\\
+     1000 & 25.574182 & 25.599782\\
+     5000 & 25.301658 & 25.306719\\
+\end{tabular}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -2774,17 +2768,12 @@ dbl (2): V1, V2
 \end{Shaded}
 
 A matrix: 2 × 2 of type dbl
-
-\begin{longtable}[]{@{}lll@{}}
-\toprule\noalign{}
-& Asset\_A & Asset\_B \\
-\midrule\noalign{}
-\endhead
-\bottomrule\noalign{}
-\endlastfoot
-Asset\_A & 1.0000000 & 0.9040318 \\
-Asset\_B & 0.9040318 & 1.0000000 \\
-\end{longtable}
+\begin{tabular}{r|ll}
+  & Asset\_A & Asset\_B\\
+\hline
+    Asset\_A & 1.0000000 & 0.9040318\\
+    Asset\_B & 0.9040318 & 1.0000000\\
+\end{tabular}
 
 Plot the scatter plot of the two asset returns to visualize their
 relationship.
@@ -2840,7 +2829,7 @@ concentrated investment decision.
 
 \chapter{Data Visualization}\label{data-visualization}
 
-\begin{tcolorbox}[enhanced jigsaw, colframe=quarto-callout-note-color-frame, colback=white, breakable, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, leftrule=.75mm, toprule=.15mm, opacityback=0, left=2mm]
+\begin{tcolorbox}[enhanced jigsaw, arc=.35mm, bottomrule=.15mm, breakable, colback=white, colframe=quarto-callout-note-color-frame, left=2mm, leftrule=.75mm, opacityback=0, rightrule=.15mm, toprule=.15mm]
 
 \includegraphics[width=\linewidth,height=1em,keepaspectratio]{filters/emoji/1f3af.png}
 \textbf{Study Objectives}
@@ -2988,6 +2977,7 @@ The dataset includes:
 \texttt{cas} is a data frame containing 420 observations on 14
 variables. Refer to the following table for the full definition.
 
+{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}
   >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.1781}}
   >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.8219}}@{}}
@@ -3021,6 +3011,7 @@ English is a second language). \\
 \texttt{read} & Average reading score. \\
 \texttt{math} & Average math score. \\
 \end{longtable}
+}
 
 Data source: Stock, J. H. and Watson, M. W. (2020).
 \href{https://www.sea-stat.com/wp-content/uploads/2020/08/James-H.-Stock-Mark-W.-Watson-Introduction-to-Econometrics-Global-Edition-Pearson-Education-Limited-2020.pdf}{Introduction
@@ -3325,7 +3316,7 @@ allocation. Let's examine the statistics for each group:
   of the data.
 \end{itemize}
 
-\begin{tcolorbox}[enhanced jigsaw, colframe=quarto-callout-tip-color-frame, colback=white, breakable, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, leftrule=.75mm, toprule=.15mm, opacityback=0, left=2mm]
+\begin{tcolorbox}[enhanced jigsaw, arc=.35mm, bottomrule=.15mm, breakable, colback=white, colframe=quarto-callout-tip-color-frame, left=2mm, leftrule=.75mm, opacityback=0, rightrule=.15mm, toprule=.15mm]
 \begin{minipage}[t]{5.5mm}
 \textcolor{quarto-callout-tip-color}{\faLightbulb}
 \end{minipage}%
@@ -3892,6 +3883,7 @@ The file contains daily returns for \textbf{six industry sectors} from
 \textbf{one sector on one trading day}, and every sector has all 1,566
 trading days --- the panel is balanced.
 
+{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}
   >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.1250}}
   >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.1750}}
@@ -3922,6 +3914,7 @@ index from 2020-01-01 up to and including that day, as a decimal.
 \texttt{0.01} means 1 NOK invested at the start would be worth 1.01
 NOK. \\
 \end{longtable}
+}
 
 \section{Part 1 --- Summary statistics}\label{part-1-summary-statistics}
 
@@ -4052,6 +4045,7 @@ to compare several groups side by side.
 \end{Highlighting}
 \end{Shaded}
 
+{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}lll@{}}
 \toprule\noalign{}
 sector & IQR & sd \\
@@ -4066,6 +4060,7 @@ Industrials & 1.67\% & 1.63\% \\
 Consumer Non-Cyclicals & 1.32\% & 1.29\% \\
 Finance & 1.14\% & 1.31\% \\
 \end{longtable}
+}
 
 \textbf{Q4:} Which sector has the widest box, and which the narrowest?
 Compare your reading of the plot with the \texttt{sd} column from Task
@@ -4237,22 +4232,17 @@ numbers.
 \end{Shaded}
 
 A tibble: 6 × 3
-
-\begin{longtable}[]{@{}lll@{}}
-\toprule\noalign{}
-sector \textless fct\textgreater{} & trough \textless dbl\textgreater{}
-& trough\_date \textless date\textgreater{} \\
-\midrule\noalign{}
-\endhead
-\bottomrule\noalign{}
-\endlastfoot
-Consumer Non-Cyclicals & -0.2171 & 2020-03-27 \\
-Energy & -0.4993 & 2020-03-18 \\
-Industrials & -0.2710 & 2020-03-23 \\
-Technology & -0.3395 & 2020-03-18 \\
-Non-Energy Materials & -0.2784 & 2020-03-18 \\
-Finance & -0.3958 & 2020-03-18 \\
-\end{longtable}
+\begin{tabular}{lll}
+ sector & trough & trough\_date\\
+ <fct> & <dbl> & <date>\\
+\hline
+     Consumer Non-Cyclicals & -0.2171 & 2020-03-27\\
+     Energy                 & -0.4993 & 2020-03-18\\
+     Industrials            & -0.2710 & 2020-03-23\\
+     Technology             & -0.3395 & 2020-03-18\\
+     Non-Energy Materials   & -0.2784 & 2020-03-18\\
+     Finance                & -0.3958 & 2020-03-18\\
+\end{tabular}
 
 A: {[}Type your answer here{]}
 
@@ -4262,7 +4252,7 @@ In this session, we will use the same \texttt{CASchools} dataset from
 the previous session and implement a simple linear regression model to
 explore a question of interest:
 
-\begin{tcolorbox}[enhanced jigsaw, colframe=quarto-callout-important-color-frame, colback=white, breakable, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, leftrule=.75mm, toprule=.15mm, opacityback=0, left=2mm]
+\begin{tcolorbox}[enhanced jigsaw, arc=.35mm, bottomrule=.15mm, breakable, colback=white, colframe=quarto-callout-important-color-frame, left=2mm, leftrule=.75mm, opacityback=0, rightrule=.15mm, toprule=.15mm]
 
 \vspace{-3mm}\textbf{Research Question}\vspace{3mm}
 
@@ -4453,13 +4443,13 @@ sample estimates:
 0.1912728 
 \end{verbatim}
 
-\phantomsection\label{correlation}
+\protect\phantomsection\label{correlation}
 What does the correlation coefficient tell us? Is it statistically
 significant? Justify your answer.
 
 Solution
 
-\phantomsection\label{solution1}
+\protect\phantomsection\label{solution1}
 \begin{itemize}
 \item
   \textbf{The reported correlation coefficient} is 0.19 between
@@ -4483,7 +4473,7 @@ Solution
 We will fit a simple linear regression model to examine the relationship
 between expenditure per student and average test scores.
 
-\begin{equation}\phantomsection\label{eq-linear-regression}{
+\begin{equation}\protect\phantomsection\label{eq-linear-regression}{
 \text{TestScore}_i = \beta_0 + \beta_1 \times \text{expenditure}_i + \varepsilon_i
 }\end{equation}
 
@@ -4492,7 +4482,7 @@ a single independent variable.
 
 Where:
 
-\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-tip-color!10!white, coltitle=black, bottomrule=.15mm, bottomtitle=1mm, opacitybacktitle=0.6, opacityback=0, left=2mm, titlerule=0mm, colframe=quarto-callout-tip-color-frame, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Key Components of the Linear Regression Model}, colback=white, breakable, toptitle=1mm, arc=.35mm, leftrule=.75mm, rightrule=.15mm, toprule=.15mm]
+\begin{tcolorbox}[enhanced jigsaw, arc=.35mm, bottomrule=.15mm, bottomtitle=1mm, breakable, colback=white, colbacktitle=quarto-callout-tip-color!10!white, colframe=quarto-callout-tip-color-frame, coltitle=black, left=2mm, leftrule=.75mm, opacityback=0, opacitybacktitle=0.6, rightrule=.15mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Key Components of the Linear Regression Model}, titlerule=0mm, toprule=.15mm, toptitle=1mm]
 
 \begin{itemize}
 \tightlist
@@ -4821,7 +4811,7 @@ References
 \chapter{Theoretical Framework of Linear
 Regression}\label{theoretical-framework-of-linear-regression}
 
-\begin{tcolorbox}[enhanced jigsaw, colframe=quarto-callout-note-color-frame, colback=white, breakable, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, leftrule=.75mm, toprule=.15mm, opacityback=0, left=2mm]
+\begin{tcolorbox}[enhanced jigsaw, arc=.35mm, bottomrule=.15mm, breakable, colback=white, colframe=quarto-callout-note-color-frame, left=2mm, leftrule=.75mm, opacityback=0, rightrule=.15mm, toprule=.15mm]
 
 \includegraphics[width=\linewidth,height=1em,keepaspectratio]{filters/emoji/1f3af.png}
 \textbf{Study Objectives}
@@ -5015,7 +5005,7 @@ Under the assumption of normally distributed errors,
 \(\boldsymbol{\varepsilon} \vert \boldsymbol{X} \sim N(\boldsymbol{0}, \sigma^2\boldsymbol{I})\),
 we have in matrix form
 
-\begin{equation}\phantomsection\label{eq-beta-distribution}{
+\begin{equation}\protect\phantomsection\label{eq-beta-distribution}{
 \hat{\boldsymbol{\beta}} \sim N(\boldsymbol{\beta}, \sigma^2 (\boldsymbol{X}'\boldsymbol{X})^{-1}).
 }\end{equation}
 
@@ -5068,7 +5058,7 @@ different possible random samples. In small samples, theses sampling
 distributions are complicated, but in large samples, they are normal
 because of the Central Limit Theorem (CLT).
 
-\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-tip-color!10!white, coltitle=black, bottomrule=.15mm, bottomtitle=1mm, opacitybacktitle=0.6, opacityback=0, left=2mm, titlerule=0mm, colframe=quarto-callout-tip-color-frame, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Sampling Distribution vs.~Exact Distribution}, colback=white, breakable, toptitle=1mm, arc=.35mm, leftrule=.75mm, rightrule=.15mm, toprule=.15mm]
+\begin{tcolorbox}[enhanced jigsaw, arc=.35mm, bottomrule=.15mm, bottomtitle=1mm, breakable, colback=white, colbacktitle=quarto-callout-tip-color!10!white, colframe=quarto-callout-tip-color-frame, coltitle=black, left=2mm, leftrule=.75mm, opacityback=0, opacitybacktitle=0.6, rightrule=.15mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Sampling Distribution vs.~Exact Distribution}, titlerule=0mm, toprule=.15mm, toptitle=1mm]
 
 \begin{itemize}
 \tightlist
@@ -5128,7 +5118,7 @@ A:
   \] This means as sample size increases, the sample variance shrinks at
   the rate of \(1/n\).
 
-  \begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-tip-color!10!white, coltitle=black, bottomrule=.15mm, bottomtitle=1mm, opacitybacktitle=0.6, opacityback=0, left=2mm, titlerule=0mm, colframe=quarto-callout-tip-color-frame, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Tip}, colback=white, breakable, toptitle=1mm, arc=.35mm, leftrule=.75mm, rightrule=.15mm, toprule=.15mm]
+  \begin{tcolorbox}[enhanced jigsaw, arc=.35mm, bottomrule=.15mm, bottomtitle=1mm, breakable, colback=white, colbacktitle=quarto-callout-tip-color!10!white, colframe=quarto-callout-tip-color-frame, coltitle=black, left=2mm, leftrule=.75mm, opacityback=0, opacitybacktitle=0.6, rightrule=.15mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Tip}, titlerule=0mm, toprule=.15mm, toptitle=1mm]
 
   \textbf{Interpretation:} As the sample size \(n\) increases,the mean
   becomes more concentrated around the true population mean \(\mu\).
@@ -5172,7 +5162,7 @@ Use the normal distribution table to look up the probabilities.
 
 Solution
 
-\phantomsection\label{clt1}
+\protect\phantomsection\label{clt1}
 \textbf{Individual Customer}
 
 We define the standard normal variable \(Z\) as:
@@ -5216,7 +5206,7 @@ Hint: apply CLT and justify why CLT can be applied here.
 
 Solution
 
-\phantomsection\label{clt2}
+\protect\phantomsection\label{clt2}
 \textbf{Sample Mean for \(n = 64\)}
 
 By the Central Limit Theorem, for \textbf{large \(n\) with finite mean
@@ -5276,7 +5266,7 @@ compute \(P(\overline{X}_{81} > 42)\)?
 
 Solution
 
-\phantomsection\label{clt3}
+\protect\phantomsection\label{clt3}
 \textbf{Sample Mean for \(n = 81\)}
 
 \[
@@ -5321,7 +5311,7 @@ brief interpretation of how the probabilities differ and why.
 
 Solution
 
-\phantomsection\label{clt4}
+\protect\phantomsection\label{clt4}
 \begin{itemize}
 \item
   For \textbf{a single customer}, there is a \textbf{44.83\%} chance of
@@ -5366,7 +5356,7 @@ Solution
 
 \end{figure}%
 
-\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-tip-color!10!white, coltitle=black, bottomrule=.15mm, bottomtitle=1mm, opacitybacktitle=0.6, opacityback=0, left=2mm, titlerule=0mm, colframe=quarto-callout-tip-color-frame, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Key Takeaways from CLT}, colback=white, breakable, toptitle=1mm, arc=.35mm, leftrule=.75mm, rightrule=.15mm, toprule=.15mm]
+\begin{tcolorbox}[enhanced jigsaw, arc=.35mm, bottomrule=.15mm, bottomtitle=1mm, breakable, colback=white, colbacktitle=quarto-callout-tip-color!10!white, colframe=quarto-callout-tip-color-frame, coltitle=black, left=2mm, leftrule=.75mm, opacityback=0, opacitybacktitle=0.6, rightrule=.15mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Key Takeaways from CLT}, titlerule=0mm, toprule=.15mm, toptitle=1mm]
 
 Generally, as the sample size increases, the \textbf{sampling
 distribution of the sample mean} becomes more concentrated around the
@@ -5625,7 +5615,7 @@ commonly used in practice.
 We will use one-sided tests when introducing F-tests for the overall
 significance of a regression model and for model comparison.
 
-\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-important-color!10!white, coltitle=black, bottomrule=.15mm, bottomtitle=1mm, opacitybacktitle=0.6, opacityback=0, left=2mm, titlerule=0mm, colframe=quarto-callout-important-color-frame, title={Study objectives for hypothesis testing}, colback=white, breakable, toptitle=1mm, arc=.35mm, leftrule=.75mm, rightrule=.15mm, toprule=.15mm]
+\begin{tcolorbox}[enhanced jigsaw, arc=.35mm, bottomrule=.15mm, bottomtitle=1mm, breakable, colback=white, colbacktitle=quarto-callout-important-color!10!white, colframe=quarto-callout-important-color-frame, coltitle=black, left=2mm, leftrule=.75mm, opacityback=0, opacitybacktitle=0.6, rightrule=.15mm, title={Study objectives for hypothesis testing}, titlerule=0mm, toprule=.15mm, toptitle=1mm]
 
 The goal is be able to conduct hypothesis test manually given necessary
 information.
@@ -5738,7 +5728,7 @@ in the simple linear regression of California school test scores.
   \href{https://drive.google.com/file/d/1Iwec44x4N5AItbpFugbUOKHBIE10cMOw/view?usp=drive_link}{\(t\)-distribution
   table}, \(t_{0.975,418}\approx 1.96\).
 
-  \begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-tip-color!10!white, coltitle=black, bottomrule=.15mm, bottomtitle=1mm, opacitybacktitle=0.6, opacityback=0, left=2mm, titlerule=0mm, colframe=quarto-callout-tip-color-frame, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Finding critical value}, colback=white, breakable, toptitle=1mm, arc=.35mm, leftrule=.75mm, rightrule=.15mm, toprule=.15mm]
+  \begin{tcolorbox}[enhanced jigsaw, arc=.35mm, bottomrule=.15mm, bottomtitle=1mm, breakable, colback=white, colbacktitle=quarto-callout-tip-color!10!white, colframe=quarto-callout-tip-color-frame, coltitle=black, left=2mm, leftrule=.75mm, opacityback=0, opacitybacktitle=0.6, rightrule=.15mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Finding critical value}, titlerule=0mm, toprule=.15mm, toptitle=1mm]
 
   Notice that when df is large, the critical value approaches that of
   the standard normal distribution, \(z_{0.975}=1.96\).
@@ -5818,7 +5808,7 @@ for the coefficient on the number of posts, with \(df = 30\).
 
 Solution
 
-\phantomsection\label{solution1}
+\protect\phantomsection\label{solution1}
 The p-value is obtained by:
 \[p\text{-value} = 2\;\P(T > |t|) = 2 \times 0.01 = 0.02\] The p-value
 is 0.02, which is less than the common significance level of 0.05.
@@ -5844,7 +5834,7 @@ that advertising has no effect on sales?
 
 Solution
 
-\phantomsection\label{solution2}
+\protect\phantomsection\label{solution2}
 The critical value at 5\% significance level is \(t_{0.975,25}=2.060\).
 Since \(2.15 > 2.060\), we reject the null hypothesis at the 5\%
 significance level.
@@ -5866,7 +5856,7 @@ promotion spending has no effect on weekly sales?
 
 Solution
 
-\phantomsection\label{solution3}
+\protect\phantomsection\label{solution3}
 The critical value at 5\% significance level is \(t_{0.975,28}=2.048\).
 Since \(0.82 < 2.048\), we \textbf{fail to reject} the null hypothesis
 at the 5\% significance level.
@@ -5905,7 +5895,7 @@ The effect is statistically significant but modest in size, and the low
 
 \chapter{Multiple Linear Regression}\label{multiple-linear-regression}
 
-\begin{tcolorbox}[enhanced jigsaw, colframe=quarto-callout-note-color-frame, colback=white, breakable, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, leftrule=.75mm, toprule=.15mm, opacityback=0, left=2mm]
+\begin{tcolorbox}[enhanced jigsaw, arc=.35mm, bottomrule=.15mm, breakable, colback=white, colframe=quarto-callout-note-color-frame, left=2mm, leftrule=.75mm, opacityback=0, rightrule=.15mm, toprule=.15mm]
 
 \includegraphics[width=\linewidth,height=1em,keepaspectratio]{filters/emoji/1f3af.png}
 \textbf{Study Objectives}
@@ -6843,14 +6833,14 @@ Variable}{Regression When X is a Binary Variable}}\label{regression-when-x-is-a-
 Instead of using a continuous regressor \(X\) , we might be interested
 in running the regression
 
-\begin{equation}\phantomsection\label{eq-binary-regression}{
+\begin{equation}\protect\phantomsection\label{eq-binary-regression}{
 Y_i = \beta_0 + \beta_1 D_i + u_i, 
 }\end{equation}
 
 where \(D_i\) is a binary variable, a so-called dummy variable. For
 example, we may defined \(D_i\) as follows:
 
-\begin{equation}\phantomsection\label{eq-dummy-variable}{
+\begin{equation}\protect\phantomsection\label{eq-dummy-variable}{
 D_i = 
 \begin{cases}
     1 & \text{if $STR$ in $i^{th}$ school district < 20} \\
@@ -6883,17 +6873,13 @@ TestScore_i = \beta_0 + \beta_1 D_i + u_i.
 \end{Shaded}
 
 A data.frame: 2 × 2
-
-\begin{longtable}[]{@{}ll@{}}
-\toprule\noalign{}
-D \textless lgl\textgreater{} & TestScore \textless dbl\textgreater{} \\
-\midrule\noalign{}
-\endhead
-\bottomrule\noalign{}
-\endlastfoot
-FALSE & 650.0768 \\
-TRUE & 657.2462 \\
-\end{longtable}
+\begin{tabular}{ll}
+ D & TestScore\\
+ <lgl> & <dbl>\\
+\hline
+     FALSE & 650.0768\\
+      TRUE & 657.2462\\
+\end{tabular}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7214,37 +7200,13 @@ simple regression model (Model 1).
 \end{Shaded}
 
 A anova: 2 × 6
-
-\begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1429}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1429}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1429}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1429}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1429}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1429}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1429}}@{}}
-\toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Res.Df \textless dbl\textgreater{}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-RSS \textless dbl\textgreater{}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Df \textless dbl\textgreater{}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Sum of Sq \textless dbl\textgreater{}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-F \textless dbl\textgreater{}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Pr(\textgreater F) \textless dbl\textgreater{}
-\end{minipage} \\
-\midrule\noalign{}
-\endhead
-\bottomrule\noalign{}
-\endlastfoot
-1 & 418 & 146815.42 & NA & NA & NA & NA \\
-2 & 415 & 34940.45 & 3 & 111875 & 442.9261 & 6.146085e-129 \\
-\end{longtable}
+\begin{tabular}{r|llllll}
+  & Res.Df & RSS & Df & Sum of Sq & F & Pr(>F)\\
+  & <dbl> & <dbl> & <dbl> & <dbl> & <dbl> & <dbl>\\
+\hline
+    1 & 418 & 146815.42 & NA &     NA &       NA &            NA\\
+    2 & 415 &  34940.45 &  3 & 111875 & 442.9261 & 6.146085e-129\\
+\end{tabular}
 
 The p-value is way less than 0.05, indicating that we reject the null
 hypothesis and conclude that adding the control variables
@@ -7256,7 +7218,7 @@ improves the model's ability to explain the variability in TestScore.
 \chapter{Interactions of Binary
 Variables}\label{interactions-of-binary-variables}
 
-\begin{tcolorbox}[enhanced jigsaw, colframe=quarto-callout-note-color-frame, colback=white, breakable, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, leftrule=.75mm, toprule=.15mm, opacityback=0, left=2mm]
+\begin{tcolorbox}[enhanced jigsaw, arc=.35mm, bottomrule=.15mm, breakable, colback=white, colframe=quarto-callout-note-color-frame, left=2mm, leftrule=.75mm, opacityback=0, rightrule=.15mm, toprule=.15mm]
 
 \includegraphics[width=\linewidth,height=1em,keepaspectratio]{filters/emoji/1f3af.png}
 \textbf{Study Objectives}
@@ -7307,6 +7269,7 @@ Use \texttt{?Boston} to see the description of the dataset.
 Here are some variables in the dataset which we are going to use in this
 session.
 
+{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}
   >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.1304}}
   >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.8696}}@{}}
@@ -7333,13 +7296,14 @@ consumers. \\
 (a short river in the proximity of Boston) passes through the suburb and
 is 0 otherwise. \\
 \end{longtable}
+}
 
 \section{Interactions of Two Binary
 Variables}\label{interactions-of-two-binary-variables}
 
 Consider the following regression model
 
-\begin{equation}\phantomsection\label{eq-binary-interaction}{
+\begin{equation}\protect\phantomsection\label{eq-binary-interaction}{
 medv_i = \beta_0 + \beta_1\, chas_i + \beta_2\, old_i + \beta_3\, (chas_i \times old_i) + u_i
 }\end{equation}
 
@@ -7418,6 +7382,7 @@ The estimated regression model is given by
 We start with listing all possible combinations of the binary variables
 \(chas_i\) and \(old_i\).
 
+{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}
   >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.0435}}
   >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.1159}}
@@ -7442,10 +7407,12 @@ Interpretation
 \textbf{3} & 1 & 0 & Suburb next to Charles River and new \\
 \textbf{4} & 1 & 1 & Suburb next to Charles River and old \\
 \end{longtable}
+}
 
 Based on the estimated regression model, we can compute the expected
 value of \texttt{medv} for each of the four groups.
 
+{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}
   >{\centering\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.0704}}
   >{\centering\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.0704}}
@@ -7477,6 +7444,7 @@ Expected value of \texttt{medv}
 \textbf{4} & 1 & 1 & 1 &
 \({\color[HTML]{0099FF}\hat{\beta}_0} + {\color[HTML]{fb5b89}\hat{\beta}_1} + {\color[HTML]{00CC66}\hat{\beta}_2} + {\color{orange}\hat{\beta}_3} = {\color[HTML]{0099FF}23.70} + {\color[HTML]{fb5b89}4.06} + {\color[HTML]{00CC66}(-7.13)} + {\color{orange}(10.55)} = 31.18\) \\
 \end{longtable}
+}
 
 From the table above, we can interpret the coefficients as follows:
 
@@ -7535,7 +7503,7 @@ From the table above, we can interpret the coefficients as follows:
   \end{itemize}
 \end{itemize}
 
-\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-tip-color!10!white, coltitle=black, bottomrule=.15mm, bottomtitle=1mm, opacitybacktitle=0.6, opacityback=0, left=2mm, titlerule=0mm, colframe=quarto-callout-tip-color-frame, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Tip}, colback=white, breakable, toptitle=1mm, arc=.35mm, leftrule=.75mm, rightrule=.15mm, toprule=.15mm]
+\begin{tcolorbox}[enhanced jigsaw, arc=.35mm, bottomrule=.15mm, bottomtitle=1mm, breakable, colback=white, colbacktitle=quarto-callout-tip-color!10!white, colframe=quarto-callout-tip-color-frame, coltitle=black, left=2mm, leftrule=.75mm, opacityback=0, opacitybacktitle=0.6, rightrule=.15mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Tip}, titlerule=0mm, toprule=.15mm, toptitle=1mm]
 
 {\textbf{Controlling for changes in the interacting variables}} is
 essential when interpreting the coefficient of interaction terms.
@@ -7556,7 +7524,7 @@ Equation~\ref{eq-binary-interaction} to improve the model fit (Adjusted
 \(R^2 = 12\%\) as of now). For example, we can add \texttt{lstat} and
 \texttt{crim} as additional control variables.
 
-\begin{equation}\phantomsection\label{eq-binary-interaction-more-controls}{
+\begin{equation}\protect\phantomsection\label{eq-binary-interaction-more-controls}{
 medv_i = \beta_0 + \beta_1\, chas_i + \beta_2\, old_i + \beta_3\, (chas_i \times old_i) + \beta_4\, lstat_i + \beta_5\, crim_i + u_i
 }\end{equation}
 
@@ -7889,7 +7857,7 @@ earlier interpretation of the regression coefficients.
 \chapter{Regression with a Binary Dependent
 Variable}\label{regression-with-a-binary-dependent-variable}
 
-\begin{tcolorbox}[enhanced jigsaw, colframe=quarto-callout-note-color-frame, colback=white, breakable, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, leftrule=.75mm, toprule=.15mm, opacityback=0, left=2mm]
+\begin{tcolorbox}[enhanced jigsaw, arc=.35mm, bottomrule=.15mm, breakable, colback=white, colframe=quarto-callout-note-color-frame, left=2mm, leftrule=.75mm, opacityback=0, rightrule=.15mm, toprule=.15mm]
 
 \includegraphics[width=\linewidth,height=1em,keepaspectratio]{filters/emoji/1f3af.png}
 \textbf{Study Objectives}
@@ -8059,6 +8027,7 @@ The key variables in the HMDA dataset are:
   our analysis.
 \end{itemize}
 
+{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}
   >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.4545}}
   >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.5455}}@{}}
@@ -8094,6 +8063,7 @@ bankruptcies, tax liens, etc.) \\
 industry (\%). \\
 \texttt{condominium} & Is the property a condominium? (yes/no) \\
 \end{longtable}
+}
 
 \subsection{Data Exploration}\label{data-exploration}
 
@@ -8180,7 +8150,7 @@ Some observations from the table:
   compared to non-African American applicants (about 9\%).
 \end{itemize}
 
-\begin{tcolorbox}[enhanced jigsaw, colframe=quarto-callout-note-color-frame, colback=white, breakable, arc=.35mm, rightrule=.15mm, bottomrule=.15mm, leftrule=.75mm, toprule=.15mm, opacityback=0, left=2mm]
+\begin{tcolorbox}[enhanced jigsaw, arc=.35mm, bottomrule=.15mm, breakable, colback=white, colframe=quarto-callout-note-color-frame, left=2mm, leftrule=.75mm, opacityback=0, rightrule=.15mm, toprule=.15mm]
 
 This descriptive evidence suggests that \emph{the likelihood of denial
 may be systematically higher for African American applicants}. However,
@@ -8491,7 +8461,7 @@ OR = 0.3951/0.1021 = 3.8712
   \end{itemize}
 \end{enumerate}
 
-\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-note-color!10!white, coltitle=black, bottomrule=.15mm, bottomtitle=1mm, opacitybacktitle=0.6, opacityback=0, left=2mm, titlerule=0mm, colframe=quarto-callout-note-color-frame, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Important Distinction}, colback=white, breakable, toptitle=1mm, arc=.35mm, leftrule=.75mm, rightrule=.15mm, toprule=.15mm]
+\begin{tcolorbox}[enhanced jigsaw, arc=.35mm, bottomrule=.15mm, bottomtitle=1mm, breakable, colback=white, colbacktitle=quarto-callout-note-color!10!white, colframe=quarto-callout-note-color-frame, coltitle=black, left=2mm, leftrule=.75mm, opacityback=0, opacitybacktitle=0.6, rightrule=.15mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Important Distinction}, titlerule=0mm, toprule=.15mm, toptitle=1mm]
 
 \begin{itemize}
 \item
@@ -8601,7 +8571,7 @@ Now we plot the data and the regression line to visualize the model.
 
 \end{figure}%
 
-\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-warning-color!10!white, coltitle=black, bottomrule=.15mm, bottomtitle=1mm, opacitybacktitle=0.6, opacityback=0, left=2mm, titlerule=0mm, colframe=quarto-callout-warning-color-frame, title={Shortcomings with the linear probability model}, colback=white, breakable, toptitle=1mm, arc=.35mm, leftrule=.75mm, rightrule=.15mm, toprule=.15mm]
+\begin{tcolorbox}[enhanced jigsaw, arc=.35mm, bottomrule=.15mm, bottomtitle=1mm, breakable, colback=white, colbacktitle=quarto-callout-warning-color!10!white, colframe=quarto-callout-warning-color-frame, coltitle=black, left=2mm, leftrule=.75mm, opacityback=0, opacitybacktitle=0.6, rightrule=.15mm, title={Shortcomings with the linear probability model}, titlerule=0mm, toprule=.15mm, toptitle=1mm]
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -9086,6 +9056,7 @@ Solution
 \section{Summary: Logit vs.~Probit
 vs.~LPM}\label{summary-logit-vs.-probit-vs.-lpm}
 
+{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}
   >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.3103}}
   >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.1724}}
@@ -9114,6 +9085,7 @@ for \\
 \textbf{When to use} & Quick approximation & Preferred for most
 applications & Similar to logit; standard in some fields \\
 \end{longtable}
+}
 
 
 \backmatter
