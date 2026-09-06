@@ -10,6 +10,9 @@
 !images/**/*.pdf
 
 # ignore output
+# symbolic links to output folders, it points to `~/.quarto-cache/` on my local disk
+/.quarto
+# folder for quarto build output
 /.quarto/
 /_site/
 /_book/
@@ -42,3 +45,4 @@
 *.lot
 *.bbl
 *.blg
+
