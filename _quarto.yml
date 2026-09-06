@@ -1,3 +1,8 @@
+# Both machines must render with the same quarto minor version, otherwise
+# docs/ output (HTML markup, search.json, sitemap.xml, PDF) diverges and
+# git sees churn on every render. This makes a mismatch fail loudly.
+quarto-required: "1.10.*"
+
 project:
   type: book
   output-dir: docs
