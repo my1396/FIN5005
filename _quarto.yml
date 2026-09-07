@@ -57,6 +57,14 @@ filters:
 # Output formats, styles, dependencies
 format:
   html:
+    # Pin MathJax 3. Quarto 1.10 defaults to mathjax@4/tex-chtml.js, where the
+    # colour extension was renamed to lowercase colorv2.js, so the
+    # loader line in themes/mathjax.html ('[tex]/colorV2') 404s and \color is
+    # left undefined. The -full bundle is required: it preloads every TeX
+    # extension, including `color`, which \red/\green and \color[RGB] need.
+    html-math-method:
+      method: mathjax
+      url: "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
     include-in-header: 
       - file: themes/mathjax.html       # MathJax for LaTeX custom macro support
       - file: themes/common-header.html # load js scripts and external css (e.g., font-awesome) for all pages

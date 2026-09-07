@@ -124,7 +124,7 @@ Why is it important to distinguish between sample and population in business ana
   $$\text{Var}(X) = E(X - E[X])^2 = \sum_{i} (x_i-E(X))^2 P(X=x_i)$$
 
   The variance can also be expressed as:
-
+  
   $$
   \text{Var}(X) = \color{#00CC66}{\mathbb{E}[X^2] - (\mathbb{E}[X])^2}.
   $$

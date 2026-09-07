@@ -314,7 +314,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <script type="text/javascript">
 const typesetMath = (el) => {
@@ -906,44 +906,44 @@ F-statistic: 25.02 on 3 and 502 DF,  p-value: 4.244e-15</code></pre>
 <td style="text-align: center;">0</td>
 <td style="text-align: center;">0</td>
 <td style="text-align: center;">0</td>
-<td style="text-align: left;"><span class="math inline">\(\color{#0099FF}{\hat{\beta}_0} = 23.70\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(\color[RGB]{0, 153, 255}{\hat{\beta}_0} = 23.70\)</span></td>
 </tr>
 <tr class="even">
 <td style="text-align: center;"><strong>2</strong></td>
 <td style="text-align: center;">0</td>
 <td style="text-align: center;">1</td>
 <td style="text-align: center;">0</td>
-<td style="text-align: left;"><span class="math inline">\({\color{#0099FF}\hat{\beta}_0} + {\color{#00CC66}\hat{\beta}_2} = {\color{#0099FF}23.70} + {\color{#00CC66}(- 7.13)} = 16.57\)</span></td>
+<td style="text-align: left;"><span class="math inline">\({\color[RGB]{0, 153, 255}\hat{\beta}_0} + {\color[RGB]{0, 204, 102}\hat{\beta}_2} = {\color[RGB]{0, 153, 255}23.70} + {\color[RGB]{0, 204, 102}(- 7.13)} = 16.57\)</span></td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;"><strong>3</strong></td>
 <td style="text-align: center;">1</td>
 <td style="text-align: center;">0</td>
 <td style="text-align: center;">0</td>
-<td style="text-align: left;"><span class="math inline">\({\color{#0099FF}\hat{\beta}_0} + {\color{#fb5b89}\hat{\beta}_1} = {\color{#0099FF}23.70} + {\color{#fb5b89}4.06} = 27.76\)</span></td>
+<td style="text-align: left;"><span class="math inline">\({\color[RGB]{0, 153, 255}\hat{\beta}_0} + {\color[RGB]{251, 91, 137}\hat{\beta}_1} = {\color[RGB]{0, 153, 255}23.70} + {\color[RGB]{251, 91, 137}4.06} = 27.76\)</span></td>
 </tr>
 <tr class="even">
 <td style="text-align: center;"><strong>4</strong></td>
 <td style="text-align: center;">1</td>
 <td style="text-align: center;">1</td>
 <td style="text-align: center;">1</td>
-<td style="text-align: left;"><span class="math inline">\({\color{#0099FF}\hat{\beta}_0} + {\color{#fb5b89}\hat{\beta}_1} + {\color{#00CC66}\hat{\beta}_2} + {\color{orange}\hat{\beta}_3} = {\color{#0099FF}23.70} + {\color{#fb5b89}4.06} + {\color{#00CC66}(-7.13)} + {\color{orange}(10.55)} = 31.18\)</span></td>
+<td style="text-align: left;"><span class="math inline">\({\color[RGB]{0, 153, 255}\hat{\beta}_0} + {\color[RGB]{251, 91, 137}\hat{\beta}_1} + {\color[RGB]{0, 204, 102}\hat{\beta}_2} + {\color{orange}\hat{\beta}_3} = {\color[RGB]{0, 153, 255}23.70} + {\color[RGB]{251, 91, 137}4.06} + {\color[RGB]{0, 204, 102}(-7.13)} + {\color{orange}(10.55)} = 31.18\)</span></td>
 </tr>
 </tbody>
 </table>
 <p>From the table above, we can interpret the coefficients as follows:</p>
 <ul>
-<li><p><span class="math inline">\(\color{#0099FF}{\hat{\beta}_0} = 23.70\)</span> is the expected value of <code>medv</code> for suburbs that are not next to the Charles River and are new (i.e., <code>old = 0</code>).</p></li>
-<li><p>Comparing scenario 2 with 1: <span class="math inline">\(\color{#00CC66}{\hat{\beta}_2} = -7.13\)</span> is the difference in expected value of <code>medv</code> between new and old suburbs that are <strong>NOT next to the Charles River</strong>.</p>
+<li><p><span class="math inline">\(\color[RGB]{0, 153, 255}{\hat{\beta}_0} = 23.70\)</span> is the expected value of <code>medv</code> for suburbs that are not next to the Charles River and are new (i.e., <code>old = 0</code>).</p></li>
+<li><p>Comparing scenario 2 with 1: <span class="math inline">\(\color[RGB]{0, 204, 102}{\hat{\beta}_2} = -7.13\)</span> is the difference in expected value of <code>medv</code> between new and old suburbs that are <strong>NOT next to the Charles River</strong>.</p>
 <p>In other words, old suburbs that are not next to the Charles River have an expected <code>medv</code> that is 7.13 lower than new suburbs that are <strong>NOT next to the Charles River</strong>.</p></li>
-<li><p>Comparing scenario 3 with 1: <span class="math inline">\(\color{#fb5b89}{\hat{\beta}_1} = 4.06\)</span> is the difference in expected value of <code>medv</code> between suburbs that are next to the Charles River and those that are not, among <strong>new</strong> suburbs (i.e., <code>old = 0</code>).</p>
+<li><p>Comparing scenario 3 with 1: <span class="math inline">\(\color[RGB]{251, 91, 137}{\hat{\beta}_1} = 4.06\)</span> is the difference in expected value of <code>medv</code> between suburbs that are next to the Charles River and those that are not, among <strong>new</strong> suburbs (i.e., <code>old = 0</code>).</p>
 <p>In other words, <strong>new</strong> suburbs that are next to the Charles River have an expected <code>medv</code> that is 4.06 higher than new suburbs that are not next to the Charles River.</p></li>
 <li><p><span class="math inline">\(\color{orange}{\hat{\beta}_3} = 10.55\)</span> has two interpretations:</p>
 <ul>
-<li><p>If we compare scenario 4 with scenario 2, the difference in expected value of <code>medv</code> is given by <span class="math inline">\({\color{#fb5b89}\hat{\beta}_1} + {\color{orange}\hat{\beta}_3} = 4.06 + 10.55 = 14.61.\)</span></p>
+<li><p>If we compare scenario 4 with scenario 2, the difference in expected value of <code>medv</code> is given by <span class="math inline">\({\color[RGB]{251, 91, 137}\hat{\beta}_1} + {\color{orange}\hat{\beta}_3} = 4.06 + 10.55 = 14.61.\)</span></p>
 <p>This means that <strong>old</strong> suburbs that are next to the Charles River have an expected <code>medv</code> that is 14.61 higher than <strong>old</strong> suburbs that are not next to the Charles River.</p>
 <p>→ <span class="math inline">\(\color{orange}{\hat{\beta}_3}\)</span> can be interpreted as the difference in the effect of being next to the Charles River <u>between old and new suburbs</u>.</p></li>
-<li><p>If we compare scenario 4 with scenario 3, the difference in expected value of <code>medv</code> is given by <span class="math inline">\({\color{#00CC66}\hat{\beta}_2} + {\color{orange}\hat{\beta}_3} = -7.13 + 10.55 = 3.42.\)</span></p>
+<li><p>If we compare scenario 4 with scenario 3, the difference in expected value of <code>medv</code> is given by <span class="math inline">\({\color[RGB]{0, 204, 102}\hat{\beta}_2} + {\color{orange}\hat{\beta}_3} = -7.13 + 10.55 = 3.42.\)</span></p>
 <p>This means that old suburbs that are <strong>next to the Charles River</strong> have an expected <code>medv</code> that is 3.42 higher than new suburbs that are <strong>next to the Charles River</strong>.</p>
 <p>→ <span class="math inline">\(\color{orange}{\hat{\beta}_3}\)</span> can be interpreted as the difference in the effect of being old <u>between suburbs that are next to the Charles River and those that are not</u>.</p></li>
 </ul></li>
