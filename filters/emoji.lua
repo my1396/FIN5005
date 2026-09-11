@@ -47,7 +47,9 @@ local unicode_map = {
   ["❌"] = "274c.png",   -- cross mark
   ["🎯"] = "1f3af.png",   -- direct hit
   ["⭕"] = "2b55.png",   -- hollow red circle
-  ["❗"] = "2757.png"    -- red exclamation mark
+  ["❗"] = "2757.png",    -- red exclamation mark
+  ["⏱️"] = "23f1.png",    -- stopwatch
+  ["📅"] = "1f4c5.png"     -- calendar
 }
 
 -- Resolve the asset directory relative to THIS filter file rather than the

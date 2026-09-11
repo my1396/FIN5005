@@ -1,15 +1,13 @@
 % Merged from ~/OneDrive-Norduniversitet/_shared-resources/latex/preamble.tex (2026-09-03).
-% Every macro previously defined here is included below; keep local additions at the end.
+% engine: lualatex
 
-% Load without options, then apply them: rmarkdown's template already loads
-% geometry with [margin=1in], and a second optioned \usepackage would clash.
 \usepackage{geometry}
 \geometry{paper=a4paper, left=1.0in, right=1.0in, top=1.0in, bottom=0.6in, footskip=1.5cm, includefoot, heightrounded}
 
 \usepackage{xcolor}
 % define colors
-\newcommand{\red}[1]{\color[RGB]{185,64,71}{#1}}
-\newcommand{\green}[1]{\color[RGB]{0, 139, 69}{#1}}
+\newcommand{\red}[1]{\textcolor[RGB]{185,64,71}{#1}}
+\newcommand{\green}[1]{\textcolor[RGB]{0, 139, 69}{#1}}
 \definecolor{red}{RGB}{185,64,71}
 
 % Configure hyperref for expanded bookmarks

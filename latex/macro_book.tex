@@ -1,4 +1,6 @@
 %% LaTeX macros for twoside book class
+% engine: lualatex
+
 \usepackage[paper=a4paper, top=30mm, bottom=30mm, inner=25mm, outer=30mm, heightrounded]{geometry}
 
 %% Section numbering: remove trailing dot (e.g., "1." → "1", "1.1." → "1.1")
@@ -13,8 +15,8 @@
 
 \usepackage{xcolor}
 % define colors
-\newcommand{\red}[1]{\color[RGB]{185,64,71}{#1}}
-\newcommand{\green}[1]{\color[RGB]{0, 139, 69}{#1}}
+\newcommand{\red}[1]{\textcolor[RGB]{185,64,71}{#1}}
+\newcommand{\green}[1]{\textcolor[RGB]{0, 139, 69}{#1}}
 \definecolor{red}{RGB}{185,64,71}
 
 % autowrap code blocks

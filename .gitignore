@@ -10,10 +10,14 @@
 !images/**/*.pdf
 
 # ignore output
-# symbolic links to output folders, it points to `~/.quarto-cache/` on my local disk
-/.quarto
+# Quarto build cache
+# symbolic links to output folders, it points to `~/.quarto-cache/` on my local disk; see setup-local-cache.sh.
+# the two preceding stars mean "any level of subdirectory"
+**/.quarto
+
 # folder for quarto build output
-/.quarto/
+**/.quarto/
+
 /_site/
 /_book/
 
@@ -22,8 +26,15 @@
 /_quiz/
 /_lab/
 /_exam/
-/data/cps09mar.csv
+/_homework/
 /.vscode/
+
+# By default, new CSV files in /data should be tracked.
+# If you want to exclude a specific CSV file, add it here
+/data/NO_return_with_factors.csv
+/data/NO_fundamental_data_with_factors.csv
+/data/NO_fundamental_data.csv
+/data/NO_return_with_factors_mowi-gogl.csv
 
 # auto generated system files
 .DS_Store
@@ -46,3 +57,5 @@
 *.bbl
 *.blg
 
+
+/.quarto/
