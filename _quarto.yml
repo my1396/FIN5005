@@ -80,6 +80,7 @@ format:
     number-depth: 3
   pdf:
     documentclass: scrbook
+    papersize: a4
     pdf-engine: lualatex
     include-in-header:
       - file: latex/macro_book.tex

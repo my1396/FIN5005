@@ -54,8 +54,25 @@
 \setsansfont{DejaVu Sans}
 \setmonofont{DejaVu Sans Mono}
 
-\usepackage{unicode-math}
+% unicode-math is already loaded by quarto's template (the \ifPDFTeX \else
+% branch), which runs before this file is inserted. Loading it again here would
+% work but risks an option clash if either side ever passes options.
 \setmathfont{XCharter-Math.otf} % do NOT delete the .otf extension
+
+% Make \boldsymbol work again. amsmath's \boldsymbol switches to a bold *math
+% version*, which an OpenType math font does not provide — it fails silently,
+% leaving the symbol unbolded and only a
+%   LaTeX Font Warning: Font shape `TU/XCharter-Math.otf(1)/b/n' undefined
+% in the log. unicode-math's \symbfit is the equivalent that works.
+%
+% Doing it here, once, keeps every \newcommand{\bX}{\boldsymbol{X}} below
+% unchanged, and keeps those definitions identical to the \boldsymbol ones in
+% themes/mathjax.html, so HTML and PDF stay in step.
+%
+% \symbfit, not \symbf: \symbfit is bold *italic*, which is what \boldsymbol
+% has always meant in LaTeX and what MathJax renders in the HTML build.
+% \symbf would give upright bold Latin (𝐗) and so differ from the web version.
+\renewcommand{\boldsymbol}[1]{\symbfit{#1}}
 
 
 

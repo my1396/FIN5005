@@ -6,7 +6,7 @@
 %
 \documentclass[
   12pt,
-  letterpaper,
+  a4paper,
 ]{scrbook}
 \usepackage{xcolor}
 \usepackage{amsmath,amssymb}
@@ -203,8 +203,25 @@
 \setsansfont{DejaVu Sans}
 \setmonofont{DejaVu Sans Mono}
 
-\usepackage{unicode-math}
+% unicode-math is already loaded by quarto's template (the \ifPDFTeX \else
+% branch), which runs before this file is inserted. Loading it again here would
+% work but risks an option clash if either side ever passes options.
 \setmathfont{XCharter-Math.otf} % do NOT delete the .otf extension
+
+% Make \boldsymbol work again. amsmath's \boldsymbol switches to a bold *math
+% version*, which an OpenType math font does not provide — it fails silently,
+% leaving the symbol unbolded and only a
+%   LaTeX Font Warning: Font shape `TU/XCharter-Math.otf(1)/b/n' undefined
+% in the log. unicode-math's \symbfit is the equivalent that works.
+%
+% Doing it here, once, keeps every \newcommand{\bX}{\boldsymbol{X}} below
+% unchanged, and keeps those definitions identical to the \boldsymbol ones in
+% themes/mathjax.html, so HTML and PDF stay in step.
+%
+% \symbfit, not \symbf: \symbfit is bold *italic*, which is what \boldsymbol
+% has always meant in LaTeX and what MathJax renders in the HTML build.
+% \symbf would give upright bold Latin (𝐗) and so differ from the web version.
+\renewcommand{\boldsymbol}[1]{\symbfit{#1}}
 
 
 
@@ -5133,9 +5150,6 @@ Regression}\label{theoretical-framework-of-linear-regression}
     the OLS estimator.
   \end{itemize}
 \item
-  Distinguish the difference between exact distribution and sampling
-  distribution of the OLS estimator.
-\item
   Understand R squared and adjusted R squared as measures of fit.
 \item
   Be able to identify violations of the linear regression assumptions
@@ -5295,54 +5309,6 @@ intercept for observation \(i\).
   \(\hat{\beta}^{OLS} \to \beta\) in probability
 \end{itemize}
 
-\subsection{Exact Distribution of OLS
-Estimator}\label{exact-distribution-of-ols-estimator}
-
-Under the assumption of normally distributed errors,
-\(\boldsymbol{\varepsilon} \vert \boldsymbol{X} \sim N(\boldsymbol{0}, \sigma^2\boldsymbol{I})\),
-we have in matrix form
-
-\begin{equation}\protect\phantomsection\label{eq-beta-distribution}{
-\hat{\boldsymbol{\beta}} \sim N(\boldsymbol{\beta}, \sigma^2 (\boldsymbol{X}'\boldsymbol{X})^{-1}).
-}\end{equation}
-
-where
-
-\begin{itemize}
-\tightlist
-\item
-  \(\sigma^2 = \var (\varepsilon_i \mid \bX)\) is the variance of the
-  error term.
-\item
-  \(\bX\) is the matrix of independent variables. \[
-  \bX = \begin{pmatrix}
-     X_1' \\ X_2' \\ \vdots \\ X_n'
-  \end{pmatrix}_{n \times (k+1)}
-  \]
-\end{itemize}
-
-Equation~\ref{eq-beta-distribution} is called the \textbf{exact
-(finite-sample) distribution} of the OLS estimator.
-
-\(\var(\hat{\bbeta}) = \sigma^2 (\boldsymbol{X}'\boldsymbol{X})^{-1}\)
-is called the \textbf{variance-covariance matrix} of the OLS estimator,
-often denoted as \(V_{\hat\beta}.\)
-
-We estimate \(\sigma^2\) with \(\hat{\sigma}^2:\) \[
-\hat{\sigma}^2 = \frac{\sum_{i=1}^ne_i^2}{n-k-1}.
-\]
-
-The standard errors of \(\hat{\beta}_j\), \(j=1,\ldots,k,\) are given by
-the square root of the \((j,j)\) element of the variance-covariance
-matrix, \(V_{\hat\beta}\).
-
-The individual coefficient estimates \(\hat{\beta}_j\) are normally
-distributed:
-
-\[
-\hat{\beta}_j \sim N(\beta_j, \sigma^2 v_{jj})
-\]
-
 \section{Sampling Distribution of OLS
 Estimator}\label{sampling-distribution-of-ols-estimator}
 
@@ -5351,23 +5317,10 @@ computed from a randomly drawn sample of data, the estimators themselves
 are random variables with a probability distribution.
 
 The sampling distribution describes the values they could take over
-different possible random samples. In small samples, theses sampling
-distributions are complicated, but in large samples, they are normal
-because of the Central Limit Theorem (CLT).
-
-\begin{tcolorbox}[enhanced jigsaw, arc=.35mm, bottomrule=.15mm, bottomtitle=1mm, breakable, colback=white, colbacktitle=quarto-callout-tip-color!10!white, colframe=quarto-callout-tip-color-frame, coltitle=black, left=2mm, leftrule=.75mm, opacityback=0, opacitybacktitle=0.6, rightrule=.15mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Sampling Distribution vs.~Exact Distribution}, titlerule=0mm, toprule=.15mm, toptitle=1mm]
-
-\begin{itemize}
-\tightlist
-\item
-  The distribution depends on the sample data \((X_i, Y_i).\)
-\item
-  Based on Central Limit Theorem (CLT), we can establish the sampling
-  distribution of \(\hat{\bbeta}\) when sample size is large, i.e.,
-  \(n\to\infty\).
-\end{itemize}
-
-\end{tcolorbox}
+different possible random samples, \((X_i, Y_i).\) In small samples,
+theses sampling distributions are complicated, but in {\textbf{large
+samples}}, they are normal because of the \textbf{Central Limit Theorem}
+(CLT).
 
 \subsection{Central Limit Theorem
 (CLT)}\label{central-limit-theorem-clt}
@@ -5674,27 +5627,19 @@ Now we can establish the large sample distribution of the OLS estimator
 \(\hat{\bbeta}\) based on CLT.
 
 Under the Gauss-Markov assumptions, as \(n\to\infty\), \[
-\sqrt{n} (\hat{\bbeta} - \bbeta) \xrightarrow{d} N(0, \sigma^2 E(\bX_i\bX_i')^{-1})
+\sqrt{n} (\hat{\bbeta} - \bbeta) \xrightarrow{d} N(0,\, \sigma^2 E(\bX_i\bX_i')^{-1})
+\] where \[
+\begin{aligned}
+\hat{\bbeta} &= \left(\sum_{i=1}^n X_iX_i'\right)^{-1} \left(\sum_{i=1}^n X_iY_i\right), \text{ and} \\
+\hat{\sigma}^2 &= \frac{\sum_{i=1}^ne_i^2}{n-k-1}.
+\end{aligned}
 \]
 
 \begin{itemize}
 \item
-  Again, note the scaling by \(\sqrt{n}.\) It shows how fast the
-  estimator \(\hat{\bbeta}\) converges to the true parameter \(\bbeta\)
-  as sample size \(n\) increases.
-\item
-  Note the difference of the variance between the exact distribution and
-  the large sample distribution.
-
-  \begin{itemize}
-  \tightlist
-  \item
-    The exact distribution depends on the \textbf{sample data}
-    \(\bX'\bX\)
-  \item
-    The large sample distribution depends on the \textbf{population
-    moment} \(E(\bX_i\bX_i')\).
-  \end{itemize}
+  Again, note the scaling by \(\sqrt{n}.\) As sample size \(n\)
+  increases, the \(\var(\hat{\bbeta})\) decreases, meaning that there is
+  less uncertainty about the estimate of \(\bbeta\).
 \item
   It suggests that \(\hat{\bbeta}\) is \textbf{asymptotically normal}
   and \textbf{consistent}.
