@@ -32,6 +32,7 @@ book:
         - index.qmd
         - 00_environment_setup.qmd
         - 00_Lab-0_Intro_to_R.ipynb
+        - 00_import-local-data-to-R.qmd
     - part: "Basics"
       chapters:
         - 01_introduction.qmd

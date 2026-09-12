@@ -1232,6 +1232,50 @@ complete the exercises. Save the script as \texttt{lab0.R}.
 \CommentTok{\# Your answer:}
 \CommentTok{\#}
 \CommentTok{\#}
+
+
+\CommentTok{\# ============================================================}
+\CommentTok{\# }\AlertTok{TASK}\CommentTok{ 6: Install and load packages}
+\CommentTok{\# ============================================================}
+\CommentTok{\#}
+\CommentTok{\# R itself comes with a small set of functions. Everything else lives in a}
+\CommentTok{\# package: you install it once onto your computer, then load it again in}
+\CommentTok{\# every session where you want to use it.}
+\CommentTok{\#}
+\CommentTok{\# Install the following packages for this course:}
+\CommentTok{\#}
+\CommentTok{\#     tidyverse      data wrangling and plotting}
+\CommentTok{\#     data.table     fast handling of larger data sets}
+\CommentTok{\#     moments        summary statistics}
+\CommentTok{\#     bookdown       knitting reports to PDF}
+\CommentTok{\#     tinytex        the LaTeX engine that PDF knitting needs}
+\CommentTok{\#}
+\CommentTok{\# 1. Install all five with a single call to \textasciigrave{}install.packages()\textasciigrave{}.}
+\CommentTok{\# 2. \textasciigrave{}tinytex\textasciigrave{} is only the manager, not LaTeX itself. Install the LaTeX}
+\CommentTok{\#    distribution by running \textasciigrave{}tinytex::install\_tinytex()\textasciigrave{}.}
+\CommentTok{\# 3. Load \textasciigrave{}tidyverse\textasciigrave{} and \textasciigrave{}moments\textasciigrave{} with \textasciigrave{}library()\textasciigrave{}.}
+\CommentTok{\# 4. Check that loading worked: run \textasciigrave{}skewness(c(1, 2, 3, 10))\textasciigrave{}. That}
+\CommentTok{\#    function exists only once \textasciigrave{}moments\textasciigrave{} has been loaded.}
+\CommentTok{\# 5. Check that LaTeX is in place: run \textasciigrave{}tinytex::is\_tinytex()\textasciigrave{}. It should}
+\CommentTok{\#    return TRUE.}
+\CommentTok{\#}
+\CommentTok{\# You only need to install packages once. They will be available in all future R sessions. You only need to load them with \textasciigrave{}library()\textasciigrave{} in each new session.}
+\CommentTok{\#}
+\CommentTok{\# Run the code below. The two installation lines go in the Console; the rest}
+\CommentTok{\# belong in the script, since loading has to happen in every session.}
+
+\FunctionTok{install.packages}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"tidyverse"}\NormalTok{, }\StringTok{"moments"}\NormalTok{, }\StringTok{"data.table"}\NormalTok{, }\StringTok{"bookdown"}\NormalTok{, }\StringTok{"tinytex"}\NormalTok{))}
+\NormalTok{tinytex}\SpecialCharTok{::}\FunctionTok{install\_tinytex}\NormalTok{()}
+
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\FunctionTok{library}\NormalTok{(moments)}
+
+\FunctionTok{skewness}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{10}\NormalTok{))}
+\NormalTok{tinytex}\SpecialCharTok{::}\FunctionTok{is\_tinytex}\NormalTok{()}
+
+
+\CommentTok{\# Copy and paste the output of the last two lines below.}
+\CommentTok{\# Output:}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1383,6 +1427,261 @@ Use your \textbf{Nord University email} (@nord.no or @student.nord.no)
 to sign up for a free account and join the DataCamp Classroom using
 \href{https://www.datacamp.com/groups/shared_links/7104062fbde7415c350e33d8d22c9d1c739434092786cf9a3cb1266d78a56b68}{THIS
 LINK}. Contact me if you have any issues joining the classroom.
+
+\chapter{Import Data from Local
+Files}\label{import-data-from-local-files}
+
+\begin{tcolorbox}[enhanced jigsaw, arc=.35mm, bottomrule=.15mm, breakable, colback=white, colframe=quarto-callout-note-color-frame, left=2mm, leftrule=.75mm, opacityback=0, rightrule=.15mm, toprule=.15mm]
+
+\includegraphics[width=\linewidth,height=1em,keepaspectratio]{filters/emoji/1f3af.png}
+In this session, you will lean how to import data from local files.
+
+In business analytics, when you have a dataset and you want to analyze
+it in R. The first step is to import the data into R. You can use the
+command \texttt{read.csv()}, but you need to specify the correct path to
+your data file. This can be tricky if you are not familiar with file
+paths and directories.
+
+An easier alternative is to use RStudio's \textbf{Import Dataset} tool,
+which provides a graphical interface to select your data file and
+automatically generates the code to import it. This is especially useful
+for those who are new to R or prefer a visual approach.
+
+Up to now you have loaded data by writing \texttt{read\_csv()} yourself.
+RStudio also ships with a point-and-click \textbf{Import Dataset} tool
+that writes that line of code for you.
+
+We will use a small example dataset to illustrate the process. The
+dataset is a CSV file with four rows of heights and weights. You may
+click \href{data/comma.csv}{HERE} to download this file to your compter.
+
+\end{tcolorbox}
+
+\texttt{comma.csv} data preview:
+
+It contains four rows of heights and weights.
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}rlrr@{}}
+\toprule\noalign{}
+id & sex & ht\_in & wt\_lbs \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+1 & Male & 71 & 190 \\
+2 & Male & 69 & 176 \\
+3 & Female & 64 & 130 \\
+4 & Female & 65 & 154 \\
+\end{longtable}
+}
+
+\section{Environment setup}\label{environment-setup-1}
+
+The ``\textbf{From Text (readr)}'' option uses the \texttt{readr}
+package, so \texttt{readr} has to be installed.
+
+\textbf{If you already have the \texttt{tidyverse}, you are done.}
+\texttt{readr} is one of the core tidyverse packages, so installing
+\texttt{tidyverse} installed \texttt{readr} along with it --- there is
+nothing extra to do. That is the case if you followed
+\hyperref[environment-setup]{Environment Setup}.
+
+Otherwise, run in the RStudio \textbf{Console}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{install.packages}\NormalTok{(}\StringTok{"readr"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\section{Import a CSV step by step}\label{import-a-csv-step-by-step}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  In the \textbf{Environment} pane, click ``\textbf{Import Dataset}''.
+
+  \raisebox{-0.2em}{\includegraphics[width=1.0\textwidth]{images/rstudio_import_button.png}}
+\item
+  Choose ``\textbf{From Text (readr)}''.
+
+  \raisebox{-0.2em}{\includegraphics[width=1.0\textwidth]{images/rstudio_import_readr.png}}
+
+  The two text options differ in which code they write for you.
+  ``\textbf{From Text (readr)}'' uses \texttt{read\_csv()} from the
+  \texttt{readr} package (part of the \texttt{tidyverse}), and
+  ``\textbf{From Text (base)}'' uses base R's \texttt{read.csv()}. This
+  course uses \texttt{readr} throughout, so pick that one.
+\item
+  The \textbf{Import Text Data} window opens. Click
+  ``\textbf{Browse\ldots{}}'' to find your file.
+
+  \raisebox{-0.2em}{\includegraphics[width=1.0\textwidth]{images/rstudio_import_browse.png}}
+\item
+  Your operating system's file explorer opens. Select the file you want
+  --- here, \texttt{comma.csv}.
+
+  \raisebox{-0.2em}{\includegraphics[width=1.0\textwidth]{images/rstudio_import_select_file.png}}
+\item
+  The window now fills in. Four areas are worth reading before you do
+  anything else.
+
+  \raisebox{-0.2em}{\includegraphics[width=1.0\textwidth]{images/rstudio_import_overview.png}}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \textbf{File/URL} --- the path to the file you picked.
+  \item
+    \textbf{Data Preview} --- how R is \emph{currently} parsing the
+    file, with the type R has guessed under each column name. Check
+    this: if a column you expect to be numeric shows up as
+    \texttt{character}, something in the file is not what you think it
+    is.
+  \item
+    \textbf{Import Options} --- the name the object will get, whether
+    the first row holds the column names, the delimiter, how missing
+    values are written, and so on.
+  \item
+    \textbf{Code Preview} --- the code that produces exactly the import
+    you have configured. Every change you make above rewrites this box.
+  \end{itemize}
+\item
+  \textbf{Optional: You can change a column type} by clicking the small
+  arrow in its column header and choosing from the dropdown. Here
+  \texttt{ht\_in} and \texttt{wt\_lbs} are being changed from
+  \texttt{double} to \texttt{integer}, since heights and weights in this
+  file are whole numbers.
+
+  \raisebox{-0.2em}{\includegraphics[width=1.0\textwidth]{images/rstudio_import_integer.png}}
+
+  The same menu has \texttt{Factor}, \texttt{Date} and \texttt{Skip},
+  which saves you a separate cleaning step later. Watch the \textbf{Code
+  Preview} box as you do this: a \texttt{col\_types} argument appears.
+\item
+  \textbf{Important step: Do {NOT} press the ``Import'' button.} Click
+  the clipboard icon above the \textbf{Code Preview} box to copy the
+  code, then press ``\textbf{Cancel}''. This makes your import
+  reproducible. You can re-run the same code again later.
+
+  \begin{tcolorbox}[enhanced jigsaw, arc=.35mm, bottomrule=.15mm, breakable, colback=white, colframe=quarto-callout-caution-color-frame, left=2mm, leftrule=.75mm, opacityback=0, rightrule=.15mm, toprule=.15mm]
+  \begin{minipage}[t]{5.5mm}
+  \textcolor{quarto-callout-caution-color}{\faFire}
+  \end{minipage}%
+  \begin{minipage}[t]{\textwidth - 5.5mm}
+
+  \vspace{-3mm}\textbf{Why copy the code instead of clicking Import?}\vspace{3mm}
+
+  If you click ``\textbf{Import}'', RStudio will load the data for your
+  current session only. If you want to import the data again, you will
+  have to go through the import dialog again. This is {\textbf{NOT}
+  reproducible}, and hence not a good practice.
+
+  \end{minipage}%
+  \end{tcolorbox}
+
+  \raisebox{-0.2em}{\includegraphics[width=1.0\textwidth]{images/rstudio_import_copy_and_paste.png}}
+\item
+  \textbf{Final Step:} Go back to your R script or Quarto document and
+  paste. Run the pasted code as though you had typed it yourself.
+\end{enumerate}
+
+\section{The code you end up with}\label{the-code-you-end-up-with}
+
+Pasting gives you something close to this:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(readr)}
+\NormalTok{comma }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}
+    \StringTok{"\textasciitilde{}/Dropbox/Datasets/Height and Weight/comma.csv"}\NormalTok{,}
+    \AttributeTok{col\_types =} \FunctionTok{cols}\NormalTok{(}\AttributeTok{ht\_in =} \FunctionTok{col\_integer}\NormalTok{(),}
+                     \AttributeTok{wt\_lbs =} \FunctionTok{col\_integer}\NormalTok{())}
+\NormalTok{    )}
+\FunctionTok{View}\NormalTok{(comma)}
+\end{Highlighting}
+\end{Shaded}
+
+Note:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Path} will be specific to your computer and your file
+  location.
+\item
+  \textbf{Drop \texttt{View(comma)}.} It opens the data viewer, which is
+  handy once but does nothing useful inside a script or a rendered
+  document.
+\end{itemize}
+
+That leaves:
+
+\begin{verbatim}
+# A tibble: 4 x 4
+     id sex    ht_in wt_lbs
+  <dbl> <chr>  <int>  <int>
+1     1 Male      71    190
+2     2 Male      69    176
+3     3 Female    64    130
+4     4 Female    65    154
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(readr)}
+\NormalTok{comma }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}
+    \StringTok{"\textasciitilde{}/Dropbox/Datasets/Height and Weight/comma.csv"}\NormalTok{,}
+    \AttributeTok{col\_types =} \FunctionTok{cols}\NormalTok{(}\AttributeTok{ht\_in =} \FunctionTok{col\_integer}\NormalTok{(),}
+                     \AttributeTok{wt\_lbs =} \FunctionTok{col\_integer}\NormalTok{())}
+\NormalTok{    )}
+\NormalTok{comma}
+\end{Highlighting}
+\end{Shaded}
+
+Note what \texttt{col\_types} bought us: \texttt{ht\_in} and
+\texttt{wt\_lbs} come in as \texttt{\textless{}int\textgreater{}} rather
+than \texttt{\textless{}dbl\textgreater{}}, exactly as chosen in the
+dialog.
+
+\section{Exercise}\label{exercise-1}
+
+Use the ``\textbf{Import Dataset}'' tool to load
+\texttt{CASchools\_test\_score.csv}, the dataset used later in the
+course. Download it from \href{data/CASchools_test_score.csv}{HERE}.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Open the file through \textbf{Import Dataset} → \textbf{From Text
+  (readr)}.
+\item
+  In the \textbf{Data Preview}, set \texttt{county} and \texttt{grades}
+  to type \texttt{Factor}.
+\item
+  Copy the code, cancel the dialog, and paste it into a script.
+\item
+  Run \texttt{str()} on the result and check that \texttt{county} and
+  \texttt{grades} are factors.
+\end{enumerate}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\textbf{Further readings:}
+
+\begin{itemize}
+\item
+  \href{https://www.r4epi.com/chapters/rstudio_import_tool/rstudio_import_tool}{@Brad
+  Cannell, RStudio's Data Import Tool}
+\item
+  \href{https://docs.posit.co/ide/user/ide/guide/data/data-local.html}{RSutdio
+  User Guide: Local Data}
+
+  You may find ``\textbf{Importing data from Excel files}'' in this
+  guide.
+\end{itemize}
 
 \part{Basics}
 

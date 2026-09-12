@@ -319,4 +319,49 @@ Copy and paste the following code into a new R script in RStudio and complete th
 # Your answer:
 #
 #
+
+
+# ============================================================
+# TASK 6: Install and load packages
+# ============================================================
+#
+# R itself comes with a small set of functions. Everything else lives in a
+# package: you install it once onto your computer, then load it again in
+# every session where you want to use it.
+#
+# Install the following packages for this course:
+#
+#     tidyverse      data wrangling and plotting
+#     data.table     fast handling of larger data sets
+#     moments        summary statistics
+#     bookdown       knitting reports to PDF
+#     tinytex        the LaTeX engine that PDF knitting needs
+#
+# 1. Install all five with a single call to `install.packages()`.
+# 2. `tinytex` is only the manager, not LaTeX itself. Install the LaTeX
+#    distribution by running `tinytex::install_tinytex()`.
+# 3. Load `tidyverse` and `moments` with `library()`.
+# 4. Check that loading worked: run `skewness(c(1, 2, 3, 10))`. That
+#    function exists only once `moments` has been loaded.
+# 5. Check that LaTeX is in place: run `tinytex::is_tinytex()`. It should
+#    return TRUE.
+#
+# You only need to install packages once. They will be available in all future R sessions. You only need to load them with `library()` in each new session.
+#
+# Run the code below. The two installation lines go in the Console; the rest
+# belong in the script, since loading has to happen in every session.
+
+install.packages(c("tidyverse", "moments", "data.table", "bookdown", "tinytex"))
+tinytex::install_tinytex()
+
+library(tidyverse)
+library(moments)
+
+skewness(c(1, 2, 3, 10))
+tinytex::is_tinytex()
+
+
+# Copy and paste the output of the last two lines below.
+# Output:
+
 ```

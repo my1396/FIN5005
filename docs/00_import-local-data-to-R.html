@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>9&nbsp; Simple Linear Regression – FIN5005 Fall 2026</title>
+<title>4&nbsp; Import Data from Local Files – FIN5005 Fall 2026</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -71,8 +71,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./04_Theoretical_Framework_LR.html" rel="next">
-<link href="./02_Lab-2_Data_Visualization_Asset_Returns.html" rel="prev">
+<link href="./01_introduction.html" rel="next">
+<link href="./00_Lab-0_Intro_to_R.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -313,35 +313,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 </head>
 
@@ -525,7 +496,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01_introduction.html">Basics</a></li><li class="breadcrumb-item"><a href="./03_Linear_Regression.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Simple Linear Regression</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Introduction</a></li><li class="breadcrumb-item"><a href="./00_import-local-data-to-R.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Import Data from Local Files</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -583,7 +554,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./00_import-local-data-to-R.html" class="sidebar-item-text sidebar-link">
+  <a href="./00_import-local-data-to-R.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Import Data from Local Files</span></span></a>
   </div>
 </li>
@@ -624,7 +595,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./03_Linear_Regression.html" class="sidebar-item-text sidebar-link active">
+  <a href="./03_Linear_Regression.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Simple Linear Regression</span></span></a>
   </div>
 </li>
@@ -687,23 +658,10 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#data-preparation" id="toc-data-preparation" class="nav-link active" data-scroll-target="#data-preparation"><span class="header-section-number">9.1</span> Data Preparation</a></li>
-  <li><a href="#descriptive-statistics" id="toc-descriptive-statistics" class="nav-link" data-scroll-target="#descriptive-statistics"><span class="header-section-number">9.2</span> Descriptive Statistics</a></li>
-  <li><a href="#scatter-plot" id="toc-scatter-plot" class="nav-link" data-scroll-target="#scatter-plot"><span class="header-section-number">9.3</span> Scatter Plot</a></li>
-  <li><a href="#simple-linear-regression" id="toc-simple-linear-regression" class="nav-link" data-scroll-target="#simple-linear-regression"><span class="header-section-number">9.4</span> Simple Linear Regression</a>
-  <ul>
-  <li><a href="#model-specification" id="toc-model-specification" class="nav-link" data-scroll-target="#model-specification"><span class="header-section-number">9.4.1</span> Model Specification</a></li>
-  <li><a href="#estimating-the-coefficients-of-the-linear-regression-model" id="toc-estimating-the-coefficients-of-the-linear-regression-model" class="nav-link" data-scroll-target="#estimating-the-coefficients-of-the-linear-regression-model"><span class="header-section-number">9.4.2</span> Estimating the Coefficients of the Linear Regression Model</a></li>
-  <li><a href="#interpretation-of-the-output" id="toc-interpretation-of-the-output" class="nav-link" data-scroll-target="#interpretation-of-the-output"><span class="header-section-number">9.4.3</span> Interpretation of the output</a>
-  <ul class="collapse">
-  <li><a href="#a.-model-specification-and-fitted-values" id="toc-a.-model-specification-and-fitted-values" class="nav-link" data-scroll-target="#a.-model-specification-and-fitted-values">A. <strong>Model Specification and Fitted Values</strong></a></li>
-  <li><a href="#b.-coefficients" id="toc-b.-coefficients" class="nav-link" data-scroll-target="#b.-coefficients">B. <strong>Coefficients</strong></a></li>
-  <li><a href="#c.-statistical-significance" id="toc-c.-statistical-significance" class="nav-link" data-scroll-target="#c.-statistical-significance">C. <strong>Statistical Significance</strong></a></li>
-  <li><a href="#d.-model-fit" id="toc-d.-model-fit" class="nav-link" data-scroll-target="#d.-model-fit">D. <strong>Model Fit</strong></a></li>
-  <li><a href="#e.-residuals" id="toc-e.-residuals" class="nav-link" data-scroll-target="#e.-residuals">E. <strong>Residuals</strong></a></li>
-  </ul></li>
-  </ul></li>
-  <li><a href="#report-by-stargazer" id="toc-report-by-stargazer" class="nav-link" data-scroll-target="#report-by-stargazer"><span class="header-section-number">9.5</span> Report by Stargazer</a></li>
+  <li><a href="#environment-setup" id="toc-environment-setup" class="nav-link active" data-scroll-target="#environment-setup"><span class="header-section-number">4.1</span> Environment setup</a></li>
+  <li><a href="#import-a-csv-step-by-step" id="toc-import-a-csv-step-by-step" class="nav-link" data-scroll-target="#import-a-csv-step-by-step"><span class="header-section-number">4.2</span> Import a CSV step by step</a></li>
+  <li><a href="#the-code-you-end-up-with" id="toc-the-code-you-end-up-with" class="nav-link" data-scroll-target="#the-code-you-end-up-with"><span class="header-section-number">4.3</span> The code you end up with</a></li>
+  <li><a href="#exercise" id="toc-exercise" class="nav-link" data-scroll-target="#exercise"><span class="header-section-number">4.4</span> Exercise</a></li>
   </ul>
 </nav>
     </div>
@@ -711,9 +669,9 @@ window.Quarto = {
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01_introduction.html">Basics</a></li><li class="breadcrumb-item"><a href="./03_Linear_Regression.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Simple Linear Regression</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Introduction</a></li><li class="breadcrumb-item"><a href="./00_import-local-data-to-R.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Import Data from Local Files</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Simple Linear Regression</span></h1>
+<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Import Data from Local Files</span></h1>
 </div>
 
 
@@ -730,609 +688,159 @@ window.Quarto = {
 </header>
 
 
-<p>In this session, we will use the same <code>CASchools</code> dataset from the previous session and implement a simple linear regression model to explore a question of interest:</p>
-<div class="callout callout-style-simple callout-important no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span><i class="codicon codicon-ask" aria-hidden="true" style="font-size:1.5em; vertical-align: middle;"></i> Research Question
+<div class="callout-body-container">
+<p><img src="filters/emoji/1f3af.png" style="height:1em"> In this session, you will lean how to import data from local files.</p>
+<p>In business analytics, when you have a dataset and you want to analyze it in R. The first step is to import the data into R. You can use the command <code>read.csv()</code>, but you need to specify the correct path to your data file. This can be tricky if you are not familiar with file paths and directories.</p>
+<p>An easier alternative is to use RStudio’s <strong>Import Dataset</strong> tool, which provides a graphical interface to select your data file and automatically generates the code to import it. This is especially useful for those who are new to R or prefer a visual approach.</p>
+<p>Up to now you have loaded data by writing <code>read_csv()</code> yourself. RStudio also ships with a point-and-click <strong>Import Dataset</strong> tool that writes that line of code for you.</p>
+<p>We will use a small example dataset to illustrate the process. The dataset is a CSV file with four rows of heights and weights. You may click <a href="data/comma.csv">HERE</a> to download this file to your compter.</p>
 </div>
 </div>
-<div class="callout-body-container callout-body">
-<center style="font-size: 1.5em; font-weight: bold;">
-Does expenditure per student affect student performance<br>
-in elementary school education?
-</center>
 </div>
-</div>
-<section id="data-preparation" class="level2" data-number="9.1">
-<h2 data-number="9.1" class="anchored" data-anchor-id="data-preparation"><span class="header-section-number">9.1</span> Data Preparation</h2>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load packages and dataset</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>pkgs <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"tidyverse"</span>, <span class="st">"moments"</span>, <span class="st">"data.table"</span>, <span class="st">"ggsci"</span>, <span class="st">"stargazer"</span>)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>missing <span class="ot">&lt;-</span> <span class="fu">setdiff</span>(pkgs, <span class="fu">rownames</span>(<span class="fu">installed.packages</span>()))</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">length</span>(missing) <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="fu">install.packages</span>(missing)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">invisible</span>(<span class="fu">lapply</span>(pkgs, <span class="cf">function</span>(pkg) <span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(pkg, <span class="at">character.only =</span> <span class="cn">TRUE</span>))))</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>f_name <span class="ot">&lt;-</span> <span class="st">"https://raw.githubusercontent.com/my1396/FIN5005-Fall2025/refs/heads/main/data/CASchools_test_score.csv"</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>cas <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(f_name,</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">col_types =</span> <span class="fu">cols</span>(</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">county =</span> <span class="fu">col_factor</span>(), <span class="co"># read as factor</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">grades =</span> <span class="fu">col_factor</span>()</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>cas <span class="sc">%&gt;%</span> <span class="fu">as.data.table</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>     district                          school      county grades students
-        &lt;num&gt;                          &lt;char&gt;      &lt;fctr&gt; &lt;fctr&gt;    &lt;num&gt;
-  1:    75119              Sunol Glen Unified     Alameda  KK-08      195
-  2:    61499            Manzanita Elementary       Butte  KK-08      240
-  3:    61549     Thermalito Union Elementary       Butte  KK-08     1550
-  4:    61457 Golden Feather Union Elementary       Butte  KK-08      243
-  5:    61523        Palermo Union Elementary       Butte  KK-08     1335
- ---                                                                     
-416:    68957          Las Lomitas Elementary   San Mateo  KK-08      984
-417:    69518            Los Altos Elementary Santa Clara  KK-08     3724
-418:    72611          Somis Union Elementary     Ventura  KK-08      441
-419:    72744               Plumas Elementary        Yuba  KK-08      101
-420:    72751            Wheatland Elementary        Yuba  KK-08     1778
-     teachers calworks   lunch computer expenditure    income   english  read
-        &lt;num&gt;    &lt;num&gt;   &lt;num&gt;    &lt;num&gt;       &lt;num&gt;     &lt;num&gt;     &lt;num&gt; &lt;num&gt;
-  1:    10.90   0.5102  2.0408       67    6384.911 22.690001  0.000000 691.6
-  2:    11.15  15.4167 47.9167      101    5099.381  9.824000  4.583333 660.5
-  3:    82.90  55.0323 76.3226      169    5501.955  8.978000 30.000002 636.3
-  4:    14.00  36.4754 77.0492       85    7101.831  8.978000  0.000000 651.9
-  5:    71.50  33.1086 78.4270      171    5235.988  9.080333 13.857677 641.8
- ---                                                                         
-416:    59.73   0.1016  3.5569      195    7290.339 28.716999  5.995935 700.9
-417:   208.48   1.0741  1.5038      721    5741.463 41.734108  4.726101 704.0
-418:    20.15   3.5635 37.1938       45    4402.832 23.733000 24.263039 648.3
-419:     5.00  11.8812 59.4059       14    4776.336  9.952000  2.970297 667.9
-420:    93.40   6.9235 47.5712      313    5993.393 12.502000  5.005624 660.5
-      math
-     &lt;num&gt;
-  1: 690.0
-  2: 661.9
-  3: 650.9
-  4: 643.5
-  5: 639.9
- ---      
-416: 707.7
-417: 709.5
-418: 641.7
-419: 676.5
-420: 651.0</code></pre>
-</div>
-</div>
-<p>Variable of interest: Test scores</p>
+<p><code>comma.csv</code> data preview:</p>
+<p>It contains four rows of heights and weights.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: right;">id</th>
+<th style="text-align: left;">sex</th>
+<th style="text-align: right;">ht_in</th>
+<th style="text-align: right;">wt_lbs</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Male</td>
+<td style="text-align: right;">71</td>
+<td style="text-align: right;">190</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">Male</td>
+<td style="text-align: right;">69</td>
+<td style="text-align: right;">176</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">Female</td>
+<td style="text-align: right;">64</td>
+<td style="text-align: right;">130</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">Female</td>
+<td style="text-align: right;">65</td>
+<td style="text-align: right;">154</td>
+</tr>
+</tbody>
+</table>
+<section id="environment-setup" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="environment-setup"><span class="header-section-number">4.1</span> Environment setup</h2>
+<p>The “<strong>From Text (readr)</strong>” option uses the <code>readr</code> package, so <code>readr</code> has to be installed.</p>
+<p><strong>If you already have the <code>tidyverse</code>, you are done.</strong> <code>readr</code> is one of the core tidyverse packages, so installing <code>tidyverse</code> installed <code>readr</code> along with it — there is nothing extra to do. That is the case if you followed <a href="./00_environment_setup.html">Environment Setup</a>.</p>
+<p>Otherwise, run in the RStudio <strong>Console</strong>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"readr"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="import-a-csv-step-by-step" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="import-a-csv-step-by-step"><span class="header-section-number">4.2</span> Import a CSV step by step</h2>
+<ol type="1">
+<li><p>In the <strong>Environment</strong> pane, click “<strong>Import Dataset</strong>”.</p>
+<p><img src="images/rstudio_import_button.png" alt="" style="display: block; margin-right: auto; margin-left: auto; zoom:40%;"></p></li>
+<li><p>Choose “<strong>From Text (readr)</strong>”.</p>
+<p><img src="images/rstudio_import_readr.png" alt="" style="display: block; margin-right: auto; margin-left: auto; zoom:40%;"></p>
+<p>The two text options differ in which code they write for you. “<strong>From Text (readr)</strong>” uses <code>read_csv()</code> from the <code>readr</code> package (part of the <code>tidyverse</code>), and “<strong>From Text (base)</strong>” uses base R’s <code>read.csv()</code>. This course uses <code>readr</code> throughout, so pick that one.</p></li>
+<li><p>The <strong>Import Text Data</strong> window opens. Click “<strong>Browse…</strong>” to find your file.</p>
+<p><img src="images/rstudio_import_browse.png" alt="" style="display: block; margin-right: auto; margin-left: auto; zoom:40%;"></p></li>
+<li><p>Your operating system’s file explorer opens. Select the file you want — here, <code>comma.csv</code>.</p>
+<p><img src="images/rstudio_import_select_file.png" alt="" style="display: block; margin-right: auto; margin-left: auto; zoom:40%;"></p></li>
+<li><p>The window now fills in. Four areas are worth reading before you do anything else.</p>
+<p><img src="images/rstudio_import_overview.png" alt="" style="display: block; margin-right: auto; margin-left: auto; zoom:40%;"></p>
 <ul>
-<li><code>read</code> and <code>math</code> are average reading and math test scores for each district</li>
-<li>In the <a href="02_Data_Visualization.html#academic-performance-relationship">last session</a>, we show that these two variables are highly correlated (r=0.92)</li>
-<li>We construct an average test score as the average of the test score for reading and the score of the math test.</li>
-</ul>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># compute TestScore and append it to CASchools</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>cas <span class="ot">&lt;-</span> cas <span class="sc">%&gt;%</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">TestScore =</span> (read <span class="sc">+</span> math) <span class="sc">/</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</section>
-<section id="descriptive-statistics" class="level2" data-number="9.2">
-<h2 data-number="9.2" class="anchored" data-anchor-id="descriptive-statistics"><span class="header-section-number">9.2</span> Descriptive Statistics</h2>
-<p>Refer to the <a href="02_Data_Visualization.html#descriptive-analysis-and-data-visualization-with-caschools">previous session</a> for detailed summary statistics and visualizations.</p>
-<p>A quick preview</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="fu">setdiff</span>(<span class="fu">names</span>(cas), <span class="fu">c</span>(<span class="st">"district"</span>, <span class="st">"school"</span>, <span class="st">"county"</span>, <span class="st">"grades"</span>))</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>(cas[v]), </span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="fu">ifelse</span>(knitr<span class="sc">::</span><span class="fu">is_html_output</span>(), <span class="st">"html"</span>, <span class="st">"latex"</span>), </span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">digits =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<table style="text-align:center">
-<tbody><tr>
-<td colspan="6" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-Statistic
-</td>
-<td>
-N
-</td>
-<td>
-Mean
-</td>
-<td>
-St.&nbsp;Dev.
-</td>
-<td>
-Min
-</td>
-<td>
-Max
-</td>
-</tr>
-<tr>
-<td colspan="6" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-students
-</td>
-<td>
-420
-</td>
-<td>
-2,628.79
-</td>
-<td>
-3,913.10
-</td>
-<td>
-81
-</td>
-<td>
-27,176
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-teachers
-</td>
-<td>
-420
-</td>
-<td>
-129.07
-</td>
-<td>
-187.91
-</td>
-<td>
-4.85
-</td>
-<td>
-1,429.00
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-calworks
-</td>
-<td>
-420
-</td>
-<td>
-13.25
-</td>
-<td>
-11.45
-</td>
-<td>
-0.00
-</td>
-<td>
-78.99
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-lunch
-</td>
-<td>
-420
-</td>
-<td>
-44.71
-</td>
-<td>
-27.12
-</td>
-<td>
-0.00
-</td>
-<td>
-100.00
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-computer
-</td>
-<td>
-420
-</td>
-<td>
-303.38
-</td>
-<td>
-441.34
-</td>
-<td>
-0
-</td>
-<td>
-3,324
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-expenditure
-</td>
-<td>
-420
-</td>
-<td>
-5,312.41
-</td>
-<td>
-633.94
-</td>
-<td>
-3,926.07
-</td>
-<td>
-7,711.51
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-income
-</td>
-<td>
-420
-</td>
-<td>
-15.32
-</td>
-<td>
-7.23
-</td>
-<td>
-5.34
-</td>
-<td>
-55.33
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-english
-</td>
-<td>
-420
-</td>
-<td>
-15.77
-</td>
-<td>
-18.29
-</td>
-<td>
-0.00
-</td>
-<td>
-85.54
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-read
-</td>
-<td>
-420
-</td>
-<td>
-654.97
-</td>
-<td>
-20.11
-</td>
-<td>
-604.50
-</td>
-<td>
-704.00
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-math
-</td>
-<td>
-420
-</td>
-<td>
-653.34
-</td>
-<td>
-18.75
-</td>
-<td>
-605.40
-</td>
-<td>
-709.50
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-TestScore
-</td>
-<td>
-420
-</td>
-<td>
-654.16
-</td>
-<td>
-19.05
-</td>
-<td>
-605.55
-</td>
-<td>
-706.75
-</td>
-</tr>
-<tr>
-<td colspan="6" style="border-bottom: 1px solid black">
-</td>
-</tr>
-</tbody></table>
-</section>
-<section id="scatter-plot" class="level2" data-number="9.3">
-<h2 data-number="9.3" class="anchored" data-anchor-id="scatter-plot"><span class="header-section-number">9.3</span> Scatter Plot</h2>
-<p>Hypothesis: Higher spending per student leads to better test scores.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cas, <span class="fu">aes</span>(<span class="at">x =</span> expenditure, <span class="at">y =</span> TestScore)) <span class="sc">+</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.6</span>, <span class="at">color =</span> <span class="st">"#1976d2"</span>) <span class="sc">+</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">color =</span> <span class="st">"#d32f2f"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">title =</span> <span class="st">"Scatter Plot of Test Scores vs. Expenditure per Student"</span>,</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">x =</span> <span class="st">"Expenditure per Student (USD)"</span>,</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> <span class="st">"Average Test Score"</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">14</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="03_Linear_Regression_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>There seems to be a positive relationship between expenditure per student and average test scores. Also note that the points are dispersed, indicating that other factors may also influence test scores. We will further explore this using multiple regression in future sessions.</p>
-<p>For now, we will focus on a simple linear regression model with only one independent variable: expenditure per student.</p>
-<p>Let’s calculate the correlation coefficient between expenditure and test scores.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(cas, <span class="fu">cor.test</span>(expenditure, TestScore))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-    Pearson's product-moment correlation
-
-data:  expenditure and TestScore
-t = 3.9841, df = 418, p-value = 7.989e-05
-alternative hypothesis: true correlation is not equal to 0
-95 percent confidence interval:
- 0.09736861 0.28180139
-sample estimates:
-      cor 
-0.1912728 </code></pre>
-</div>
-</div>
-<div id="correlation" class="example">
-<p>What does the correlation coefficient tell us? Is it statistically significant? Justify your answer.</p>
-</div>
-<button class="solution-btn" onclick="myFunction('solution1')">
-Solution
-</button>
-<div id="solution1" class="solution-answer env-green">
-<ul>
-<li><p><strong>The reported correlation coefficient</strong> is 0.19 between expenditure and TestScore.</p>
-<p>This is a positive but weak correlation: higher expenditures are associated with higher test scores, but the relationship is not very strong.</p></li>
-<li><p><strong>The p-value</strong> = 7.989e-05, which is far below common significance levels (0.05, 0.01, or even 0.001).</p>
-<p>This means we reject the null hypothesis that the true correlation is zero. The result is statistically significant.</p></li>
-</ul>
-</div>
-</section>
-<section id="simple-linear-regression" class="level2" data-number="9.4">
-<h2 data-number="9.4" class="anchored" data-anchor-id="simple-linear-regression"><span class="header-section-number">9.4</span> Simple Linear Regression</h2>
-<section id="model-specification" class="level3" data-number="9.4.1">
-<h3 data-number="9.4.1" class="anchored" data-anchor-id="model-specification"><span class="header-section-number">9.4.1</span> Model Specification</h3>
-<p>We will fit a simple linear regression model to examine the relationship between expenditure per student and average test scores.</p>
-<p><span id="eq-linear-regression"><span class="math display">\[
-\text{TestScore}_i = \beta_0 + \beta_1 \times \text{expenditure}_i + \varepsilon_i
-\tag{9.1}\]</span></span></p>
-<p><a href="#eq-linear-regression" class="quarto-xref">Equation&nbsp;<span>9.1</span></a> is the linear regression model with a single independent variable.</p>
-<p>Where:</p>
-<div class="callout callout-style-default callout-tip callout-titled" title="Key Components of the Linear Regression Model">
+<li><strong>File/URL</strong> — the path to the file you picked.</li>
+<li><strong>Data Preview</strong> — how R is <em>currently</em> parsing the file, with the type R has guessed under each column name. Check this: if a column you expect to be numeric shows up as <code>character</code>, something in the file is not what you think it is.</li>
+<li><strong>Import Options</strong> — the name the object will get, whether the first row holds the column names, the delimiter, how missing values are written, and so on.</li>
+<li><strong>Code Preview</strong> — the code that produces exactly the import you have configured. Every change you make above rewrites this box.</li>
+</ul></li>
+<li><p><strong>Optional: You can change a column type</strong> by clicking the small arrow in its column header and choosing from the dropdown. Here <code>ht_in</code> and <code>wt_lbs</code> are being changed from <code>double</code> to <code>integer</code>, since heights and weights in this file are whole numbers.</p>
+<p><img src="images/rstudio_import_integer.png" alt="" style="display: block; margin-right: auto; margin-left: auto; zoom:40%;"></p>
+<p>The same menu has <code>Factor</code>, <code>Date</code> and <code>Skip</code>, which saves you a separate cleaning step later. Watch the <strong>Code Preview</strong> box as you do this: a <code>col_types</code> argument appears.</p></li>
+<li><p><strong>Important step: Do <span class="env-orange">NOT</span> press the “Import” button.</strong> Click the clipboard icon above the <strong>Code Preview</strong> box to copy the code, then press “<strong>Cancel</strong>”. This makes your import reproducible. You can re-run the same code again later.</p>
+<div class="callout callout-style-simple callout-caution callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Key Components of the Linear Regression Model
+<span class="screen-reader-only">Caution</span>Why copy the code instead of clicking Import?
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<ul>
-<li><span class="math inline">\(\text{TestScore}_i\)</span> in the Left Hand Side (LHS) is the <strong>dependent variable</strong> (response variable). <span class="math inline">\(i\)</span> indexes different school districts.</li>
-<li><span class="math inline">\(\text{expenditure}_i\)</span> in the Right Hand Side (RHS) is the <strong>independent variable</strong> (explanatory variable or regressor).</li>
-<li><span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> are known as the parameters (coefficients) of the model.
-<ul>
-<li><span class="math inline">\(\beta_0\)</span> is the <strong>intercept</strong>, representing the expected value of TestScore when expenditure is zero.</li>
-<li><span class="math inline">\(\beta_1\)</span> is the <strong>slope coefficient</strong>, representing the change in TestScore for a one dollar increase in expenditure.</li>
-</ul></li>
-<li><span class="math inline">\(\varepsilon_i\)</span> is the error term, capturing all other factors affecting not included in the model, e.g, teacher quality, school facilities, parental involvement, etc.</li>
-</ul>
+<p>If you click “<strong>Import</strong>”, RStudio will load the data for your current session only. If you want to import the data again, you will have to go through the import dialog again. This is <span class="env-orange"><strong>NOT</strong> reproducible</span>, and hence not a good practice.</p>
 </div>
 </div>
-<p><a href="#eq-linear-regression" class="quarto-xref">Equation&nbsp;<span>9.1</span></a> can be written more generally as:</p>
-<p><span class="math display">\[
-Y_i = \beta_0 + \beta_1 X_i + \varepsilon_i
-\]</span></p>
-<ul>
-<li><span class="math inline">\(\beta_1\)</span> is the slope coefficient, which measures the change in the dependent variable <span class="math inline">\(Y\)</span> associated with a one-unit increase in the independent variable <span class="math inline">\(X.\)</span></li>
-<li><span class="math inline">\(\beta_0\)</span> is the intercept, which is the expected value of <span class="math inline">\(Y\)</span> when <span class="math inline">\(X=0;\)</span> it is the point at which the population regression line intersects the Y axis.</li>
-</ul>
-<p><img src="filters/emoji/1f4cc.png" style="height:1em"> In some econometric applications, the intercept has a meaningful economic interpretation. In other applications, the intercept has no real-world meaning; for example, when <span class="math inline">\(X\)</span> is the expenditure per student, strictly speaking the intercept is the expected value of test scores when there is no expenditure, which might be unrealistic.</p>
-<p>When the real-world meaning of the intercept is nonsensical, it is best to think of it simply as the coefficient that determines the level of the regression line.</p>
+<p><img src="images/rstudio_import_copy_and_paste.png" alt="" style="display: block; margin-right: auto; margin-left: auto; zoom:40%;"></p></li>
+<li><p><strong>Final Step:</strong> Go back to your R script or Quarto document and paste. Run the pasted code as though you had typed it yourself.</p></li>
+</ol>
 </section>
-<section id="estimating-the-coefficients-of-the-linear-regression-model" class="level3" data-number="9.4.2">
-<h3 data-number="9.4.2" class="anchored" data-anchor-id="estimating-the-coefficients-of-the-linear-regression-model"><span class="header-section-number">9.4.2</span> Estimating the Coefficients of the Linear Regression Model</h3>
-<p>Based on the scatter plot and the correlation analysis, we expect a positive relationship between expenditure and test scores. We will use the Ordinary Least Squares (OLS) method to estimate the coefficients of the linear regression model.</p>
-<p>To run this regression, we use the <code>lm()</code> function in R.</p>
+<section id="the-code-you-end-up-with" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="the-code-you-end-up-with"><span class="header-section-number">4.3</span> The code you end up with</h2>
+<p>Pasting gives you something close to this:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>comma <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"~/Dropbox/Datasets/Height and Weight/comma.csv"</span>,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">col_types =</span> <span class="fu">cols</span>(<span class="at">ht_in =</span> <span class="fu">col_integer</span>(),</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">wt_lbs =</span> <span class="fu">col_integer</span>())</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(comma)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Note:</p>
+<ul>
+<li><strong>Path</strong> will be specific to your computer and your file location.</li>
+<li><strong>Drop <code>View(comma)</code>.</strong> It opens the data viewer, which is handy once but does nothing useful inside a script or a rendered document.</li>
+</ul>
+<p>That leaves:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit the linear regression model</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(TestScore <span class="sc">~</span> expenditure, <span class="at">data =</span> cas)</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>
-Call:
-lm(formula = TestScore ~ expenditure, data = cas)
-
-Residuals:
-    Min      1Q  Median      3Q     Max 
--50.146 -14.206   0.689  13.513  50.127 
-
-Coefficients:
-             Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept) 6.236e+02  7.720e+00  80.783  &lt; 2e-16 ***
-expenditure 5.749e-03  1.443e-03   3.984 7.99e-05 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Residual standard error: 18.72 on 418 degrees of freedom
-Multiple R-squared:  0.03659,   Adjusted R-squared:  0.03428 
-F-statistic: 15.87 on 1 and 418 DF,  p-value: 7.989e-05</code></pre>
+<pre><code># A tibble: 4 × 4
+     id sex    ht_in wt_lbs
+  &lt;dbl&gt; &lt;chr&gt;  &lt;int&gt;  &lt;int&gt;
+1     1 Male      71    190
+2     2 Male      69    176
+3     3 Female    64    130
+4     4 Female    65    154</code></pre>
 </div>
 </div>
-</section>
-<section id="interpretation-of-the-output" class="level3" data-number="9.4.3">
-<h3 data-number="9.4.3" class="anchored" data-anchor-id="interpretation-of-the-output"><span class="header-section-number">9.4.3</span> Interpretation of the output</h3>
-<section id="a.-model-specification-and-fitted-values" class="level4">
-<h4 class="anchored" data-anchor-id="a.-model-specification-and-fitted-values">A. <strong>Model Specification and Fitted Values</strong></h4>
-<p>The regression estimates the effect of <strong>expenditure</strong> (per student, in USD) on <strong>test scores</strong> (combined reading and math).</p>
-<p><strong>From Theory to Practice:</strong></p>
-<p>We started with the theoretical model: <span class="math display">\[
-\text{TestScore}_i = \beta_0 + \beta_1 \times \text{expenditure}_i + \varepsilon_i
-\]</span></p>
-<p>Using OLS estimation, we obtain the <span class="env-green"><strong>fitted model</strong></span>:</p>
-<p><span class="math display">\[
-\widehat{\text{TestScore}} = 623.6 + 0.00575 \times \text{expenditure}
-\]</span></p>
-<p>The hat symbol (<span class="math inline">\(\widehat{\text{TestScore}}\)</span>) indicates these are <strong>predicted values</strong> based on our sample data. Notice that we no longer have the error terms (<span class="math inline">\(\varepsilon_i\)</span>) because this equation gives us the predicted values from the regression line.</p>
-<p><strong>Understanding Residuals:</strong></p>
-<p>Since our model can’t perfectly predict every observation, we need to measure how far off our predictions are from reality:</p>
-<p><span class="math display">\[
-\text{Residual}_i = \text{TestScore}_i - \widehat{\text{TestScore}}_i
-\]</span></p>
-<p>Residuals represent the <strong>difference between actual and predicted values</strong> - essentially, they capture what our model couldn’t explain. In the original theoretical model, these correspond to the error terms (<span class="math inline">\(\varepsilon_i\)</span>) that we estimated.</p>
-<hr>
-</section>
-<section id="b.-coefficients" class="level4">
-<h4 class="anchored" data-anchor-id="b.-coefficients">B. <strong>Coefficients</strong></h4>
-<ul>
-<li><p><strong>Intercept (623.6):</strong> When expenditure = 0, the predicted test score is about <strong>623.6</strong>. While not meaningful in practice (since expenditure cannot realistically be zero), it serves as the baseline of the regression line.</p></li>
-<li><p><strong>Expenditure (0.00575):</strong> For every <strong>one-dollar increase</strong> in expenditure per student, the average test score is predicted to increase by <strong>0.0057 points</strong>. Put differently: a <strong><span class="mathjax_ignore">$1,000</span> increase</strong> in expenditure is associated with a <strong>5.75-point increase</strong> in test scores.</p></li>
-</ul>
-<hr>
-</section>
-<section id="c.-statistical-significance" class="level4">
-<h4 class="anchored" data-anchor-id="c.-statistical-significance">C. <strong>Statistical Significance</strong></h4>
-<p>For the slope coefficient (<span class="math inline">\(\beta_1\)</span>):</p>
-<ul>
-<li>The <strong>t-value = 3.984</strong> and <strong>p-value = 7.99e-05</strong>, which is well below 0.001.</li>
-<li>This indicates that expenditure has a <strong>statistically significant positive effect</strong> on test scores.</li>
-</ul>
-<hr>
-</section>
-<section id="d.-model-fit" class="level4">
-<h4 class="anchored" data-anchor-id="d.-model-fit">D. <strong>Model Fit</strong></h4>
-<ul>
-<li><strong>R-squared = 0.0366</strong> (about 3.7%).
-<ul>
-<li>This means expenditure explains only a <strong>small portion of the variation</strong> in test scores.</li>
-<li>Many other factors (teacher quality, socio-economic background, school resources, etc.) likely play a larger role.</li>
-</ul></li>
-<li><strong>F-statistic = 15.87</strong> with a p-value of 7.99e-05.
-<ul>
-<li>This tests the null hypothesis that all regression coefficients are equal to zero (no effect).</li>
-<li>The low p-value indicates we reject the null hypothesis, confirming that the model has some explanatory power.</li>
-</ul></li>
-</ul>
-<hr>
-</section>
-<section id="e.-residuals" class="level4">
-<h4 class="anchored" data-anchor-id="e.-residuals">E. <strong>Residuals</strong></h4>
-<p>The investigation of residuals requires diagnostic test which checks the assumptions of linear regression (e.g., homoscedasticity, normality of errors).</p>
-<p><strong>We will cover them in future sessions</strong>.</p>
-<p>Here we provide a brief overview.</p>
 <div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="03_Linear_Regression_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="768"></p>
-</figure>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>comma <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"~/Dropbox/Datasets/Height and Weight/comma.csv"</span>,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">col_types =</span> <span class="fu">cols</span>(<span class="at">ht_in =</span> <span class="fu">col_integer</span>(),</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">wt_lbs =</span> <span class="fu">col_integer</span>())</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>comma</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-</div>
-</div>
-<ul>
-<li><p>The first plot is <strong>“Residuals vs Fitted” plot</strong>.</p>
-<p>The residuals appear reasonably balanced around zero, though the spread suggests substantial unexplained variation.</p>
-<p>The spread of residuals seems to <strong>increase slightly with fitted values</strong>, indicating potential heteroskedasticity (non-constant variance of errors). This suggests that the assumption of homoskedasticity may be violated, which could affect the reliability of our coefficient estimates and standard errors.</p></li>
-<li><p>The second plot is the <strong>normal Q-Q plot</strong>, which assesses whether the residuals are normally distributed.</p>
-<ul>
-<li><p>The points generally follow the reference line, suggesting that the residuals are approximately normally distributed, although there shows thin tails.</p></li>
-<li><p>This indicates that there are few extreme residuals. The model predictions don’t have large outliers.</p></li>
-</ul></li>
-</ul>
-<p><strong>From the summary output:</strong></p>
-<ul>
-<li>The <strong>residual standard error = 18.72</strong>, which is the average size of prediction errors (in test score points).</li>
-</ul>
+<p>Note what <code>col_types</code> bought us: <code>ht_in</code> and <code>wt_lbs</code> come in as <code>&lt;int&gt;</code> rather than <code>&lt;dbl&gt;</code>, exactly as chosen in the dialog.</p>
+</section>
+<section id="exercise" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="exercise"><span class="header-section-number">4.4</span> Exercise</h2>
+<p>Use the “<strong>Import Dataset</strong>” tool to load <code>CASchools_test_score.csv</code>, the dataset used later in the course. Download it from <a href="data/CASchools_test_score.csv">HERE</a>.</p>
+<ol type="1">
+<li>Open the file through <strong>Import Dataset</strong> → <strong>From Text (readr)</strong>.</li>
+<li>In the <strong>Data Preview</strong>, set <code>county</code> and <code>grades</code> to type <code>Factor</code>.</li>
+<li>Copy the code, cancel the dialog, and paste it into a script.</li>
+<li>Run <code>str()</code> on the result and check that <code>county</code> and <code>grades</code> are factors.</li>
+</ol>
 <hr>
-<p><img src="filters/emoji/2705.png" style="height:1em"> <strong>Summary Interpretation:</strong></p>
-<p>The regression analysis shows a <strong>statistically significant positive relationship</strong> between school expenditure and test scores. On average, an additional <span class="mathjax_ignore">$1,000</span> in per-student expenditure is associated with an increase of about <strong>5.75 points</strong> in test scores. However, the <strong>explanatory power of the model is low (R² ≈ 3.7%)</strong>, indicating that expenditure alone explains only a small fraction of the variation in test scores. This suggests that while spending matters, many other factors also influence student performance.</p>
-<p>To gain a more comprehensive understanding of the factors affecting student achievement, future analyses should employ <strong>multiple regression models</strong> that incorporate additional explanatory variables such as student demographics, teacher qualifications, and school characteristics. We will cover multiple regression in subsequent sessions.</p>
-</section>
-</section>
-</section>
-<section id="report-by-stargazer" class="level2" data-number="9.5">
-<h2 data-number="9.5" class="anchored" data-anchor-id="report-by-stargazer"><span class="header-section-number">9.5</span> Report by Stargazer</h2>
-<p><code>stargazer</code> produces well-formatted regression tables that can be easily included in reports or publications.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(model, <span class="at">type =</span> <span class="st">"text"</span>, <span class="at">digits =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-===============================================
-                        Dependent variable:    
-                    ---------------------------
-                             TestScore         
------------------------------------------------
-expenditure                   0.01***          
-                              (0.001)          
-                                               
-Constant                     623.62***         
-                              (7.72)           
-                                               
------------------------------------------------
-Observations                    420            
-R2                             0.04            
-Adjusted R2                    0.03            
-Residual Std. Error      18.72 (df = 418)      
-F Statistic           15.87*** (df = 1; 418)   
-===============================================
-Note:               *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
-</div>
-</div>
-<hr>
-<h3 class="anchored">
-References
-</h3>
+<p><strong>Further readings:</strong></p>
 <ul>
-<li><a href="https://www.econometrics-with-r.org/4.2-estimating-the-coefficients-of-the-linear-regression-model.html">Introduction to Econometrics with R</a></li>
+<li><p><a href="https://www.r4epi.com/chapters/rstudio_import_tool/rstudio_import_tool"><span class="citation" data-cites="Brad">@Brad</span> Cannell, RStudio’s Data Import Tool</a></p></li>
+<li><p><a href="https://docs.posit.co/ide/user/ide/guide/data/data-local.html">RSutdio User Guide: Local Data</a></p>
+<p>You may find “<strong>Importing data from Excel files</strong>” in this guide.</p></li>
 </ul>
 
 
@@ -1754,13 +1262,13 @@ References
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./02_Lab-2_Data_Visualization_Asset_Returns.html" class="pagination-link" aria-label="Lab 2: Data Visualization — Asset Returns">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Lab 2: Data Visualization — Asset Returns</span></span>
+      <a href="./00_Lab-0_Intro_to_R.html" class="pagination-link" aria-label="Lab 0: Introduction to R">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Lab 0: Introduction to R</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./04_Theoretical_Framework_LR.html" class="pagination-link" aria-label="Theoretical Framework of Linear Regression">
-        <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Theoretical Framework of Linear Regression</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./01_introduction.html" class="pagination-link" aria-label="Probability and Data in Business Analytics">
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Probability and Data in Business Analytics</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

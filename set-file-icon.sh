@@ -110,6 +110,13 @@ TARGETS=()
 # match how much of the tile a stock macOS document icon fills.
 PAD=0.05
 
+# Whether a file named on the command line has to match the pairing's
+# extensions. True for a default run, where four pairings each see the same
+# named file and only one of them should claim it. The dispatch at the bottom
+# turns it off for an explicit --icon, where "this icon on the file I named" is
+# the whole point and the extension is beside it.
+FILTER_NAMED_FILES=true
+
 REVERT=false
 DRY_RUN=false
 KEEP_MTIME=true
@@ -410,6 +417,22 @@ build_icns() {
 # hold nothing renderable. The '.?*' pattern is deliberate — plain '.*' would
 # also match "." and prune the starting directory. _files/ directories hold
 # rendered figures rather than sources.
+# ext_matches <path>
+#   Does this name end in one of EXTS? Case-insensitively, and matching find's
+#   -iname: "*.rprofile" covers .Rprofile, because the leading * may match
+#   nothing at all.
+ext_matches() {
+    local lower_name lower_ext ext
+    lower_name="$(printf '%s' "${1##*/}" | tr '[:upper:]' '[:lower:]')"
+    for ext in "${EXTS[@]}"; do
+        lower_ext="$(printf '%s' "$ext" | tr '[:upper:]' '[:lower:]')"
+        case "$lower_name" in
+            *."$lower_ext") return 0 ;;
+        esac
+    done
+    return 1
+}
+
 collect_files() {
     local target prune_expr name find_expr ext first
 
@@ -433,6 +456,13 @@ collect_files() {
 
     for target in "${TARGETS[@]}"; do
         if [ -f "$target" ]; then
+            # A file named on the command line still has to belong to this
+            # pairing. Without the check, a default run hands the same file to
+            # all four pairings in turn and the last one to touch it wins — so
+            # naming a .qmd would leave it wearing the tex icon.
+            if $FILTER_NAMED_FILES && ! ext_matches "$target"; then
+                continue
+            fi
             printf '%s\0' "$target"
         elif [ -d "$target" ]; then
             find "$target" -mindepth 1 \
@@ -531,24 +561,31 @@ TOTAL=0
 #   matches. Reverting passes an empty icon, since nothing has to be built.
 run_pairing() {
     local icon="$1"; shift
-    local label count=0 file ext_list
+    local label="" count=0 file ext_list
     local batch=()
 
     EXTS=("$@")
     ext_list="$(printf '.%s ' "${EXTS[@]}")"
-
+    ICNS=""
     if ! $REVERT; then
         label="$(basename "$icon")"
-        ICNS="$WORK_DIR/$label.icns"
-        build_icns "$icon" "$ICNS"
-        if [ -n "$SAVE_ICNS" ]; then
-            cp "$ICNS" "$SAVE_ICNS"
-            echo "icon: saved a copy at $SAVE_ICNS"
-        fi
     fi
 
     while IFS= read -r -d '' file; do
         count=$((count + 1))
+
+        # Build the icon on the first match rather than up front: name one
+        # .qmd on the command line and three of the four pairings have nothing
+        # to do, so rendering their artwork would be pure waste.
+        if ! $REVERT && [ -z "$ICNS" ]; then
+            ICNS="$WORK_DIR/$label.icns"
+            build_icns "$icon" "$ICNS"
+            if [ -n "$SAVE_ICNS" ]; then
+                cp "$ICNS" "$SAVE_ICNS"
+                echo "icon: saved a copy at $SAVE_ICNS"
+            fi
+        fi
+
         if $DRY_RUN || $VERBOSE; then
             if $REVERT; then echo "clear: $file"; else echo "set:   $file"; fi
         fi
@@ -587,6 +624,10 @@ if [ -n "$ICON_SRC" ] || [ "${#EXTS[@]}" -gt 0 ]; then
     # with it; a bare --revert falls through to the defaults below and so
     # clears every extension this script knows about.
     pairing_count=1
+    # Only one pairing runs here, so a file named on the command line cannot be
+    # claimed by the wrong one: naming --icon and a file means "this icon, that
+    # file", whatever it is called.
+    FILTER_NAMED_FILES=false
     # Reverting strips whatever icon is on the file, so no artwork is needed
     # and none is looked up — which is what lets --revert --ext work with no
     # --icon at all.
