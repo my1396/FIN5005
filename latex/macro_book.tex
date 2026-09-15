@@ -72,7 +72,19 @@
 % \symbfit, not \symbf: \symbfit is bold *italic*, which is what \boldsymbol
 % has always meant in LaTeX and what MathJax renders in the HTML build.
 % \symbf would give upright bold Latin (𝐗) and so differ from the web version.
-\renewcommand{\boldsymbol}[1]{\symbfit{#1}}
+%
+% \AtBeginDocument so this does not depend on package load order: it runs once
+% every package has been loaded, so it wins regardless of which package defined
+% \boldsymbol last, and regardless of where in this file the line sits.
+%
+% \DeclareRobustCommand, not \renewcommand: the original \boldsymbol is robust
+% (its meaning is "\protect\boldsymbol ", the \DeclareRobustCommand form), and
+% \renewcommand would quietly make it fragile. A heading like
+%   ## Estimating $\bX$ by OLS
+% would then write the *expansion* (\symbfit) into the .toc/.aux rather than
+% \boldsymbol itself, which breaks when those files are read back by a build
+% where \symbfit is not defined.
+\AtBeginDocument{\DeclareRobustCommand{\boldsymbol}[1]{\symbfit{#1}}}
 
 
 
