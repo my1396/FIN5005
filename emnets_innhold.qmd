@@ -1,0 +1,17 @@
+**English:**
+
+The aim of this course is to provide students advanced knowledge, skills and competencies they can use to make data driven decisions for organisations. The main focus is on developing the students ability to use data that are available either within the organisation or in its surroundings to conduct analyses that can be used to make better decisions. 
+
+The course consists of two main parts. We begin with descriptive analytics, where we learn to identify the patterns, trends and insights embedded in historical data, and to visualise and communicate what we find. We then turn to predictive analytics, where we use statistical models to forecast future outcomes, covering linear regression, fundamental hypothesis testing and classification methods.
+
+Throughout, case studies from a range of areas in business and society illustrate how data analytics is used in practice, and students gain hands-on experience with the R programming language for data analysis.
+
+--------------------------------------------------------------------------------
+
+**Norwegian:**
+
+Målet med emnet er å gi studentene avanserte kunnskaper, ferdigheter og kompetanse som de kan bruke til å ta datadrevne beslutninger i organisasjoner. Hovedvekten ligger på å utvikle studentenes evne til å bruke data som er tilgjengelige internt i organisasjonen eller i dens omgivelser, til å gjennomføre analyser som gir bedre beslutninger.
+
+Emnet består av to hoveddeler. Vi starter med deskriptiv analyse, der vi lærer å identifisere mønstre, trender og innsikt som ligger i historiske data, og å visualisere og formidle det vi finner. Deretter går vi over til prediktiv analyse, der vi bruker statistiske modeller til å predikere framtidige utfall, og dekker lineær regresjon, grunnleggende hypotesetesting og klassifiseringsmetoder.
+
+Gjennom hele emnet brukes casestudier fra ulike områder innen næringsliv og samfunn for å illustrere hvordan dataanalyse benyttes i praksis, og studentene får praktisk erfaring med programmeringsspråket R til dataanalyse.

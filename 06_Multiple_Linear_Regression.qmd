@@ -410,7 +410,7 @@ stargazer(
 
 ---
 
-- `calworks` is not statistically significant in all models.  
+- `calworks` is not statistically significant after controlling for `lunch`.  
   - Example: in **spec (5)**, the coefficient on `calworks` is not significantly different from zero at the 5% level since
     $$
     \left|\frac{-0.048}{0.059}\right| = 0.81 < 1.96.
@@ -421,7 +421,7 @@ stargazer(
       - <span class="env-green">1.96 for 5% significance level;</span>
       - 1.64 for 10% significance level; and
       - 2.58 for 1% significance level.
-- The effect of adding `calworks` to the base specification (spec (3)) on the coefficient of **size** and its standard error is negligible. 
+- The effect of adding `calworks` to the base specification (spec (3)) on the coefficient of `STR` and its standard error is negligible. 
 - We can therefore consider `calworks` as a **superfluous control variable**, given the inclusion of `lunch` in this model. 
   
   The two variables are highly correlated ($\rho = 0.74$). See @fig-scatter-2 for a scatter plot.

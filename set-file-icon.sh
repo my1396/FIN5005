@@ -4,7 +4,8 @@
 #
 # With no arguments it applies every pairing in DEFAULT_PAIRINGS below:
 # quarto.svg on .qmd, jupyter.svg on .ipynb, r.svg on the R family, tex.svg on
-# .tex. --icon and --ext together override that with any one pairing instead.
+# .tex, filetype-html.svg on .html. --icon and --ext together override that
+# with any one pairing instead.
 #
 # WHERE THE ARTWORK LIVES
 #   Two layers, tried in order for each icon (ICON_DIRS, below):
@@ -93,10 +94,11 @@ ICON_DIRS+=(
 # Extensions are matched case-insensitively, so "r" also covers .R and .Rmd is
 # reached by "rmd". Add a line here to cover another file type by default.
 DEFAULT_PAIRINGS=(
-    "quarto.svg   qmd"
-    "jupyter.svg  ipynb"
-    "r.svg        r rmd rhistory rprofile rt"
-    "tex.svg      tex"
+    "quarto.svg         qmd"
+    "jupyter.svg        ipynb"
+    "r.svg              r rmd rhistory rprofile rt"
+    "tex.svg            tex"
+    "filetype-html.svg  html"
 )
 
 # Both stay empty unless asked for: that is how the run below tells "use every

@@ -513,10 +513,10 @@
 \floatname{codelisting}{Listing}
 \newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
 \usepackage{amsthm}
-\theoremstyle{definition}
-\newtheorem{example}{Example}[chapter]
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}[chapter]
+\theoremstyle{definition}
+\newtheorem{example}{Example}[chapter]
 \theoremstyle{remark}
 \AtBeginDocument{\renewcommand*{\proofname}{Proof}}
 \newtheorem*{remark}{Remark}
@@ -6847,7 +6847,8 @@ F Statistic & 22.575$^{***}$ (df = 1; 418) & 155.014$^{***}$ (df = 2; 417) & 476
 
 \begin{itemize}
 \item
-  \texttt{calworks} is not statistically significant in all models.
+  \texttt{calworks} is not statistically significant after controlling
+  for \texttt{lunch}.
 
   \begin{itemize}
   \item
@@ -6872,7 +6873,7 @@ F Statistic & 22.575$^{***}$ (df = 1; 418) & 155.014$^{***}$ (df = 2; 417) & 476
   \end{itemize}
 \item
   The effect of adding \texttt{calworks} to the base specification (spec
-  (3)) on the coefficient of \textbf{size} and its standard error is
+  (3)) on the coefficient of \texttt{STR} and its standard error is
   negligible.
 \item
   We can therefore consider \texttt{calworks} as a \textbf{superfluous
@@ -6958,7 +6959,7 @@ In this script, you will learn how to:
 \section{Instructions}\label{instructions-1}
 
 Copy and paste \textbf{ALL code} in this page into a new R script file
-in RStudio. Save the file as \texttt{lab2\_binary\_variables.R} (we call
+in RStudio. Save the file as \texttt{lab3\_binary\_variables.R} (we call
 it a script or a source file). Then, run the code step by step,
 answering the questions.
 
@@ -6986,9 +6987,10 @@ Dataset Overview} for detailed description of the dataset.
 Previously, we loaded the data directly from an online data repository.
 Now, we will load the data from a local CSV file.
 
-Download the \texttt{CASchools\_test\_score.csv} file from Canvas and
-placed it in the same folder as where you put
-\texttt{lab2\_binary\_variables.R}. This is to make sure that the script
+Download the \texttt{CASchools\_test\_score.csv} file from
+\href{https://raw.githubusercontent.com/my1396/FIN5005/refs/heads/main/data/CASchools_test_score.csv}{HERE}
+and placed it in the same folder as where you put
+\texttt{lab3\_binary\_variables.R}. This is to make sure that the script
 can find the data file.
 
 \begin{itemize}
