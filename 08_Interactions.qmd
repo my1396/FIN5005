@@ -61,7 +61,7 @@ old_i &= \begin{cases}
 \end{aligned}
 $$
 
-where $agi_i$ being the proportion of owner-occupied units built prior to 1940.
+where $age_i$ being the proportion of owner-occupied units built prior to 1940.
 
 **Instructions:**
 
@@ -168,9 +168,11 @@ Plot `lstat` and `crim` group by `old` to see how the distribution of these two 
 
 ```{r}
 p1 <- ggplot(Boston, aes(x = factor(old), y = lstat)) +
-    geom_boxplot(fill = "lightblue")
+    geom_boxplot(fill = "lightblue") +
+    theme_minimal()
 p2 <- ggplot(Boston, aes(x = factor(old), y = crim)) +
-    geom_boxplot(fill = "lightblue")
+    geom_boxplot(fill = "lightblue") +
+    theme_minimal()
 plot_grid(p1, p2, labels = c("A", "B"), ncol = 2)
 ```
 
