@@ -369,7 +369,7 @@ $$
 
 We often use $R^2$ to measure the goodness of fit of a regression model. 
 
-- $R^2$ is called “the coefficient of determination.”
+- $R^2$ is called the “**coefficient of determination**.”
 - It represents the proportion of variance in the dependent variable that is predictable by the regression model.
 - $0\le R^2\le 1$
 

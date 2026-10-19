@@ -108,7 +108,7 @@ From the table above, we can interpret the coefficients as follows:
 
 - $\color{#0099FF}{\hat{\beta}_0} = 23.70$ is the expected value of `medv` for suburbs that are not next to the Charles River and are new (i.e., `old = 0`).
 
-- Comparing scenario 2 with 1: $\color{#00CC66}{\hat{\beta}_2} = -7.13$ is the difference in expected value of `medv` between new and old suburbs that are **NOT next to the Charles River**. 
+- Comparing scenario 2 with 1: $\color{#00CC66}{\hat{\beta}_2} = -7.13$ is the difference in expected value of `medv` between old and new suburbs that are **NOT next to the Charles River**. 
   
   In other words, old suburbs that are not next to the Charles River have an expected `medv` that is 7.13 lower than new suburbs that are **NOT next to the Charles River**.
 
@@ -160,11 +160,11 @@ stargazer(mod_bb, mod_bb2,
 
 **Comparing the two models:**
 
-- The coefficient of `old` reversed signs, from negative ($-7.13$) to positive ($1.75$), suggesting that after accounting for crime and low socioeconomic status, older suburbs have slightly higher values.
+- The coefficient of `old` reversed signs, from negative ($-7.13$) to positive ($1.75$), suggesting that after accounting for crime and low socioeconomic status, older suburbs have slightly higher values for suburbs that are **NOT next to the Charles River**.
 - Negative coefficients for `lstat` ($-0.95$) and `crim` ($-0.079$) indicate that higher poverty and crime reduce house values.
 
 
-Plot `lstat` and `crim` group by `old` to see how the distribution of these two variables differ between new and old suburbs.
+Plot `lstat` and `crim` groupped by `old` to see how the distribution of these two variables differ between new and old suburbs.
 
 ```{r}
 p1 <- ggplot(Boston, aes(x = factor(old), y = lstat)) +
@@ -210,8 +210,8 @@ anova(mod_bb, mod_bb2)
    - $n = 506$ is the number of observations;
    - $k_U = 5$ is the number of predictors in the unrestricted model (where $H_1$ is allowed to be true), excluding the intercept;
    - $p = 2$ is the number of restrictions (i.e., the number of additional variables in the unrestricted model);
-   - $R_U^2 = 0.574$ is the $R^2$ of the unrestricted model;
-   - $R_R^2 = 0.130$ is the $R^2$ of the restricted model.
+   - $R_U^2 = 0.574$ is the $R^2$ of the **unrestricted** model;
+   - $R_R^2 = 0.130$ is the $R^2$ of the **restricted** model.
 
    Plug in the numbers, we get
    $$

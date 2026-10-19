@@ -680,6 +680,23 @@ window.Quarto = {
 </li>
       </ul>
   </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendix</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./A1_Formula_Sheet.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Formula Sheet</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -746,9 +763,9 @@ window.Quarto = {
 <h2 data-number="13.1" class="anchored" data-anchor-id="instructions"><span class="header-section-number">13.1</span> Instructions</h2>
 <p>Copy and paste <strong>ALL code</strong> in this page into a new R script file in RStudio. Save the file as <code>lab3_binary_variables.R</code> (we call it a script or a source file). Then, run the code step by step, answering the questions.</p>
 <p>Alternatively, use <a href="https://colab.research.google.com/drive/1EcWkJfhHJOhDEHXaZgu3_f66pnlEum5R?usp=share_link">Google Colab</a>.</p>
-<div id="8cf1cd7a" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="1">
+<div id="8cf1cd7a" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="15">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load packages and dataset</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>pkgs <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"tidyverse"</span>, <span class="st">"moments"</span>, <span class="st">"data.table"</span>, <span class="st">"stargazer"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>pkgs <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"tidyverse"</span>, <span class="st">"cowplot"</span>, <span class="st">"moments"</span>, <span class="st">"data.table"</span>, <span class="st">"stargazer"</span>)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>missing <span class="ot">&lt;-</span> <span class="fu">setdiff</span>(pkgs, <span class="fu">rownames</span>(<span class="fu">installed.packages</span>()))</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">length</span>(missing) <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="fu">install.packages</span>(missing)</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">invisible</span>(<span class="fu">lapply</span>(pkgs, <span class="cf">function</span>(pkg) <span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(pkg, <span class="at">character.only =</span> <span class="cn">TRUE</span>))))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -780,6 +797,8 @@ window.Quarto = {
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>cas <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(f_name)</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># data preview, first and last 5 rows</span></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>cas <span class="sc">%&gt;%</span> <span class="fu">as.data.table</span>() <span class="sc">%&gt;%</span> <span class="fu">print</span>(<span class="at">topn =</span> <span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="5b3bb6de" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}">
 <div class="cell-output cell-output-stdout">
 <pre><code>     district                          school      county grades students
         &lt;num&gt;                          &lt;char&gt;      &lt;char&gt; &lt;char&gt;    &lt;num&gt;
@@ -827,13 +846,15 @@ window.Quarto = {
 <ul>
 <li><code>TestScore</code>: average test score of students in a school (average of math and reading scores)</li>
 <li><code>str</code>: student-teacher ratio</li>
+<li><code>computer</code>: number of computers per student</li>
 </ul>
-<div id="d43744db" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="3">
+<div id="d43744db" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="20">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>cas <span class="ot">&lt;-</span> cas <span class="sc">%&gt;%</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">TestScore =</span> (read <span class="sc">+</span> math) <span class="sc">/</span> <span class="dv">2</span>,</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">STR =</span> students <span class="sc">/</span> teachers</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">STR =</span> students <span class="sc">/</span> teachers,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">computer =</span> computer <span class="sc">/</span> students</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="regression-when-x-is-a-binary-variable" class="level2" data-number="13.3">
@@ -850,18 +871,19 @@ D_i =
     0 &amp; \text{if $STR$ in $i^{th}$ school district $\geq$ 20}.
 \end{cases}
 \tag{13.2}\]</span></span></p>
+<p>In other words, <span class="math inline">\(D_i\)</span> is a proxy of <span class="env-green"><strong>small class size</strong></span>. <span class="math inline">\(D_i = 1\)</span> indicates the school district has a small class size, while <span class="math inline">\(D_i = 0\)</span> indicates the school district has a large class size.</p>
 <p>The regression model now is</p>
 <p><span class="math display">\[
 TestScore_i = \beta_0 + \beta_1 D_i + u_i.
 \]</span></p>
 <section id="data-visualization" class="level3" data-number="13.3.1">
 <h3 data-number="13.3.1" class="anchored" data-anchor-id="data-visualization"><span class="header-section-number">13.3.1</span> Data Visualization</h3>
-<div id="a31c1e34" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="4">
+<div id="a31c1e34" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the dummy variable as defined above</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># D=1 (low STR); D=0 (high STR)</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>cas<span class="sc">$</span>D <span class="ot">&lt;-</span> cas<span class="sc">$</span>STR <span class="sc">&lt;</span> <span class="dv">20</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="0358ad10" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="5">
+<div id="0358ad10" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute group means</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>means <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(TestScore <span class="sc">~</span> D, <span class="at">data =</span> cas, mean)</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>means</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -891,7 +913,9 @@ TestScore_i = \beta_0 + \beta_1 D_i + u_i.
 </table>
 </div>
 </div>
-<div id="3cffdd3c" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="7">
+<p>The average test score in a school district with small class size is 657.25, and it is 7.17 points higher than that of a school district with large class size. In other words, smaller class size is associated with higher test scores.</p>
+<p>Now let’s visualize the distribution of test scores for school districts with small and large class sizes. We can use a box plot to compare the two groups.</p>
+<div id="3cffdd3c" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cas, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(D), <span class="at">y =</span> TestScore)) <span class="sc">+</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># scatter points, spreads the points horizontally so they don't overlap</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="fl">0.1</span>, <span class="at">height =</span> <span class="dv">0</span>, <span class="at">size =</span> <span class="fl">0.5</span>, <span class="at">color =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span></span>
@@ -905,21 +929,32 @@ TestScore_i = \beta_0 + \beta_1 D_i + u_i.
 <span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
 <span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">14</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="52bf9270" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="8">
+<div id="52bf9270" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}">
 <div class="cell-output cell-output-display">
 <div style="text-align: center;"><img src="images/dummy_plot.png" style="width: 70%; height: auto;"></div>
 </div>
 </div>
-<p>We see that small size class has higher average test score.</p>
+<p>The box plot shows that small size class has higher average test score.</p>
+<p>Now let’s run a simple linear regression model to estimate the effect of small class size on test scores.</p>
 </section>
 <section id="regression-with-a-binary-variable" class="level3" data-number="13.3.2">
 <h3 data-number="13.3.2" class="anchored" data-anchor-id="regression-with-a-binary-variable"><span class="header-section-number">13.3.2</span> Regression with a Binary Variable</h3>
 <p>With <span class="math inline">\(D\)</span> as the regressor, it is not useful to think of <span class="math inline">\(\beta_1\)</span> as a slope parameter since since <span class="math inline">\(D_i \in \{0,1\},\)</span> i.e., we only observe two discrete values instead of a continuum of regressor values. There is no continuous line depicting the conditional expectation function <span class="math inline">\(E(TestScore_i | D_i)\)</span> since this function is solely defined for <span class="math inline">\(x\)</span>-positions <span class="math inline">\(D_i = 0\)</span> and <span class="math inline">\(D_i = 1\)</span>.</p>
-<p>Therefore, <span class="env-green"><strong>the interpretation</strong></span> of the coefficients in this regression model is as follows:</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><img src="images/solution.png" alt="" style="display: inline; height: 2em; vertical-align: bottom;"> Therefore, <span class="env-green"><strong>the interpretation</strong></span> of the coefficients in this regression model is as follows:</p>
 <ul>
-<li><span class="math inline">\(E(Y_i | D_i = 0) = \beta_0\)</span>, so <span class="math inline">\(\beta_0\)</span> is the expected test score in districts where <span class="math inline">\(D_i = 0\)</span> and <span class="math inline">\(STR\)</span> is larger or equal to 20.</li>
-<li><span class="math inline">\(E(Y_i | D_i = 1) = \beta_0 + \beta_1\)</span>, or <span class="math inline">\(\beta_1 = E(Y_i | D_i = 1) - E(Y_i | D_i = 0).\)</span> Thus, <span class="math inline">\(\beta_1\)</span> is the difference in group-specific expectations, i.e., the difference in expected test score between districts with <span class="math inline">\(STR&lt;20\)</span> and those with <span class="math inline">\(STR \geq 20.\)</span></li>
+<li><span class="math inline">\(E(Y_i | D_i = 0) = \beta_0\)</span>, so <span class="math inline">\(\beta_0\)</span> is the expected test score in districts with <strong>large</strong> class sizes, i.e., <span class="math inline">\(D_i = 0.\)</span></li>
+<li><span class="math inline">\(E(Y_i | D_i = 1) = \beta_0 + \beta_1\)</span>, which is the expected test score in districts with <strong>small</strong> class sizes, i.e., <span class="math inline">\(D_i = 1.\)</span></li>
+<li><span class="math inline">\(\beta_1 = E(Y_i | D_i = 1) - E(Y_i | D_i = 0),\)</span> thus <span class="math inline">\(\beta_1\)</span> is the <strong>difference</strong> in expected test scores <strong>between</strong> districts with <strong>small and large</strong> class size.</li>
 </ul>
+</div>
+</div>
+</div>
 <p>We now estimate the dummy regression model as defined by Equations (<a href="#eq-binary-regression" class="quarto-xref"><span>13.1</span></a>) and (<a href="#eq-dummy-variable" class="quarto-xref"><span>13.2</span></a>).</p>
 <div id="d4b324d5" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>dummy_model_slr <span class="ot">&lt;-</span> <span class="fu">lm</span>(TestScore <span class="sc">~</span> D, <span class="at">data =</span> cas)</span>
@@ -959,7 +994,10 @@ Note:               *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
 </section>
 <section id="mlr-with-a-binary-variable" class="level2" data-number="13.4">
 <h2 data-number="13.4" class="anchored" data-anchor-id="mlr-with-a-binary-variable"><span class="header-section-number">13.4</span> MLR with a Binary Variable</h2>
-<div id="d11f30c8" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="10">
+<p>From the simple linear regression model above, we find that small class size is associated with higher average test scores. However, students from districts with small classes may have other advantages that help them perform well on standardized tests. For example, teach quality, computer usage, and student characteristics, such as family background.</p>
+<p>If a student is a English learner with an immigrant background, then it is reasonable to expect that the student may have lower English test scores than a student who is a native English speaker. In addition, students from low-income families may have less access to educational resources, such as after school tutoring, which may also affect their test scores.</p>
+<p>Omitting these variables from the regression model may lead to omitted variable bias. To address this issue, we can include these variables in the regression model as additional regressors.</p>
+<div id="d11f30c8" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="21">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>dummy_model_mlr <span class="ot">&lt;-</span> <span class="fu">lm</span>(TestScore <span class="sc">~</span> computer <span class="sc">+</span> english <span class="sc">+</span> lunch <span class="sc">+</span> D, <span class="at">data =</span> cas)</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(dummy_model_slr, dummy_model_mlr,</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">type =</span> <span class="st">"text"</span>,</span>
@@ -977,27 +1015,27 @@ Regression Results
                               SLR                     MLR           
                               (1)                     (2)           
 --------------------------------------------------------------------
-computer                                             0.001          
-                                                    (0.001)         
+computer                                           22.005***        
+                                                    (7.149)         
                                                                     
-english                                            -0.139***        
-                                                    (0.034)         
+english                                            -0.111***        
+                                                    (0.033)         
                                                                     
-lunch                                              -0.544***        
+lunch                                              -0.546***        
                                                     (0.022)         
                                                                     
-D                          7.169***                 2.876***        
-                            (1.847)                 (0.952)         
+D                          7.169***                 2.158**         
+                            (1.847)                 (0.924)         
                                                                     
-Constant                  650.077***               678.590***       
-                            (1.393)                 (1.164)         
+Constant                  650.077***               676.087***       
+                            (1.393)                 (1.464)         
                                                                     
 --------------------------------------------------------------------
 Observations                  420                     420           
-R2                           0.035                   0.770          
-Adjusted R2                  0.032                   0.768          
-Residual Std. Error    18.741 (df = 418)        9.176 (df = 415)    
-F Statistic         15.073*** (df = 1; 418) 347.915*** (df = 4; 415)
+R2                           0.035                   0.774          
+Adjusted R2                  0.032                   0.772          
+Residual Std. Error    18.741 (df = 418)        9.092 (df = 415)    
+F Statistic         15.073*** (df = 1; 418) 356.292*** (df = 4; 415)
 ====================================================================
 Note:                                    *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
 </div>
@@ -1008,12 +1046,36 @@ Note:                                    *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</c
 <li>Why does the estimated effect of small classes shrink when other control variables are included?</li>
 <li>Does the smaller coefficient in the multiple linear regression model mean small classes are unimportant, or does it mean we now have a less biased estimate of their effect? Explain.</li>
 </ul>
+<p>The coefficient of small classes reduced substantially, from 7.169 to 2.158. This indicates that the simple linear regression model overestimated the effect of small classes on test scores on test scores due to <strong>omitted variable bias</strong>.</p>
+<p>Some of the positive association between small classes and test scores may actually reflect other factors, such as computer availability, English proficiency, and family income. Theses factors may be correlated with class size and also influence test scores. When they are excluded from the regression model, their effects may be incorrectly attributed to small class size.</p>
+<p>Let’s explore the correlation between small classes and the other factors. For each group (<span class="math inline">\(D=0\)</span> or <span class="math inline">\(D=1\)</span>), we plot the distribution of the confounding factors.</p>
+<div id="45f7cc6a" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>p_1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(cas, <span class="fu">aes</span>(<span class="at">x =</span> D, computer)) <span class="sc">+</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">"lightblue"</span>) <span class="sc">+</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Small Class"</span>, <span class="at">y =</span> <span class="st">"Computer"</span>) <span class="sc">+</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">14</span>)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>p_2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(cas, <span class="fu">aes</span>(<span class="at">x =</span> D, english)) <span class="sc">+</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">"lightblue"</span>) <span class="sc">+</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Small Class"</span>, <span class="at">y =</span> <span class="st">"English"</span>) <span class="sc">+</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">14</span>)</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>p_3 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(cas, <span class="fu">aes</span>(<span class="at">x =</span> D, lunch)) <span class="sc">+</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">"lightblue"</span>) <span class="sc">+</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Small Class"</span>, <span class="at">y =</span> <span class="st">"Lunch"</span>) <span class="sc">+</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">14</span>)</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_grid</span>(p_1, p_2, p_3, <span class="at">nrow =</span> <span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="051f765c" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="27">
+<div class="cell-output cell-output-display">
+<div style="text-align: center;"><img src="images/group_difference.png" style="width: 100%; height: auto;"></div><br>
+</div>
+</div>
+<p>From the box plots, we observe that small classes are associated with higher computer availability, lower student-teacher ratio, and higher family income. These factors also influence test scores. Therefore, it is important to control for these confounding factors when estimating the effect of small classes on test scores. Otherwise, we may risk attributing the effect of these confounding factors to small class size, leading to biased estimates of the true effect of small classes on test scores.</p>
 </section>
 <section id="anova-test" class="level2" data-number="13.5">
 <h2 data-number="13.5" class="anchored" data-anchor-id="anova-test"><span class="header-section-number">13.5</span> ANOVA test</h2>
 <section id="one-way-anova-test" class="level3" data-number="13.5.1">
 <h3 data-number="13.5.1" class="anchored" data-anchor-id="one-way-anova-test"><span class="header-section-number">13.5.1</span> One-way ANOVA test</h3>
-<p>The purpose of a one-way ANOVA (analysis of variance) test is to determine the existence of a statistically significant difference among the means of three or more populations. The test actually uses variances to help determine if the population means are equal or not.</p>
+<p>The purpose of a one-way ANOVA (analysis of variance) test is to determine the existence of a statistically significant difference among the means of three or more populations. The test actually uses variances to help determine <span class="env-green"><strong>if the population means are equal or not</strong></span>.</p>
 <p>In what follows, we will use the one-way ANONA test to examine whether the average test scores differ across schools with different sizes of student-teacher ratios (STR).</p>
 <p>We first <strong>create a new categorical variable</strong> <code>str_cat</code> based on the variable <code>str</code> (student-teacher ratio):</p>
 <ul>
@@ -1022,31 +1084,60 @@ Note:                                    *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</c
 <li>Large size class: STR ≥ 21</li>
 </ul>
 <p>Then, we run the one-way ANOVA test to see if the average test scores differ across schools with different sizes of student-teacher ratios (STR).</p>
-<p>Null and alternative hypotheses:</p>
+<p>Null and alternative hypotheses: <span class="math display">\[
+\begin{split}
+&amp;\text{$H_0$: The average test scores are the same across schools with different class sizes.} \\
+&amp;\text{$H_1$: At least one pair of average test scores are different.}
+\end{split}
+\]</span></p>
+<p>The one-way ANOVA test can be conducted using the following regression model: <span class="math display">\[
+TestScore = \beta_0 + \beta_1 D_1 + \beta_2 D_2 + u,
+\]</span> where <span class="math inline">\(D_1\)</span> and <span class="math inline">\(D_2\)</span> are dummy variables for the categorical variable <code>str_cat</code>. <span class="math display">\[
+D_1 =
+\begin{cases}
+    1 &amp; \text{if $STR&lt;18$} \\
+    0 &amp; \text{otherwise}
+\end{cases} \quad \text{and} \quad
+D_2 =
+\begin{cases}
+    1 &amp; \text{if $18 \leq STR &lt; 21$} \\
+    0 &amp; \text{otherwise}
+\end{cases}
+\]</span> Note that we don’t need to define a dummy variable for the third category (STR ≥ 21) because if both <span class="math inline">\(D_1\)</span> and <span class="math inline">\(D_2\)</span> are 0, then the observation must belong to the third category. This is known as the <span class="env-green"><strong>reference category</strong></span>.</p>
+<p>The null and alternative hypotheses can be formulated mathematically <span class="math display">\[
+\begin{split}
+  &amp;H_0: \beta_1 = \beta_2 = 0 \\
+  &amp;H_1: \text{At least one of $\beta_1$ and $\beta_2$ is not equal to 0}
+\end{split}
+\]</span></p>
+<p>Recall the interpretation of the coefficients in this regression model:</p>
 <ul>
-<li><span class="math inline">\(H_0\)</span>: The average test scores are the same across schools with different sizes of student-teacher ratios (STR).</li>
-<li><span class="math inline">\(H_1\)</span>: At least one pair of average test scores are different.</li>
+<li><span class="math inline">\(\beta_0\)</span>: the expected test score in districts with large class sizes (the <em>reference category</em>)</li>
+<li><span class="math inline">\(\beta_1\)</span>: the <em>difference</em> in expected test scores between districts with <em>small</em> class sizes and those with <em>large</em> class sizes</li>
+<li><span class="math inline">\(\beta_2\)</span>: the <em>difference</em> in expected test scores between districts with <em>medium</em> class sizes and those with <em>large</em> class sizes</li>
 </ul>
-<div id="51be454c" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="11">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>cas <span class="ot">&lt;-</span> cas <span class="sc">%&gt;%</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">str_cat =</span> <span class="fu">case_when</span>(</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>            STR <span class="sc">&lt;</span> <span class="dv">18</span> <span class="sc">~</span> <span class="st">"Small"</span>,</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>            STR <span class="sc">&gt;=</span> <span class="dv">18</span> <span class="sc">&amp;</span> STR <span class="sc">&lt;</span> <span class="dv">21</span> <span class="sc">~</span> <span class="st">"Medium"</span>,</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>            STR <span class="sc">&gt;=</span> <span class="dv">21</span> <span class="sc">~</span> <span class="st">"Large"</span></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>        )</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>cas<span class="sc">$</span>str_cat <span class="sc">%&gt;%</span> <span class="fu">table</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Therefore, under the null hypothesis, we expect that <span class="math inline">\(\beta_1 = \beta_2 = 0\)</span>, which means that the expected test scores are the same across all three categories of class sizes. On the other hand, if we reject the null hypothesis, it means that at least one of the coefficients is not equal to 0, which indicates that there is a statistically significant difference in expected test scores between at least one pair of class size categories.</p>
+<p>The null hypothesis can be tested using an <a href="./06_Multiple_Linear_Regression.html#f-test">F-test</a>, which tests for all coefficients being equal to zero, except for the intercept.</p>
+<div id="51be454c" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="28">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>cas <span class="ot">&lt;-</span> cas <span class="sc">%&gt;%</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">str_cat =</span> <span class="fu">case_when</span>(</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>            STR <span class="sc">&lt;</span> <span class="dv">18</span> <span class="sc">~</span> <span class="st">"Small"</span>,</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>            STR <span class="sc">&gt;=</span> <span class="dv">18</span> <span class="sc">&amp;</span> STR <span class="sc">&lt;</span> <span class="dv">21</span> <span class="sc">~</span> <span class="st">"Medium"</span>,</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>            STR <span class="sc">&gt;=</span> <span class="dv">21</span> <span class="sc">~</span> <span class="st">"Large"</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>cas<span class="sc">$</span>str_cat <span class="sc">%&gt;%</span> <span class="fu">table</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <pre><code>.
  Large Medium  Small 
     92    253     75 </code></pre>
 </div>
 </div>
-<div id="072f2837" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="12">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ANOVA test</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>anova_result <span class="ot">&lt;-</span> <span class="fu">aov</span>(TestScore <span class="sc">~</span> str_cat, <span class="at">data =</span> cas)</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(anova_result)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="072f2837" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ANOVA test</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>anova_result <span class="ot">&lt;-</span> <span class="fu">aov</span>(TestScore <span class="sc">~</span> str_cat, <span class="at">data =</span> cas)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(anova_result)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <pre><code>             Df Sum Sq Mean Sq F value   Pr(&gt;F)    
 str_cat       2   9101    4551   13.27 2.59e-06 ***
@@ -1056,21 +1147,21 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 </div>
 </div>
 <p>Given the significance level <span class="math inline">\(\alpha = 0.05\)</span>, we reject the null hypothesis (p-value &lt; 0.05) and conclude that at least one pair of average test scores are different across schools with different sizes of student-teacher ratios (STR).</p>
-<div id="029d27d9" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="13">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Box plot of TestScore by str_cat</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>p_anova <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(cas, <span class="fu">aes</span>(<span class="at">x =</span> str_cat, <span class="at">y =</span> TestScore)) <span class="sc">+</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">"lightblue"</span>) <span class="sc">+</span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">x =</span> <span class="st">"Student-Teacher Ratio Category"</span>,</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> <span class="st">"Test Score"</span>,</span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">title =</span> <span class="st">"Box Plot of Test Scores by Student-Teacher Ratio Category"</span></span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">14</span>)</span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>p_anova</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="029d27d9" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Box plot of TestScore by str_cat</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>p_anova <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(cas, <span class="fu">aes</span>(<span class="at">x =</span> str_cat, <span class="at">y =</span> TestScore)) <span class="sc">+</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">"lightblue"</span>) <span class="sc">+</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">x =</span> <span class="st">"Student-Teacher Ratio Category"</span>,</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> <span class="st">"Test Score"</span>,</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">title =</span> <span class="st">"Box Plot of Test Scores by Student-Teacher Ratio Category"</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">14</span>)</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>p_anova</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="07_Lab-3_dummy-variable_files/figure-html/cell-14-output-1.png" width="420" height="420" class="figure-img"></p>
+<p><img src="07_Lab-3_dummy-variable_files/figure-html/cell-18-output-1.png" width="420" height="420" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -1083,22 +1174,23 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 <li><p>Test for Improvement: It tests whether adding more predictors (variables) to a model significantly improves the model’s ability to explain the variability in the response variable.</p></li>
 <li><p>Model Selection: Helps in deciding between a simpler model with fewer variables and a more complex one with more variables.</p></li>
 </ul>
-<p>For instance, consider we have two models:</p>
-<ul>
-<li>Model 1: <span class="math inline">\(y = \beta_0 + \beta_1 x_{1} + \varepsilon\)</span>, and</li>
-<li>Model 2: <span class="math inline">\(y = \beta_0 + \beta_1 x_{1} + \beta_2 x_2 + \beta_3 x_3 + \varepsilon\)</span>.</li>
-</ul>
-<p>We can form a test by comparing the <span class="math inline">\(R^2\)</span> from the two models.</p>
-<p><span class="math display">\[
-\begin{aligned}
-&amp;\text{H}_0: \beta_2 = \beta_3 = 0 \\
-&amp;\text{H}_1: \beta_2 \ne 0 \text{ or } \beta_3\ne 0 ,
-\end{aligned}
-\]</span> which imposes two exclusion restrictions.</p>
 <p>Coming back to our California school TestScore example, we can use the two-way ANOVA test to see if the multiple regression model with additional control variables (Model 2) significantly improves the model’s ability to explain the variability in TestScore compared to the simple regression model (Model 1).</p>
-<div id="1c6ab3a5" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="14">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>anova_result2 <span class="ot">&lt;-</span> <span class="fu">anova</span>(dummy_model_slr, dummy_model_mlr)</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>anova_result2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li>Model 1: <span class="math display">\[
+TestScore = \beta_0 + \beta_1 D + \varepsilon,
+\]</span></li>
+<li>Model 2: <span class="math display">\[TestScore = \beta_0 + \beta_1 D + \beta_2\, Computer + \beta_3\, English + \beta_4\, Lunch + \varepsilon .
+\]</span></li>
+</ul>
+<p>We can conduct a test by comparing the <span class="math inline">\(R^2\)</span> from the two models. <span class="math display">\[
+\begin{aligned}
+&amp;\text{H}_0: \beta_2 = \beta_3 = \beta_4 = 0 \\
+&amp;\text{H}_1: \text{At least one of }\beta_2, \beta_3, \text{ and } \beta_4 \text{ is not equal to } 0 ,
+\end{aligned}
+\]</span> which imposes three exclusion restrictions.</p>
+<div id="1c6ab3a5" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>anova_result2 <span class="ot">&lt;-</span> <span class="fu">anova</span>(dummy_model_slr, dummy_model_mlr)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>anova_result2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <table class="dataframe caption-top table table-sm table-striped small">
 <caption>A anova: 2 × 6</caption>

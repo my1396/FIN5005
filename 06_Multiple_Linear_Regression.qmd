@@ -192,7 +192,8 @@ This illustrates the importance of multiple regression: it separates the effect 
   * Both models are statistically significant overall. The MLR has a smaller F-statistic because it includes more regressors, but still clearly improves explanatory power.
 
 
-## F-test for Significance of the Overall Regression
+
+## F-test for Significance of the Overall Regression {#f-test}
 
 F-test is also known as the one-way analysis of variance (ANOVA) test. It tests whether the regression model as a whole is statistically significant.
 

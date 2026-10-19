@@ -1,0 +1,15 @@
+# Formula Sheet {#sec-formula-sheet}
+
+<!-- The PDF stays in _exam/; Quarto copies it to docs/_exam/ because it is linked below. -->
+
+::: {.content-visible when-format="html"}
+[<i class="fa-solid fa-file-pdf"></i> Download the formula sheet (PDF)](_exam/01_formula_sheet_2026Spring.pdf){download="FIN5005_formula_sheet.pdf"}
+
+<iframe src="_exam/01_formula_sheet_2026Spring.pdf" width="100%" height="900" style="border: 1px solid #ccc;"></iframe>
+:::
+
+::: {.content-visible when-format="pdf"}
+```{=latex}
+\includepdf[pages=-, scale=0.9, pagecommand={}]{_exam/01_formula_sheet_2026Spring.pdf}
+```
+:::

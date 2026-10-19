@@ -89,7 +89,9 @@ If you want to learn in-depth, you can refer to the following textbooks and reso
 **Resources:**
 
 - [Distribution Tables](https://drive.google.com/file/d/1Iwec44x4N5AItbpFugbUOKHBIE10cMOw/view?usp=drive_link)
-- [Formula Sheet](https://drive.google.com/file/d/1FhRrVo8BkmVwwQdt0Xm47j4HIBhYHCbb/view?usp=drive_link)
+- Formula Sheet: see @sec-formula-sheet
+  
+  Formula sheet is updated each semester. The version that will be used in the school exam will be uploaded to Canvas *two weeks* before the exam. For practice purposes, it is fine to use the version provided here.
 
 
 ## Course Evaluation

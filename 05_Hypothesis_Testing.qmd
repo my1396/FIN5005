@@ -127,6 +127,79 @@ $$
 p\text{-value} = 2\;\P(T > |t|)
 $$
 
+The p-value is the total area under the t-distribution beyond $\pm|t|$, as shown by the shaded tails in @fig-pvalue. The further $t$ is from zero, the smaller the shaded area and the stronger the evidence against $H_0$.
+
+```{r}
+#| label: fig-pvalue
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-cap: "Two-sided p-value for $t = 2.3$ with $df = 30$. Each shaded tail has area $\\P(T > |t|) = 0.0143$, so the p-value is $2 \\times 0.0143 = 2.86\\%$."
+#| fig-width: 6
+#| fig-asp: 0.5
+#| dpi: 300
+source("../../_shared-resources/scripts/_fig_theme.R") # my_theme, INK colours
+
+t_stat <- 2.3
+df <- 30
+t_abs <- abs(t_stat)
+p_tail <- pt(t_abs, df, lower.tail = FALSE)
+
+# add ±|t| to the grid so the shaded tails start exactly at the dashed lines
+dens <- tibble(x = sort(c(seq(-4, 4, by = 0.01), -t_abs, t_abs))) %>%
+    mutate(y = dt(x, df))
+tails <- dens %>%
+    mutate(side = case_when(x >= t_abs ~ "right", x <= -t_abs ~ "left")) %>%
+    filter(!is.na(side))
+
+ggplot(dens, aes(x, y)) +
+    geom_area(data = tails, aes(group = side), fill = "#1976d2", alpha = 0.6) +
+    geom_line(colour = INK, linewidth = 0.7) +
+    geom_vline(
+        xintercept = c(-t_abs, t_abs),
+        linetype = "dashed", colour = INK_MUTED, linewidth = 0.4
+    ) +
+    # label the cut-offs, beside the dashed lines (plotmath, so |t| doesn't read as "ltl")
+    annotate("text",
+        x = c(-t_abs - 0.08, t_abs + 0.08), y = 0.43, hjust = c(1, 0),
+        label = sprintf(
+            c('-group("|", italic(t), "|") == "%.2f"', 'group("|", italic(t), "|") == "%.2f"'),
+            c(-t_abs, t_abs)
+        ),
+        parse = TRUE, colour = INK_SOFT, size = 3.6
+    ) +
+    # point to each tail area
+    annotate("segment",
+        x = c(-3.25, 3.25), xend = c(-2.5, 2.5),
+        y = 0.095, yend = 0.007,
+        colour = INK_MUTED, linewidth = 0.4,
+        arrow = arrow(length = unit(5, "pt"))
+    ) +
+    annotate("text",
+        x = c(-3.25, 3.25), y = 0.15,
+        label = c(
+            'P(italic(T) < -group("|", italic(t), "|"))',
+            'P(italic(T) > group("|", italic(t), "|"))'
+        ),
+        parse = TRUE, colour = INK_SOFT, size = 3.6
+    ) +
+    annotate("text",
+        x = c(-3.25, 3.25), y = 0.115,
+        label = sprintf("= %.4f", p_tail),
+        colour = INK_SOFT, size = 3.6
+    ) +
+    scale_y_continuous(limits = c(0, 0.45), expand = expansion(mult = c(0, 0.02))) +
+    labs(
+        x = "t",
+        y = "Density",
+        subtitle = sprintf(
+            "p-value = shaded area = 2 × %.4f = %.4f",
+            p_tail, 2 * p_tail
+        )
+    ) +
+    my_theme +
+    theme(plot.background = element_rect(fill = "white", colour = NA))
+```
 
 ::: {.example #exm-1 title="Finding p-value from t-statistic"}
 A marketing manager wants to understand whether the number of social media posts influences monthly customer engagement for an online store. She runs a regression analysis and finds a t-statistic of $t = 2.457$ for the coefficient on the number of posts, with $df = 30$.
@@ -176,7 +249,9 @@ There is no statistically significant evidence that the amount spent on in-store
 
 ## Confidence Interval for Single Coefficient
 
-A 95 percent confidence interval for the slope is given by
+A 95% confidence interval for $\beta$ is an interval that contains the true value of $\beta$ with 95% probability. In other words, it contains the true value of $\beta$ in 95% of all possible randomly drawn samples.
+
+A 95% confidence interval for the slope is given by
 
 $$
 \left(\hat{\beta}-C_{\alpha/2}\times SE(\hat{\beta}),\; \hat{\beta}+C_{\alpha/2}\times SE(\hat{\beta})\right)

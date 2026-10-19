@@ -677,6 +677,23 @@ window.Quarto = {
 </li>
       </ul>
   </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendix</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./A1_Formula_Sheet.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Formula Sheet</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -940,7 +957,7 @@ F-statistic: 25.02 on 3 and 502 DF,  p-value: 4.244e-15</code></pre>
 <p>From the table above, we can interpret the coefficients as follows:</p>
 <ul>
 <li><p><span class="math inline">\(\color[RGB]{0, 153, 255}{\hat{\beta}_0} = 23.70\)</span> is the expected value of <code>medv</code> for suburbs that are not next to the Charles River and are new (i.e., <code>old = 0</code>).</p></li>
-<li><p>Comparing scenario 2 with 1: <span class="math inline">\(\color[RGB]{0, 204, 102}{\hat{\beta}_2} = -7.13\)</span> is the difference in expected value of <code>medv</code> between new and old suburbs that are <strong>NOT next to the Charles River</strong>.</p>
+<li><p>Comparing scenario 2 with 1: <span class="math inline">\(\color[RGB]{0, 204, 102}{\hat{\beta}_2} = -7.13\)</span> is the difference in expected value of <code>medv</code> between old and new suburbs that are <strong>NOT next to the Charles River</strong>.</p>
 <p>In other words, old suburbs that are not next to the Charles River have an expected <code>medv</code> that is 7.13 lower than new suburbs that are <strong>NOT next to the Charles River</strong>.</p></li>
 <li><p>Comparing scenario 3 with 1: <span class="math inline">\(\color[RGB]{251, 91, 137}{\hat{\beta}_1} = 4.06\)</span> is the difference in expected value of <code>medv</code> between suburbs that are next to the Charles River and those that are not, among <strong>new</strong> suburbs (i.e., <code>old = 0</code>).</p>
 <p>In other words, <strong>new</strong> suburbs that are next to the Charles River have an expected <code>medv</code> that is 4.06 higher than new suburbs that are not next to the Charles River.</p></li>
@@ -1023,10 +1040,10 @@ Note:                                    *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</c
 </div>
 <p><strong>Comparing the two models:</strong></p>
 <ul>
-<li>The coefficient of <code>old</code> reversed signs, from negative (<span class="math inline">\(-7.13\)</span>) to positive (<span class="math inline">\(1.75\)</span>), suggesting that after accounting for crime and low socioeconomic status, older suburbs have slightly higher values.</li>
+<li>The coefficient of <code>old</code> reversed signs, from negative (<span class="math inline">\(-7.13\)</span>) to positive (<span class="math inline">\(1.75\)</span>), suggesting that after accounting for crime and low socioeconomic status, older suburbs have slightly higher values for suburbs that are <strong>NOT next to the Charles River</strong>.</li>
 <li>Negative coefficients for <code>lstat</code> (<span class="math inline">\(-0.95\)</span>) and <code>crim</code> (<span class="math inline">\(-0.079\)</span>) indicate that higher poverty and crime reduce house values.</li>
 </ul>
-<p>Plot <code>lstat</code> and <code>crim</code> group by <code>old</code> to see how the distribution of these two variables differ between new and old suburbs.</p>
+<p>Plot <code>lstat</code> and <code>crim</code> groupped by <code>old</code> to see how the distribution of these two variables differ between new and old suburbs.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(Boston, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(old), <span class="at">y =</span> lstat)) <span class="sc">+</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">"lightblue"</span>) <span class="sc">+</span></span>
@@ -1084,8 +1101,8 @@ F = \left(\frac{n - k_U -1}{p}\right) \left(\frac{R_U^2-R_R^2}{1-R_U^2}\right) \
 <li><span class="math inline">\(n = 506\)</span> is the number of observations;</li>
 <li><span class="math inline">\(k_U = 5\)</span> is the number of predictors in the unrestricted model (where <span class="math inline">\(H_1\)</span> is allowed to be true), excluding the intercept;</li>
 <li><span class="math inline">\(p = 2\)</span> is the number of restrictions (i.e., the number of additional variables in the unrestricted model);</li>
-<li><span class="math inline">\(R_U^2 = 0.574\)</span> is the <span class="math inline">\(R^2\)</span> of the unrestricted model;</li>
-<li><span class="math inline">\(R_R^2 = 0.130\)</span> is the <span class="math inline">\(R^2\)</span> of the restricted model.</li>
+<li><span class="math inline">\(R_U^2 = 0.574\)</span> is the <span class="math inline">\(R^2\)</span> of the <strong>unrestricted</strong> model;</li>
+<li><span class="math inline">\(R_R^2 = 0.130\)</span> is the <span class="math inline">\(R^2\)</span> of the <strong>restricted</strong> model.</li>
 </ul>
 <p>Plug in the numbers, we get <span class="math display">\[
 F = \left(\frac{506-5-1}{2}\right) \left(\frac{0.574-0.130}{1-0.574}\right) = 260.56

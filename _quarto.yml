@@ -48,6 +48,12 @@ book:
       chapters:
         - 08_Interactions.qmd
         - 09_Logistic_Regression.qmd
+  appendices:
+    - A1_Formula_Sheet.qmd
+
+# Rename the appendices part (default "Appendices")
+language:
+  section-title-appendices: "Appendix"
 
 filters:
   - filters/color-text.lua  # Add color to text in pdf

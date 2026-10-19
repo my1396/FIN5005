@@ -642,6 +642,23 @@ window.Quarto = {
 </li>
       </ul>
   </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendix</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./A1_Formula_Sheet.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Formula Sheet</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -796,6 +813,21 @@ A: For two-sided test, the p-value is given by</p>
 <p><span class="math display">\[
 p\text{-value} = 2\;\P(T &gt; |t|)
 \]</span></p>
+<p>The p-value is the total area under the t-distribution beyond <span class="math inline">\(\pm|t|\)</span>, as shown by the shaded tails in <a href="#fig-pvalue" class="quarto-xref">Figure&nbsp;<span>11.1</span></a>. The further <span class="math inline">\(t\)</span> is from zero, the smaller the shaded area and the stronger the evidence against <span class="math inline">\(H_0\)</span>.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-pvalue" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-pvalue-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="05_Hypothesis_Testing_files/figure-html/fig-pvalue-1.png" class="img-fluid figure-img" width="1800">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pvalue-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;11.1: Two-sided p-value for <span class="math inline">\(t = 2.3\)</span> with <span class="math inline">\(df = 30\)</span>. Each shaded tail has area <span class="math inline">\(\P(T &gt; |t|) = 0.0143\)</span>, so the p-value is <span class="math inline">\(2 \times 0.0143 = 2.86\%\)</span>.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
 <div id="exm-1" class="example theorem" title="Finding p-value from t-statistic">
 <p><span class="theorem-title"><strong>Example 11.1</strong></span> A marketing manager wants to understand whether the number of social media posts influences monthly customer engagement for an online store. She runs a regression analysis and finds a t-statistic of <span class="math inline">\(t = 2.457\)</span> for the coefficient on the number of posts, with <span class="math inline">\(df = 30\)</span>.</p>
 <ul>
@@ -837,7 +869,8 @@ Solution
 </section>
 <section id="confidence-interval-for-single-coefficient" class="level2" data-number="11.2">
 <h2 data-number="11.2" class="anchored" data-anchor-id="confidence-interval-for-single-coefficient"><span class="header-section-number">11.2</span> Confidence Interval for Single Coefficient</h2>
-<p>A 95 percent confidence interval for the slope is given by</p>
+<p>A 95% confidence interval for <span class="math inline">\(\beta\)</span> is an interval that contains the true value of <span class="math inline">\(\beta\)</span> with 95% probability. In other words, it contains the true value of <span class="math inline">\(\beta\)</span> in 95% of all possible randomly drawn samples.</p>
+<p>A 95% confidence interval for the slope is given by</p>
 <p><span class="math display">\[
 \left(\hat{\beta}-C_{\alpha/2}\times SE(\hat{\beta}),\; \hat{\beta}+C_{\alpha/2}\times SE(\hat{\beta})\right)
 \]</span></p>

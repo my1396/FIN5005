@@ -255,6 +255,7 @@
 
 \usepackage{changepage}   % for the adjustwidth environment
 \usepackage[all]{nowidow} % prevent widow/orphan lines
+\usepackage{pdfpages}     % \includepdf, for the formula sheet appendix
 \pretolerance = 1000               % Relaxes parameters for line breaks
 \tolerance    = 2000               % Relaxes parameters for line breaks
 
@@ -718,13 +719,16 @@ and resources.
 \textbf{Resources:}
 
 \begin{itemize}
-\tightlist
 \item
   \href{https://drive.google.com/file/d/1Iwec44x4N5AItbpFugbUOKHBIE10cMOw/view?usp=drive_link}{Distribution
   Tables}
 \item
-  \href{https://drive.google.com/file/d/1FhRrVo8BkmVwwQdt0Xm47j4HIBhYHCbb/view?usp=drive_link}{Formula
-  Sheet}
+  Formula Sheet: see Appendix~\ref{sec-formula-sheet}
+
+  Formula sheet is updated each semester. The version that will be used
+  in the school exam will be uploaded to Canvas \emph{two weeks} before
+  the exam. For practice purposes, it is fine to use the version
+  provided here.
 \end{itemize}
 
 \section{Course Evaluation}\label{course-evaluation}
@@ -5687,7 +5691,7 @@ model.
 \begin{itemize}
 \tightlist
 \item
-  \(R^2\) is called ``the coefficient of determination.''
+  \(R^2\) is called the ``\textbf{coefficient of determination}.''
 \item
   It represents the proportion of variance in the dependent variable
   that is predictable by the regression model.
@@ -6059,6 +6063,25 @@ A: For two-sided test, the p-value is given by
 p\text{-value} = 2\;\P(T > |t|)
 \]
 
+The p-value is the total area under the t-distribution beyond
+\(\pm|t|\), as shown by the shaded tails in Figure~\ref{fig-pvalue}. The
+further \(t\) is from zero, the smaller the shaded area and the stronger
+the evidence against \(H_0\).
+
+\begin{figure}
+
+\centering{
+
+\pandocbounded{\includegraphics[keepaspectratio]{05_Hypothesis_Testing_files/figure-pdf/fig-pvalue-1.pdf}}
+
+}
+
+\caption{\label{fig-pvalue}Two-sided p-value for \(t = 2.3\) with
+\(df = 30\). Each shaded tail has area \(\P(T > |t|) = 0.0143\), so the
+p-value is \(2 \times 0.0143 = 2.86\%\).}
+
+\end{figure}%
+
 \begin{example}[]\protect\hypertarget{exm-1}{}\label{exm-1}
 
 A marketing manager wants to understand whether the number of social
@@ -6141,7 +6164,12 @@ in-store promotions affects weekly sales.
 \section{Confidence Interval for Single
 Coefficient}\label{confidence-interval-for-single-coefficient}
 
-A 95 percent confidence interval for the slope is given by
+A 95\% confidence interval for \(\beta\) is an interval that contains
+the true value of \(\beta\) with 95\% probability. In other words, it
+contains the true value of \(\beta\) in 95\% of all possible randomly
+drawn samples.
+
+A 95\% confidence interval for the slope is given by
 
 \[
 \left(\hat{\beta}-C_{\alpha/2}\times SE(\hat{\beta}),\; \hat{\beta}+C_{\alpha/2}\times SE(\hat{\beta})\right)
@@ -6515,7 +6543,7 @@ the real driver of test scores here is class size, not expenditure.
 \end{itemize}
 
 \section{F-test for Significance of the Overall
-Regression}\label{f-test-for-significance-of-the-overall-regression}
+Regression}\label{f-test}
 
 F-test is also known as the one-way analysis of variance (ANOVA) test.
 It tests whether the regression model as a whole is statistically
@@ -6970,7 +6998,7 @@ Colab}.
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{\# load packages and dataset}
-\NormalTok{pkgs }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"tidyverse"}\NormalTok{, }\StringTok{"moments"}\NormalTok{, }\StringTok{"data.table"}\NormalTok{, }\StringTok{"stargazer"}\NormalTok{)}
+\NormalTok{pkgs }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"tidyverse"}\NormalTok{, }\StringTok{"cowplot"}\NormalTok{, }\StringTok{"moments"}\NormalTok{, }\StringTok{"data.table"}\NormalTok{, }\StringTok{"stargazer"}\NormalTok{)}
 \NormalTok{missing }\OtherTok{\textless{}{-}} \FunctionTok{setdiff}\NormalTok{(pkgs, }\FunctionTok{rownames}\NormalTok{(}\FunctionTok{installed.packages}\NormalTok{()))}
 \ControlFlowTok{if}\NormalTok{ (}\FunctionTok{length}\NormalTok{(missing) }\SpecialCharTok{\textgreater{}} \DecValTok{0}\NormalTok{) }\FunctionTok{install.packages}\NormalTok{(missing)}
 \FunctionTok{invisible}\NormalTok{(}\FunctionTok{lapply}\NormalTok{(pkgs, }\ControlFlowTok{function}\NormalTok{(pkg) }\FunctionTok{suppressPackageStartupMessages}\NormalTok{(}\FunctionTok{library}\NormalTok{(pkg, }\AttributeTok{character.only =} \ConstantTok{TRUE}\NormalTok{))))}
@@ -7089,6 +7117,8 @@ As done previously, we create the following variables:
   (average of math and reading scores)
 \item
   \texttt{str}: student-teacher ratio
+\item
+  \texttt{computer}: number of computers per student
 \end{itemize}
 
 \begin{Shaded}
@@ -7096,7 +7126,8 @@ As done previously, we create the following variables:
 \NormalTok{cas }\OtherTok{\textless{}{-}}\NormalTok{ cas }\SpecialCharTok{\%\textgreater{}\%}
     \FunctionTok{mutate}\NormalTok{(}
         \AttributeTok{TestScore =}\NormalTok{ (read }\SpecialCharTok{+}\NormalTok{ math) }\SpecialCharTok{/} \DecValTok{2}\NormalTok{,}
-        \AttributeTok{STR =}\NormalTok{ students }\SpecialCharTok{/}\NormalTok{ teachers}
+        \AttributeTok{STR =}\NormalTok{ students }\SpecialCharTok{/}\NormalTok{ teachers,}
+        \AttributeTok{computer =}\NormalTok{ computer }\SpecialCharTok{/}\NormalTok{ students}
 \NormalTok{    )}
 \end{Highlighting}
 \end{Shaded}
@@ -7121,6 +7152,10 @@ D_i =
     0 & \text{if $STR$ in $i^{th}$ school district $\geq$ 20}.
 \end{cases}
 }\end{equation}
+
+In other words, \(D_i\) is a proxy of {\textbf{small class size}}.
+\(D_i = 1\) indicates the school district has a small class size, while
+\(D_i = 0\) indicates the school district has a large class size.
 
 The regression model now is
 
@@ -7155,6 +7190,15 @@ A data.frame: 2 × 2
       TRUE & 657.2462\\
 \end{tabular}
 
+The average test score in a school district with small class size is
+657.25, and it is 7.17 points higher than that of a school district with
+large class size. In other words, smaller class size is associated with
+higher test scores.
+
+Now let's visualize the distribution of test scores for school districts
+with small and large class sizes. We can use a box plot to compare the
+two groups.
+
 \begin{Shaded}
 \begin{Highlighting}[]
 \FunctionTok{ggplot}\NormalTok{(cas, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \FunctionTok{factor}\NormalTok{(D), }\AttributeTok{y =}\NormalTok{ TestScore)) }\SpecialCharTok{+}
@@ -7176,7 +7220,10 @@ A data.frame: 2 × 2
 Unable to display output for mime type(s): text/html
 \end{verbatim}
 
-We see that small size class has higher average test score.
+The box plot shows that small size class has higher average test score.
+
+Now let's run a simple linear regression model to estimate the effect of
+small class size on test scores.
 
 \subsection{Regression with a Binary
 Variable}\label{regression-with-a-binary-variable}
@@ -7188,22 +7235,27 @@ no continuous line depicting the conditional expectation function
 \(E(TestScore_i | D_i)\) since this function is solely defined for
 \(x\)-positions \(D_i = 0\) and \(D_i = 1\).
 
-Therefore, {\textbf{the interpretation}} of the coefficients in this
-regression model is as follows:
+\begin{tcolorbox}[enhanced jigsaw, arc=.35mm, bottomrule=.15mm, breakable, colback=white, colframe=quarto-callout-tip-color-frame, left=2mm, leftrule=.75mm, opacityback=0, rightrule=.15mm, toprule=.15mm]
+
+\includegraphics[height=2em]{images/solution.png} Therefore,
+{\textbf{the interpretation}} of the coefficients in this regression
+model is as follows:
 
 \begin{itemize}
 \tightlist
 \item
   \(E(Y_i | D_i = 0) = \beta_0\), so \(\beta_0\) is the expected test
-  score in districts where \(D_i = 0\) and \(STR\) is larger or equal to
-  20.
+  score in districts with \textbf{large} class sizes, i.e., \(D_i = 0.\)
 \item
-  \(E(Y_i | D_i = 1) = \beta_0 + \beta_1\), or
-  \(\beta_1 = E(Y_i | D_i = 1) - E(Y_i | D_i = 0).\) Thus, \(\beta_1\)
-  is the difference in group-specific expectations, i.e., the difference
-  in expected test score between districts with \(STR<20\) and those
-  with \(STR \geq 20.\)
+  \(E(Y_i | D_i = 1) = \beta_0 + \beta_1\), which is the expected test
+  score in districts with \textbf{small} class sizes, i.e., \(D_i = 1.\)
+\item
+  \(\beta_1 = E(Y_i | D_i = 1) - E(Y_i | D_i = 0),\) thus \(\beta_1\) is
+  the \textbf{difference} in expected test scores \textbf{between}
+  districts with \textbf{small and large} class size.
 \end{itemize}
+
+\end{tcolorbox}
 
 We now estimate the dummy regression model as defined by Equations
 (\ref{eq-binary-regression}) and (\ref{eq-dummy-variable}).
@@ -7260,6 +7312,23 @@ questions:}
 
 \section{MLR with a Binary Variable}\label{mlr-with-a-binary-variable}
 
+From the simple linear regression model above, we find that small class
+size is associated with higher average test scores. However, students
+from districts with small classes may have other advantages that help
+them perform well on standardized tests. For example, teach quality,
+computer usage, and student characteristics, such as family background.
+
+If a student is a English learner with an immigrant background, then it
+is reasonable to expect that the student may have lower English test
+scores than a student who is a native English speaker. In addition,
+students from low-income families may have less access to educational
+resources, such as after school tutoring, which may also affect their
+test scores.
+
+Omitting these variables from the regression model may lead to omitted
+variable bias. To address this issue, we can include these variables in
+the regression model as additional regressors.
+
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{dummy\_model\_mlr }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(TestScore }\SpecialCharTok{\textasciitilde{}}\NormalTok{ computer }\SpecialCharTok{+}\NormalTok{ english }\SpecialCharTok{+}\NormalTok{ lunch }\SpecialCharTok{+}\NormalTok{ D, }\AttributeTok{data =}\NormalTok{ cas)}
@@ -7282,27 +7351,27 @@ Regression Results
                               SLR                     MLR           
                               (1)                     (2)           
 --------------------------------------------------------------------
-computer                                             0.001          
-                                                    (0.001)         
+computer                                           22.005***        
+                                                    (7.149)         
                                                                     
-english                                            -0.139***        
-                                                    (0.034)         
+english                                            -0.111***        
+                                                    (0.033)         
                                                                     
-lunch                                              -0.544***        
+lunch                                              -0.546***        
                                                     (0.022)         
                                                                     
-D                          7.169***                 2.876***        
-                            (1.847)                 (0.952)         
+D                          7.169***                 2.158**         
+                            (1.847)                 (0.924)         
                                                                     
-Constant                  650.077***               678.590***       
-                            (1.393)                 (1.164)         
+Constant                  650.077***               676.087***       
+                            (1.393)                 (1.464)         
                                                                     
 --------------------------------------------------------------------
 Observations                  420                     420           
-R2                           0.035                   0.770          
-Adjusted R2                  0.032                   0.768          
-Residual Std. Error    18.741 (df = 418)        9.176 (df = 415)    
-F Statistic         15.073*** (df = 1; 418) 347.915*** (df = 4; 415)
+R2                           0.035                   0.774          
+Adjusted R2                  0.032                   0.772          
+Residual Std. Error    18.741 (df = 418)        9.092 (df = 415)    
+F Statistic         15.073*** (df = 1; 418) 356.292*** (df = 4; 415)
 ====================================================================
 Note:                                    *p<0.1; **p<0.05; ***p<0.01
 \end{verbatim}
@@ -7326,6 +7395,53 @@ control variables, answer the following questions:}
   biased estimate of their effect? Explain.
 \end{itemize}
 
+The coefficient of small classes reduced substantially, from 7.169 to
+2.158. This indicates that the simple linear regression model
+overestimated the effect of small classes on test scores on test scores
+due to \textbf{omitted variable bias}.
+
+Some of the positive association between small classes and test scores
+may actually reflect other factors, such as computer availability,
+English proficiency, and family income. Theses factors may be correlated
+with class size and also influence test scores. When they are excluded
+from the regression model, their effects may be incorrectly attributed
+to small class size.
+
+Let's explore the correlation between small classes and the other
+factors. For each group (\(D=0\) or \(D=1\)), we plot the distribution
+of the confounding factors.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{p\_1 }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(cas, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ D, computer)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{fill =} \StringTok{"lightblue"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Small Class"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Computer"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{(}\AttributeTok{base\_size =} \DecValTok{14}\NormalTok{)}
+\NormalTok{p\_2 }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(cas, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ D, english)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{fill =} \StringTok{"lightblue"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Small Class"}\NormalTok{, }\AttributeTok{y =} \StringTok{"English"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{(}\AttributeTok{base\_size =} \DecValTok{14}\NormalTok{)}
+\NormalTok{p\_3 }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(cas, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ D, lunch)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{fill =} \StringTok{"lightblue"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Small Class"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Lunch"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{(}\AttributeTok{base\_size =} \DecValTok{14}\NormalTok{)}
+\FunctionTok{plot\_grid}\NormalTok{(p\_1, p\_2, p\_3, }\AttributeTok{nrow =} \DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Unable to display output for mime type(s): text/html
+\end{verbatim}
+
+From the box plots, we observe that small classes are associated with
+higher computer availability, lower student-teacher ratio, and higher
+family income. These factors also influence test scores. Therefore, it
+is important to control for these confounding factors when estimating
+the effect of small classes on test scores. Otherwise, we may risk
+attributing the effect of these confounding factors to small class size,
+leading to biased estimates of the true effect of small classes on test
+scores.
+
 \section{ANOVA test}\label{anova-test}
 
 \subsection{One-way ANOVA test}\label{one-way-anova-test}
@@ -7333,7 +7449,7 @@ control variables, answer the following questions:}
 The purpose of a one-way ANOVA (analysis of variance) test is to
 determine the existence of a statistically significant difference among
 the means of three or more populations. The test actually uses variances
-to help determine if the population means are equal or not.
+to help determine {\textbf{if the population means are equal or not}}.
 
 In what follows, we will use the one-way ANONA test to examine whether
 the average test scores differ across schools with different sizes of
@@ -7356,16 +7472,68 @@ Then, we run the one-way ANOVA test to see if the average test scores
 differ across schools with different sizes of student-teacher ratios
 (STR).
 
-Null and alternative hypotheses:
+Null and alternative hypotheses: \[
+\begin{split}
+&\text{$H_0$: The average test scores are the same across schools with different class sizes.} \\
+&\text{$H_1$: At least one pair of average test scores are different.}
+\end{split}
+\]
+
+The one-way ANOVA test can be conducted using the following regression
+model: \[
+TestScore = \beta_0 + \beta_1 D_1 + \beta_2 D_2 + u,
+\] where \(D_1\) and \(D_2\) are dummy variables for the categorical
+variable \texttt{str\_cat}. \[
+D_1 = 
+\begin{cases}
+    1 & \text{if $STR<18$} \\
+    0 & \text{otherwise}
+\end{cases} \quad \text{and} \quad
+D_2 = 
+\begin{cases}
+    1 & \text{if $18 \leq STR < 21$} \\
+    0 & \text{otherwise}
+\end{cases}
+\] Note that we don't need to define a dummy variable for the third
+category (STR ≥ 21) because if both \(D_1\) and \(D_2\) are 0, then the
+observation must belong to the third category. This is known as the
+{\textbf{reference category}}.
+
+The null and alternative hypotheses can be formulated mathematically \[
+\begin{split}
+  &H_0: \beta_1 = \beta_2 = 0 \\
+  &H_1: \text{At least one of $\beta_1$ and $\beta_2$ is not equal to 0}
+\end{split}
+\]
+
+Recall the interpretation of the coefficients in this regression model:
 
 \begin{itemize}
 \tightlist
 \item
-  \(H_0\): The average test scores are the same across schools with
-  different sizes of student-teacher ratios (STR).
+  \(\beta_0\): the expected test score in districts with large class
+  sizes (the \emph{reference category})
 \item
-  \(H_1\): At least one pair of average test scores are different.
+  \(\beta_1\): the \emph{difference} in expected test scores between
+  districts with \emph{small} class sizes and those with \emph{large}
+  class sizes
+\item
+  \(\beta_2\): the \emph{difference} in expected test scores between
+  districts with \emph{medium} class sizes and those with \emph{large}
+  class sizes
 \end{itemize}
+
+Therefore, under the null hypothesis, we expect that
+\(\beta_1 = \beta_2 = 0\), which means that the expected test scores are
+the same across all three categories of class sizes. On the other hand,
+if we reject the null hypothesis, it means that at least one of the
+coefficients is not equal to 0, which indicates that there is a
+statistically significant difference in expected test scores between at
+least one pair of class size categories.
+
+The null hypothesis can be tested using an \hyperref[f-test]{F-test},
+which tests for all coefficients being equal to zero, except for the
+intercept.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7423,7 +7591,7 @@ sizes of student-teacher ratios (STR).
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=4.375in,height=4.375in]{07_Lab-3_dummy-variable_files/figure-pdf/cell-14-output-1.png}
+\includegraphics[width=4.375in,height=4.375in]{07_Lab-3_dummy-variable_files/figure-pdf/cell-18-output-1.png}
 
 \subsection{Two-way ANOVA test}\label{two-way-anova-test}
 
@@ -7440,31 +7608,30 @@ models.
   variables and a more complex one with more variables.
 \end{itemize}
 
-For instance, consider we have two models:
-
-\begin{itemize}
-\tightlist
-\item
-  Model 1: \(y = \beta_0 + \beta_1 x_{1} + \varepsilon\), and
-\item
-  Model 2:
-  \(y = \beta_0 + \beta_1 x_{1} + \beta_2 x_2 + \beta_3 x_3 + \varepsilon\).
-\end{itemize}
-
-We can form a test by comparing the \(R^2\) from the two models.
-
-\[
-\begin{aligned}
-&\text{H}_0: \beta_2 = \beta_3 = 0 \\
-&\text{H}_1: \beta_2 \ne 0 \text{ or } \beta_3\ne 0 ,
-\end{aligned}
-\] which imposes two exclusion restrictions.
-
 Coming back to our California school TestScore example, we can use the
 two-way ANOVA test to see if the multiple regression model with
 additional control variables (Model 2) significantly improves the
 model's ability to explain the variability in TestScore compared to the
 simple regression model (Model 1).
+
+\begin{itemize}
+\tightlist
+\item
+  Model 1: \[
+  TestScore = \beta_0 + \beta_1 D + \varepsilon,
+  \]
+\item
+  Model 2:
+  \[TestScore = \beta_0 + \beta_1 D + \beta_2\, Computer + \beta_3\, English + \beta_4\, Lunch + \varepsilon .
+  \]
+\end{itemize}
+
+We can conduct a test by comparing the \(R^2\) from the two models. \[
+\begin{aligned}
+&\text{H}_0: \beta_2 = \beta_3 = \beta_4 = 0 \\
+&\text{H}_1: \text{At least one of }\beta_2, \beta_3, \text{ and } \beta_4 \text{ is not equal to } 0 ,
+\end{aligned}
+\] which imposes three exclusion restrictions.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7730,7 +7897,7 @@ From the table above, we can interpret the coefficients as follows:
 \item
   Comparing scenario 2 with 1:
   \(\color[HTML]{00CC66}{\hat{\beta}_2} = -7.13\) is the difference in
-  expected value of \texttt{medv} between new and old suburbs that are
+  expected value of \texttt{medv} between old and new suburbs that are
   \textbf{NOT next to the Charles River}.
 
   In other words, old suburbs that are not next to the Charles River
@@ -7862,15 +8029,16 @@ Note:                                    *p<0.1; **p<0.05; ***p<0.01
   The coefficient of \texttt{old} reversed signs, from negative
   (\(-7.13\)) to positive (\(1.75\)), suggesting that after accounting
   for crime and low socioeconomic status, older suburbs have slightly
-  higher values.
+  higher values for suburbs that are \textbf{NOT next to the Charles
+  River}.
 \item
   Negative coefficients for \texttt{lstat} (\(-0.95\)) and \texttt{crim}
   (\(-0.079\)) indicate that higher poverty and crime reduce house
   values.
 \end{itemize}
 
-Plot \texttt{lstat} and \texttt{crim} group by \texttt{old} to see how
-the distribution of these two variables differ between new and old
+Plot \texttt{lstat} and \texttt{crim} groupped by \texttt{old} to see
+how the distribution of these two variables differ between new and old
 suburbs.
 
 \begin{Shaded}
@@ -7957,9 +8125,9 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     \(p = 2\) is the number of restrictions (i.e., the number of
     additional variables in the unrestricted model);
   \item
-    \(R_U^2 = 0.574\) is the \(R^2\) of the unrestricted model;
+    \(R_U^2 = 0.574\) is the \(R^2\) of the \textbf{unrestricted} model;
   \item
-    \(R_R^2 = 0.130\) is the \(R^2\) of the restricted model.
+    \(R_R^2 = 0.130\) is the \(R^2\) of the \textbf{restricted} model.
   \end{itemize}
 
   Plug in the numbers, we get \[
@@ -9362,6 +9530,15 @@ for \\
 applications & Similar to logit; standard in some fields \\
 \end{longtable}
 }
+
+\cleardoublepage
+\phantomsection
+\addcontentsline{toc}{part}{Appendix}
+\appendix
+
+\chapter{Formula Sheet}\label{sec-formula-sheet}
+
+\includepdf[pages=-, scale=0.9, pagecommand={}]{_exam/01_formula_sheet_2026Spring.pdf}
 
 
 \backmatter

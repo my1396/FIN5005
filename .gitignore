@@ -6,6 +6,8 @@
 *.pdf
 # escape pdf output
 !docs/FIN5005-Fall-20??.pdf
+# PDFs linked from the book (e.g. formula sheet appendix), copied from /_exam/ by quarto
+!docs/_exam/*.pdf
 # figures are sources, not build output
 !images/**/*.pdf
 
