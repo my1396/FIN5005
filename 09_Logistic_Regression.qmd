@@ -79,15 +79,15 @@ The key variables in the HMDA dataset are:
 - We will mainly use `deny`, `pirat`, and `afam` in our analysis.
 
 | Variable | Definition |
-|----------|------------|
+| ---------- | ------------------------ |
 | <span class="env-green">`deny`</span> | Was the mortgage application denied? (yes/no) — **dependent variable** |
-| <span class="env-green">`pirat`</span> | Payments-to-income ratio (monthly loan payments / monthly income) |
 | <span class="env-green">`afam`</span> | Is the applicant African American? (yes/no) |
+| <span class="env-green">`pirat`</span> | Payments-to-income ratio (monthly loan payments / monthly income) |
+| <span class="env-green">`lvrat`</span> | Loan-to-value ratio (loan amount / assessed property value) |
 | `hirat` | Housing expense-to-income ratio (monthly housing expenses / monthly income) |
-| `lvrat` | Loan-to-value ratio (loan amount / assessed property value) |
 | `chist` | Credit history: consumer credit score |
 | `mhist` | Mortgage history: mortgage credit score |
-| `phist` | Public record history: coded as "no" or "yes" (any bankruptcies, tax liens, etc.) |
+| `phist` | Public record history: any bankruptcies, tax liens, etc. (yes/no) |
 | `insurance` | Was mortgage insurance denied? (yes/no) |
 | `selfemp` | Is the applicant self-employed? (yes/no) |
 | `single` | Is the applicant single? (yes/no) |
@@ -241,7 +241,9 @@ mosaicplot(contingency_table %>% t(),
 
 ### Measures of Risk and Association for Binary Outcomes
 
-To quantify the difference in mortgage denial rates between racial groups, we can calculate several measures of risk and association.
+To quantify the difference in mortgage denial rates between racial groups (`afam=1` or `afam=0`), we can calculate several measures of risk and association.
+
+We refer to `afam=1` as the **treatment group** (African American applicants) and `afam=0` as the **control group** (non-African American applicants).
 
 ```{r results='hold'}
 # Calculate risk (denial rate) for each group
@@ -261,11 +263,13 @@ cat(sprintf("African American:     %.4f (%.2f%%)\n", p_afam, p_afam * 100))
 
 1. **Risk Difference (Excess Risk)**
 
-   The **risk difference** or **excess risk** (ER) is the difference in denial rates between the two groups:
+   The **risk difference** or **excess risk** (ER) is the difference in denial rates between the *treatment* and *control* groups:
 
    $$
    ER = P(\text{deny}=1|\text{afam}=1) - P(\text{deny}=1|\text{afam}=0)
    $$
+
+   ❗Note that you cannot reverse the order of subtraction. The treatment group always comes first.
 
    ```{r results='hold'}
    ER <- p_afam - p_non_afam
@@ -278,8 +282,6 @@ cat(sprintf("African American:     %.4f (%.2f%%)\n", p_afam, p_afam * 100))
 
    - If $ER = 0$: no difference in risk between groups
    - If $ER > 0$: higher risk for the <span class="env-green">treatment group</span> (African Americans, `afam=1`)
-     
-     By contrast, the <span class="env-green">control group</span> is non-African Americans (`afam=0`).
    - If $ER < 0$: lower risk for the treatment group
 
 2. **Risk Ratio (Relative Risk)**
@@ -329,7 +331,10 @@ cat(sprintf("African American:     %.4f (%.2f%%)\n", p_afam, p_afam * 100))
    The <span class="env-green">**odds ratio**</span> is:
 
    $$
-   OR = \frac{\text{odds}(\text{afam}=1)}{\text{odds}(\text{afam}=0)} = \frac{P(\text{deny}=1|\text{afam}=1)/[1-P(\text{deny}=1|\text{afam}=1)]}{P(\text{deny}=1|\text{afam}=0)/[1-P(\text{deny}=1|\text{afam}=0)]}
+   \begin{split}
+   OR &= \frac{\text{odds}(\text{afam}=1)}{\text{odds}(\text{afam}=0)} \\
+   &= \frac{P(\text{deny}=1|\text{afam}=1)/[1-P(\text{deny}=1|\text{afam}=1)]}{P(\text{deny}=1|\text{afam}=0)/[1-P(\text{deny}=1|\text{afam}=0)]} 
+   \end{split}
    $$
 
    ```{r results='hold'}
@@ -433,16 +438,13 @@ abline(lpm_simple,
    It is reasonable to expect the marginal effects of P/I ratio on denial probability to diminish as P/I ratio increases. 
    
    Although a change in P/I ratio from 0.3 to 0.4 might have a large effect on the probability of denial, once the P/I ratio is already very high (e.g., 0.9 to 1.0), increasing P/I ratio further will have litte effect.
-3. The error term in the linear probability model is *heteroskedastic*, violating OLS assumptions. 
-   
-   This means that standard errors and hypothesis tests based on OLS are invalid. → This issue can be addressed using heteroskedasticity robust standard errors.
 :::
 
 ### Model 2: Logit Regression with a single predictor
 
 The estimated model is 
 $$
-\mathrm P(deny_i = 1 | pirat_i) = F(\beta_0 + \beta_1 \cdot pirat_i) = \frac{1}{1 + e^{-(\beta_0 + \beta_1 \cdot pirat_i)}} ,
+\widehat{\mathrm P}(deny_i = 1 | pirat_i) = F(\beta_0 + \beta_1 \cdot pirat_i) = \frac{1}{1 + e^{-(\beta_0 + \beta_1 \cdot pirat_i)}} ,
 $$
 
 where $F$ is the logistic distribution function.
@@ -492,7 +494,7 @@ y <- predict(logit_simple, list(pirat = x), type = "response")
 lines(x, y, lwd = 1.5, col = "steelblue")
 ```
 
-The estimated logit regression function has a stretched “S” shape: It is nearly 0 and flat for small values of P/I ratio, it turns and increases for intermediate values, and it flattens out again and is nearly 1 for large values. 
+The estimated logit regression function has a stretched “S” shape: It is nearly 0 and flat for small values of P/I ratio, it turns and increases for intermediate values, and it flattens out again and is nearly 1 for large values.
 
 ::: {.example #exm-1}
 **Predicted probability.**
@@ -590,7 +592,11 @@ summary(lpm_multi)
 Now we estimate a logit model including both P/I ratio (`pirat`) and African-American binary (`afam_binary`) as predictors:
 
 $$
-P(deny_i = 1 | pirat_i, afam_i) = F(\beta_0 + \beta_1 \cdot pirat_i + \beta_2 \cdot afam_i) = \frac{1}{1 + e^{-(\beta_0 + \beta_1 \cdot pirat_i + \beta_2 \cdot afam_i)}} .
+\begin{split}
+P(deny_i = 1 | pirat_i, afam_i) 
+&= F(\beta_0 + \beta_1 \cdot pirat_i + \beta_2 \cdot afam_i) \\
+&= \frac{1}{1 + e^{-(\beta_0 + \beta_1 \cdot pirat_i + \beta_2 \cdot afam_i)}} .
+\end{split}
 $$
 
 
@@ -667,8 +673,9 @@ In contrast to the logit model, which uses the logistic CDF, the probit model us
 $$
 P(deny_i = 1 | X_i) = \Phi(\beta_0 + \beta_1 \cdot pirat_i + \beta_2 \cdot afam_i)
 $$
-
 where $\Phi(\cdot)$ is the standard normal CDF.
+
+Probit model assumes normally distributed errors, which can be convenient in some applications. For example, models that impose multivariate normality.
 
 ```{r}
 # Estimate probit model

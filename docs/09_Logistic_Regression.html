@@ -869,8 +869,8 @@ Y_i = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + \cdots + \beta_k X_{ki} + u_i
 </ul>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 45%">
-<col style="width: 54%">
+<col style="width: 29%">
+<col style="width: 70%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -884,20 +884,20 @@ Y_i = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + \cdots + \beta_k X_{ki} + u_i
 <td>Was the mortgage application denied? (yes/no) — <strong>dependent variable</strong></td>
 </tr>
 <tr class="even">
-<td><span class="env-green"><code>pirat</code></span></td>
-<td>Payments-to-income ratio (monthly loan payments / monthly income)</td>
-</tr>
-<tr class="odd">
 <td><span class="env-green"><code>afam</code></span></td>
 <td>Is the applicant African American? (yes/no)</td>
 </tr>
+<tr class="odd">
+<td><span class="env-green"><code>pirat</code></span></td>
+<td>Payments-to-income ratio (monthly loan payments / monthly income)</td>
+</tr>
 <tr class="even">
-<td><code>hirat</code></td>
-<td>Housing expense-to-income ratio (monthly housing expenses / monthly income)</td>
+<td><span class="env-green"><code>lvrat</code></span></td>
+<td>Loan-to-value ratio (loan amount / assessed property value)</td>
 </tr>
 <tr class="odd">
-<td><code>lvrat</code></td>
-<td>Loan-to-value ratio (loan amount / assessed property value)</td>
+<td><code>hirat</code></td>
+<td>Housing expense-to-income ratio (monthly housing expenses / monthly income)</td>
 </tr>
 <tr class="even">
 <td><code>chist</code></td>
@@ -909,7 +909,7 @@ Y_i = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + \cdots + \beta_k X_{ki} + u_i
 </tr>
 <tr class="even">
 <td><code>phist</code></td>
-<td>Public record history: coded as “no” or “yes” (any bankruptcies, tax liens, etc.)</td>
+<td>Public record history: any bankruptcies, tax liens, etc. (yes/no)</td>
 </tr>
 <tr class="odd">
 <td><code>insurance</code></td>
@@ -1049,8 +1049,8 @@ deny     no   yes
 <pre><code># A tibble: 2 × 5
   afam      n denial_rate mean_pirat mean_lvrat
   &lt;fct&gt; &lt;int&gt;       &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
-1 no     2041      0.0926      0.327      0.726
-2 yes     339      0.283       0.351      0.809</code></pre>
+1 no     2041  0.09260167  0.3274625  0.7259712
+2 yes     339  0.2831858   0.3509891  0.8088478</code></pre>
 </div>
 </div>
 </section>
@@ -1097,7 +1097,8 @@ deny     no   yes
 </section>
 <section id="measures-of-risk-and-association-for-binary-outcomes" class="level3" data-number="15.2.5">
 <h3 data-number="15.2.5" class="anchored" data-anchor-id="measures-of-risk-and-association-for-binary-outcomes"><span class="header-section-number">15.2.5</span> Measures of Risk and Association for Binary Outcomes</h3>
-<p>To quantify the difference in mortgage denial rates between racial groups, we can calculate several measures of risk and association.</p>
+<p>To quantify the difference in mortgage denial rates between racial groups (<code>afam=1</code> or <code>afam=0</code>), we can calculate several measures of risk and association.</p>
+<p>We refer to <code>afam=1</code> as the <strong>treatment group</strong> (African American applicants) and <code>afam=0</code> as the <strong>control group</strong> (non-African American applicants).</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate risk (denial rate) for each group</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>risk_table <span class="ot">&lt;-</span> contingency_table <span class="sc">%&gt;%</span></span>
@@ -1125,10 +1126,11 @@ African American:     0.2832 (28.32%)</code></pre>
 </div>
 <ol type="1">
 <li><p><strong>Risk Difference (Excess Risk)</strong></p>
-<p>The <strong>risk difference</strong> or <strong>excess risk</strong> (ER) is the difference in denial rates between the two groups:</p>
+<p>The <strong>risk difference</strong> or <strong>excess risk</strong> (ER) is the difference in denial rates between the <em>treatment</em> and <em>control</em> groups:</p>
 <p><span class="math display">\[
 ER = P(\text{deny}=1|\text{afam}=1) - P(\text{deny}=1|\text{afam}=0)
 \]</span></p>
+<p><img src="filters/emoji/2757.png" style="height:1em">Note that you cannot reverse the order of subtraction. The treatment group always comes first.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>ER <span class="ot">&lt;-</span> p_afam <span class="sc">-</span> p_non_afam</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">Risk Difference (Excess Risk):</span><span class="sc">\n</span><span class="st">"</span>)</span>
@@ -1143,10 +1145,9 @@ ER = 0.2832 - 0.0926 = 0.1906 (19.06 percentage points)</code></pre>
 </div>
 <p><strong>Interpretation:</strong> African American applicants have a denial rate that is 19.06 percentage points higher than non-African American applicants.</p>
 <ul>
-<li><p>If <span class="math inline">\(ER = 0\)</span>: no difference in risk between groups</p></li>
-<li><p>If <span class="math inline">\(ER &gt; 0\)</span>: higher risk for the <span class="env-green">treatment group</span> (African Americans, <code>afam=1</code>)</p>
-<p>By contrast, the <span class="env-green">control group</span> is non-African Americans (<code>afam=0</code>).</p></li>
-<li><p>If <span class="math inline">\(ER &lt; 0\)</span>: lower risk for the treatment group</p></li>
+<li>If <span class="math inline">\(ER = 0\)</span>: no difference in risk between groups</li>
+<li>If <span class="math inline">\(ER &gt; 0\)</span>: higher risk for the <span class="env-green">treatment group</span> (African Americans, <code>afam=1</code>)</li>
+<li>If <span class="math inline">\(ER &lt; 0\)</span>: lower risk for the treatment group</li>
 </ul></li>
 <li><p><strong>Risk Ratio (Relative Risk)</strong></p>
 <p>The <strong>risk ratio</strong> or <strong>relative risk</strong> (RR) is the ratio of denial rates:</p>
@@ -1197,7 +1198,10 @@ African American:     0.3951</code></pre>
 <p>This means that the odds of being denied a mortgage are approximately <strong>0.10 for non–African American applicants</strong> and <strong>0.40 for African American applicants</strong>.</p>
 <p>The <span class="env-green"><strong>odds ratio</strong></span> is:</p>
 <p><span class="math display">\[
-OR = \frac{\text{odds}(\text{afam}=1)}{\text{odds}(\text{afam}=0)} = \frac{P(\text{deny}=1|\text{afam}=1)/[1-P(\text{deny}=1|\text{afam}=1)]}{P(\text{deny}=1|\text{afam}=0)/[1-P(\text{deny}=1|\text{afam}=0)]}
+\begin{split}
+OR &amp;= \frac{\text{odds}(\text{afam}=1)}{\text{odds}(\text{afam}=0)} \\
+&amp;= \frac{P(\text{deny}=1|\text{afam}=1)/[1-P(\text{deny}=1|\text{afam}=1)]}{P(\text{deny}=1|\text{afam}=0)/[1-P(\text{deny}=1|\text{afam}=0)]}
+\end{split}
 \]</span></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>OR <span class="ot">&lt;-</span> odds_afam <span class="sc">/</span> odds_non_afam</span>
@@ -1319,8 +1323,6 @@ Figure&nbsp;15.1
 <li><p>The relationship between P/I ratio and the probability of denial may NOT be linear in reality.</p>
 <p>It is reasonable to expect the marginal effects of P/I ratio on denial probability to diminish as P/I ratio increases.</p>
 <p>Although a change in P/I ratio from 0.3 to 0.4 might have a large effect on the probability of denial, once the P/I ratio is already very high (e.g., 0.9 to 1.0), increasing P/I ratio further will have litte effect.</p></li>
-<li><p>The error term in the linear probability model is <em>heteroskedastic</em>, violating OLS assumptions.</p>
-<p>This means that standard errors and hypothesis tests based on OLS are invalid. → This issue can be addressed using heteroskedasticity robust standard errors.</p></li>
 </ol>
 </div>
 </div>
@@ -1328,7 +1330,7 @@ Figure&nbsp;15.1
 <section id="model-2-logit-regression-with-a-single-predictor" class="level3" data-number="15.3.3">
 <h3 data-number="15.3.3" class="anchored" data-anchor-id="model-2-logit-regression-with-a-single-predictor"><span class="header-section-number">15.3.3</span> Model 2: Logit Regression with a single predictor</h3>
 <p>The estimated model is <span class="math display">\[
-\mathrm P(deny_i = 1 | pirat_i) = F(\beta_0 + \beta_1 \cdot pirat_i) = \frac{1}{1 + e^{-(\beta_0 + \beta_1 \cdot pirat_i)}} ,
+\widehat{\mathrm P}(deny_i = 1 | pirat_i) = F(\beta_0 + \beta_1 \cdot pirat_i) = \frac{1}{1 + e^{-(\beta_0 + \beta_1 \cdot pirat_i)}} ,
 \]</span></p>
 <p>where <span class="math inline">\(F\)</span> is the logistic distribution function.</p>
 <p>Note that the left-hand side is the probability that the <span class="math inline">\(i\)</span>-th mortgage application is denied (<span class="math inline">\(deny_i = 1\)</span>), given the payment-to-income ratio (<span class="math inline">\(pirat_i\)</span>).</p>
@@ -1461,7 +1463,11 @@ F-statistic: 97.76 on 2 and 2377 DF,  p-value: &lt; 2.2e-16</code></pre>
 <h3 data-number="15.3.5" class="anchored" data-anchor-id="model-4-logit-model-with-multiple-predictors"><span class="header-section-number">15.3.5</span> Model 4: Logit Model with Multiple Predictors</h3>
 <p>Now we estimate a logit model including both P/I ratio (<code>pirat</code>) and African-American binary (<code>afam_binary</code>) as predictors:</p>
 <p><span class="math display">\[
-P(deny_i = 1 | pirat_i, afam_i) = F(\beta_0 + \beta_1 \cdot pirat_i + \beta_2 \cdot afam_i) = \frac{1}{1 + e^{-(\beta_0 + \beta_1 \cdot pirat_i + \beta_2 \cdot afam_i)}} .
+\begin{split}
+P(deny_i = 1 | pirat_i, afam_i)
+&amp;= F(\beta_0 + \beta_1 \cdot pirat_i + \beta_2 \cdot afam_i) \\
+&amp;= \frac{1}{1 + e^{-(\beta_0 + \beta_1 \cdot pirat_i + \beta_2 \cdot afam_i)}} .
+\end{split}
 \]</span></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Estimate logit model</span></span>
@@ -1527,8 +1533,8 @@ Solution
 <h3 data-number="15.3.6" class="anchored" data-anchor-id="model-5-probit-model"><span class="header-section-number">15.3.6</span> Model 5: Probit Model</h3>
 <p>In contrast to the logit model, which uses the logistic CDF, the probit model uses the <span class="env-green">standard normal</span> distribution function to model the probability of denial. <span class="math display">\[
 P(deny_i = 1 | X_i) = \Phi(\beta_0 + \beta_1 \cdot pirat_i + \beta_2 \cdot afam_i)
-\]</span></p>
-<p>where <span class="math inline">\(\Phi(\cdot)\)</span> is the standard normal CDF.</p>
+\]</span> where <span class="math inline">\(\Phi(\cdot)\)</span> is the standard normal CDF.</p>
+<p>Probit model assumes normally distributed errors, which can be convenient in some applications. For example, models that impose multivariate normality.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Estimate probit model</span></span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>probit_multi <span class="ot">&lt;-</span> <span class="fu">glm</span>(deny_binary <span class="sc">~</span> pirat <span class="sc">+</span> afam_binary,</span>

@@ -8473,8 +8473,8 @@ The key variables in the HMDA dataset are:
 
 {\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.4545}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.5455}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.2941}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.7059}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Variable
@@ -8487,17 +8487,17 @@ Definition
 \endlastfoot
 {\texttt{deny}} & Was the mortgage application denied? (yes/no) ---
 \textbf{dependent variable} \\
+{\texttt{afam}} & Is the applicant African American? (yes/no) \\
 {\texttt{pirat}} & Payments-to-income ratio (monthly loan payments /
 monthly income) \\
-{\texttt{afam}} & Is the applicant African American? (yes/no) \\
+{\texttt{lvrat}} & Loan-to-value ratio (loan amount / assessed property
+value) \\
 \texttt{hirat} & Housing expense-to-income ratio (monthly housing
 expenses / monthly income) \\
-\texttt{lvrat} & Loan-to-value ratio (loan amount / assessed property
-value) \\
 \texttt{chist} & Credit history: consumer credit score \\
 \texttt{mhist} & Mortgage history: mortgage credit score \\
-\texttt{phist} & Public record history: coded as ``no'' or ``yes'' (any
-bankruptcies, tax liens, etc.) \\
+\texttt{phist} & Public record history: any bankruptcies, tax liens,
+etc. (yes/no) \\
 \texttt{insurance} & Was mortgage insurance denied? (yes/no) \\
 \texttt{selfemp} & Is the applicant self-employed? (yes/no) \\
 \texttt{single} & Is the applicant single? (yes/no) \\
@@ -8657,8 +8657,8 @@ Summary statistics by race.
 # A tibble: 2 x 5
   afam      n denial_rate mean_pirat mean_lvrat
   <fct> <int>       <dbl>      <dbl>      <dbl>
-1 no     2041      0.0926      0.327      0.726
-2 yes     339      0.283       0.351      0.809
+1 no     2041  0.09260167  0.3274625  0.7259712
+2 yes     339  0.2831858   0.3509891  0.8088478
 \end{verbatim}
 
 \subsection{Visualizing the Contingency
@@ -8716,7 +8716,12 @@ making it easier to compare proportions across groups.
 Outcomes}\label{measures-of-risk-and-association-for-binary-outcomes}
 
 To quantify the difference in mortgage denial rates between racial
-groups, we can calculate several measures of risk and association.
+groups (\texttt{afam=1} or \texttt{afam=0}), we can calculate several
+measures of risk and association.
+
+We refer to \texttt{afam=1} as the \textbf{treatment group} (African
+American applicants) and \texttt{afam=0} as the \textbf{control group}
+(non-African American applicants).
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -8753,11 +8758,16 @@ African American:     0.2832 (28.32%)
   \textbf{Risk Difference (Excess Risk)}
 
   The \textbf{risk difference} or \textbf{excess risk} (ER) is the
-  difference in denial rates between the two groups:
+  difference in denial rates between the \emph{treatment} and
+  \emph{control} groups:
 
   \[
   ER = P(\text{deny}=1|\text{afam}=1) - P(\text{deny}=1|\text{afam}=0)
   \]
+
+  \includegraphics[width=\linewidth,height=1em,keepaspectratio]{filters/emoji/2757.png}Note
+  that you cannot reverse the order of subtraction. The treatment group
+  always comes first.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -8780,14 +8790,12 @@ ER = 0.2832 - 0.0926 = 0.1906 (19.06 percentage points)
   applicants.
 
   \begin{itemize}
+  \tightlist
   \item
     If \(ER = 0\): no difference in risk between groups
   \item
     If \(ER > 0\): higher risk for the {treatment group} (African
     Americans, \texttt{afam=1})
-
-    By contrast, the {control group} is non-African Americans
-    (\texttt{afam=0}).
   \item
     If \(ER < 0\): lower risk for the treatment group
   \end{itemize}
@@ -8870,7 +8878,10 @@ African American:     0.3951
   The {\textbf{odds ratio}} is:
 
   \[
-  OR = \frac{\text{odds}(\text{afam}=1)}{\text{odds}(\text{afam}=0)} = \frac{P(\text{deny}=1|\text{afam}=1)/[1-P(\text{deny}=1|\text{afam}=1)]}{P(\text{deny}=1|\text{afam}=0)/[1-P(\text{deny}=1|\text{afam}=0)]}
+  \begin{split}
+  OR &= \frac{\text{odds}(\text{afam}=1)}{\text{odds}(\text{afam}=0)} \\
+  &= \frac{P(\text{deny}=1|\text{afam}=1)/[1-P(\text{deny}=1|\text{afam}=1)]}{P(\text{deny}=1|\text{afam}=0)/[1-P(\text{deny}=1|\text{afam}=0)]} 
+  \end{split}
   \]
 
 \begin{Shaded}
@@ -9035,13 +9046,6 @@ Now we plot the data and the regression line to visualize the model.
   effect on the probability of denial, once the P/I ratio is already
   very high (e.g., 0.9 to 1.0), increasing P/I ratio further will have
   litte effect.
-\item
-  The error term in the linear probability model is
-  \emph{heteroskedastic}, violating OLS assumptions.
-
-  This means that standard errors and hypothesis tests based on OLS are
-  invalid. → This issue can be addressed using heteroskedasticity robust
-  standard errors.
 \end{enumerate}
 
 \end{tcolorbox}
@@ -9050,7 +9054,7 @@ Now we plot the data and the regression line to visualize the model.
 predictor}\label{model-2-logit-regression-with-a-single-predictor}
 
 The estimated model is \[
-\mathrm P(deny_i = 1 | pirat_i) = F(\beta_0 + \beta_1 \cdot pirat_i) = \frac{1}{1 + e^{-(\beta_0 + \beta_1 \cdot pirat_i)}} ,
+\widehat{\mathrm P}(deny_i = 1 | pirat_i) = F(\beta_0 + \beta_1 \cdot pirat_i) = \frac{1}{1 + e^{-(\beta_0 + \beta_1 \cdot pirat_i)}} ,
 \]
 
 where \(F\) is the logistic distribution function.
@@ -9264,7 +9268,11 @@ Now we estimate a logit model including both P/I ratio (\texttt{pirat})
 and African-American binary (\texttt{afam\_binary}) as predictors:
 
 \[
-P(deny_i = 1 | pirat_i, afam_i) = F(\beta_0 + \beta_1 \cdot pirat_i + \beta_2 \cdot afam_i) = \frac{1}{1 + e^{-(\beta_0 + \beta_1 \cdot pirat_i + \beta_2 \cdot afam_i)}} .
+\begin{split}
+P(deny_i = 1 | pirat_i, afam_i) 
+&= F(\beta_0 + \beta_1 \cdot pirat_i + \beta_2 \cdot afam_i) \\
+&= \frac{1}{1 + e^{-(\beta_0 + \beta_1 \cdot pirat_i + \beta_2 \cdot afam_i)}} .
+\end{split}
 \]
 
 \begin{Shaded}
@@ -9381,9 +9389,11 @@ In contrast to the logit model, which uses the logistic CDF, the probit
 model uses the {standard normal} distribution function to model the
 probability of denial. \[
 P(deny_i = 1 | X_i) = \Phi(\beta_0 + \beta_1 \cdot pirat_i + \beta_2 \cdot afam_i)
-\]
+\] where \(\Phi(\cdot)\) is the standard normal CDF.
 
-where \(\Phi(\cdot)\) is the standard normal CDF.
+Probit model assumes normally distributed errors, which can be
+convenient in some applications. For example, models that impose
+multivariate normality.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -9538,7 +9548,12 @@ applications & Similar to logit; standard in some fields \\
 
 \chapter{Formula Sheet}\label{sec-formula-sheet}
 
-\includepdf[pages=-, scale=0.9, pagecommand={}]{_exam/01_formula_sheet_2026Spring.pdf}
+Formula sheet is updated each semester. The version that will be used in
+the school exam will be uploaded to Canvas \emph{two weeks} before the
+exam. For practice purposes, it is fine to use the version provided
+here.
+
+\includepdf[pages=-, scale=0.9, pagecommand={}]{_exam/01_formula_sheet.pdf}
 
 
 \backmatter
