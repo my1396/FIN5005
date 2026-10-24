@@ -67,9 +67,12 @@ invisible(lapply(pkgs, function(pkg) suppressPackageStartupMessages(library(pkg,
 
 # Load HMDA data
 data("HMDA")
+```
 
-# Preview the data
-data.table(HMDA)
+```{r echo=FALSE}
+# Preview the data: first and last 4 rows
+source("Rscripts/fun_script.R") # preview_data()
+preview_data(HMDA, n = 4)
 ```
 
 ### Variable Definitions
@@ -269,7 +272,8 @@ cat(sprintf("African American:     %.4f (%.2f%%)\n", p_afam, p_afam * 100))
    ER = P(\text{deny}=1|\text{afam}=1) - P(\text{deny}=1|\text{afam}=0)
    $$
 
-   ❗Note that you cannot reverse the order of subtraction. The treatment group always comes first.
+   ❗Note that you cannot reverse the order of subtraction. 
+   The <span class="env-green">treatment group always comes first</span>.
 
    ```{r results='hold'}
    ER <- p_afam - p_non_afam
@@ -444,7 +448,11 @@ abline(lpm_simple,
 
 The estimated model is 
 $$
-\widehat{\mathrm P}(deny_i = 1 | pirat_i) = F(\beta_0 + \beta_1 \cdot pirat_i) = \frac{1}{1 + e^{-(\beta_0 + \beta_1 \cdot pirat_i)}} ,
+\begin{split}
+\mathrm P(deny_i = 1 | pirat_i) 
+&= F(\beta_0 + \beta_1 \cdot pirat_i + \varepsilon) \\
+&= \frac{1}{1 + e^{-(\beta_0 + \beta_1 \cdot pirat_i + \varepsilon)}} ,
+\end{split}
 $$
 
 where $F$ is the logistic distribution function.
@@ -463,7 +471,11 @@ coeftest(logit_simple, vcov. = vcovHC, type = "HC1")
 ```
 
 $$
-\widehat{\mathrm P}(deny_i = 1 | pirat_i) = F(-4.02 + 5.88 \cdot pirat_i)= \frac{1}{1 + e^{-(-4.02 + 5.88 \cdot pirat_i)}}
+\begin{split}
+\widehat{\mathrm P}(deny_i = 1 | pirat_i) 
+&= F(-4.02 + 5.88 \cdot pirat_i) \\
+&= \frac{1}{1 + e^{-(-4.02 + 5.88 \cdot pirat_i)}}
+\end{split}
 $$
 
 Visualizing the logit model:
@@ -536,7 +548,7 @@ $$
 which can be written in **log-odds form** as
 
 $$
-\log\left(\frac{P(deny_i = 1)}{1 - P(deny_i = 1)}\right) = -4.02 + 5.88 \cdot pirat_i
+\log\left(\frac{\widehat{P}(deny_i = 1)}{1 - \widehat{P}(deny_i = 1)}\right) = -4.02 + 5.88 \cdot pirat_i
 $$
 
 1. **Interpreting coefficients (log-odds scale):**
@@ -594,8 +606,8 @@ Now we estimate a logit model including both P/I ratio (`pirat`) and African-Ame
 $$
 \begin{split}
 P(deny_i = 1 | pirat_i, afam_i) 
-&= F(\beta_0 + \beta_1 \cdot pirat_i + \beta_2 \cdot afam_i) \\
-&= \frac{1}{1 + e^{-(\beta_0 + \beta_1 \cdot pirat_i + \beta_2 \cdot afam_i)}} .
+&= F(\beta_0 + \beta_1 \cdot pirat_i + \beta_2 \cdot afam_i + \varepsilon) \\
+&= \frac{1}{1 + e^{-(\beta_0 + \beta_1 \cdot pirat_i + \beta_2 \cdot afam_i + \varepsilon)}} .
 \end{split}
 $$
 
@@ -623,8 +635,38 @@ $$
 The coefficients in a logit model represent the change in the **log-odds** of denial:
 
 $$
-\log\left(\frac{P(deny = 1)}{1 - P(deny = 1)}\right) = -4.13 + 5.37 \cdot pirat_i + 1.27 \cdot afam_i
+\log\left(\frac{\widehat{P}(deny = 1)}{1 - \widehat{P}(deny = 1)}\right) = -4.13 + 5.37 \cdot pirat_i + 1.27 \cdot afam_i
 $$
+
+Proof: Show that the logit model can be expressed in log-odds form.
+
+<button class="solution-btn" onclick="myFunction('proof-1')">Solution</button>
+::: {#proof-1 .solution-answer .env-green}
+We write logit model in a general form:
+$$
+\begin{split}
+y_i &= F(\bx_i'\bbeta + \varepsilon_i) = \frac{1}{1 + e^{-(\bx_i'\bbeta + \varepsilon_i)}} \\
+e^{-(\bx_i'\bbeta + \varepsilon_i)} &= \frac{1 - y_i}{y_i} \\
+-(\bx_i'\bbeta + \varepsilon_i) &= \log\left(\frac{1 - y_i}{y_i}\right) \\
+\log\left(\frac{y_i}{1 - y_i}\right) &= \bx_i'\bbeta + \varepsilon_i
+\end{split}
+$$
+
+Using an example of one predictor, we can show the exponential of the coefficient gives the odds ratio when the predictor increases by one unit.
+
+Assume we have a logit model with one predictor $x_1$:
+$$
+\frac{P(y=1|x_1)}{1 - P(y=1|x_1)} = \exp\left(\beta_0 + \beta_1 x_1\right)
+$$
+Let $x_1$ increase by one unit, then the odds become
+$$
+\frac{P(y=1|x_1 + 1)}{1 - P(y=1|x_1 + 1)} = \exp\left(\beta_0 + \beta_1 (x_1 + 1)\right)
+$$
+The odds ratio of a one-unit increase in $x_1$ is
+$$
+\frac{\frac{P(y=1|x_1 + 1)}{1 - P(y=1|x_1 + 1)}}{\frac{P(y=1|x_1)}{1 - P(y=1|x_1)}} = \frac{\exp\left(\beta_0 + \beta_1 (x_1 + 1        )\right)}{\exp\left(\beta_0 + \beta_1 x_1\right)} = \exp(\beta_1)
+$$
+:::
 
 **1. Interpreting coefficients (log-odds scale):**
 
@@ -671,7 +713,7 @@ The **expected odds** of denial for an African American applicant with `pirat = 
 
 In contrast to the logit model, which uses the logistic CDF, the probit model uses the <span class="env-green">standard normal</span> distribution function to model the probability of denial.
 $$
-P(deny_i = 1 | X_i) = \Phi(\beta_0 + \beta_1 \cdot pirat_i + \beta_2 \cdot afam_i)
+P(deny_i = 1 | X_i) = \Phi(\beta_0 + \beta_1 \cdot pirat_i + \beta_2 \cdot afam_i + \varepsilon)
 $$
 where $\Phi(\cdot)$ is the standard normal CDF.
 

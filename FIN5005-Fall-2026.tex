@@ -147,6 +147,8 @@
  
 
 
+\usepackage{booktabs}
+\usepackage{adjustbox}
 %% LaTeX macros for twoside book class
 % engine: lualatex
 
@@ -3257,47 +3259,61 @@ with data types of each column:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{verbatim}
-     district                          school      county grades students
-        <num>                          <char>      <fctr> <fctr>    <num>
-  1:    75119              Sunol Glen Unified     Alameda  KK-08      195
-  2:    61499            Manzanita Elementary       Butte  KK-08      240
-  3:    61549     Thermalito Union Elementary       Butte  KK-08     1550
-  4:    61457 Golden Feather Union Elementary       Butte  KK-08      243
-  5:    61523        Palermo Union Elementary       Butte  KK-08     1335
- ---                                                                     
-416:    68957          Las Lomitas Elementary   San Mateo  KK-08      984
-417:    69518            Los Altos Elementary Santa Clara  KK-08     3724
-418:    72611          Somis Union Elementary     Ventura  KK-08      441
-419:    72744               Plumas Elementary        Yuba  KK-08      101
-420:    72751            Wheatland Elementary        Yuba  KK-08     1778
-     teachers calworks   lunch computer expenditure    income   english  read
-        <num>    <num>   <num>    <num>       <num>     <num>     <num> <num>
-  1:    10.90   0.5102  2.0408       67    6384.911 22.690001  0.000000 691.6
-  2:    11.15  15.4167 47.9167      101    5099.381  9.824000  4.583333 660.5
-  3:    82.90  55.0323 76.3226      169    5501.955  8.978000 30.000002 636.3
-  4:    14.00  36.4754 77.0492       85    7101.831  8.978000  0.000000 651.9
-  5:    71.50  33.1086 78.4270      171    5235.988  9.080333 13.857677 641.8
- ---                                                                         
-416:    59.73   0.1016  3.5569      195    7290.339 28.716999  5.995935 700.9
-417:   208.48   1.0741  1.5038      721    5741.463 41.734108  4.726101 704.0
-418:    20.15   3.5635 37.1938       45    4402.832 23.733000 24.263039 648.3
-419:     5.00  11.8812 59.4059       14    4776.336  9.952000  2.970297 667.9
-420:    93.40   6.9235 47.5712      313    5993.393 12.502000  5.005624 660.5
-      math
-     <num>
-  1: 690.0
-  2: 661.9
-  3: 650.9
-  4: 643.5
-  5: 639.9
- ---      
-416: 707.7
-417: 709.5
-418: 641.7
-419: 676.5
-420: 651.0
-\end{verbatim}
+\begingroup\small
+\begin{adjustbox}{max width=\linewidth, center}
+\begin{tabular}{lrlll}
+\toprule
+  & district & school & county & grades\\
+\midrule
+1 & 75119 & Sunol Glen Unified & Alameda & KK-08\\
+2 & 61499 & Manzanita Elementary & Butte & KK-08\\
+3 & 61549 & Thermalito Union Elementary & Butte & KK-08\\
+4 & 61457 & Golden Feather Union Elementary & Butte & KK-08\\
+... &  &  &  & \\
+417 & 69518 & Los Altos Elementary & Santa Clara & KK-08\\
+418 & 72611 & Somis Union Elementary & Ventura & KK-08\\
+419 & 72744 & Plumas Elementary & Yuba & KK-08\\
+420 & 72751 & Wheatland Elementary & Yuba & KK-08\\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\par\medskip
+\begin{adjustbox}{max width=\linewidth, center}
+\begin{tabular}{lrrrrrr}
+\toprule
+  & students & teachers & calworks & lunch & computer & expenditure\\
+\midrule
+1 & 195 & 10.90 & 0.510 & 2.041 & 67 & 6384.911\\
+2 & 240 & 11.15 & 15.417 & 47.917 & 101 & 5099.381\\
+3 & 1550 & 82.90 & 55.032 & 76.323 & 169 & 5501.955\\
+4 & 243 & 14.00 & 36.475 & 77.049 & 85 & 7101.831\\
+... &  &  &  &  &  & \\
+417 & 3724 & 208.48 & 1.074 & 1.504 & 721 & 5741.463\\
+418 & 441 & 20.15 & 3.563 & 37.194 & 45 & 4402.832\\
+419 & 101 & 5.00 & 11.881 & 59.406 & 14 & 4776.336\\
+420 & 1778 & 93.40 & 6.924 & 47.571 & 313 & 5993.393\\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\par\medskip
+\begin{adjustbox}{max width=\linewidth, center}
+\begin{tabular}{lrrrr}
+\toprule
+  & income & english & read & math\\
+\midrule
+1 & 22.690 & 0.000 & 691.6 & 690.0\\
+2 & 9.824 & 4.583 & 660.5 & 661.9\\
+3 & 8.978 & 30.000 & 636.3 & 650.9\\
+4 & 8.978 & 0.000 & 651.9 & 643.5\\
+... &  &  &  & \\
+417 & 41.734 & 4.726 & 704.0 & 709.5\\
+418 & 23.733 & 24.263 & 648.3 & 641.7\\
+419 & 9.952 & 2.970 & 667.9 & 676.5\\
+420 & 12.502 & 5.006 & 660.5 & 651.0\\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\endgroup
 
 The
 \href{https://www.rdocumentation.org/packages/AER/versions/1.2-15/topics/CASchools}{\texttt{cas}}
@@ -3519,7 +3535,7 @@ statistics:
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{02_Data_Visualization_files/figure-pdf/unnamed-chunk-4-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{02_Data_Visualization_files/figure-pdf/unnamed-chunk-5-1.pdf}}
 
 \textbf{What the Histogram Reveals:}
 
@@ -3793,7 +3809,7 @@ Plot scatter plots for the top three correlated variables
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{02_Data_Visualization_files/figure-pdf/unnamed-chunk-7-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{02_Data_Visualization_files/figure-pdf/unnamed-chunk-8-1.pdf}}
 
 \textbf{What These Scatter Plots Reveal:}
 
@@ -3862,7 +3878,7 @@ sample estimates:
 \end{Highlighting}
 \end{Shaded}
 
-\pandocbounded{\includegraphics[keepaspectratio]{02_Data_Visualization_files/figure-pdf/unnamed-chunk-9-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{02_Data_Visualization_files/figure-pdf/unnamed-chunk-10-1.pdf}}
 
 \textbf{Analysis of the Relationship:}
 
@@ -3953,15 +3969,15 @@ tool}\label{qq-plot-visualization-tool}
 Positively skewed (mean \textgreater{} median) data have a J-shaped
 pattern in the Q-Q plot.
 
-\pandocbounded{\includegraphics[keepaspectratio]{02_Data_Visualization_files/figure-pdf/unnamed-chunk-11-1.pdf}}
-
 \pandocbounded{\includegraphics[keepaspectratio]{02_Data_Visualization_files/figure-pdf/unnamed-chunk-12-1.pdf}}
+
+\pandocbounded{\includegraphics[keepaspectratio]{02_Data_Visualization_files/figure-pdf/unnamed-chunk-13-1.pdf}}
 
 Summary statistics:
 
 \begin{verbatim}
       n   min mean median  max   sd skewness kurtosis
-1 10000 -1.88 0.02  -0.16 4.76 1.01     0.88      3.6
+1 10000 -1.86    0  -0.18 5.12 0.99     0.86     3.49
 \end{verbatim}
 
 \includegraphics[width=\linewidth,height=1em,keepaspectratio]{filters/emoji/1f4a1.png}
@@ -3993,15 +4009,15 @@ median.
 Negatively skewed (mean \textless{} median) data have Q-Q plots that
 display an inverted J-shape.
 
-\pandocbounded{\includegraphics[keepaspectratio]{02_Data_Visualization_files/figure-pdf/unnamed-chunk-15-1.pdf}}
-
 \pandocbounded{\includegraphics[keepaspectratio]{02_Data_Visualization_files/figure-pdf/unnamed-chunk-16-1.pdf}}
+
+\pandocbounded{\includegraphics[keepaspectratio]{02_Data_Visualization_files/figure-pdf/unnamed-chunk-17-1.pdf}}
 
 Summary statistics:
 
 \begin{verbatim}
-      n  min  mean median  max sd skewness kurtosis
-1 10000 -4.7 -0.01   0.16 1.88  1    -0.84     3.47
+      n   min mean median  max   sd skewness kurtosis
+1 10000 -4.88    0   0.19 1.79 1.01    -0.89     3.62
 \end{verbatim}
 
 \includegraphics[width=\linewidth,height=1em,keepaspectratio]{filters/emoji/1f4a1.png}
@@ -4050,15 +4066,15 @@ with unusually many or few extreme values.
 This plot shows a t-distribution with \(3\) degrees of freedom, which
 has heavier tails than a normal distribution.
 
-\pandocbounded{\includegraphics[keepaspectratio]{02_Data_Visualization_files/figure-pdf/unnamed-chunk-19-1.pdf}}
-
 \pandocbounded{\includegraphics[keepaspectratio]{02_Data_Visualization_files/figure-pdf/unnamed-chunk-20-1.pdf}}
+
+\pandocbounded{\includegraphics[keepaspectratio]{02_Data_Visualization_files/figure-pdf/unnamed-chunk-21-1.pdf}}
 
 Summary statistics:
 
 \begin{verbatim}
      n    min  mean median   max   sd skewness kurtosis
-1 1000 -12.15 -0.12  -0.08 10.34 1.65    -0.57    11.61
+1 1000 -10.05 -0.01  -0.04 18.14 1.78     1.31    20.57
 \end{verbatim}
 
 \textbf{Understanding Fat Tails (High Kurtosis):}
@@ -4098,15 +4114,15 @@ Summary statistics:
 
 This example shows a distribution with lighter tails than normal.
 
-\pandocbounded{\includegraphics[keepaspectratio]{02_Data_Visualization_files/figure-pdf/unnamed-chunk-23-1.pdf}}
-
 \pandocbounded{\includegraphics[keepaspectratio]{02_Data_Visualization_files/figure-pdf/unnamed-chunk-24-1.pdf}}
+
+\pandocbounded{\includegraphics[keepaspectratio]{02_Data_Visualization_files/figure-pdf/unnamed-chunk-25-1.pdf}}
 
 Summary statistics:
 
 \begin{verbatim}
-     n  min mean median  max  sd skewness kurtosis
-1 1000 -1.3 0.03   0.04 1.16 0.6    -0.07     1.86
+     n   min mean median  max   sd skewness kurtosis
+1 1000 -1.15    0      0 1.18 0.58     0.01     1.93
 \end{verbatim}
 
 \textbf{Understanding Thin Tails (Low Kurtosis):}
@@ -8425,40 +8441,46 @@ economic factors?
 
 \CommentTok{\# Load HMDA data}
 \FunctionTok{data}\NormalTok{(}\StringTok{"HMDA"}\NormalTok{)}
-
-\CommentTok{\# Preview the data}
-\FunctionTok{data.table}\NormalTok{(HMDA)}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{verbatim}
-        deny pirat hirat     lvrat  chist  mhist  phist unemp selfemp insurance
-      <fctr> <num> <num>     <num> <fctr> <fctr> <fctr> <num>  <fctr>    <fctr>
-   1:     no 0.221 0.221 0.8000000      5      2     no   3.9      no        no
-   2:     no 0.265 0.265 0.9218750      2      2     no   3.2      no        no
-   3:     no 0.372 0.248 0.9203980      1      2     no   3.2      no        no
-   4:     no 0.320 0.250 0.8604651      1      2     no   4.3      no        no
-   5:     no 0.360 0.350 0.6000000      1      1     no   3.2      no        no
-  ---                                                                          
-2376:     no 0.310 0.250 0.8000000      1      1     no   3.2     yes        no
-2377:     no 0.300 0.300 0.7770492      1      2     no   3.2      no        no
-2378:     no 0.260 0.200 0.5267606      2      1     no   3.1      no        no
-2379:    yes 0.320 0.260 0.7538462      6      1    yes   3.1      no        no
-2380:    yes 0.350 0.260 0.8135593      2      2     no   4.3      no        no
-      condomin   afam single hschool
-        <fctr> <fctr> <fctr>  <fctr>
-   1:       no     no     no     yes
-   2:       no     no    yes     yes
-   3:       no     no     no     yes
-   4:       no     no     no     yes
-   5:       no     no     no     yes
-  ---                               
-2376:       no     no     no     yes
-2377:      yes     no    yes     yes
-2378:       no     no     no     yes
-2379:      yes    yes    yes     yes
-2380:      yes     no    yes     yes
-\end{verbatim}
+\begingroup\small
+\begin{adjustbox}{max width=\linewidth, center}
+\begin{tabular}{llrrrlllrl}
+\toprule
+  & deny & pirat & hirat & lvrat & chist & mhist & phist & unemp & selfemp\\
+\midrule
+1 & no & 0.221 & 0.221 & 0.800 & 5 & 2 & no & 3.9 & no\\
+2 & no & 0.265 & 0.265 & 0.922 & 2 & 2 & no & 3.2 & no\\
+3 & no & 0.372 & 0.248 & 0.920 & 1 & 2 & no & 3.2 & no\\
+4 & no & 0.320 & 0.250 & 0.860 & 1 & 2 & no & 4.3 & no\\
+... &  &  &  &  &  &  &  &  & \\
+2377 & no & 0.300 & 0.300 & 0.777 & 1 & 2 & no & 3.2 & no\\
+2378 & no & 0.260 & 0.200 & 0.527 & 2 & 1 & no & 3.1 & no\\
+2379 & yes & 0.320 & 0.260 & 0.754 & 6 & 1 & yes & 3.1 & no\\
+2380 & yes & 0.350 & 0.260 & 0.814 & 2 & 2 & no & 4.3 & no\\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\par\medskip
+\begin{adjustbox}{max width=\linewidth, center}
+\begin{tabular}{llllll}
+\toprule
+  & insurance & condomin & afam & single & hschool\\
+\midrule
+1 & no & no & no & no & yes\\
+2 & no & no & no & yes & yes\\
+3 & no & no & no & no & yes\\
+4 & no & no & no & no & yes\\
+... &  &  &  &  & \\
+2377 & no & yes & no & yes & yes\\
+2378 & no & no & no & no & yes\\
+2379 & no & yes & yes & yes & yes\\
+2380 & no & yes & no & yes & yes\\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\endgroup
 
 \subsection{Variable Definitions}\label{variable-definitions}
 
@@ -8667,7 +8689,7 @@ Table}\label{visualizing-the-contingency-table}
 We can visualize the contingency table using a \textbf{Stacked Bar
 Plot}.
 
-\pandocbounded{\includegraphics[keepaspectratio]{09_Logistic_Regression_files/figure-pdf/unnamed-chunk-6-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{09_Logistic_Regression_files/figure-pdf/unnamed-chunk-7-1.pdf}}
 
 The stacked bar graph shows:
 
@@ -8695,7 +8717,7 @@ frequencies}.
 A mosaic plot replaces absolute frequencies with relative frequencies,
 making it easier to compare proportions across groups.
 
-\pandocbounded{\includegraphics[keepaspectratio]{09_Logistic_Regression_files/figure-pdf/unnamed-chunk-7-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{09_Logistic_Regression_files/figure-pdf/unnamed-chunk-8-1.pdf}}
 
 \textbf{Interpretation:}
 
@@ -8766,8 +8788,8 @@ African American:     0.2832 (28.32%)
   \]
 
   \includegraphics[width=\linewidth,height=1em,keepaspectratio]{filters/emoji/2757.png}Note
-  that you cannot reverse the order of subtraction. The treatment group
-  always comes first.
+  that you cannot reverse the order of subtraction. The {treatment group
+  always comes first}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -9054,7 +9076,11 @@ Now we plot the data and the regression line to visualize the model.
 predictor}\label{model-2-logit-regression-with-a-single-predictor}
 
 The estimated model is \[
-\widehat{\mathrm P}(deny_i = 1 | pirat_i) = F(\beta_0 + \beta_1 \cdot pirat_i) = \frac{1}{1 + e^{-(\beta_0 + \beta_1 \cdot pirat_i)}} ,
+\begin{split}
+\mathrm P(deny_i = 1 | pirat_i) 
+&= F(\beta_0 + \beta_1 \cdot pirat_i + \varepsilon) \\
+&= \frac{1}{1 + e^{-(\beta_0 + \beta_1 \cdot pirat_i + \varepsilon)}} ,
+\end{split}
 \]
 
 where \(F\) is the logistic distribution function.
@@ -9089,7 +9115,11 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 \end{verbatim}
 
 \[
-\widehat{\mathrm P}(deny_i = 1 | pirat_i) = F(-4.02 + 5.88 \cdot pirat_i)= \frac{1}{1 + e^{-(-4.02 + 5.88 \cdot pirat_i)}}
+\begin{split}
+\widehat{\mathrm P}(deny_i = 1 | pirat_i) 
+&= F(-4.02 + 5.88 \cdot pirat_i) \\
+&= \frac{1}{1 + e^{-(-4.02 + 5.88 \cdot pirat_i)}}
+\end{split}
 \]
 
 Visualizing the logit model:
@@ -9158,7 +9188,7 @@ The estimated model is
 which can be written in \textbf{log-odds form} as
 
 \[
-\log\left(\frac{P(deny_i = 1)}{1 - P(deny_i = 1)}\right) = -4.02 + 5.88 \cdot pirat_i
+\log\left(\frac{\widehat{P}(deny_i = 1)}{1 - \widehat{P}(deny_i = 1)}\right) = -4.02 + 5.88 \cdot pirat_i
 \]
 
 \begin{enumerate}
@@ -9270,8 +9300,8 @@ and African-American binary (\texttt{afam\_binary}) as predictors:
 \[
 \begin{split}
 P(deny_i = 1 | pirat_i, afam_i) 
-&= F(\beta_0 + \beta_1 \cdot pirat_i + \beta_2 \cdot afam_i) \\
-&= \frac{1}{1 + e^{-(\beta_0 + \beta_1 \cdot pirat_i + \beta_2 \cdot afam_i)}} .
+&= F(\beta_0 + \beta_1 \cdot pirat_i + \beta_2 \cdot afam_i + \varepsilon) \\
+&= \frac{1}{1 + e^{-(\beta_0 + \beta_1 \cdot pirat_i + \beta_2 \cdot afam_i + \varepsilon)}} .
 \end{split}
 \]
 
@@ -9311,7 +9341,33 @@ The coefficients in a logit model represent the change in the
 \textbf{log-odds} of denial:
 
 \[
-\log\left(\frac{P(deny = 1)}{1 - P(deny = 1)}\right) = -4.13 + 5.37 \cdot pirat_i + 1.27 \cdot afam_i
+\log\left(\frac{\widehat{P}(deny = 1)}{1 - \widehat{P}(deny = 1)}\right) = -4.13 + 5.37 \cdot pirat_i + 1.27 \cdot afam_i
+\]
+
+Proof: Show that the logit model can be expressed in log-odds form.
+
+Solution
+
+\protect\phantomsection\label{proof-1}
+We write logit model in a general form: \[
+\begin{split}
+y_i &= F(\bx_i'\bbeta + \varepsilon_i) = \frac{1}{1 + e^{-(\bx_i'\bbeta + \varepsilon_i)}} \\
+e^{-(\bx_i'\bbeta + \varepsilon_i)} &= \frac{1 - y_i}{y_i} \\
+-(\bx_i'\bbeta + \varepsilon_i) &= \log\left(\frac{1 - y_i}{y_i}\right) \\
+\log\left(\frac{y_i}{1 - y_i}\right) &= \bx_i'\bbeta + \varepsilon_i
+\end{split}
+\]
+
+Using an example of one predictor, we can show the exponential of the
+coefficient gives the odds ratio when the predictor increases by one
+unit.
+
+Assume we have a logit model with one predictor \(x_1\): \[
+\frac{P(y=1|x_1)}{1 - P(y=1|x_1)} = \exp\left(\beta_0 + \beta_1 x_1\right)
+\] Let \(x_1\) increase by one unit, then the odds become \[
+\frac{P(y=1|x_1 + 1)}{1 - P(y=1|x_1 + 1)} = \exp\left(\beta_0 + \beta_1 (x_1 + 1)\right)
+\] The odds ratio of a one-unit increase in \(x_1\) is \[
+\frac{\frac{P(y=1|x_1 + 1)}{1 - P(y=1|x_1 + 1)}}{\frac{P(y=1|x_1)}{1 - P(y=1|x_1)}} = \frac{\exp\left(\beta_0 + \beta_1 (x_1 + 1        )\right)}{\exp\left(\beta_0 + \beta_1 x_1\right)} = \exp(\beta_1)
 \]
 
 \textbf{1. Interpreting coefficients (log-odds scale):}
@@ -9388,7 +9444,7 @@ applicant with \texttt{pirat\ =\ 0.3} is 0.534.
 In contrast to the logit model, which uses the logistic CDF, the probit
 model uses the {standard normal} distribution function to model the
 probability of denial. \[
-P(deny_i = 1 | X_i) = \Phi(\beta_0 + \beta_1 \cdot pirat_i + \beta_2 \cdot afam_i)
+P(deny_i = 1 | X_i) = \Phi(\beta_0 + \beta_1 \cdot pirat_i + \beta_2 \cdot afam_i + \varepsilon)
 \] where \(\Phi(\cdot)\) is the standard normal CDF.
 
 Probit model assumes normally distributed errors, which can be
@@ -9421,7 +9477,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 \subsection{Comparison: Logit, and
 Probit}\label{comparison-logit-and-probit}
 
-\pandocbounded{\includegraphics[keepaspectratio]{09_Logistic_Regression_files/figure-pdf/unnamed-chunk-20-1.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{09_Logistic_Regression_files/figure-pdf/unnamed-chunk-21-1.pdf}}
 
 \textbf{Practical Recommendation:}
 
@@ -9548,10 +9604,10 @@ applications & Similar to logit; standard in some fields \\
 
 \chapter{Formula Sheet}\label{sec-formula-sheet}
 
-Formula sheet is updated each semester. The version that will be used in
-the school exam will be uploaded to Canvas \emph{two weeks} before the
-exam. For practice purposes, it is fine to use the version provided
-here.
+Formula sheet is \textbf{updated each semester}. The version that will
+be used in the school exam will be uploaded to Canvas \emph{two weeks}
+before the exam. For practice purposes, it is fine to use the version
+provided here.
 
 \includepdf[pages=-, scale=0.9, pagecommand={}]{_exam/01_formula_sheet.pdf}
 

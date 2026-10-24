@@ -802,46 +802,202 @@ window.Quarto = {
 <p>The following prints the first and last 5 rows of the dataset, together with data types of each column:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>cas <span class="sc">%&gt;%</span> <span class="fu">as.data.table</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>     district                          school      county grades students
-        &lt;num&gt;                          &lt;char&gt;      &lt;fctr&gt; &lt;fctr&gt;    &lt;num&gt;
-  1:    75119              Sunol Glen Unified     Alameda  KK-08      195
-  2:    61499            Manzanita Elementary       Butte  KK-08      240
-  3:    61549     Thermalito Union Elementary       Butte  KK-08     1550
-  4:    61457 Golden Feather Union Elementary       Butte  KK-08      243
-  5:    61523        Palermo Union Elementary       Butte  KK-08     1335
- ---                                                                     
-416:    68957          Las Lomitas Elementary   San Mateo  KK-08      984
-417:    69518            Los Altos Elementary Santa Clara  KK-08     3724
-418:    72611          Somis Union Elementary     Ventura  KK-08      441
-419:    72744               Plumas Elementary        Yuba  KK-08      101
-420:    72751            Wheatland Elementary        Yuba  KK-08     1778
-     teachers calworks   lunch computer expenditure    income   english  read
-        &lt;num&gt;    &lt;num&gt;   &lt;num&gt;    &lt;num&gt;       &lt;num&gt;     &lt;num&gt;     &lt;num&gt; &lt;num&gt;
-  1:    10.90   0.5102  2.0408       67    6384.911 22.690001  0.000000 691.6
-  2:    11.15  15.4167 47.9167      101    5099.381  9.824000  4.583333 660.5
-  3:    82.90  55.0323 76.3226      169    5501.955  8.978000 30.000002 636.3
-  4:    14.00  36.4754 77.0492       85    7101.831  8.978000  0.000000 651.9
-  5:    71.50  33.1086 78.4270      171    5235.988  9.080333 13.857677 641.8
- ---                                                                         
-416:    59.73   0.1016  3.5569      195    7290.339 28.716999  5.995935 700.9
-417:   208.48   1.0741  1.5038      721    5741.463 41.734108  4.726101 704.0
-418:    20.15   3.5635 37.1938       45    4402.832 23.733000 24.263039 648.3
-419:     5.00  11.8812 59.4059       14    4776.336  9.952000  2.970297 667.9
-420:    93.40   6.9235 47.5712      313    5993.393 12.502000  5.005624 660.5
-      math
-     &lt;num&gt;
-  1: 690.0
-  2: 661.9
-  3: 650.9
-  4: 643.5
-  5: 639.9
- ---      
-416: 707.7
-417: 709.5
-418: 641.7
-419: 676.5
-420: 651.0</code></pre>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 2%">
+<col style="width: 6%">
+<col style="width: 21%">
+<col style="width: 8%">
+<col style="width: 4%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 4%">
+<col style="width: 6%">
+<col style="width: 8%">
+<col style="width: 4%">
+<col style="width: 5%">
+<col style="width: 4%">
+<col style="width: 4%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">district</th>
+<th style="text-align: left;">school</th>
+<th style="text-align: left;">county</th>
+<th style="text-align: left;">grades</th>
+<th style="text-align: right;">students</th>
+<th style="text-align: right;">teachers</th>
+<th style="text-align: right;">calworks</th>
+<th style="text-align: right;">lunch</th>
+<th style="text-align: right;">computer</th>
+<th style="text-align: right;">expenditure</th>
+<th style="text-align: right;">income</th>
+<th style="text-align: right;">english</th>
+<th style="text-align: right;">read</th>
+<th style="text-align: right;">math</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: right;">75119</td>
+<td style="text-align: left;">Sunol Glen Unified</td>
+<td style="text-align: left;">Alameda</td>
+<td style="text-align: left;">KK-08</td>
+<td style="text-align: right;">195</td>
+<td style="text-align: right;">10.90</td>
+<td style="text-align: right;">0.510</td>
+<td style="text-align: right;">2.041</td>
+<td style="text-align: right;">67</td>
+<td style="text-align: right;">6384.911</td>
+<td style="text-align: right;">22.690</td>
+<td style="text-align: right;">0.000</td>
+<td style="text-align: right;">691.6</td>
+<td style="text-align: right;">690.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2</td>
+<td style="text-align: right;">61499</td>
+<td style="text-align: left;">Manzanita Elementary</td>
+<td style="text-align: left;">Butte</td>
+<td style="text-align: left;">KK-08</td>
+<td style="text-align: right;">240</td>
+<td style="text-align: right;">11.15</td>
+<td style="text-align: right;">15.417</td>
+<td style="text-align: right;">47.917</td>
+<td style="text-align: right;">101</td>
+<td style="text-align: right;">5099.381</td>
+<td style="text-align: right;">9.824</td>
+<td style="text-align: right;">4.583</td>
+<td style="text-align: right;">660.5</td>
+<td style="text-align: right;">661.9</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">3</td>
+<td style="text-align: right;">61549</td>
+<td style="text-align: left;">Thermalito Union Elementary</td>
+<td style="text-align: left;">Butte</td>
+<td style="text-align: left;">KK-08</td>
+<td style="text-align: right;">1550</td>
+<td style="text-align: right;">82.90</td>
+<td style="text-align: right;">55.032</td>
+<td style="text-align: right;">76.323</td>
+<td style="text-align: right;">169</td>
+<td style="text-align: right;">5501.955</td>
+<td style="text-align: right;">8.978</td>
+<td style="text-align: right;">30.000</td>
+<td style="text-align: right;">636.3</td>
+<td style="text-align: right;">650.9</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4</td>
+<td style="text-align: right;">61457</td>
+<td style="text-align: left;">Golden Feather Union Elementary</td>
+<td style="text-align: left;">Butte</td>
+<td style="text-align: left;">KK-08</td>
+<td style="text-align: right;">243</td>
+<td style="text-align: right;">14.00</td>
+<td style="text-align: right;">36.475</td>
+<td style="text-align: right;">77.049</td>
+<td style="text-align: right;">85</td>
+<td style="text-align: right;">7101.831</td>
+<td style="text-align: right;">8.978</td>
+<td style="text-align: right;">0.000</td>
+<td style="text-align: right;">651.9</td>
+<td style="text-align: right;">643.5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">…</td>
+<td style="text-align: right;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">417</td>
+<td style="text-align: right;">69518</td>
+<td style="text-align: left;">Los Altos Elementary</td>
+<td style="text-align: left;">Santa Clara</td>
+<td style="text-align: left;">KK-08</td>
+<td style="text-align: right;">3724</td>
+<td style="text-align: right;">208.48</td>
+<td style="text-align: right;">1.074</td>
+<td style="text-align: right;">1.504</td>
+<td style="text-align: right;">721</td>
+<td style="text-align: right;">5741.463</td>
+<td style="text-align: right;">41.734</td>
+<td style="text-align: right;">4.726</td>
+<td style="text-align: right;">704.0</td>
+<td style="text-align: right;">709.5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">418</td>
+<td style="text-align: right;">72611</td>
+<td style="text-align: left;">Somis Union Elementary</td>
+<td style="text-align: left;">Ventura</td>
+<td style="text-align: left;">KK-08</td>
+<td style="text-align: right;">441</td>
+<td style="text-align: right;">20.15</td>
+<td style="text-align: right;">3.563</td>
+<td style="text-align: right;">37.194</td>
+<td style="text-align: right;">45</td>
+<td style="text-align: right;">4402.832</td>
+<td style="text-align: right;">23.733</td>
+<td style="text-align: right;">24.263</td>
+<td style="text-align: right;">648.3</td>
+<td style="text-align: right;">641.7</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">419</td>
+<td style="text-align: right;">72744</td>
+<td style="text-align: left;">Plumas Elementary</td>
+<td style="text-align: left;">Yuba</td>
+<td style="text-align: left;">KK-08</td>
+<td style="text-align: right;">101</td>
+<td style="text-align: right;">5.00</td>
+<td style="text-align: right;">11.881</td>
+<td style="text-align: right;">59.406</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">4776.336</td>
+<td style="text-align: right;">9.952</td>
+<td style="text-align: right;">2.970</td>
+<td style="text-align: right;">667.9</td>
+<td style="text-align: right;">676.5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">420</td>
+<td style="text-align: right;">72751</td>
+<td style="text-align: left;">Wheatland Elementary</td>
+<td style="text-align: left;">Yuba</td>
+<td style="text-align: left;">KK-08</td>
+<td style="text-align: right;">1778</td>
+<td style="text-align: right;">93.40</td>
+<td style="text-align: right;">6.924</td>
+<td style="text-align: right;">47.571</td>
+<td style="text-align: right;">313</td>
+<td style="text-align: right;">5993.393</td>
+<td style="text-align: right;">12.502</td>
+<td style="text-align: right;">5.006</td>
+<td style="text-align: right;">660.5</td>
+<td style="text-align: right;">651.0</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <p>The <a href="https://www.rdocumentation.org/packages/AER/versions/1.2-15/topics/CASchools"><code>cas</code></a> dataset contains information on 420 public school districts in California, specifically those that operate either kindergarten through 6th grade (K–6) or kindergarten through 8th grade (K–8) schools, with data collected for the years 1998 and 1999.</p>
@@ -929,7 +1085,7 @@ window.Quarto = {
 <h3 data-number="7.1.2" class="anchored" data-anchor-id="summary-statistics"><span class="header-section-number">7.1.2</span> Summary Statistics</h3>
 <p>The following displays the summary for each variable in the dataset:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(cas)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(cas)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    district        school                  county      grades   
  Min.   :61382   Length:420         Sonoma     : 29   KK-08:359  
@@ -979,40 +1135,40 @@ window.Quarto = {
 <p>Q: To what extent does expenditure per student vary?</p>
 <p>Understanding the distribution of expenditure per student is crucial for education policy analysis. Let’s examine detailed descriptive statistics:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>quick_summary <span class="ot">&lt;-</span> <span class="cf">function</span>(x, <span class="at">full=</span><span class="cn">FALSE</span>) {</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Function to compute basic descriptive statistics</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="sc">!</span>full){</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Basic summary</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">data.frame</span>(</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">n =</span> <span class="fu">length</span>(x),</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">min =</span> <span class="fu">min</span>(x),</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>          <span class="at">mean =</span> <span class="fu">mean</span>(x),</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>          <span class="at">median =</span> <span class="fu">median</span>(x),</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>          <span class="at">max =</span> <span class="fu">max</span>(x),</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>          <span class="at">sd =</span> <span class="fu">sd</span>(x),</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>          <span class="at">skewness =</span> moments<span class="sc">::</span><span class="fu">skewness</span>(x),</span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>          <span class="at">kurtosis =</span> moments<span class="sc">::</span><span class="fu">kurtosis</span>(x),</span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>          <span class="at">row.names =</span> <span class="cn">NULL</span></span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>        )</span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">else</span> {</span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Full summary with quartiles and IQR</span></span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>        <span class="fu">data.frame</span>(</span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>          <span class="at">n =</span> <span class="fu">length</span>(x),</span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>          <span class="at">min =</span> <span class="fu">min</span>(x),</span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>          <span class="at">Q1 =</span> <span class="fu">quantile</span>(x, <span class="fl">0.25</span>),</span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>          <span class="at">mean =</span> <span class="fu">mean</span>(x),</span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>          <span class="at">median =</span> <span class="fu">median</span>(x),</span>
-<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>          <span class="at">Q3 =</span> <span class="fu">quantile</span>(x, <span class="fl">0.75</span>),</span>
-<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>          <span class="at">max =</span> <span class="fu">max</span>(x),</span>
-<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>          <span class="at">IQR =</span> <span class="fu">IQR</span>(x),</span>
-<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>          <span class="at">sd =</span> <span class="fu">sd</span>(x),</span>
-<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>          <span class="at">skewness =</span> moments<span class="sc">::</span><span class="fu">skewness</span>(x),</span>
-<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>          <span class="at">kurtosis =</span> moments<span class="sc">::</span><span class="fu">kurtosis</span>(x),</span>
-<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>          <span class="at">row.names =</span> <span class="cn">NULL</span></span>
-<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>        )</span>
-<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a><span class="fu">quick_summary</span>(cas<span class="sc">$</span>expenditure) <span class="sc">%&gt;%</span> <span class="fu">round</span>(<span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>quick_summary <span class="ot">&lt;-</span> <span class="cf">function</span>(x, <span class="at">full=</span><span class="cn">FALSE</span>) {</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Function to compute basic descriptive statistics</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="sc">!</span>full){</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Basic summary</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">data.frame</span>(</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">n =</span> <span class="fu">length</span>(x),</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">min =</span> <span class="fu">min</span>(x),</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>          <span class="at">mean =</span> <span class="fu">mean</span>(x),</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>          <span class="at">median =</span> <span class="fu">median</span>(x),</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>          <span class="at">max =</span> <span class="fu">max</span>(x),</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>          <span class="at">sd =</span> <span class="fu">sd</span>(x),</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>          <span class="at">skewness =</span> moments<span class="sc">::</span><span class="fu">skewness</span>(x),</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>          <span class="at">kurtosis =</span> moments<span class="sc">::</span><span class="fu">kurtosis</span>(x),</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>          <span class="at">row.names =</span> <span class="cn">NULL</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">else</span> {</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Full summary with quartiles and IQR</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>        <span class="fu">data.frame</span>(</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>          <span class="at">n =</span> <span class="fu">length</span>(x),</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>          <span class="at">min =</span> <span class="fu">min</span>(x),</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>          <span class="at">Q1 =</span> <span class="fu">quantile</span>(x, <span class="fl">0.25</span>),</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>          <span class="at">mean =</span> <span class="fu">mean</span>(x),</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>          <span class="at">median =</span> <span class="fu">median</span>(x),</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>          <span class="at">Q3 =</span> <span class="fu">quantile</span>(x, <span class="fl">0.75</span>),</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>          <span class="at">max =</span> <span class="fu">max</span>(x),</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>          <span class="at">IQR =</span> <span class="fu">IQR</span>(x),</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>          <span class="at">sd =</span> <span class="fu">sd</span>(x),</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>          <span class="at">skewness =</span> moments<span class="sc">::</span><span class="fu">skewness</span>(x),</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>          <span class="at">kurtosis =</span> moments<span class="sc">::</span><span class="fu">kurtosis</span>(x),</span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>          <span class="at">row.names =</span> <span class="cn">NULL</span></span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a><span class="fu">quick_summary</span>(cas<span class="sc">$</span>expenditure) <span class="sc">%&gt;%</span> <span class="fu">round</span>(<span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    n     min    mean  median     max     sd skewness kurtosis
 1 420 3926.07 5312.41 5214.52 7711.51 633.94     1.07     4.88</code></pre>
@@ -1027,17 +1183,17 @@ window.Quarto = {
 <li><strong>Kurtosis (4.88):</strong> Larger than 3 indicates a distribution with fat tails relative to the normal distribution.</li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Basic histogram</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cas, <span class="fu">aes</span>(<span class="at">x =</span> expenditure)) <span class="sc">+</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">500</span>, <span class="at">boundary =</span> <span class="dv">0</span>, <span class="at">fill =</span> <span class="st">"lightblue"</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Histogram of Expenditure per Student"</span>,</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Expenditure per Student (USD)"</span>,</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Frequency"</span>) <span class="sc">+</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">14</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Basic histogram</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cas, <span class="fu">aes</span>(<span class="at">x =</span> expenditure)) <span class="sc">+</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">500</span>, <span class="at">boundary =</span> <span class="dv">0</span>, <span class="at">fill =</span> <span class="st">"lightblue"</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Histogram of Expenditure per Student"</span>,</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Expenditure per Student (USD)"</span>,</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Frequency"</span>) <span class="sc">+</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">14</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="02_Data_Visualization_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="576"></p>
+<p><img src="02_Data_Visualization_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="576"></p>
 </figure>
 </div>
 </div>
@@ -1056,16 +1212,16 @@ window.Quarto = {
 <p>Q: Are there any differences in expenditure per student between K-6 and K-8 schools?</p>
 <p>This comparison helps us understand whether grade span affects resource allocation. Let’s examine the statistics for each group:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>cas <span class="sc">%&gt;%</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(grades) <span class="sc">%&gt;%</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_map</span>(<span class="sc">~</span> {</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>        s <span class="ot">&lt;-</span> <span class="fu">quick_summary</span>(.x<span class="sc">$</span>expenditure, <span class="at">full=</span><span class="cn">TRUE</span>)</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>        s <span class="ot">&lt;-</span> <span class="fu">cbind</span>(</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">grades =</span> .y<span class="sc">$</span>grades,    <span class="co"># add group info</span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>            s)</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>        <span class="fu">return</span>(s)</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    }) <span class="sc">%&gt;%</span></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">bind_rows</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>cas <span class="sc">%&gt;%</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(grades) <span class="sc">%&gt;%</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_map</span>(<span class="sc">~</span> {</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>        s <span class="ot">&lt;-</span> <span class="fu">quick_summary</span>(.x<span class="sc">$</span>expenditure, <span class="at">full=</span><span class="cn">TRUE</span>)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>        s <span class="ot">&lt;-</span> <span class="fu">cbind</span>(</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">grades =</span> .y<span class="sc">$</span>grades,    <span class="co"># add group info</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>            s)</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>        <span class="fu">return</span>(s)</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    }) <span class="sc">%&gt;%</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">bind_rows</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  grades   n      min       Q1     mean   median       Q3      max      IQR
 1  KK-08 359 3926.070 4881.139 5267.365 5195.919 5539.380 7711.507 658.2412
@@ -1086,13 +1242,13 @@ window.Quarto = {
 <section id="box-plot-by-grades-span" class="level4">
 <h4 class="anchored" data-anchor-id="box-plot-by-grades-span">Box plot by grades span</h4>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cas, <span class="fu">aes</span>(<span class="at">x =</span> grades, <span class="at">y =</span> expenditure, <span class="at">fill =</span> grades)) <span class="sc">+</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_npg</span>() <span class="sc">+</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Grade Span"</span>,</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Expenditure per Student (USD)"</span>) <span class="sc">+</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">14</span>) <span class="sc">+</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cas, <span class="fu">aes</span>(<span class="at">x =</span> grades, <span class="at">y =</span> expenditure, <span class="at">fill =</span> grades)) <span class="sc">+</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_npg</span>() <span class="sc">+</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Grade Span"</span>,</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Expenditure per Student (USD)"</span>) <span class="sc">+</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">14</span>) <span class="sc">+</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1158,17 +1314,17 @@ window.Quarto = {
 <p>Understanding which factors correlate with expenditure helps identify patterns in educational resource allocation. Let’s examine correlations:</p>
 <p>Correlation coefficients in ascending order:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the set of numeric variables</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="fu">setdiff</span>(</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">names</span>(cas),</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">c</span>(<span class="st">"district"</span>, <span class="st">"school"</span>, <span class="st">"county"</span>, <span class="st">"grades"</span>)</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>corExp <span class="ot">&lt;-</span> <span class="fu">cor</span>(cas[<span class="st">"expenditure"</span>], cas[<span class="fu">setdiff</span>(v, <span class="st">"expenditure"</span>)])</span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(corExp) <span class="sc">%&gt;%</span></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rownames_to_column</span>(<span class="at">var =</span> <span class="st">"variable"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rename</span>(<span class="at">correlation =</span> expenditure) <span class="sc">%&gt;%</span> </span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(correlation)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the set of numeric variables</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="fu">setdiff</span>(</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">names</span>(cas),</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">c</span>(<span class="st">"district"</span>, <span class="st">"school"</span>, <span class="st">"county"</span>, <span class="st">"grades"</span>)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>corExp <span class="ot">&lt;-</span> <span class="fu">cor</span>(cas[<span class="st">"expenditure"</span>], cas[<span class="fu">setdiff</span>(v, <span class="st">"expenditure"</span>)])</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(corExp) <span class="sc">%&gt;%</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rownames_to_column</span>(<span class="at">var =</span> <span class="st">"variable"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rename</span>(<span class="at">correlation =</span> expenditure) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(correlation)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  variable correlation
 1 students -0.11228455
@@ -1196,23 +1352,23 @@ window.Quarto = {
 </ul>
 <p>Plot scatter plots for the top three correlated variables</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>top_vars <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"income"</span>, <span class="st">"math"</span>, <span class="st">"read"</span>)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>cas_long <span class="ot">&lt;-</span> cas <span class="sc">%&gt;%</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(expenditure, <span class="fu">all_of</span>(top_vars)) <span class="sc">%&gt;%</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">all_of</span>(top_vars), <span class="at">names_to =</span> <span class="st">"variable"</span>, <span class="at">values_to =</span> <span class="st">"value"</span>)</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cas_long, <span class="fu">aes</span>(<span class="at">x =</span> value, <span class="at">y =</span> expenditure)) <span class="sc">+</span></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.6</span>, <span class="at">color =</span> <span class="st">"#1976d2"</span>) <span class="sc">+</span></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_wrap</span>(<span class="sc">~</span>variable, <span class="at">scales =</span> <span class="st">"free_x"</span>) <span class="sc">+</span></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(</span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">title =</span> <span class="st">"Scatter Plots of Expenditure per Student vs. Top Correlated Variables"</span>,</span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">x =</span> <span class="st">"Value"</span>,</span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> <span class="st">"Expenditure per Student (USD)"</span></span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
-<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">14</span>)   </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>top_vars <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"income"</span>, <span class="st">"math"</span>, <span class="st">"read"</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>cas_long <span class="ot">&lt;-</span> cas <span class="sc">%&gt;%</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(expenditure, <span class="fu">all_of</span>(top_vars)) <span class="sc">%&gt;%</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">all_of</span>(top_vars), <span class="at">names_to =</span> <span class="st">"variable"</span>, <span class="at">values_to =</span> <span class="st">"value"</span>)</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cas_long, <span class="fu">aes</span>(<span class="at">x =</span> value, <span class="at">y =</span> expenditure)) <span class="sc">+</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.6</span>, <span class="at">color =</span> <span class="st">"#1976d2"</span>) <span class="sc">+</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_wrap</span>(<span class="sc">~</span>variable, <span class="at">scales =</span> <span class="st">"free_x"</span>) <span class="sc">+</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">title =</span> <span class="st">"Scatter Plots of Expenditure per Student vs. Top Correlated Variables"</span>,</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">x =</span> <span class="st">"Value"</span>,</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> <span class="st">"Expenditure per Student (USD)"</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">14</span>)   </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="02_Data_Visualization_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="1152"></p>
+<p><img src="02_Data_Visualization_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="1152"></p>
 </figure>
 </div>
 </div>
@@ -1231,7 +1387,7 @@ window.Quarto = {
 <p>Q: what is the relationship between district level maths and reading scores?</p>
 <p>Academic performance across different subjects often correlates, as they reflect overall educational quality and student preparation. Let’s examine this relationship:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(cas, <span class="fu">cor.test</span>(math, read))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(cas, <span class="fu">cor.test</span>(math, read))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Pearson's product-moment correlation
@@ -1247,19 +1403,19 @@ sample estimates:
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cas, <span class="fu">aes</span>(<span class="at">x =</span> read, <span class="at">y =</span> math)) <span class="sc">+</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.6</span>, <span class="at">color =</span> <span class="st">"#1976d2"</span>) <span class="sc">+</span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">color =</span> <span class="st">"#d32f2f"</span>) <span class="sc">+</span></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">title =</span> <span class="st">"Scatter Plot of Math vs. Reading Scores"</span>,</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">x =</span> <span class="st">"Average Reading Score"</span>,</span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> <span class="st">"Average Math Score"</span></span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">14</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cas, <span class="fu">aes</span>(<span class="at">x =</span> read, <span class="at">y =</span> math)) <span class="sc">+</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.6</span>, <span class="at">color =</span> <span class="st">"#1976d2"</span>) <span class="sc">+</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">color =</span> <span class="st">"#d32f2f"</span>) <span class="sc">+</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">title =</span> <span class="st">"Scatter Plot of Math vs. Reading Scores"</span>,</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">x =</span> <span class="st">"Average Reading Score"</span>,</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> <span class="st">"Average Math Score"</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">14</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="02_Data_Visualization_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="576"></p>
+<p><img src="02_Data_Visualization_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="576"></p>
 </figure>
 </div>
 </div>
@@ -1312,7 +1468,7 @@ sample estimates:
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="02_Data_Visualization_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="02_Data_Visualization_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1321,7 +1477,7 @@ sample estimates:
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="02_Data_Visualization_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="02_Data_Visualization_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1329,8 +1485,8 @@ sample estimates:
 <p>Summary statistics:</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>      n  min mean median  max sd skewness kurtosis
-1 10000 -1.9 0.01  -0.17 4.98  1     0.87     3.55</code></pre>
+<pre><code>      n   min  mean median  max sd skewness kurtosis
+1 10000 -1.91 -0.01  -0.19 4.88  1     0.92     3.73</code></pre>
 </div>
 </div>
 <p><img src="filters/emoji/1f4a1.png" style="height:1em"> Note that for a positive skewed distribution, <strong>the mean is larger than the median</strong> because the long right tail pulls the mean above the median.</p>
@@ -1350,7 +1506,7 @@ sample estimates:
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="02_Data_Visualization_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="02_Data_Visualization_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1359,7 +1515,7 @@ sample estimates:
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="02_Data_Visualization_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="02_Data_Visualization_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1368,7 +1524,7 @@ sample estimates:
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>      n   min mean median  max   sd skewness kurtosis
-1 10000 -5.56 0.01   0.19 1.82 0.99    -0.89     3.69</code></pre>
+1 10000 -4.92 0.01   0.21 1.84 1.01    -0.89     3.59</code></pre>
 </div>
 </div>
 <p><img src="filters/emoji/1f4a1.png" style="height:1em"> Note that for a negatively skewed distribution, <strong>the mean is smaller than the median</strong> because the long left tail pulls the mean above the median.</p>
@@ -1396,7 +1552,7 @@ sample estimates:
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="02_Data_Visualization_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="02_Data_Visualization_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1405,7 +1561,7 @@ sample estimates:
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="02_Data_Visualization_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="02_Data_Visualization_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1413,8 +1569,8 @@ sample estimates:
 <p>Summary statistics:</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>     n    min  mean median   max   sd skewness kurtosis
-1 1000 -10.07 -0.09  -0.04 10.55 1.66    -0.15    10.53</code></pre>
+<pre><code>     n   min mean median   max   sd skewness kurtosis
+1 1000 -33.1 0.06   0.04 13.62 1.97    -4.25    87.26</code></pre>
 </div>
 </div>
 <p><strong>Understanding Fat Tails (High Kurtosis):</strong></p>
@@ -1438,7 +1594,7 @@ sample estimates:
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="02_Data_Visualization_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="02_Data_Visualization_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1447,7 +1603,7 @@ sample estimates:
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="02_Data_Visualization_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="02_Data_Visualization_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1455,8 +1611,8 @@ sample estimates:
 <p>Summary statistics:</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>     n   min mean median  max   sd skewness kurtosis
-1 1000 -1.25 0.02   0.04 1.14 0.59    -0.04     1.89</code></pre>
+<pre><code>     n  min mean median  max   sd skewness kurtosis
+1 1000 -1.2 0.01   0.02 1.23 0.57    -0.05     1.97</code></pre>
 </div>
 </div>
 <p><strong>Understanding Thin Tails (Low Kurtosis):</strong></p>

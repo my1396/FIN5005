@@ -99,7 +99,8 @@ format:
     urlcolor: blue
     citecolor: blue
 
+# Global knitr options
 knitr:
   opts_chunk: 
     R.options:
-      knitr.kable.NA = ''
+      knitr.kable.NA: ''

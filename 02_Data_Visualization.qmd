@@ -40,8 +40,13 @@ cas <- read_csv(f_name,
 
 The following prints the first and last 5 rows of the dataset, together with data types of each column: 
 
-```{r}
+```{r eval=FALSE}
 cas %>% as.data.table()
+```
+
+```{r echo=FALSE}
+source("Rscripts/fun_script.R") # preview_data()
+preview_data(cas, n = 4)
 ```
 
 The [`cas`](https://www.rdocumentation.org/packages/AER/versions/1.2-15/topics/CASchools) dataset contains information on 420 public school districts in California, specifically those that operate either kindergarten through 6th grade (K–6) or kindergarten through 8th grade (K–8) schools, with data collected for the years 1998 and 1999.
