@@ -118,7 +118,7 @@ Statistical software often reports the p-value, which is the smallest significan
 - If the p-value $< \alpha$, reject $H_0$.
 - If the p-value $\geq \alpha$, fail to reject $H_0$.
 - Common significance levels are 1%, 5%, and 10%.
-- **Interpretation:** The probability of rejecting the null hypothesis when the null hypothesis is true.
+- **Interpretation:** The probability of rejecting the null hypothesis <span class="env-green">when the null hypothesis is true</span>.
 
 Q: How to find the p-value given test statistic? \
 A: For two-sided test, the p-value is given by
