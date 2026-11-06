@@ -117,6 +117,13 @@
 \renewcommand{\arraystretch}{1.3} % increase row spacing
 \usepackage{rotating}  % for sideways table
 \usepackage{lscape} % for landscape table
+% needspace lets a block ask for a minimum amount of room: if less than that is
+% left on the page, LaTeX breaks first. Pandoc renders markdown pipe tables as
+% `longtable`, which is built to split across pages, so `\Needspace` before a
+% table is the way to keep one whole without rewriting it as raw LaTeX. Use
+% `\Needspace`, not `\needspace`: before a longtable the lowercase form makes the
+% table header print twice at the top of the new page.
+\usepackage{needspace}
 \usepackage{float} % for [H] placement specifier
 % Make all tables use [H] placement by default
 % Still takes placement, eg [htbp]; defaults to [H] if no placement is specified

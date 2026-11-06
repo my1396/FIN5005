@@ -60,6 +60,7 @@ filters:
   - filters/col-eqn.lua     # Add color to equations in pdf
   - filters/emoji.lua       # Add emoji support for pdf
   - filters/html-img.lua    # Convert <img> to \includegraphics for pdf
+  - filters/keep-tables-together.lua  # Keep each table on one page in pdf
 
 # Output formats, styles, dependencies
 format:
@@ -92,6 +93,12 @@ format:
       - file: latex/macro_book.tex
     from: markdown+tex_math_single_backslash+markdown_in_html_blocks
     keep-tex: true
+    # Run LaTeX outside OneDrive: .quarto is a symlink to ~/.quarto-cache (see
+    # setup-local-cache.sh). Writing the log/PDF inside OneDrive intermittently
+    # fails with "Operation timed out". The book PDF is still copied to docs/.
+    # Do not copy this to _exam/ or _quiz/: in a single-document project the PDF
+    # would stay in .quarto/latex instead of next to the .qmd.
+    latex-output-dir: .quarto/latex
     fontsize: 12pt
     fig-format: pdf
     colorlinks: true

@@ -268,6 +268,13 @@
 \renewcommand{\arraystretch}{1.3} % increase row spacing
 \usepackage{rotating}  % for sideways table
 \usepackage{lscape} % for landscape table
+% needspace lets a block ask for a minimum amount of room: if less than that is
+% left on the page, LaTeX breaks first. Pandoc renders markdown pipe tables as
+% `longtable`, which is built to split across pages, so `\Needspace` before a
+% table is the way to keep one whole without rewriting it as raw LaTeX. Use
+% `\Needspace`, not `\needspace`: before a longtable the lowercase form makes the
+% table header print twice at the top of the new page.
+\usepackage{needspace}
 \usepackage{float} % for [H] placement specifier
 % Make all tables use [H] placement by default
 % Still takes placement, eg [htbp]; defaults to [H] if no placement is specified
@@ -600,6 +607,8 @@ and competencies to make data driven decisions.
 
 Outline of models and applications we will cover in this course:1
 
+\Needspace{12\baselineskip}
+
 {\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}
   >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.1667}}
@@ -872,6 +881,8 @@ easiest way to get started without worrying about installation issues.
 
 However, convenience comes at the cost of performance and control. Below
 is a comparison between cloud and local solutions.
+
+\Needspace{16\baselineskip}
 
 {\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}
@@ -1514,6 +1525,8 @@ click \href{data/comma.csv}{HERE} to download this file to your compter.
 
 It contains four rows of heights and weights.
 
+\Needspace{9\baselineskip}
+
 {\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}rlrr@{}}
 \toprule\noalign{}
@@ -1914,6 +1927,8 @@ characteristics of a probability distribution.
 \textbf{k-th raw moment}: \(E[x^k]\)
 
 \textbf{k-th central moment}: \(E[(x-\mu)^k]\)
+
+\Needspace{9\baselineskip}
 
 {\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}lll@{}}
@@ -2560,6 +2575,8 @@ Key principles:
 
 \subsection{Quick Reference Table}\label{quick-reference-table}
 
+\Needspace{18\baselineskip}
+
 {\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}
   >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.1364}}
@@ -2873,6 +2890,8 @@ The summary statistic table is generated as follows:
 \FunctionTok{display\_html}\NormalTok{(}\FunctionTok{as.character}\NormalTok{(results)) }
 \end{Highlighting}
 \end{Shaded}
+
+\Needspace{10\baselineskip}
 
 \begin{longtable}[]{@{}lrrrrrr@{}}
 \caption{Descriptive Statistics of Asset Returns}\tabularnewline
@@ -3344,6 +3363,8 @@ The dataset includes:
 
 \texttt{cas} is a data frame containing 420 observations on 14
 variables. Refer to the following table for the full definition.
+
+\Needspace{30\baselineskip}
 
 {\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}
@@ -4251,6 +4272,8 @@ The file contains daily returns for \textbf{six industry sectors} from
 \textbf{one sector on one trading day}, and every sector has all 1,566
 trading days --- the panel is balanced.
 
+\Needspace{12\baselineskip}
+
 {\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}
   >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.1250}}
@@ -4412,6 +4435,8 @@ to compare several groups side by side.
 \FunctionTok{display\_html}\NormalTok{(}\FunctionTok{as.character}\NormalTok{(results))}
 \end{Highlighting}
 \end{Shaded}
+
+\Needspace{12\baselineskip}
 
 {\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}lll@{}}
@@ -7730,6 +7755,8 @@ Use \texttt{?Boston} to see the description of the dataset.
 Here are some variables in the dataset which we are going to use in this
 session.
 
+\Needspace{16\baselineskip}
+
 {\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}
   >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.1304}}
@@ -7843,6 +7870,8 @@ The estimated regression model is given by
 We start with listing all possible combinations of the binary variables
 \(chas_i\) and \(old_i\).
 
+\Needspace{12\baselineskip}
+
 {\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}
   >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.0435}}
@@ -7872,6 +7901,8 @@ Interpretation
 
 Based on the estimated regression model, we can compute the expected
 value of \texttt{medv} for each of the four groups.
+
+\Needspace{12\baselineskip}
 
 {\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}
@@ -8496,6 +8527,8 @@ The key variables in the HMDA dataset are:
   We will mainly use \texttt{deny}, \texttt{pirat}, and \texttt{afam} in
   our analysis.
 \end{itemize}
+
+\Needspace{30\baselineskip}
 
 {\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}
@@ -9401,7 +9434,7 @@ exponential of the coefficients:
 
   For example, if the P/I ratio increases by 0.2, then
   \(e^{5.37\times 0.2} = 2.93\), that is, the odds of mortgage denial
-  are approximately 2.94 times higher, holding \texttt{afam} constant.
+  are approximately 2.93 times higher, holding \texttt{afam} constant.
 \item
   \textbf{For \texttt{afam}}: \(e^{\hat{\beta}_2}\) is the \textbf{odds
   ratio comparing African American applicants to non-African American
@@ -9569,6 +9602,8 @@ Solution
 
 \section{Summary: Logit vs.~Probit
 vs.~LPM}\label{summary-logit-vs.-probit-vs.-lpm}
+
+\Needspace{14\baselineskip}
 
 {\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}

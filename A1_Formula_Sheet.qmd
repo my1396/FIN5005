@@ -7,7 +7,45 @@ Formula sheet is **updated each semester**. The version that will be used in the
 ::: {.content-visible when-format="html"}
 [<i class="fa-solid fa-file-pdf"></i> Download the formula sheet (PDF)](_exam/01_formula_sheet.pdf){download="FIN5005_formula_sheet.pdf"}
 
+```{=html}
+<div id="formula-sheet-viewer">
 <iframe src="_exam/01_formula_sheet.pdf" width="100%" height="900" style="border: 1px solid #ccc;"></iframe>
+</div>
+
+<!-- iPhone/iPad show only page 1 of a PDF in an iframe (Android shows none),
+     so on mobile devices every page is drawn with PDF.js instead. -->
+<script type="module">
+const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) ||
+                 (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1); // iPadOS reports as a Mac
+if (isMobile) {
+  const viewer = document.getElementById("formula-sheet-viewer");
+  const iframe = viewer.innerHTML;
+  try {
+    const cdn = "https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.38/legacy/build/";
+    const pdfjsLib = await import(cdn + "pdf.min.mjs");
+    pdfjsLib.GlobalWorkerOptions.workerSrc = cdn + "pdf.worker.min.mjs";
+    const pdf = await pdfjsLib.getDocument("_exam/01_formula_sheet.pdf").promise;
+
+    const width = viewer.clientWidth;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2); // sharp, but limits memory
+    viewer.innerHTML = "";
+    for (let i = 1; i <= pdf.numPages; i++) {
+      const page = await pdf.getPage(i);
+      const viewport = page.getViewport({ scale: width / page.getViewport({ scale: 1 }).width * dpr });
+      const canvas = document.createElement("canvas");
+      canvas.width = viewport.width;
+      canvas.height = viewport.height;
+      canvas.style.cssText = "width: 100%; border: 1px solid #ccc; margin-bottom: 8px;";
+      viewer.appendChild(canvas);
+      await page.render({ canvasContext: canvas.getContext("2d"), viewport }).promise;
+    }
+  } catch (err) {
+    console.warn("PDF.js viewer failed; falling back to the iframe.", err);
+    viewer.innerHTML = iframe;
+  }
+}
+</script>
+```
 :::
 
 ::: {.content-visible when-format="pdf"}

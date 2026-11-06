@@ -684,7 +684,7 @@ exp(coef(logit_multi)) %>% round(3)
 
 - **For `pirat`**: $e^{\hat{\beta}_1}$ represents the **multiplicative change in odds** for a one-unit increase in the payment-to-income ratio. 
   
-  For example, if the P/I ratio increases by 0.2, then $e^{5.37\times 0.2} = 2.93$, that is, the odds of mortgage denial are approximately 2.94 times higher, holding `afam` constant.
+  For example, if the P/I ratio increases by 0.2, then $e^{5.37\times 0.2} = 2.93$, that is, the odds of mortgage denial are approximately 2.93 times higher, holding `afam` constant.
 
 - **For `afam`**: $e^{\hat{\beta}_2}$ is the **odds ratio comparing African American applicants to non-African American applicants**.
   

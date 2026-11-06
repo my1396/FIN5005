@@ -1215,8 +1215,8 @@ deny     no   yes
 <pre><code># A tibble: 2 × 5
   afam      n denial_rate mean_pirat mean_lvrat
   &lt;fct&gt; &lt;int&gt;       &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
-1 no     2041      0.0926      0.327      0.726
-2 yes     339      0.283       0.351      0.809</code></pre>
+1 no     2041  0.09260167  0.3274625  0.7259712
+2 yes     339  0.2831858   0.3509891  0.8088478</code></pre>
 </div>
 </div>
 </section>
@@ -1704,7 +1704,7 @@ e^{-(\bx_i'\bbeta + \varepsilon_i)} &amp;= \frac{1 - y_i}{y_i} \\
 <p>Alternatively, we can interpret the <strong>odds ratio</strong> by taking the exponential of the coefficients:</p>
 <ul>
 <li><p><strong>For <code>pirat</code></strong>: <span class="math inline">\(e^{\hat{\beta}_1}\)</span> represents the <strong>multiplicative change in odds</strong> for a one-unit increase in the payment-to-income ratio.</p>
-<p>For example, if the P/I ratio increases by 0.2, then <span class="math inline">\(e^{5.37\times 0.2} = 2.93\)</span>, that is, the odds of mortgage denial are approximately 2.94 times higher, holding <code>afam</code> constant.</p></li>
+<p>For example, if the P/I ratio increases by 0.2, then <span class="math inline">\(e^{5.37\times 0.2} = 2.93\)</span>, that is, the odds of mortgage denial are approximately 2.93 times higher, holding <code>afam</code> constant.</p></li>
 <li><p><strong>For <code>afam</code></strong>: <span class="math inline">\(e^{\hat{\beta}_2}\)</span> is the <strong>odds ratio comparing African American applicants to non-African American applicants</strong>.</p>
 <p>Based on the estimates, <span class="math inline">\(e^{1.2} = 3.56\)</span>, that is, African American applicants have odds of denial that are 3.56 times higher than non-African American applicants, holding <code>pirat</code> constant.</p></li>
 </ul>
