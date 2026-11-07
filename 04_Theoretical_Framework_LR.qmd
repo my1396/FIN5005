@@ -7,8 +7,8 @@ title: "Theoretical Framework of Linear Regression"
 
 - Understand the key assumptions underlying the linear regression model.
 - Understand the theoretical framework of linear regression, including the OLS estimator, its properties, and its distribution.
-- Central Limit Theorem (CLT) 
-  - Apply the CLT to approximate the distribution of sample mean and calculating probabilities using distribution table.
+- [Central Limit Theorem (CLT)](#thm-clt)
+  - Apply the CLT to **approximate** the distribution of sample mean and calculating probabilities using distribution table.
   - Understand the implications of CLT for the sampling distribution of the OLS estimator.
 - Understand R squared and adjusted R squared as measures of fit.
 - Be able to identify violations of the linear regression assumptions using diagnostic plots.
@@ -109,7 +109,7 @@ is a $(k+1) \times 1$ vector of independent variables including the intercept fo
 **Properties of OLS estimator:**
 
 - **Unbiasedness**: $E[\hat{\beta}^{OLS}] = \beta$ (if Gauss-Markov assumptions hold)
-- **Efficiency**: Among all linear unbiased estimators, OLS has the smallest variance
+- **Efficiency**: Among all <u>linear unbiased estimators</u>, OLS has the smallest variance
 - **Consistency**: As sample size $n \to \infty$, $\hat{\beta}^{OLS} \to \beta$ in probability
 
 
@@ -119,6 +119,7 @@ Becausethe OLS estimator $\hat\beta_0, \hat\beta_1, \ldots$ are computed from a 
 
 The sampling distribution describes the values they could take over different possible random samples, $(X_i, Y_i).$ In small samples, theses sampling distributions are complicated, but in <span class="env-green">**large samples**</span>, they are normal because of the **Central Limit Theorem** (CLT).
 
+<a name="thm-clt"></a>
 
 ### Central Limit Theorem (CLT)
 
@@ -151,7 +152,7 @@ Q: Why does CLT matter?
 
 A:
 
-- The central limit theorem implies that if $N$ is large **enough**, we can **approximate** the distribution of $\overline{X}$ by the <span class="env-green">**standard normal distribution**</span> with mean $\mu$ and variance $\sigma^2 / N$ **regardless of the underlying distribution of $X.$**  
+- The central limit theorem implies that if $N$ is **large enough**, we can **approximate** the distribution of $\overline{X}$ by the <span class="env-green">**standard normal distribution**</span> with mean $\mu$ and variance $\sigma^2 / N$ **regardless of the underlying distribution of $X.$**  
 
 - The scaling by <span class="env-green">$n$</span> is crucial. 
   $$

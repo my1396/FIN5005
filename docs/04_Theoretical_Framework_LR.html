@@ -755,9 +755,9 @@ window.Quarto = {
 <ul>
 <li>Understand the key assumptions underlying the linear regression model.</li>
 <li>Understand the theoretical framework of linear regression, including the OLS estimator, its properties, and its distribution.</li>
-<li>Central Limit Theorem (CLT)
+<li><a href="#thm-clt">Central Limit Theorem (CLT)</a>
 <ul>
-<li>Apply the CLT to approximate the distribution of sample mean and calculating probabilities using distribution table.</li>
+<li>Apply the CLT to <strong>approximate</strong> the distribution of sample mean and calculating probabilities using distribution table.</li>
 <li>Understand the implications of CLT for the sampling distribution of the OLS estimator.</li>
 </ul></li>
 <li>Understand R squared and adjusted R squared as measures of fit.</li>
@@ -835,7 +835,7 @@ X_i = \begin{pmatrix}1 \\ X_{i1} \\ X_{i2} \\ \vdots \\ X_{ik}\end{pmatrix}
 <p><strong>Properties of OLS estimator:</strong></p>
 <ul>
 <li><strong>Unbiasedness</strong>: <span class="math inline">\(E[\hat{\beta}^{OLS}] = \beta\)</span> (if Gauss-Markov assumptions hold)</li>
-<li><strong>Efficiency</strong>: Among all linear unbiased estimators, OLS has the smallest variance</li>
+<li><strong>Efficiency</strong>: Among all <u>linear unbiased estimators</u>, OLS has the smallest variance</li>
 <li><strong>Consistency</strong>: As sample size <span class="math inline">\(n \to \infty\)</span>, <span class="math inline">\(\hat{\beta}^{OLS} \to \beta\)</span> in probability</li>
 </ul>
 </section>
@@ -843,6 +843,7 @@ X_i = \begin{pmatrix}1 \\ X_{i1} \\ X_{i2} \\ \vdots \\ X_{ik}\end{pmatrix}
 <h2 data-number="10.3" class="anchored" data-anchor-id="sampling-distribution-of-ols-estimator"><span class="header-section-number">10.3</span> Sampling Distribution of OLS Estimator</h2>
 <p>Becausethe OLS estimator <span class="math inline">\(\hat\beta_0, \hat\beta_1, \ldots\)</span> are computed from a randomly drawn sample of data, the estimators themselves are random variables with a probability distribution.</p>
 <p>The sampling distribution describes the values they could take over different possible random samples, <span class="math inline">\((X_i, Y_i).\)</span> In small samples, theses sampling distributions are complicated, but in <span class="env-green"><strong>large samples</strong></span>, they are normal because of the <strong>Central Limit Theorem</strong> (CLT).</p>
+<p><a name="thm-clt"></a></p>
 <section id="central-limit-theorem-clt" class="level3" data-number="10.3.1">
 <h3 data-number="10.3.1" class="anchored" data-anchor-id="central-limit-theorem-clt"><span class="header-section-number">10.3.1</span> Central Limit Theorem (CLT)</h3>
 <div id="thm-clt" class="theorem" title="Central Limit Theorem (CLT)">
@@ -865,7 +866,7 @@ X_i = \begin{pmatrix}1 \\ X_{i1} \\ X_{i2} \\ \vdots \\ X_{ik}\end{pmatrix}
 <p>Q: Why does CLT matter?</p>
 <p>A:</p>
 <ul>
-<li><p>The central limit theorem implies that if <span class="math inline">\(N\)</span> is large <strong>enough</strong>, we can <strong>approximate</strong> the distribution of <span class="math inline">\(\overline{X}\)</span> by the <span class="env-green"><strong>standard normal distribution</strong></span> with mean <span class="math inline">\(\mu\)</span> and variance <span class="math inline">\(\sigma^2 / N\)</span> <strong>regardless of the underlying distribution of <span class="math inline">\(X.\)</span></strong></p></li>
+<li><p>The central limit theorem implies that if <span class="math inline">\(N\)</span> is <strong>large enough</strong>, we can <strong>approximate</strong> the distribution of <span class="math inline">\(\overline{X}\)</span> by the <span class="env-green"><strong>standard normal distribution</strong></span> with mean <span class="math inline">\(\mu\)</span> and variance <span class="math inline">\(\sigma^2 / N\)</span> <strong>regardless of the underlying distribution of <span class="math inline">\(X.\)</span></strong></p></li>
 <li><p>The scaling by <span class="env-green"><span class="math inline">\(n\)</span></span> is crucial. <span class="math display">\[
 \sigma_{\overline{X}}^2 = \text{Var}[\overline{X}] = \frac{\sigma^2}{n}
 \]</span> This means as sample size increases, the sample variance shrinks at the rate of <span class="math inline">\(1/n\)</span>.</p>

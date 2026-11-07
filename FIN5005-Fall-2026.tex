@@ -5217,13 +5217,13 @@ Regression}\label{theoretical-framework-of-linear-regression}
   Understand the theoretical framework of linear regression, including
   the OLS estimator, its properties, and its distribution.
 \item
-  Central Limit Theorem (CLT)
+  \hyperref[thm-clt]{Central Limit Theorem (CLT)}
 
   \begin{itemize}
   \tightlist
   \item
-    Apply the CLT to approximate the distribution of sample mean and
-    calculating probabilities using distribution table.
+    Apply the CLT to \textbf{approximate} the distribution of sample
+    mean and calculating probabilities using distribution table.
   \item
     Understand the implications of CLT for the sampling distribution of
     the OLS estimator.
@@ -5436,8 +5436,8 @@ A:
 
 \begin{itemize}
 \item
-  The central limit theorem implies that if \(N\) is large
-  \textbf{enough}, we can \textbf{approximate} the distribution of
+  The central limit theorem implies that if \(N\) is \textbf{large
+  enough}, we can \textbf{approximate} the distribution of
   \(\overline{X}\) by the {\textbf{standard normal distribution}} with
   mean \(\mu\) and variance \(\sigma^2 / N\) \textbf{regardless of the
   underlying distribution of \(X.\)}
@@ -6097,9 +6097,13 @@ significance level at which you would reject the null hypothesis.
 \item
   Common significance levels are 1\%, 5\%, and 10\%.
 \item
-  \textbf{Interpretation:} The probability of rejecting the null
-  hypothesis {when the null hypothesis is true}.
+  \textbf{Interpretation:} The probability of observing a test statistic
+  at least as extreme as the one observed {when the null hypothesis is
+  true}.
 \end{itemize}
+
+\(\alpha\) is the significance level, which is the probability of
+rejecting the null hypothesis when it is true.
 
 Q: How to find the p-value given test statistic?\\
 A: For two-sided test, the p-value is given by
@@ -8885,7 +8889,8 @@ RR = 0.2832 / 0.0926 = 3.0581
 \end{verbatim}
 
   \textbf{Interpretation:} African American applicants have a denial
-  rate that is 3.06 times higher than non-African American applicants.
+  rate that is 3.06 times as high as that of non-African American
+  applicants.
 
   \begin{itemize}
   \tightlist
@@ -8960,8 +8965,8 @@ OR = 0.3951/0.1021 = 3.8712
 \end{verbatim}
 
   \textbf{Interpretation:} The odds of mortgage denial for African
-  American applicants are 3.87 times higher than the odds for
-  non-African American applicants.
+  American applicants are 3.87 times as high as the odds for non-African
+  American applicants.
 
   \begin{itemize}
   \tightlist
@@ -9245,7 +9250,7 @@ which can be written in \textbf{log-odds form} as
   e^{\hat{\beta}_1} = e^{5.88} \approx 357.7
   \] This means that for a \textbf{one-unit increase} in the
   payment-to-income ratio, the \textbf{odds} of mortgage denial are
-  about \textbf{357.7 times larger}.
+  about \textbf{357.7 times as large}.
 
   \begin{itemize}
   \tightlist
@@ -9434,14 +9439,14 @@ exponential of the coefficients:
 
   For example, if the P/I ratio increases by 0.2, then
   \(e^{5.37\times 0.2} = 2.93\), that is, the odds of mortgage denial
-  are approximately 2.93 times higher, holding \texttt{afam} constant.
+  are approximately 2.93 times as high, holding \texttt{afam} constant.
 \item
   \textbf{For \texttt{afam}}: \(e^{\hat{\beta}_2}\) is the \textbf{odds
   ratio comparing African American applicants to non-African American
   applicants}.
 
   Based on the estimates, \(e^{1.2} = 3.56\), that is, African American
-  applicants have odds of denial that are 3.56 times higher than
+  applicants have odds of denial that are 3.56 times as high as those of
   non-African American applicants, holding \texttt{pirat} constant.
 \end{itemize}
 

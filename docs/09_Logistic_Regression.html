@@ -1332,7 +1332,7 @@ Risk Ratio (Relative Risk):
 RR = 0.2832 / 0.0926 = 3.0581</code></pre>
 </div>
 </div>
-<p><strong>Interpretation:</strong> African American applicants have a denial rate that is 3.06 times higher than non-African American applicants.</p>
+<p><strong>Interpretation:</strong> African American applicants have a denial rate that is 3.06 times as high as that of non-African American applicants.</p>
 <ul>
 <li>If <span class="math inline">\(RR = 1\)</span>: no difference in risk</li>
 <li>If <span class="math inline">\(RR &gt; 1\)</span>: higher risk for the treatment group (African Americans, <code>afam=1</code>)</li>
@@ -1381,7 +1381,7 @@ Odds Ratio:
 OR = 0.3951/0.1021 = 3.8712</code></pre>
 </div>
 </div>
-<p><strong>Interpretation:</strong> The odds of mortgage denial for African American applicants are 3.87 times higher than the odds for non-African American applicants.</p>
+<p><strong>Interpretation:</strong> The odds of mortgage denial for African American applicants are 3.87 times as high as the odds for non-African American applicants.</p>
 <ul>
 <li>If <span class="math inline">\(OR = 1\)</span>: no difference in odds</li>
 <li>If <span class="math inline">\(OR &gt; 1\)</span>: higher odds for the treatment group (African Americans, <code>afam=1</code>)</li>
@@ -1580,7 +1580,7 @@ Solution
 <li><p><strong>Interpreting odds ratios (exponentiating coefficients):</strong></p>
 <p>To obtain a more intuitive interpretation, we exponentiate the coefficient: <span class="math display">\[
 e^{\hat{\beta}_1} = e^{5.88} \approx 357.7
-\]</span> This means that for a <strong>one-unit increase</strong> in the payment-to-income ratio, the <strong>odds</strong> of mortgage denial are about <strong>357.7 times larger</strong>.</p>
+\]</span> This means that for a <strong>one-unit increase</strong> in the payment-to-income ratio, the <strong>odds</strong> of mortgage denial are about <strong>357.7 times as large</strong>.</p>
 <ul>
 <li>Because a one-unit increase in <code>pirat</code> is very large in practice, it is often more meaningful to interpret smaller changes.</li>
 </ul>
@@ -1704,9 +1704,9 @@ e^{-(\bx_i'\bbeta + \varepsilon_i)} &amp;= \frac{1 - y_i}{y_i} \\
 <p>Alternatively, we can interpret the <strong>odds ratio</strong> by taking the exponential of the coefficients:</p>
 <ul>
 <li><p><strong>For <code>pirat</code></strong>: <span class="math inline">\(e^{\hat{\beta}_1}\)</span> represents the <strong>multiplicative change in odds</strong> for a one-unit increase in the payment-to-income ratio.</p>
-<p>For example, if the P/I ratio increases by 0.2, then <span class="math inline">\(e^{5.37\times 0.2} = 2.93\)</span>, that is, the odds of mortgage denial are approximately 2.93 times higher, holding <code>afam</code> constant.</p></li>
+<p>For example, if the P/I ratio increases by 0.2, then <span class="math inline">\(e^{5.37\times 0.2} = 2.93\)</span>, that is, the odds of mortgage denial are approximately 2.93 times as high, holding <code>afam</code> constant.</p></li>
 <li><p><strong>For <code>afam</code></strong>: <span class="math inline">\(e^{\hat{\beta}_2}\)</span> is the <strong>odds ratio comparing African American applicants to non-African American applicants</strong>.</p>
-<p>Based on the estimates, <span class="math inline">\(e^{1.2} = 3.56\)</span>, that is, African American applicants have odds of denial that are 3.56 times higher than non-African American applicants, holding <code>pirat</code> constant.</p></li>
+<p>Based on the estimates, <span class="math inline">\(e^{1.2} = 3.56\)</span>, that is, African American applicants have odds of denial that are 3.56 times as high as those of non-African American applicants, holding <code>pirat</code> constant.</p></li>
 </ul>
 <div id="exm-2" class="example theorem">
 <p><span class="theorem-title"><strong>Example 15.2</strong></span> Suppose we have:</p>

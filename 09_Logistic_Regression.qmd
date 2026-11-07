@@ -303,7 +303,7 @@ cat(sprintf("African American:     %.4f (%.2f%%)\n", p_afam, p_afam * 100))
    cat(sprintf("RR = %.4f / %.4f = %.4f\n", p_afam, p_non_afam, RR))
    ```
 
-   **Interpretation:** African American applicants have a denial rate that is `r round(RR, 2)` times higher than non-African American applicants.
+   **Interpretation:** African American applicants have a denial rate that is `r round(RR, 2)` times as high as that of non-African American applicants.
 
    - If $RR = 1$: no difference in risk
    - If $RR > 1$: higher risk for the treatment group (African Americans, `afam=1`)
@@ -348,7 +348,7 @@ cat(sprintf("African American:     %.4f (%.2f%%)\n", p_afam, p_afam * 100))
    cat(sprintf("OR = %.4f/%.4f = %.4f\n", odds_afam, odds_non_afam, OR))
    ```
 
-   **Interpretation:** The odds of mortgage denial for African American applicants are `r round(OR, 2)` times higher than the odds for non-African American applicants.
+   **Interpretation:** The odds of mortgage denial for African American applicants are `r round(OR, 2)` times as high as the odds for non-African American applicants.
 
    - If $OR = 1$: no difference in odds
    - If $OR > 1$: higher odds for the treatment group (African Americans, `afam=1`)
@@ -561,7 +561,7 @@ $$
    $$
    e^{\hat{\beta}_1} = e^{5.88} \approx 357.7
    $$
-   This means that for a **one-unit increase** in the payment-to-income ratio, the **odds** of mortgage denial are about **357.7 times larger**.
+   This means that for a **one-unit increase** in the payment-to-income ratio, the **odds** of mortgage denial are about **357.7 times as large**.
    
    - Because a one-unit increase in `pirat` is very large in practice, it is often more meaningful to interpret smaller changes.
  
@@ -684,11 +684,11 @@ exp(coef(logit_multi)) %>% round(3)
 
 - **For `pirat`**: $e^{\hat{\beta}_1}$ represents the **multiplicative change in odds** for a one-unit increase in the payment-to-income ratio. 
   
-  For example, if the P/I ratio increases by 0.2, then $e^{5.37\times 0.2} = 2.93$, that is, the odds of mortgage denial are approximately 2.93 times higher, holding `afam` constant.
+  For example, if the P/I ratio increases by 0.2, then $e^{5.37\times 0.2} = 2.93$, that is, the odds of mortgage denial are approximately 2.93 times as high, holding `afam` constant.
 
 - **For `afam`**: $e^{\hat{\beta}_2}$ is the **odds ratio comparing African American applicants to non-African American applicants**.
   
-  Based on the estimates, $e^{1.2} = 3.56$, that is, African American applicants have odds of denial that are 3.56 times higher than non-African American applicants, holding `pirat` constant.
+  Based on the estimates, $e^{1.2} = 3.56$, that is, African American applicants have odds of denial that are 3.56 times as high as those of non-African American applicants, holding `pirat` constant.
 
 ::: {.example #exm-2}
 
